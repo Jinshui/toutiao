@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="0dip"
+    android:layout_weight="1"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/id_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/content_bk"
+        android:orientation="vertical" >
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="200dp" >
+
+            <com.yingshi.toutiao.MyViewPager
+                android:id="@+id/id_photos_pager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <TextView
+                    android:id="@+id/id_photo_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/photo_num_bg"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/id_photo_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/id_photo_number"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+</ScrollView>

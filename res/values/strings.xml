@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TouTiao</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="img_content_description"></string>
+    
+    <!-- 影视头条 -->
+    <string name="title_toutiao">影视头条</string>
+    
+    <!-- 用户中心 -->
+    <string name="user_name">用户昵称</string>
+    <string name="favorites">我的收藏</string>
+    <string name="downloads">离线下载</string>
+    <string name="push">推送开关</string>
+
+</resources>
