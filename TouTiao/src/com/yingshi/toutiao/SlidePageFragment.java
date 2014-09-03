@@ -1,15 +1,24 @@
 package com.yingshi.toutiao;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SlidePageFragment extends Fragment {
 	public static final String ARG_PAGE = "category";
@@ -36,10 +45,20 @@ public class SlidePageFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ScrollView slideView = (ScrollView) inflater.inflate(R.layout.news_list, container, false);
+		final PullToRefreshScrollView slideView = (PullToRefreshScrollView) inflater.inflate(R.layout.news_list, container, false);
+		slideView.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+			public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+				new GetDataTask(slideView).execute();
+			}
+		});
 		
 		TextView textView = (TextView) slideView.findViewById(R.id.tv_show);
 		textView.setText("This is " + mCategory);
+		textView.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "hello world", Toast.LENGTH_SHORT).show();
+			}
+		});
 		
 		mPhotoViewPager = (ViewPager)slideView.findViewById(R.id.id_photos_pager);
 		mPhotoViewPager.setAdapter(new PhotoPagerAdapter(getChildFragmentManager()));
@@ -49,6 +68,14 @@ public class SlidePageFragment extends Fragment {
 				mDescriptionText.setText("这是图"+position);
 			}
 		});
+//		mPhotoViewPager.setOnTouchListener(new OnTouchListener(){
+//			public boolean onTouch(View v, MotionEvent event) {
+//		        if(event.getAction() == MotionEvent.ACTION_DOWN && v instanceof ViewGroup) {
+//	                ((ViewGroup) v).requestDisallowInterceptTouchEvent(true);
+//		        }
+//		        return false;
+//			}
+//		});
 		mNumbmerText = (TextView) slideView.findViewById(R.id.id_photo_number);
 		mDescriptionText = (TextView) slideView.findViewById(R.id.id_photo_description);
 		
@@ -72,6 +99,34 @@ public class SlidePageFragment extends Fragment {
 		@Override
 		public int getCount() {
 			return photoRes.length;
+		}
+	}
+
+	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
+
+		private PullToRefreshScrollView mSlideView;
+		
+		public GetDataTask(PullToRefreshScrollView slideView){
+			mSlideView = slideView;
+		}
+		
+		@Override
+		protected String[] doInBackground(Void... params) {
+			// Simulates a background job.
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String[] result) {
+			// Do some stuff here
+			// Call onRefreshComplete when the list has been refreshed.
+			mSlideView.onRefreshComplete();
+
+			super.onPostExecute(result);
 		}
 	}
 }

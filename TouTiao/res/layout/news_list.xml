@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.handmark.pulltorefresh.library.PullToRefreshScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pull_refresh_scrollview"
     android:layout_width="fill_parent"
-    android:layout_height="0dip"
+    android:layout_height="fill_parent"
     android:layout_weight="1"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    ptr:ptrAnimationStyle="flip"
+    ptr:ptrMode="both" >
 
     <LinearLayout
         android:id="@+id/id_content"
@@ -11,11 +15,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/content_bk"
         android:orientation="vertical" >
+
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="200dp" >
-
-            <com.yingshi.toutiao.MyViewPager
+			<!-- com.yingshi.toutiao.InnerViewPager  android.support.v4.view.ViewPager -->
+            <android.support.v4.view.ViewPager
                 android:id="@+id/id_photos_pager"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
@@ -57,4 +62,4 @@
             android:textSize="22sp" />
     </LinearLayout>
 
-</ScrollView>
+</com.handmark.pulltorefresh.library.PullToRefreshScrollView>
