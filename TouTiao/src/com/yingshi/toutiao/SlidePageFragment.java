@@ -33,6 +33,7 @@ public class SlidePageFragment extends Fragment {
 	private PullToRefreshScrollView mScrollView;
 	private ViewPager mPhotoViewPager;
 	private View mProgressBar;
+	private View mContent;
 	private View mPhotos;
 	private LinearLayout mList;
 	private boolean mIsLoadingPage = false;
@@ -82,6 +83,7 @@ public class SlidePageFragment extends Fragment {
 			}
 		});
 		mProgressBar = mScrollView.findViewById(R.id.id_loading);
+		mContent = mScrollView.findViewById(R.id.id_content);
 		mPhotos = mScrollView.findViewById(R.id.id_photos);
 		mList = (LinearLayout)mScrollView.findViewById(R.id.id_list);
 		TextView text = (TextView) mScrollView.findViewById(R.id.tv_show);
@@ -118,15 +120,17 @@ public class SlidePageFragment extends Fragment {
 
 	private void showLoadingbar(){
 		mProgressBar.setVisibility(View.VISIBLE);
-		mPhotos.setVisibility(View.GONE);
-		mList.setVisibility(View.GONE);
+		mContent.setVisibility(View.GONE);
+//		mPhotos.setVisibility(View.GONE);
+//		mList.setVisibility(View.GONE);
 	}
 
     LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	private void showContent(){
 		mProgressBar.setVisibility(View.GONE);
-		mPhotos.setVisibility(View.VISIBLE);
-		mList.setVisibility(View.VISIBLE);
+		mContent.setVisibility(View.VISIBLE);
+//		mPhotos.setVisibility(View.VISIBLE);
+//		mList.setVisibility(View.VISIBLE);
 		mPhotoViewPager.setAdapter(new PhotoPagerAdapter(getChildFragmentManager()));
 	}
 	

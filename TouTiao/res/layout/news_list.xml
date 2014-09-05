@@ -1,82 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.handmark.pulltorefresh.library.PullToRefreshScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ptr="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/pull_refresh_scrollview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_weight="1"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     ptr:ptrAnimationStyle="flip"
     ptr:ptrMode="both" >
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/content_bk"
-        android:orientation="vertical" >
+        android:background="@drawable/content_bk" >
 
         <ProgressBar
             android:id="@+id/id_loading"
             style="@android:style/Widget.ProgressBar.Inverse"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/content_bk" />
-        <FrameLayout
-            android:id="@+id/id_photos"
-            android:layout_width="fill_parent"
-            android:visibility="gone"
-            android:layout_height="200dp" >
-
-            <!-- com.yingshi.toutiao.InnerViewPager  android.support.v4.view.ViewPager -->
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/id_photos_pager"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
-
-                <TextView
-                    android:id="@+id/id_photo_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/photo_num_bg"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/id_photo_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/id_photo_number"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-        </FrameLayout>
+            android:layout_height="match_parent" />
 
         <LinearLayout
-            android:id="@+id/id_list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:background="@drawable/content_bk"
+            android:id="@+id/id_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/tv_show"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/id_photos"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp" >
+
+                <!-- com.yingshi.toutiao.InnerViewPager  android.support.v4.view.ViewPager -->
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/id_photos_pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <TextView
+                        android:id="@+id/id_photo_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/photo_num_bg"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/id_photo_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/id_photo_number"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/id_list"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp" />
+                android:background="@drawable/content_bk"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 
 </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
