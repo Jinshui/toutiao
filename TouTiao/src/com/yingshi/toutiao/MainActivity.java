@@ -1,7 +1,9 @@
 package com.yingshi.toutiao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,7 +27,7 @@ public class MainActivity extends SlidingFragmentActivity
 {
 
 	private List<RelativeLayout> mTabs = new ArrayList<RelativeLayout>();
-	private static String[] tabTitles = { "头条", "电视剧", "电影", "收视率", "明星", "综艺", "公司" };
+	private static String[] tabTitles = { "HEADLINE", "TELEPLAY", "MOVIE", "RATINGS"};//, "明星", "综艺", "公司" };
 
 	private TabHost.TabContentFactory mEmptyTabContentFactory = new TabHost.TabContentFactory(){
 		public View createTabContent(String tag) {
@@ -130,12 +132,19 @@ public class MainActivity extends SlidingFragmentActivity
 	 * objects, in sequence.
 	 */
 	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+//		Map<String, SlidePageFragment> pages = new HashMap<String, SlidePageFragment>();
 		public ScreenSlidePagerAdapter(FragmentManager fm, int count) {
 			super(fm);
 		}
 
 		@Override
 		public Fragment getItem(int position) {
+//			SlidePageFragment page = pages.get(tabTitles[position]);
+//			if(page == null){
+//				page = new SlidePageFragment(tabTitles[position]);
+//				pages.put(tabTitles[position], page);
+//			}
+//			return page;
 			return new SlidePageFragment(tabTitles[position]);
 		}
 

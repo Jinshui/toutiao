@@ -10,16 +10,25 @@
     ptr:ptrMode="both" >
 
     <LinearLayout
-        android:id="@+id/id_content"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/content_bk"
         android:orientation="vertical" >
 
+        <ProgressBar
+            android:id="@+id/id_loading"
+            style="@android:style/Widget.ProgressBar.Inverse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/content_bk" />
         <FrameLayout
+            android:id="@+id/id_photos"
             android:layout_width="fill_parent"
+            android:visibility="gone"
             android:layout_height="200dp" >
-			<!-- com.yingshi.toutiao.InnerViewPager  android.support.v4.view.ViewPager -->
+
+            <!-- com.yingshi.toutiao.InnerViewPager  android.support.v4.view.ViewPager -->
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/id_photos_pager"
                 android:layout_width="fill_parent"
@@ -54,12 +63,20 @@
             </RelativeLayout>
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/tv_show"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/id_list"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="22sp" />
+            android:visibility="gone"
+            android:background="@drawable/content_bk"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </com.handmark.pulltorefresh.library.PullToRefreshScrollView>

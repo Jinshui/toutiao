@@ -14,5 +14,8 @@
     <string name="favorites">我的收藏</string>
     <string name="downloads">离线下载</string>
     <string name="push">推送开关</string>
+    
+    
+    <string name="loading">玩命加载中, 请稍候...</string>
 
 </resources>
