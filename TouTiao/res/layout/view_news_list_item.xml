@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:padding="@dimen/list_item_padding"
+    android:layout_height="@dimen/list_item_height" >
+
+    <com.yingshi.toutiao.view.CustomizeImageView
+        android:id="@+id/id_news_thumbnail"
+        android:layout_width="@dimen/list_item_icon_width"
+        android:layout_height="@dimen/list_item_icon_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/img_content_description"
+        android:background="@drawable/list_item_thumbnail" />
+
+    <TextView
+        android:id="@+id/id_news_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/id_news_thumbnail"
+        android:text="@string/list_item_sample_text" />
+
+    <ImageView
+        android:id="@+id/id_news_video_sign"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/id_news_title"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/id_news_thumbnail"
+        android:contentDescription="@string/img_content_description"
+        android:src="@drawable/shipin" />
+
+    <TextView
+        android:id="@+id/id_news_special_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/id_news_title"
+        android:paddingRight="5dp"
+        android:paddingLeft="2dp"
+        android:paddingBottom="2dp"
+        android:textSize="14sp"
+        android:text="@string/list_item_special"
+        android:background="@color/red"/>
+
+</RelativeLayout>

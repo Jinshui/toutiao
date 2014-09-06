@@ -1,57 +1,128 @@
 package com.yingshi.toutiao.util;
 
+import java.util.Date;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.yingshi.toutiao.R;
+import com.yingshi.toutiao.model.Article;
 import com.yingshi.toutiao.model.Category;
 import com.yingshi.toutiao.model.NewsPage;
 import com.yingshi.toutiao.model.Photo;
+import com.yingshi.toutiao.model.Article.Type;
 
 public class ServerMock {
 	private final static String tag = "TT-ServerMock";
+	final static String body = "android:onClick Name of the method in this View's context to invoke when the view is clicked. This name must correspond to a public method that takes exactly one parameter of type View. For instance, if you specify android:onClick=\"sayHello\", you must declare a public void sayHello(View v) method of your context (typically, your Activity)" + 
+                               "Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character. This may also be a reference to a resource (in the form \"@[package:]type:name\") or theme attribute (in the form \"?[package:][type:]name\") containing a value of this type. This corresponds to the global attribute resource symbol onClick.";
 	public static NewsPage getNewsPage(String category){
 		Log.d(tag, "getNewsPage " + category);
 		NewsPage news = new NewsPage();
 		if(Category.HEADLINE.name() == category){
-			Photo photo1 = new Photo();
-			Photo photo2 = new Photo();
-			photo1.setUrl("HEADLINE1");
-			photo2.setUrl("HEADLINE2");
-			photo2.setUrl("HEADLINE3");
-			photo2.setUrl("HEADLINE4");
-			news.getPhotos().add(photo1);
-			news.getPhotos().add(photo2);
+			for(int i=1; i <= 4; i++){
+				Photo photo = new Photo();
+				photo.setUrl("HEADLINE"+i);
+				photo.setDescription("This is the headline "+i);
+				news.getPhotos().add(photo);
+			}
+			
+			for(int i=1; i<=10; i++){
+				Article article = new Article();
+				if(i%3 == 0)
+					article.setType(Type.SPECIAL);
+				else if( i%2 == 0)
+					article.setType(Type.VIDEO);
+				else
+					article.setType(Type.TEXT);
+				article.setTitle("HEADLINE" + i);
+				Photo photo = new Photo();
+				photo.setUrl("HEADLINE" + ( i%4 + 1) );
+				article.setCreateTime(new Date().getTime());
+				article.setPhoto(photo);
+				article.setContent(body);
+				news.getArticles().add(article);
+			}
+			
 		}else if(Category.MOVIE.name() == category){
-			Photo photo1 = new Photo();
-			Photo photo2 = new Photo();
-			photo1.setUrl("MOVIE1");
-			photo2.setUrl("MOVIE2");
-			photo2.setUrl("MOVIE3");
-			news.getPhotos().add(photo1);
-			news.getPhotos().add(photo2);
+			for(int i=1; i <= 3; i++){
+				Photo photo = new Photo();
+				photo.setUrl("MOVIE"+i);
+				photo.setDescription("This is the movie "+i);
+				news.getPhotos().add(photo);
+			}
+			
+			for(int i=1; i<=13; i++){
+				Article article = new Article();
+				if(i%3 == 0)
+					article.setType(Type.SPECIAL);
+				else if( i%2 == 0)
+					article.setType(Type.VIDEO);
+				else
+					article.setType(Type.TEXT);
+				article.setTitle("MOVIE" + i);
+				article.setCreateTime(new Date().getTime());
+				Photo photo = new Photo();
+				photo.setUrl("MOVIE" + ( i%3 + 1) );
+				article.setPhoto(photo);
+				article.setContent(body);
+				news.getArticles().add(article);
+			}
 		}else if(Category.RATINGS.name() == category){
-			Photo photo1 = new Photo();
-			Photo photo2 = new Photo();
-			photo1.setUrl("RATINGS1");
-			photo2.setUrl("RATINGS2");
-			photo2.setUrl("RATINGS3");
-			news.getPhotos().add(photo1);
-			news.getPhotos().add(photo2);
+			for(int i=1; i <= 3; i++){
+				Photo photo = new Photo();
+				photo.setUrl("RATINGS"+i);
+				photo.setDescription("This is the rating "+i);
+				news.getPhotos().add(photo);
+			}
+			
+			for(int i=1; i<=6; i++){
+				Article article = new Article();
+				if(i%3 == 0)
+					article.setType(Type.SPECIAL);
+				else if( i%2 == 0)
+					article.setType(Type.VIDEO);
+				else
+					article.setType(Type.TEXT);
+				article.setTitle("RATINGS" + i);
+				Photo photo = new Photo();
+				photo.setUrl("RATINGS" + ( i%3 + 1) );
+				article.setPhoto(photo);
+				article.setCreateTime(new Date().getTime());
+				article.setContent(body);
+				news.getArticles().add(article);
+			}
 		}else if(Category.TELEPLAY.name() == category){
-			Photo photo1 = new Photo();
-			Photo photo2 = new Photo();
-			photo1.setUrl("TELEPLAY1");
-			photo2.setUrl("TELEPLAY2");
-			photo2.setUrl("TELEPLAY3");
-			news.getPhotos().add(photo1);
-			news.getPhotos().add(photo2);
+			for(int i=1; i <= 3; i++){
+				Photo photo = new Photo();
+				photo.setUrl("TELEPLAY"+i);
+				photo.setDescription("This is the teleplay "+i);
+				news.getPhotos().add(photo);
+			}
+			
+			for(int i=1; i<=16; i++){
+				Article article = new Article();
+				if(i%3 == 0)
+					article.setType(Type.SPECIAL);
+				else if( i%2 == 0)
+					article.setType(Type.VIDEO);
+				else
+					article.setType(Type.TEXT);
+				article.setTitle("TELEPLAY" + i);
+				Photo photo = new Photo();
+				photo.setUrl("TELEPLAY" + ( i%3 + 1) );
+				article.setPhoto(photo);
+				article.setCreateTime(new Date().getTime());
+				article.setContent(body);
+				news.getArticles().add(article);
+			}
 		}
 		return news;
 	}
 	
 
-	public static byte[] getPhoto(String url, Context ctx){
+	public static Bitmap getPhoto(String url, Context ctx){
 		Log.d(tag, "getPhoto " + url);
 		int resId = 0;
 		if(url.equals("HEADLINE1")){
@@ -81,7 +152,7 @@ public class ServerMock {
 		}else if(url.equals("TELEPLAY3")){
 			resId = R.drawable.teleplay3;
 		}
-		return PhotoUtil.bitmap2Bytes(PhotoUtil.resId2Bitmap(resId, ctx));
+		return PhotoUtil.resId2Bitmap(resId, ctx);
 	}
 	
 }

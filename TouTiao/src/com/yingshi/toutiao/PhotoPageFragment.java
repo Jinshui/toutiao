@@ -1,11 +1,8 @@
 package com.yingshi.toutiao;
 
-import com.yingshi.toutiao.model.Photo;
-
-import com.yingshi.toutiao.util.PhotoUtil;
-import com.yingshi.toutiao.util.ServerMock;
-
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.yingshi.toutiao.model.Photo;
+import com.yingshi.toutiao.util.ServerMock;
 
 public class PhotoPageFragment extends Fragment{
 	private static final String tag = "TT-PhotoPageFragment";
@@ -46,7 +46,7 @@ public class PhotoPageFragment extends Fragment{
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mImageView = (ImageView) inflater.inflate(R.layout.photo_page, container, false);
+		mImageView = (ImageView) inflater.inflate(R.layout.view_photo_page, container, false);
 		return mImageView;
 	}
 	
@@ -54,26 +54,31 @@ public class PhotoPageFragment extends Fragment{
 		outState.putParcelable("mPhoto", mPhoto);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void showImage(){
-		mImageView.setBackgroundDrawable(PhotoUtil.bytes2Drawable(mPhoto.getData()));
+		mImageView.setBackgroundDrawable(new BitmapDrawable(mPhoto.getData()));
 	}
 	
 	private void loadImage(){
-		new AsyncTask<Void, Void, byte[]>() {
-			protected byte[] doInBackground(Void... params) {
+		new AsyncTask<Void, Void, Bitmap>() {
+			protected Bitmap doInBackground(Void... params) {
 				Log.d(tag, "started loading image");
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 				}
-				return ServerMock.getPhoto(mPhoto.getUrl(), mContext);
+				if(mContext != null)
+					return ServerMock.getPhoto(mPhoto.getUrl(), mContext);
+				return null;
 			}
 			
-			protected void onPostExecute(byte[] result) {
-				Log.d(tag, "finished loading image: " + result.length);
-				if(result.length > 0){
+			protected void onPostExecute(Bitmap result) {
+				if(result!=null){
+					Log.d(tag, "finished loading image");
 					mPhoto.setData(result);
 					showImage();
+				}else{
+					Log.d(tag, "Failed Loading  image: " );
 				}
 			}
 		}.execute(new Void[]{});

@@ -22,6 +22,7 @@ public class UserCenterFragment extends Fragment
 	private View mBtnFavorites;
 	private View mBtnDownloads;
 	private View mBtnPush;
+	private View mBtnClearCache;
 
 	public UserCenterFragment(SlidingMenu slidingMenu){
 		mSlidingMenu = slidingMenu;
@@ -40,13 +41,14 @@ public class UserCenterFragment extends Fragment
 
 	private void initView(LayoutInflater inflater, ViewGroup container)
 	{
-		mView = inflater.inflate(R.layout.user_center, container, false);
+		mView = inflater.inflate(R.layout.view_user_center, container, false);
 		mReturnBtn = (ImageButton)mView.findViewById(R.id.id_btn_back_to_toutiao);
 		mUserPhoto = (ImageView)mView.findViewById(R.id.id_user_profile_photo);
 		mUserName = (TextView)mView.findViewById(R.id.id_user_name);
 		mBtnFavorites = mView.findViewById(R.id.id_favorites);
 		mBtnDownloads = mView.findViewById(R.id.id_downloads);
 		mBtnPush = mView.findViewById(R.id.id_push);
+		mBtnClearCache = mView.findViewById(R.id.id_clear_cache);
 		addListener();
 	}
 	
@@ -55,5 +57,21 @@ public class UserCenterFragment extends Fragment
 			public void onClick(View v) {
 				mSlidingMenu.showContent();
 			}});
+	}
+	
+	public void showMyFavorites(){
+		
+	}
+	
+	public void download(){
+		
+	}
+	
+	public void tooglePush(){
+		
+	}
+	
+	public void clearCache(){
+		
 	}
 }

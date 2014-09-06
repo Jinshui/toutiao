@@ -1,147 +1,227 @@
 package com.yingshi.toutiao;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.yingshi.toutiao.model.NewsPage;
-import com.yingshi.toutiao.util.ServerMock;
+import java.util.List;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class SlidePageFragment extends Fragment {
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.yingshi.toutiao.model.Article;
+import com.yingshi.toutiao.model.Article.Type;
+import com.yingshi.toutiao.model.NewsPage;
+import com.yingshi.toutiao.util.ServerMock;
+import com.yingshi.toutiao.view.CustomizeImageView;
+import com.yingshi.toutiao.view.CustomizedPullToRefreshListView;
+import com.yingshi.toutiao.view.PhotoPager;
+
+public class SlidePageFragment extends Fragment implements OnRefreshListener2<ListView> {
 	private final static String tag = "TT-SlidePageFragment";
+	private final static long REFRESH_INTERVAL = 600000; 
 	
-	private String mCategory;	
+	private String mCategory;
 	private NewsPage mData;
-	private long mRefreshTime;
+	private long mLastRefreshTime;
+
 	
-	private PullToRefreshScrollView mScrollView;
-	private ViewPager mPhotoViewPager;
+	private CustomizedPullToRefreshListView mListView;
 	private View mProgressBar;
-	private View mContent;
-	private View mPhotos;
-	private LinearLayout mList;
 	private boolean mIsLoadingPage = false;
 
-	public SlidePageFragment(){}
-	
-	public SlidePageFragment(String category){
-		Log.d(tag, category +" new SlidePageFragment");
+	public SlidePageFragment() {
+	}
+
+	public SlidePageFragment(String category) {
+		Log.d(tag, category + " new SlidePageFragment");
 		mCategory = category;
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d(tag, mCategory + " onCreate");
 		super.onCreate(savedInstanceState);
-		if(savedInstanceState != null){
+		if (savedInstanceState != null) {
 			mCategory = savedInstanceState.getString("mCategory");
 			mData = savedInstanceState.getParcelable("mData");
-			mRefreshTime = savedInstanceState.getLong("mRefreshTime");
+			mLastRefreshTime = savedInstanceState.getLong("mRefreshTime");
 		}
 	}
-	
-	public void onSaveInstanceState (Bundle outState){
+
+	public void onSaveInstanceState(Bundle outState) {
 		Log.d(tag, mCategory + " onSaveInstanceState");
-		outState.putLong("mRefreshTime", mRefreshTime);
+		outState.putLong("mRefreshTime", mLastRefreshTime);
 		outState.putString("mCategory", mCategory);
 		outState.putParcelable("mData", mData);
 	}
-	
-	public void onResume(){
+
+	public void onResume() {
 		super.onResume();
-		if(mData == null){
+		if (mData == null || System.currentTimeMillis() - mLastRefreshTime > REFRESH_INTERVAL) {
 			loadPage();
-		}else{
+		} else {
 			showContent();
 		}
 	}
-	
+
+	@Override
+	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+		loadMore();
+	}
+
+	public void onPullUpToRefresh(final PullToRefreshBase<ListView> refreshView) {
+		loadMore();
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d(tag, mCategory + " onCreateView");
-		mScrollView = (PullToRefreshScrollView) inflater.inflate(R.layout.news_list, null);
-		mScrollView.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
-			public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-				loadMore();
-			}
-		});
-		mProgressBar = mScrollView.findViewById(R.id.id_loading);
-		mContent = mScrollView.findViewById(R.id.id_content);
-		mPhotos = mScrollView.findViewById(R.id.id_photos);
-		mList = (LinearLayout)mScrollView.findViewById(R.id.id_list);
-		TextView text = (TextView) mScrollView.findViewById(R.id.tv_show);
-		text.setText("This is " + mCategory);
-		text.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				Toast.makeText(getActivity(), "hello world", Toast.LENGTH_SHORT).show();
-			}
-		});
-		mPhotoViewPager = (ViewPager)mScrollView.findViewById(R.id.id_photos_pager);
-		final TextView photoNumbmer = (TextView) mScrollView.findViewById(R.id.id_photo_number);
-		final TextView photoDescription = (TextView) mScrollView.findViewById(R.id.id_photo_description);
-		mPhotoViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			public void onPageSelected(int position) {
-				photoNumbmer.setText(String.format("%d/%d", position, mData.getPhotos().size()));
-				photoDescription.setText("这是图"+position);
-			}
-		});
-		return mScrollView;
+		View layout = inflater.inflate(R.layout.view_news_list, null);
+		mListView = (CustomizedPullToRefreshListView) layout.findViewById(R.id.id_content);
+		mListView.setOnRefreshListener(this);
+		mProgressBar = layout.findViewById(R.id.id_loading);
+		final PhotoPager photoPager = mListView.getPhotoPager();
+		photoPager.getPhotoViewPager().setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+					public void onPageSelected(int position) {
+						updatePhotoPager(position);
+					}
+				});
+		return layout;
 	}
 
-	private void loadMore(){
-		new LoadMoreTask(mScrollView).execute();
+	private void loadMore() {
+		new LoadMoreTask(mListView).execute();
 	}
-	
-	private void loadPage(){
+
+	private void loadPage() {
 		Log.d(tag, mCategory + " loadPage " + mIsLoadingPage);
-		if( ! mIsLoadingPage ){
+		if (!mIsLoadingPage) {
 			mIsLoadingPage = true;
 			showLoadingbar();
 			new LoadPageTask().execute();
 		}
 	}
 
-	private void showLoadingbar(){
+	private void showLoadingbar() {
 		mProgressBar.setVisibility(View.VISIBLE);
-		mContent.setVisibility(View.GONE);
-//		mPhotos.setVisibility(View.GONE);
-//		mList.setVisibility(View.GONE);
+		mListView.setVisibility(View.GONE);
+		// mPhotos.setVisibility(View.GONE);
+		// mList.setVisibility(View.GONE);
 	}
 
-    LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-	private void showContent(){
+	LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+			LayoutParams.MATCH_PARENT);
+
+	private void showContent() {
 		mProgressBar.setVisibility(View.GONE);
-		mContent.setVisibility(View.VISIBLE);
-//		mPhotos.setVisibility(View.VISIBLE);
-//		mList.setVisibility(View.VISIBLE);
-		mPhotoViewPager.setAdapter(new PhotoPagerAdapter(getChildFragmentManager()));
+		mListView.setVisibility(View.VISIBLE);
+		if(isResumed()){
+			mListView.setAdapter(new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, mData.getArticles()));
+			mListView.getPhotoPager().getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager()));
+			updatePhotoPager(0);
+		}
+	}
+
+	private void updatePhotoPager(int position){
+		if(mData.getPhotos().size() > 0){
+			mListView.showPhotoPager();
+			mListView.getPhotoPager().getPhotoNumView().setText(String.format("%d/%d", position + 1, mData.getPhotos().size()));
+			mListView.getPhotoPager().getPhotoDescriptionView().setText(mData.getPhotos().get(position).getDescription());
+		}else{
+			mListView.hidePhotoPager();
+		}
 	}
 	
+	protected class NewsArrayAdapter extends ArrayAdapter<Article> {
+        private LayoutInflater mInflater;
+        public NewsArrayAdapter(Context context, int res, List<Article> items) {
+            super(context, res, items);
+            mInflater = LayoutInflater.from(context);
+        }
+        
+
+        @SuppressWarnings("deprecation")
+		public View getView(final int position, View convertView,
+                ViewGroup parent) {
+        	final Article article = getItem(position);
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = mInflater.inflate( R.layout.view_news_list_item, null);
+                holder = new ViewHolder();
+                holder.newsThumbnail = (CustomizeImageView) convertView.findViewById(R.id.id_news_thumbnail);
+                holder.newsTitle = (TextView) convertView.findViewById(R.id.id_news_title);
+                holder.newsVideoSign = convertView.findViewById(R.id.id_news_video_sign);
+                holder.newsSpecialSign = convertView.findViewById(R.id.id_news_special_sign);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            if(!TextUtils.isEmpty(article.getTitle())){
+                holder.newsTitle.setText(article.getTitle());
+            }
+            if( article.getPhoto()!=null && article.getPhoto().getUrl() != null){
+            	if(article.getPhoto().getData() != null)
+            		holder.newsThumbnail.setBackgroundDrawable(new BitmapDrawable(article.getPhoto().getData()));
+            	else
+            		holder.newsThumbnail.loadImage(article.getPhoto().getUrl());
+            }
+            
+            Type type = article.getType();
+            holder.newsVideoSign.setVisibility( type == Type.VIDEO ? View.VISIBLE : View.INVISIBLE);
+            holder.newsSpecialSign.setVisibility( type == Type.SPECIAL ? View.VISIBLE : View.INVISIBLE);
+            
+            convertView.setOnClickListener(new OnClickListener(){
+				public void onClick(View v) {
+					Intent showNewsDetailIntent = new Intent();
+					showNewsDetailIntent.setClass(getContext(), NewsDetailActivity.class);
+					showNewsDetailIntent.putExtra(NewsDetailActivity.INTENT_EXTRA_ARTICLE, article);
+					getActivity().startActivity(showNewsDetailIntent);
+				}
+            });
+            
+            return convertView;
+        }
+
+        class ViewHolder {
+        	CustomizeImageView newsThumbnail;
+            TextView  newsTitle;
+            View newsVideoSign;
+            View newsSpecialSign;
+        }
+    }
+	
 	private class PhotoPagerAdapter extends FragmentStatePagerAdapter {
+		SparseArray<PhotoPageFragment> pages = new  SparseArray<PhotoPageFragment>();
 		public PhotoPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-			return new PhotoPageFragment(getActivity(), mData.getPhotos().get(position));
+			PhotoPageFragment page = pages.get(position);
+			if(page == null){
+				page = new PhotoPageFragment(getActivity(), mData.getPhotos().get(position));
+				pages.put(position, page);
+			}
+			return page;
 		}
 
 		@Override
@@ -149,34 +229,34 @@ public class SlidePageFragment extends Fragment {
 			return mData.getPhotos().size();
 		}
 	}
-	
+
 	private class LoadPageTask extends AsyncTask<Void, Void, NewsPage> {
 		protected NewsPage doInBackground(Void... params) {
-			Log.d(tag, "started loading page for "+mCategory);
+			Log.d(tag, "started loading page for " + mCategory);
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 			}
 			return ServerMock.getNewsPage(mCategory);
 		}
-		
+
 		protected void onPostExecute(NewsPage result) {
-			Log.d(tag, "finished loading page for "+mCategory);
+			Log.d(tag, "finished loading page for " + mCategory);
 			mIsLoadingPage = false;
-			mRefreshTime = System.currentTimeMillis();
+			mLastRefreshTime = System.currentTimeMillis();
 			mData = result;
 			showContent();
 		}
 	}
-	
+
 	private class LoadMoreTask extends AsyncTask<Void, Void, String[]> {
 
-		private PullToRefreshScrollView mSlideView;
-		
-		public LoadMoreTask(PullToRefreshScrollView slideView){
-			mSlideView = slideView;
+		private PullToRefreshBase<?> mListView;
+
+		public LoadMoreTask(PullToRefreshBase<?> refreshedView) {
+			mListView = refreshedView;
 		}
-		
+
 		@Override
 		protected String[] doInBackground(Void... params) {
 			// Simulates a background job.
@@ -191,37 +271,37 @@ public class SlidePageFragment extends Fragment {
 		protected void onPostExecute(String[] result) {
 			// Do some stuff here
 			// Call onRefreshComplete when the list has been refreshed.
-			mSlideView.onRefreshComplete();
+			mListView.onRefreshComplete();
 		}
 	}
-//	public void onAttach (Activity activity){
-//		Log.d(tag, mCategory + " onAttach");
-//		super.onAttach(activity);
-//	}
-//	public void onStart (){
-//		Log.d(tag, mCategory + " onStart");
-//		super.onStart();
-//	}
-//	public void onResume(){
-//		Log.d(tag, mCategory + " onResume");
-//		loadPage();
-//		super.onResume();
-//	}
-//	
-//	public void onPause (){
-//		Log.d(tag, mCategory + " onPause");
-//		super.onPause();
-//	}
-//	public void onStop (){
-//		Log.d(tag, mCategory + " onStop");
-//		super.onStop();
-//	}
-//	public void onDetach (){
-//		Log.d(tag, mCategory + " onDetach");
-//		super.onDetach();
-//	}
-//	public void onDestroy (){
-//		Log.d(tag, mCategory + " onStart");
-//		super.onDestroy();
-//	}
+	// public void onAttach (Activity activity){
+	// Log.d(tag, mCategory + " onAttach");
+	// super.onAttach(activity);
+	// }
+	// public void onStart (){
+	// Log.d(tag, mCategory + " onStart");
+	// super.onStart();
+	// }
+	// public void onResume(){
+	// Log.d(tag, mCategory + " onResume");
+	// loadPage();
+	// super.onResume();
+	// }
+	//
+	// public void onPause (){
+	// Log.d(tag, mCategory + " onPause");
+	// super.onPause();
+	// }
+	// public void onStop (){
+	// Log.d(tag, mCategory + " onStop");
+	// super.onStop();
+	// }
+	// public void onDetach (){
+	// Log.d(tag, mCategory + " onDetach");
+	// super.onDetach();
+	// }
+	// public void onDestroy (){
+	// Log.d(tag, mCategory + " onStart");
+	// super.onDestroy();
+	// }
 }

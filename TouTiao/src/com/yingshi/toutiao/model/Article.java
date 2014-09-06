@@ -7,11 +7,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Article implements Parcelable {
+	public static enum Type{
+		TEXT,
+		VIDEO,
+		SPECIAL
+	}
+	private int id;
 	private String title;
 	private String author;
 	private long createTime;
+	private String source;
 	private String content;
 	private Photo photo;
+	private Type type = Type.TEXT;
 	private List<Comment> comments;
 	public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {
 		public Article createFromParcel(Parcel in) {
@@ -23,12 +31,17 @@ public class Article implements Parcelable {
 		}
 	};
 
+	public Article(){}
+	
 	private Article(Parcel in) {
+		id = in.readInt();
 		title = in.readString();
 		author = in.readString();
 		createTime = in.readLong();
+		source = in.readString();
 		content = in.readString();
-		photo = in.readParcelable(null);
+		photo = in.readParcelable(this.getClass().getClassLoader());
+		type = Type.valueOf(in.readString());
 		comments = in.createTypedArrayList(Comment.CREATOR);
 	}
 
@@ -37,11 +50,14 @@ public class Article implements Parcelable {
 	}
 
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
 		dest.writeString(title);
 		dest.writeString(author);
 		dest.writeLong(createTime);
+		dest.writeString(source);
 		dest.writeString(content);
 		dest.writeParcelable(photo, 0);
+		dest.writeString(type.name());
 		dest.writeTypedList(comments);
 	}
 
@@ -77,6 +93,16 @@ public class Article implements Parcelable {
 		this.content = content;
 	}
 
+	public String getSource() {
+		if(source == null)
+			return "";
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
 	public Photo getPhoto() {
 		return photo;
 	}
@@ -85,10 +111,22 @@ public class Article implements Parcelable {
 		this.photo = photo;
 	}
 
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
 	public List<Comment> getComments() {
 		if(comments == null){
 			comments = new ArrayList<Comment>();
 		}
 		return comments;
+	}
+	
+	public String toString(){
+		return title;
 	}
 }

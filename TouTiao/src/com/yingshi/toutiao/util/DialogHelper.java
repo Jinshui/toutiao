@@ -6,22 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.yingshi.toutiao.R;
 
 public class DialogHelper {
-    public static Dialog createProgressDialog(Context context, int dlgId, int resId, CancelListener listener) {
-        Dialog dialog = new LoadingDialog(context, dlgId, android.R.style.Theme_Translucent_NoTitleBar, listener);
-        dialog.setContentView(R.layout.progress_dialog);
-        TextView textView = (TextView) dialog.findViewById(R.id.progressText);
-        ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progressBar);
-        textView.setText(resId);
-        progressBar.setIndeterminate(true);
-        dialog.setCancelable(true);
-        return dialog;
-    }
 
     public static interface CancelListener{
         public void onDialogCancelled(int id);

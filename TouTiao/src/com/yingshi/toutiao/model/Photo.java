@@ -1,11 +1,12 @@
 package com.yingshi.toutiao.model;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Photo implements Parcelable {
 	private String url;
-	private byte[] data;
+	private Bitmap data;
 	private String name;
 	private String description;
 	public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
@@ -22,7 +23,7 @@ public class Photo implements Parcelable {
 	
 	private Photo(Parcel in) {
 		url = in.readString();
-		data = in.createByteArray();
+		data = in.readParcelable(null);
 		name = in.readString();
 		description = in.readString();
 	}
@@ -33,7 +34,7 @@ public class Photo implements Parcelable {
 
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(url);
-		dest.writeByteArray(data);
+		dest.writeParcelable(data, 0);
 		dest.writeString(name);
 		dest.writeString(description);
 	}
@@ -46,11 +47,11 @@ public class Photo implements Parcelable {
 		this.url = url;
 	}
 
-	public byte[] getData() {
+	public Bitmap getData() {
 		return data;
 	}
 
-	public void setData(byte[] data) {
+	public void setData(Bitmap data) {
 		this.data = data;
 	}
 
