@@ -12,6 +12,8 @@ import com.yingshi.toutiao.model.Category;
 import com.yingshi.toutiao.model.NewsPage;
 import com.yingshi.toutiao.model.Photo;
 import com.yingshi.toutiao.model.Article.Type;
+import com.yingshi.toutiao.model.SearchResult;
+import com.yingshi.toutiao.model.Special;
 
 public class ServerMock {
 	private final static String tag = "TT-ServerMock";
@@ -155,4 +157,52 @@ public class ServerMock {
 		return PhotoUtil.resId2Bitmap(resId, ctx);
 	}
 	
+	public static Special getSpecial(String id){
+		Special special = new Special();
+
+		Photo photo = new Photo();
+		photo.setUrl("TELEPLAY1");
+		special.setId("special_id");
+		special.setPhoto(photo);
+		special.setSummary("Static library support version of the framework's Fragment.");
+		special.setTotalCount(20);
+		for(int i=1; i<=13; i++){
+			Article article = new Article();
+			if(i%3 == 0)
+				article.setType(Type.SPECIAL);
+			else if( i%2 == 0)
+				article.setType(Type.VIDEO);
+			else
+				article.setType(Type.TEXT);
+			article.setTitle("MOVIE" + i);
+			article.setCreateTime(new Date().getTime());
+			photo = new Photo();
+			photo.setUrl("MOVIE" + ( i%3 + 1) );
+			article.setPhoto(photo);
+			article.setContent(body);
+			special.getArticles().add(article);
+		}
+		return special;
+	}
+	
+	public static SearchResult getSearchResult(String keyWord){
+		SearchResult result = new SearchResult();
+		for(int i=1; i<=13; i++){
+			Article article = new Article();
+			if(i%3 == 0)
+				article.setType(Type.SPECIAL);
+			else if( i%2 == 0)
+				article.setType(Type.VIDEO);
+			else
+				article.setType(Type.TEXT);
+			article.setTitle("MOVIE" + i);
+			article.setCreateTime(new Date().getTime());
+			Photo photo = new Photo();
+			photo.setUrl("MOVIE" + ( i%3 + 1) );
+			article.setPhoto(photo);
+			article.setContent(body);
+			result.getArticles().add(article);
+		}
+		return result;
+	}
 }

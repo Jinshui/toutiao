@@ -16,6 +16,9 @@ public class PhotoPager extends FrameLayout {
 	
 	public PhotoPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		mViewPager = (ViewPager)findViewById(R.id.id_photos_pager);
+		mPhotoNumView = (TextView)findViewById(R.id.id_photo_number);
+		mPhotoDescriptionView = (TextView)findViewById(R.id.id_photo_description);
 	}
 
 	

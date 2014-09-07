@@ -33,5 +33,9 @@
     <!-- 专题 -->
     <string name="special_header_text">专题</string>
     <string name="special_summary">摘要</string>
+    
+    <!-- 搜索 -->
+    <string name="search_header_text">搜索</string>
+    <string name="search_hint">请输入搜索内容</string>
 
 </resources>

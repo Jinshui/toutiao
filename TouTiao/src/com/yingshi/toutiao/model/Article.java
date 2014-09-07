@@ -14,10 +14,12 @@ public class Article implements Parcelable {
 	}
 	private int id;
 	private String title;
+	private String summary;
 	private String author;
 	private long createTime;
 	private String source;
 	private String content;
+	private Photo thumbnail;
 	private Photo photo;
 	private Type type = Type.TEXT;
 	private List<Comment> comments;
@@ -36,10 +38,12 @@ public class Article implements Parcelable {
 	private Article(Parcel in) {
 		id = in.readInt();
 		title = in.readString();
+		summary = in.readString();
 		author = in.readString();
 		createTime = in.readLong();
 		source = in.readString();
 		content = in.readString();
+		thumbnail = in.readParcelable(this.getClass().getClassLoader());
 		photo = in.readParcelable(this.getClass().getClassLoader());
 		type = Type.valueOf(in.readString());
 		comments = in.createTypedArrayList(Comment.CREATOR);
@@ -52,10 +56,12 @@ public class Article implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(id);
 		dest.writeString(title);
+		dest.writeString(summary);
 		dest.writeString(author);
 		dest.writeLong(createTime);
 		dest.writeString(source);
 		dest.writeString(content);
+		dest.writeParcelable(thumbnail, 0);
 		dest.writeParcelable(photo, 0);
 		dest.writeString(type.name());
 		dest.writeTypedList(comments);
@@ -67,6 +73,14 @@ public class Article implements Parcelable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	public String getAuthor() {
@@ -91,6 +105,14 @@ public class Article implements Parcelable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Photo getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(Photo thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getSource() {

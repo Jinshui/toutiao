@@ -1,0 +1,46 @@
+<com.yingshi.toutiao.view.SpecialHeader xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/content_bk"
+    android:orientation="vertical" >
+
+    <com.yingshi.toutiao.view.CustomizeImageView
+        android:id="@+id/id_special_header_img"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/special_header_img_height"
+        android:background="@drawable/special_header"
+        android:contentDescription="@string/img_content_description" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/special_summary"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/special_summary_size"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray" />
+
+    <TextView
+        android:id="@+id/id_special_summary_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/special_summary_size" />
+
+    <TextView
+        android:id="@+id/id_special_list_page_indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/special_summary_size" />
+
+</com.yingshi.toutiao.view.SpecialHeader>

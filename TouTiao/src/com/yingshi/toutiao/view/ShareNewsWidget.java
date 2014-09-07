@@ -10,6 +10,6 @@ import android.widget.LinearLayout;
 public class ShareNewsWidget extends LinearLayout{
 	public ShareNewsWidget(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		LayoutInflater.from(context).inflate(R.layout.view_news_share, this, true);
+		LayoutInflater.from(context).inflate(R.layout.view_news_detail_share, this, true);
 	}
 }

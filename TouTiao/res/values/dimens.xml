@@ -41,7 +41,7 @@
     <dimen name="share_cancel_text_size">20sp</dimen>
     
     <!-- Special News -->
-    <dimen name="special_header_img_height">100dp</dimen>
+    <dimen name="special_header_img_height">80dp</dimen>
     <dimen name="special_summary_size">20sp</dimen>
     
 </resources>

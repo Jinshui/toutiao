@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
@@ -42,7 +44,7 @@ public class MainActivity extends SlidingFragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_news);
 		// 初始化SlideMenu
 		initUserCenterMenu();
 		// 初始化ContentView
@@ -62,13 +64,16 @@ public class MainActivity extends SlidingFragmentActivity
 			}});
 		headerView.setRightImage(R.drawable.sousuo_sousuo, new OnClickListener(){
 			public void onClick(View v) {
+				Intent showNewsDetailIntent = new Intent();
+				showNewsDetailIntent.setClass(MainActivity.this, SearchActivity.class);
+				startActivity(showNewsDetailIntent);
 			}});
 		headerView.setTitle(R.string.title_toutiao);
 		
 		//Tabhost
 		tabHost.setup();
 		for (String tabTitle : tabTitles) {
-			RelativeLayout tabIndicator = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_tab_widget, null);
+			RelativeLayout tabIndicator = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_news_tab_widget, null);
 			TextView tvTab = (TextView) tabIndicator.findViewById(R.id.tv_title);
 			tvTab.setText(tabTitle);
 			mTabs.add(tabIndicator);
@@ -114,6 +119,7 @@ public class MainActivity extends SlidingFragmentActivity
 	{
 		SlidingMenu menu = getSlidingMenu();
 		Fragment leftMenuFragment = new UserCenterFragment(menu);
+//		FrameLayout framelayout = new FrameLayout(this);
 		setBehindContentView(R.layout.view_user_center_frame);
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.id_left_menu_frame, leftMenuFragment).commit();
@@ -135,16 +141,16 @@ public class MainActivity extends SlidingFragmentActivity
 	 * objects, in sequence.
 	 */
 	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-		Map<String, SlidePageFragment> pages = new HashMap<String, SlidePageFragment>();
+		Map<String, NewsListPageFragment> pages = new HashMap<String, NewsListPageFragment>();
 		public ScreenSlidePagerAdapter(FragmentManager fm, int count) {
 			super(fm);
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-			SlidePageFragment page = pages.get(tabTitles[position]);
+			NewsListPageFragment page = pages.get(tabTitles[position]);
 			if(page == null){
-				page = new SlidePageFragment(tabTitles[position]);
+				page = new NewsListPageFragment(tabTitles[position]);
 				pages.put(tabTitles[position], page);
 			}
 			return page;

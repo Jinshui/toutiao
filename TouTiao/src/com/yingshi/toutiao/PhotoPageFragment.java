@@ -46,7 +46,7 @@ public class PhotoPageFragment extends Fragment{
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mImageView = (ImageView) inflater.inflate(R.layout.view_photo_page, container, false);
+		mImageView = (ImageView) inflater.inflate(R.layout.view_news_list_photo_page, container, false);
 		return mImageView;
 	}
 	
