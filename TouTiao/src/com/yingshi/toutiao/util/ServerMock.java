@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.yingshi.toutiao.R;
 import com.yingshi.toutiao.model.Article;
-import com.yingshi.toutiao.model.Category;
+import com.yingshi.toutiao.model.TempCategory;
 import com.yingshi.toutiao.model.NewsPage;
 import com.yingshi.toutiao.model.Photo;
 import com.yingshi.toutiao.model.Article.Type;
@@ -22,7 +22,7 @@ public class ServerMock {
 	public static NewsPage getNewsPage(String category){
 		Log.d(tag, "getNewsPage " + category);
 		NewsPage news = new NewsPage();
-		if(Category.HEADLINE.name() == category){
+		if(TempCategory.HEADLINE.name() == category){
 			for(int i=1; i <= 4; i++){
 				Photo photo = new Photo();
 				photo.setUrl("HEADLINE"+i);
@@ -47,7 +47,7 @@ public class ServerMock {
 				news.getArticles().add(article);
 			}
 			
-		}else if(Category.MOVIE.name() == category){
+		}else if(TempCategory.MOVIE.name() == category){
 			for(int i=1; i <= 3; i++){
 				Photo photo = new Photo();
 				photo.setUrl("MOVIE"+i);
@@ -71,7 +71,7 @@ public class ServerMock {
 				article.setContent(body);
 				news.getArticles().add(article);
 			}
-		}else if(Category.RATINGS.name() == category){
+		}else if(TempCategory.RATINGS.name() == category){
 			for(int i=1; i <= 3; i++){
 				Photo photo = new Photo();
 				photo.setUrl("RATINGS"+i);
@@ -95,7 +95,7 @@ public class ServerMock {
 				article.setContent(body);
 				news.getArticles().add(article);
 			}
-		}else if(Category.TELEPLAY.name() == category){
+		}else if(TempCategory.TELEPLAY.name() == category){
 			for(int i=1; i <= 3; i++){
 				Photo photo = new Photo();
 				photo.setUrl("TELEPLAY"+i);

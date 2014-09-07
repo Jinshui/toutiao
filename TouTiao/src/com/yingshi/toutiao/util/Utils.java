@@ -18,14 +18,6 @@ public class Utils {
     private final static String TAG = "JIDA-Utils";
     private static SimpleDateFormat sdf = null;
 
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context
-                        .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = cm.getActiveNetworkInfo();
-        if (info != null)
-            return info.isConnected();
-        return false;
-    }
 
     public static String formatDate(String format, long date) {
     	return formatDate(format, new Date(date));

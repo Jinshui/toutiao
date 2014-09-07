@@ -38,4 +38,10 @@
     <string name="search_header_text">搜索</string>
     <string name="search_hint">请输入搜索内容</string>
 
+    
+    <string name="msg_general_error">请求处理失败，请稍候重试。</string>
+    <string name="msg_network_error">网络异常，请稍候重试。</string>
+    <string name="msg_network_disconnected">没有网络连接，请稍候重试。</string>
+    <string name="msg_network_timeout">网络请求超时，请稍候重试。</string>
+    
 </resources>
