@@ -1,8 +1,10 @@
 package com.yingshi.toutiao.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class News{
-	private long _id;
 	private String id;
 	private String name;
 	private String summary;
@@ -20,8 +22,52 @@ public class News{
 	private String photoUrl;
 	private String thumbnailUrl;
 	
+	//used by client only
+	private long _id;
+	private String videoPhotoFilePath;
+	private String photoFilePath;
+	private String thumbnailFilePath;
 
 	public News(){}
+	
+    public static News fromJSON(JSONObject json) throws JSONException{
+        if(json == null)
+            throw new IllegalArgumentException("JSONObject is null");
+        News news = new News();
+        if(json.has("Id"))
+        	news.setId(json.getString("Id"));
+        if(json.has("NewsName"))
+        	news.setName(json.getString("NewsName"));
+        if(json.has("Dy"))
+        	news.setSummary(json.getString("Dy"));
+        if(json.has("NewsName"))
+        	news.setName(json.getString("NewsName"));
+        if(json.has("Time"))
+        	news.setTime(Long.valueOf(json.getString("Time")));
+        if(json.has("TypeName"))
+        	news.setCategory(json.getString("TypeName"));
+        if(json.has("LinkContent"))
+        	news.setContact(json.getString("LinkContent"));
+        if(json.has("Goods"))
+        	news.setLikes(Integer.valueOf(json.getString("Goods")));
+        if(json.has("IsZt"))
+        	news.setSpecial(json.getBoolean("IsZt"));
+        if(json.has("ZtName"))
+        	news.setSpecialName(json.getString("ZtName"));
+        if(json.has("IsSp"))
+        	news.setHasVideo(json.getBoolean("IsSp"));
+        if(json.has("Author"))
+        	news.setAuthor(json.getString("Author"));
+        if(json.has("BigUrl"))
+        	news.setPhotoUrl(json.getString("BigUrl"));
+        if(json.has("SmallUrl"))
+        	news.setThumbnailUrl(json.getString("SmallUrl"));
+        if(json.has("VidelUrl"))
+        	news.setVideoUrl(json.getString("VidelUrl"));
+        if(json.has("VidelPicUrl"))
+        	news.setVideoPhotoUrl(json.getString("VidelPicUrl"));
+        return news;
+    }
 	
 	public int describeContents() {
 		return 0;
@@ -161,5 +207,29 @@ public class News{
 
 	public void setThumbnailUrl(String thumbnailUrl) {
 		this.thumbnailUrl = thumbnailUrl;
+	}
+
+	public String getVideoPhotoFilePath() {
+		return videoPhotoFilePath;
+	}
+
+	public void setVideoPhotoFilePath(String videoPhotoFilePath) {
+		this.videoPhotoFilePath = videoPhotoFilePath;
+	}
+
+	public String getPhotoFilePath() {
+		return photoFilePath;
+	}
+
+	public void setPhotoFilePath(String photoFilePath) {
+		this.photoFilePath = photoFilePath;
+	}
+
+	public String getThumbnailFilePath() {
+		return thumbnailFilePath;
+	}
+
+	public void setThumbnailFilePath(String thumbnailFilePath) {
+		this.thumbnailFilePath = thumbnailFilePath;
 	}
 }

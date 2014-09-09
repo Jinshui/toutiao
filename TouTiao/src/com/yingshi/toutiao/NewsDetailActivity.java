@@ -1,14 +1,17 @@
 package com.yingshi.toutiao;
 
-import com.yingshi.toutiao.model.Article;
-import com.yingshi.toutiao.model.Article.Type;
+import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CustomizeImageView;
+import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
 import com.yingshi.toutiao.view.HeaderView;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,7 +21,6 @@ import android.widget.TextView.OnEditorActionListener;
 
 public class NewsDetailActivity extends Activity
 {
-	public static final String INTENT_EXTRA_ARTICLE = "article";
 	private View mShareNewsWidget;
 	private View mToolsBar;
 	public void onCreate(Bundle savedInstanceState)
@@ -32,27 +34,17 @@ public class NewsDetailActivity extends Activity
 			}
 		});
 		
-		Article article = getIntent().getParcelableExtra(INTENT_EXTRA_ARTICLE);
-		
-		TextView titleView = (TextView)findViewById(R.id.id_news_detail_title);
-		titleView.setText(article.getTitle());
-		
-		TextView dateView = (TextView)findViewById(R.id.id_news_detail_time);
-		dateView.setText(Utils.formatDate("yyyy/MM/dd HH:mm:ss", article.getCreateTime()) + " " + article.getSource());
-		
-		CustomizeImageView imageView = (CustomizeImageView)findViewById(R.id.id_news_detail_img);
-		if(article.getPhoto() == null)
-			imageView.setVisibility(View.GONE);
-		else
-			imageView.loadImage(article.getPhoto().getUrl());
-		
-		if(article.getType() != Type.VIDEO){
-			View playButton = findViewById(R.id.id_news_detail_play);
-			playButton.setVisibility(View.INVISIBLE);
-		}
-		
-		TextView textView = (TextView)findViewById(R.id.id_news_detail_text);
-		textView.setText(article.getContent());
+		final int newsId = getIntent().getIntExtra(Constants.INTENT_EXTRA_NEWS_ID, 0);
+		new AsyncTask<Void, Void, News>(){
+			protected News doInBackground(Void... params) {
+				return ((TouTiaoApp)getApplication()).getNewsDAO().getNews(newsId);
+			}
+			
+			public void onPostExecute(News news){
+				updateUI(news);
+			}
+		}.execute();
+
 		
 		final EditText commentTextView = (EditText)findViewById(R.id.id_news_detail_comment_text);
 		commentTextView.setOnEditorActionListener(new OnEditorActionListener(){
@@ -66,6 +58,32 @@ public class NewsDetailActivity extends Activity
 		});
 		mShareNewsWidget = findViewById(R.id.id_news_share_widget);
 		mToolsBar = findViewById(R.id.id_news_detail_tools_bar);
+	}
+	
+	private void updateUI(News news){
+		TextView titleView = (TextView)findViewById(R.id.id_news_detail_title);
+		titleView.setText(news.getName());
+		
+		TextView dateView = (TextView)findViewById(R.id.id_news_detail_time);
+		dateView.setText(Utils.formatDate("yyyy/MM/dd HH:mm:ss", news.getTime()));
+		
+		CustomizeImageView imageView = (CustomizeImageView)findViewById(R.id.id_news_detail_img);
+		if(TextUtils.isEmpty(news.getPhotoUrl()))
+			imageView.setVisibility(View.GONE);
+		else
+			imageView.loadImage(news.getPhotoUrl(), new LoadImageCallback(){
+				public void onImageLoaded(Drawable drawable) {
+					//TODO: Save Image?
+				}
+			});
+		
+		if(news.isHasVideo()){
+			View playButton = findViewById(R.id.id_news_detail_play);
+			playButton.setVisibility(View.INVISIBLE);
+		}
+		
+		TextView textView = (TextView)findViewById(R.id.id_news_detail_text);
+		textView.setText(news.getContent());
 	}
 	
 	public void playVideo(View view){

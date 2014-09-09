@@ -168,9 +168,9 @@ public abstract class AbstractPTRFragment<T extends Parcelable, I extends Parcel
 		protected void onPostExecute(List<I> result) {
 			// Do some stuff here
 			// Call onRefreshComplete when the list has been refreshed.
-			mListView.onRefreshComplete();
-			if(result != null)
-				mListAdapter.addObjects(result);
+//			mListView.onRefreshComplete();
+//			if(result != null)
+//				mListAdapter.addObjects(result);
 		}
 	}
 }

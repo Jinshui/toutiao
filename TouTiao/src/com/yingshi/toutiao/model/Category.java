@@ -1,36 +1,39 @@
 package com.yingshi.toutiao.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class Category implements Parcelable {
+public class Category {
 	private String id;
 	private String name;
 
-	public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
-		public Category createFromParcel(Parcel in) {
-			return new Category(in);
-		}
+	public String getId() {
+		return id;
+	}
 
-		public Category[] newArray(int size) {
-			return new Category[size];
-		}
-	};
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Category() {
 	}
-
-	private Category(Parcel in) {
-		id = in.readString();
-		name = in.readString();
-	}
-
-	public int describeContents() {
-		return 0;
-	}
-
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(id);
-		dest.writeString(name);
-	}
+	
+    public static Category fromJSON(JSONObject json) throws JSONException{
+        if(json == null)
+            throw new IllegalArgumentException("JSONObject is null");
+        Category category = new Category();
+        if(json.has("Id"))
+        	category.setId(json.getString("Id"));
+        if(json.has("Name"))
+        	category.setName(json.getString("Name"));
+        return category;
+    }
 }

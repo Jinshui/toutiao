@@ -1,5 +1,6 @@
 package com.yingshi.toutiao.view.ptr;
 
+import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
@@ -11,8 +12,12 @@ public class PTRListAdapter<T> extends ArrayAdapter<T>{
 		super(context, resource, objects);
 		mObjects = objects;
 	}
-	public void addObjects(List<T> newObjects){
-		mObjects.addAll(newObjects);
-		this.notifyDataSetChanged();
-	}
+	
+	/**
+	 * Override this because this is not available in SDK lower than 11;
+	 */
+    public void addMore(Collection<? extends T> collection) {
+        mObjects.addAll(collection);
+        notifyDataSetChanged();
+    }
 }

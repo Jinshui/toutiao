@@ -10,18 +10,18 @@ import com.yingshi.toutiao.actions.AbstractAction.ActionResult;
 import com.yingshi.toutiao.http.HttpRequest;
 import com.yingshi.toutiao.http.HttpRequestHandler;
 import com.yingshi.toutiao.http.HttpResponse;
-import com.yingshi.toutiao.util.Utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public abstract class AbstractAction<Progress, Result> extends AsyncTask<Void, Progress, ActionResult<Result>> implements JSONConstants{
+public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, ActionResult<Result>> implements JSONConstants{
     private static final String TAG = "JIDA-AbstractRequest";
     private static final String URL = Constants.SERVER_ADDRESS;
-    protected Context mAppContext;
     protected String mServiceId;
-    private CallBack<Result> mCallback;
+    protected Context mAppContext;
+    private UICallBack<Result> mUICallback;
+    private BackgroundCallBack<Result> mBackgroundCallBack;
     private boolean mCancelled = false;
     public static enum ErrorCode{
         INVALID_REQUEST,
@@ -66,14 +66,22 @@ public abstract class AbstractAction<Progress, Result> extends AsyncTask<Void, P
         public ActionError getError() {
             return mError;
         }
+        public boolean hasError() {
+            return mError != null;
+        }
         private T getObject(){
             return mObject;
         }
     }
 
-    public static interface CallBack<T>{
+    public static interface UICallBack<T>{
         public void onSuccess(T result);
         public void onFailure(ActionError error);
+    }
+    
+    public static interface BackgroundCallBack<T>{
+    	public void onSuccess(T result);
+    	public void onFailure(ActionError error);
     }
 
     public AbstractAction(Context context){
@@ -91,31 +99,25 @@ public abstract class AbstractAction<Progress, Result> extends AsyncTask<Void, P
             HttpResponse httpResp = HttpRequestHandler.getInstance(
                             mAppContext.getApplicationContext()).processRequest(httpReq);
             JSONObject jsonResp = null;
-            String jsonRespCode = "";
-            String jsonRespMsg = "";
+            String jsonRespStaus = null;
+            String jsonRespMsg = null;
             if(httpResp.getData() != null){
                 response = new String(httpResp.getData());
-                JSONObject jsonObj = new JSONObject(response);
-                Log.d(TAG, "Received JSON response : " + jsonObj.toString(4));
-                jsonResp = jsonObj.getJSONObject(RESPONSE);
-
-                if(jsonResp != null){
-                    if(jsonResp.has(RESP_MSG))
-                        jsonRespMsg = Utils.getDecodedValue(jsonResp, RESP_MSG);
-                    jsonRespCode = jsonResp.getString(RESP_CODE);
-                }
+                jsonResp = new JSONObject(response);
+                Log.d(TAG, "Received JSON response : " + jsonResp.toString(4));
+                if(jsonResp.has(RESP_STATUS))
+                	jsonRespStaus = jsonResp.getString(RESP_STATUS);
+                if(jsonResp.has(RESP_MSG))
+                	jsonRespMsg = jsonResp.getString(RESP_MSG);
             }
 
             if(httpResp.getStatusCode() == HttpStatus.SC_OK ||
                             httpResp.getStatusCode() == HttpStatus.SC_ACCEPTED){
-                if( RESP_CODE_SUCC.equalsIgnoreCase(jsonRespCode) ){
-                    if(jsonResp.has(BODY)){
-                        result = new ActionResult<Result>(createRespObject(jsonResp.getJSONObject(BODY)));
-                    }else
-                        result = new ActionResult<Result>((Result)null);
+                if( RESP_STATUS_OK.equalsIgnoreCase(jsonRespStaus) ){
+                    result = new ActionResult<Result>(createRespObject(jsonResp));
                 } else {
                     result = new ActionResult<Result>(new ActionError(ErrorCode.SERVER_ERROR, jsonRespMsg));
-                    Log.w(TAG, "Error response, code=" + jsonRespCode + ", msg=" + jsonRespMsg);
+                    Log.w(TAG, "Error response, code=" + jsonRespStaus + ", msg=" + jsonRespMsg);
                 }
             } else if(httpResp.getStatusCode() >= HttpStatus.SC_BAD_REQUEST &&
                             httpResp.getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR){
@@ -139,12 +141,14 @@ public abstract class AbstractAction<Progress, Result> extends AsyncTask<Void, P
             Log.e(TAG, "Failed to process action : " + mServiceId + "\n" + response, e);
             result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR, e.getMessage()));
         }
+        if(mBackgroundCallBack != null){
+            if(result.hasError()){
+            	mBackgroundCallBack.onFailure(result.getError());
+            }else{
+            	mBackgroundCallBack.onSuccess(result.getObject());
+            }
+        }
         return result;
-    }
-
-    public void execute(CallBack<Result> callback){
-        mCallback = callback;
-        super.execute(new Void[0]);
     }
 
     protected final void onPostExecute(ActionResult<Result> result) {
@@ -152,13 +156,27 @@ public abstract class AbstractAction<Progress, Result> extends AsyncTask<Void, P
             Log.i(TAG, "Action has been cancelled: " + mServiceId );
             return;
         }
-        if(mCallback != null){
-            if(result.getError() == null){
-                mCallback.onSuccess(result.getObject());
+        if(mUICallback != null){
+            if(result.hasError()){
+            	mUICallback.onFailure(result.getError());
             }else{
-                mCallback.onFailure(result.getError());
+            	mUICallback.onSuccess(result.getObject());
             }
         }
+    }
+
+    public void execute(){
+    	execute(null, null);
+    }
+    
+    public void execute(UICallBack<Result> uiCallback){
+    	execute(null, uiCallback);
+    }
+
+    public void execute(BackgroundCallBack<Result> backgroundCallBack, UICallBack<Result> uiCallback){
+        mUICallback = uiCallback;
+        mBackgroundCallBack = backgroundCallBack;
+        super.execute(new Void[0]);
     }
 
     /**

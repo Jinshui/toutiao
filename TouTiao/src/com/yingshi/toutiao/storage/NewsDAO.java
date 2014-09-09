@@ -31,6 +31,15 @@ public class NewsDAO {
         return news;
     }
 
+    public void saveNews(List<News> newsList){
+    	for(News news : newsList)
+    		news.set_id(mDbAdapter.insertNews(news));
+    }
+
+    public News getNews(int _id){
+    	return mDbAdapter.fetchNewsById(_id);
+    }
+    
     public void updateNews(News news){
         mDbAdapter.updateNews(news);;
     }

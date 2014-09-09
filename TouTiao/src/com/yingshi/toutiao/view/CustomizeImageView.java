@@ -12,12 +12,20 @@ import android.widget.ImageView;
 
 public class CustomizeImageView extends ImageView{
     private static final String tag = "JIDA-JidaImageView";
-
+    
+    public static interface LoadImageCallback{
+    	void onImageLoaded(Drawable drawable);
+    }
+    
     public CustomizeImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     public void loadImage(final String url){
+    	loadImage(url, null);
+    }
+    
+    public void loadImage(final String url, final LoadImageCallback callback){
         new AsyncTask<Void, Void, Drawable>(){
             protected Drawable doInBackground(Void... params) {
                 try {
@@ -32,6 +40,8 @@ public class CustomizeImageView extends ImageView{
                 if(drawable != null){
                     setImageDrawable(drawable);
                 }
+                if(callback != null)
+                	callback.onImageLoaded(drawable);
             }
         }.execute(new Void[0]);
     }

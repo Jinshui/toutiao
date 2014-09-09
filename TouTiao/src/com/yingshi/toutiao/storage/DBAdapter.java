@@ -44,13 +44,19 @@ public class DBAdapter {
             + "videoPhotoUrl text null,"
             + "author text null,"
             + "photoUrl text null,"
-            + "thumbnailUrl text null"
+            + "thumbnailUrl text null,"
+            + "videoPhotoFilePath text null,"
+            + "photoFilePath text null,"
+            + "thumbnailFilePath text null"
             + ");";
     
     public static final String DB_NAME = "news.db";
     public static final String DB_TABLE_NEWS = "news";
     public static final int DATABASE_VERSION = 1;
-    private static String[] reports_columns = { "_id", "id", "name", "summary", "content", "time", "category", "contact", "likes", "isSpecial", "specialName", "hasVideo", "videoUrl", "videoPhotoUrl", "author", "photoUrl", "thumbnailUrl"};
+    private static String[] reports_columns = { "_id", "id", "name", "summary", 
+    	"content", "time", "category", "contact", "likes", "isSpecial", 
+    	"specialName", "hasVideo", "videoUrl", "videoPhotoUrl", "author", 
+    	"photoUrl", "thumbnailUrl", "videoPhotoFilePath", "photoFilePath", "thumbnailFilePath"};
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {
@@ -107,6 +113,9 @@ public class DBAdapter {
         initialValues.put("author", news.getAuthor());
         initialValues.put("photoUrl", news.getPhotoUrl());
         initialValues.put("thumbnailUrl", news.getThumbnailUrl());
+        initialValues.put("videoPhotoFilePath", news.getVideoPhotoFilePath());
+        initialValues.put("photoFilePath", news.getPhotoFilePath());
+        initialValues.put("thumbnailFilePath", news.getThumbnailFilePath());
         return mDb.insert(DB_TABLE_NEWS, null, initialValues);
     }
 
@@ -165,6 +174,9 @@ public class DBAdapter {
 	        news.setAuthor(cursor.getString(cursor.getColumnIndex("author")));
 	        news.setPhotoUrl(cursor.getString(cursor.getColumnIndex("photoUrl")));
 	        news.setThumbnailUrl(cursor.getString(cursor.getColumnIndex("thumbnailUrl")));
+	        news.setVideoPhotoFilePath(cursor.getString(cursor.getColumnIndex("videoPhotoFilePath")));
+	        news.setPhotoFilePath(cursor.getString(cursor.getColumnIndex("photoFilePath")));
+	        news.setThumbnailFilePath(cursor.getString(cursor.getColumnIndex("thumbnailFilePath")));
 	        return news;
         } finally {
             if(close) 

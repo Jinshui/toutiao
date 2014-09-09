@@ -34,4 +34,5 @@ public class PhotoPager extends FrameLayout {
 	public ViewPager getPhotoViewPager(){
 		return (ViewPager)findViewById(R.id.id_photos_pager);
 	}
+	
 }
