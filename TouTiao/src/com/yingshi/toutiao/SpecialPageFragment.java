@@ -4,7 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,48 +13,135 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.yingshi.toutiao.model.Article;
-import com.yingshi.toutiao.model.Article.Type;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.yingshi.toutiao.actions.AbstractAction.ActionError;
+import com.yingshi.toutiao.actions.AbstractAction.BackgroundCallBack;
+import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
+import com.yingshi.toutiao.actions.GetSpecialAction;
+import com.yingshi.toutiao.actions.GetSpecialNewsAction;
+import com.yingshi.toutiao.model.News;
+import com.yingshi.toutiao.model.Pagination;
 import com.yingshi.toutiao.model.Special;
-import com.yingshi.toutiao.util.ServerMock;
+import com.yingshi.toutiao.storage.NewsDAO;
+import com.yingshi.toutiao.storage.SpecialDAO;
 import com.yingshi.toutiao.view.CustomizeImageView;
+import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
 import com.yingshi.toutiao.view.SpecialHeader;
-import com.yingshi.toutiao.view.ptr.AbstractPTRFragment;
+import com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment;
 import com.yingshi.toutiao.view.ptr.PTRListAdapter;
 
-public class SpecialPageFragment extends AbstractPTRFragment<Special, Article> {
+public class SpecialPageFragment extends HeaderLoadingSupportPTRListFragment{
 	private final static String tag = "TT-SpecialPageFragment";
 	
-	private String mId;
+	private String mSpecialName;
 	private SpecialHeader mSpecialHeader;
+	private SpecialNewsArrayAdapter mSpecialNewsArrayAdapter;
+	private SpecialDAO mSpecialDAO;
+	private NewsDAO mNewsDAO;
+	private GetSpecialNewsAction mGetSpecialNewsAction;
+	private int mAsyncTaskCount = 0;
+	
+	BackgroundCallBack<Pagination<News>> getSpecialNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
+		public void onSuccess(Pagination<News> newsPage) {
+			mNewsDAO.save(newsPage.getItems());
+		}
+		public void onFailure(ActionError error) {
+			//TODO: Show error
+		}
+	};
+	
+	UICallBack<Pagination<News>> getSpecialNewsListUICallback = new UICallBack<Pagination<News>>(){
+		public void onSuccess(Pagination<News> newsList) {
+			if(mSpecialNewsArrayAdapter == null){
+				mSpecialNewsArrayAdapter = new SpecialNewsArrayAdapter(getActivity(), R.layout.view_special_list_item, newsList.getItems());
+				setAdapter(mSpecialNewsArrayAdapter);
+			}else{
+				mSpecialNewsArrayAdapter.addMore(newsList.getItems());
+			}
+			mSpecialHeader.getPageIndicatorView().setText(newsList.getCurrentPage() + "/" + newsList.getTotalCounts()/newsList.getPageSize());
+			if(--mAsyncTaskCount == 0){
+				showListView();
+			}
+			refreshComplete();
+		}
+		public void onFailure(ActionError error) {
+			//TODO: Show failure
+			if(--mAsyncTaskCount == 0){
+				showListView();
+			}
+			refreshComplete();
+		}
+	};
 	
 	public SpecialPageFragment() {
 	}
-
-	public SpecialPageFragment(String id) {
-		Log.d(tag, id + " new SpecialPageFragment");
-		mId = id;
+	
+	public SpecialPageFragment(String specialName) {
+		Log.d(tag, specialName + " new SpecialPageFragment");
+		mSpecialName = specialName;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.d(tag, mId + " onCreate");
+		Log.d(tag, mSpecialName + " onCreate");
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
-			mId = savedInstanceState.getString("mId");
+			mSpecialName = savedInstanceState.getString("mSpecialName");
 		}
+		mSpecialDAO = ((TouTiaoApp)getActivity().getApplication()).getSpecialDAO();
+		mNewsDAO = ((TouTiaoApp)getActivity().getApplication()).getNewsDAO();
+		loadPage(true);
+	}
+	
+	private void loadPage(boolean showLoadingView){
+		if(showLoadingView)
+			showLoadingView();
+		mAsyncTaskCount = 2;
+		new GetSpecialAction(getActivity(), mSpecialName).execute(new BackgroundCallBack<Pagination<Special>>(){
+			public void onSuccess(Pagination<Special> specials) {
+				mSpecialDAO.save(specials.getItems());
+			}
+			public void onFailure(ActionError error) {}
+		},new UICallBack<Pagination<Special>>(){
+			public void onSuccess(Pagination<Special> specials) {
+				if( ! specials.getItems().isEmpty() ){
+					Special special = specials.getItems().get(0);
+					mSpecialHeader.getHeaderImageView().loadImage(special.getPhotoUrl(), new LoadImageCallback(){
+						public void onImageLoaded(Drawable drawable) {
+							//TODO: Save image
+						}
+					});
+					mSpecialHeader.getSummaryView().setText(special.getSummary());
+				}
+				if(--mAsyncTaskCount == 0){
+					showListView();
+				}
+				refreshComplete();
+			}
+			public void onFailure(ActionError error) {
+				//TODO: Show failure
+				if(--mAsyncTaskCount == 0){
+					showListView();
+				}
+				refreshComplete();
+			}
+		});
+		
+		mGetSpecialNewsAction = new GetSpecialNewsAction(getActivity(), mSpecialName, 1, 20);
+		mGetSpecialNewsAction.execute(getSpecialNewsListBackgroundCallback, getSpecialNewsListUICallback);
 	}
 
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		Log.d(tag, mId + " onSaveInstanceState");
-		outState.putString("mId", mId);
+		Log.d(tag, mSpecialName + " onSaveInstanceState");
+		outState.putString("mSpecialName", mSpecialName);
 	}
 
 
-	public ViewHolder createHeader(LayoutInflater inflater){
+	public ViewHolder createHeaderView(LayoutInflater inflater){
 		ViewHolder holder = new ViewHolder();
 		mSpecialHeader = (SpecialHeader)inflater.inflate(R.layout.view_special_list_header, null);
 		holder.headerView = mSpecialHeader;
@@ -62,26 +149,14 @@ public class SpecialPageFragment extends AbstractPTRFragment<Special, Article> {
 		return holder;
 	}
 
-
-	public SpecialNewsArrayAdapter onDataChanged(Special special){
-		mSpecialHeader.getHeaderImageView().loadImage(special.getPhoto().getUrl());
-		mSpecialHeader.getSummaryView().setText(special.getSummary());
-		mSpecialHeader.getPageIndicatorView().setText("1/9");//TODO: Set count
-		return new SpecialNewsArrayAdapter(getActivity(), R.layout.view_special_list_item, special.getArticles());
-	}
-	
-	protected class SpecialNewsArrayAdapter extends PTRListAdapter<Article> {
+	protected class SpecialNewsArrayAdapter extends PTRListAdapter<News> {
         private LayoutInflater mInflater;
-        public SpecialNewsArrayAdapter(Context context, int res, List<Article> items) {
+        public SpecialNewsArrayAdapter(Context context, int res, List<News> items) {
             super(context, res, items);
             mInflater = LayoutInflater.from(context);
         }
-        
 
-        @SuppressWarnings("deprecation")
-		public View getView(final int position, View convertView,
-                ViewGroup parent) {
-        	final Article article = getItem(position);
+		public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
             if (convertView == null) {
                 convertView = mInflater.inflate( R.layout.view_special_list_item, null);
@@ -94,31 +169,29 @@ public class SpecialPageFragment extends AbstractPTRFragment<Special, Article> {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            if(!TextUtils.isEmpty(article.getTitle())){
-                holder.newsTitle.setText(article.getTitle());
+        	final News news = getItem(position);
+            if(!TextUtils.isEmpty(news.getName())){
+                holder.newsTitle.setText(news.getName());
             }
-            if( article.getThumbnail()!=null && article.getThumbnail().getUrl() != null){
-            	if(article.getThumbnail().getData() != null)
-            		holder.newsThumbnail.setBackgroundDrawable(new BitmapDrawable(article.getThumbnail().getData()));
+            if( news.getThumbnailUrl() != null){
+            	if(news.getThumbnailFilePath() != null)
+            		holder.newsThumbnail.loadImage("file://"+news.getThumbnailFilePath());
             	else
-            		holder.newsThumbnail.loadImage(article.getThumbnail().getUrl());
+            		holder.newsThumbnail.loadImage(news.getThumbnailUrl());
             }
 
-            if(!TextUtils.isEmpty(article.getSummary())){
-                holder.newsSummary.setText(article.getSummary());
+            if(!TextUtils.isEmpty(news.getSummary())){
+                holder.newsSummary.setText(news.getSummary());
             }
-            Type type = article.getType();
-            holder.newsVideoSign.setVisibility( type == Type.VIDEO ? View.VISIBLE : View.INVISIBLE);
-            
+            holder.newsVideoSign.setVisibility( news.isHasVideo() ? View.VISIBLE : View.INVISIBLE);
             convertView.setOnClickListener(new OnClickListener(){
 				public void onClick(View v) {
 					Intent showNewsDetailIntent = new Intent();
 					showNewsDetailIntent.setClass(getContext(), NewsDetailActivity.class);
-					showNewsDetailIntent.putExtra(NewsDetailActivity.INTENT_EXTRA_ARTICLE, article);
+					showNewsDetailIntent.putExtra(Constants.INTENT_EXTRA_NEWS_ID, news.get_id());
 					getActivity().startActivity(showNewsDetailIntent);
 				}
             });
-            
             return convertView;
         }
 
@@ -129,22 +202,14 @@ public class SpecialPageFragment extends AbstractPTRFragment<Special, Article> {
             View newsVideoSign;
         }
     }
-	
 
-	public Special loadData(){
-		Log.d(tag, "started loading special page for " + mId);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-		}
-		return ServerMock.getSpecial("");
+	@Override
+	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+		loadPage(false);
 	}
-	
-	public List<Article> loadMoreList(){
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-		}
-		return null;
+
+	@Override
+	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+		mGetSpecialNewsAction.getNewPageAction().execute(getSpecialNewsListBackgroundCallback, getSpecialNewsListUICallback);
 	}
 }

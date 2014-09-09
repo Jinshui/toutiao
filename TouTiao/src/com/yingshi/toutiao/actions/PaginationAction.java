@@ -95,8 +95,21 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
     }
 
     /**
+     * This is used to clone a new action for the current page request for retry.
+     * 
      * For an AysnTask action can only be executed once, so we have to create a new one
      * for each execution. Subclasses of this class should clone all fields to the new action
+     * @return
+     */
+    public PaginationAction<Result> createRetryPageAction(){
+    	PaginationAction<Result> nextPageAction = createNextPageAction();
+    	nextPageAction.mPageIndex = nextPageAction.mPageIndex > 1 ? nextPageAction.mPageIndex -1 : 1;
+    	return nextPageAction;
+    }
+    /**
+     * For an AysnTask action can only be executed once, so we have to create a new one
+     * for each execution. Subclasses of this class should clone all fields to the action
+     * of the next page
      * @return
      */
     protected abstract PaginationAction<Result> createNextPageAction();

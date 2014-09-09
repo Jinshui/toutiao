@@ -9,8 +9,6 @@ import android.view.View.OnClickListener;
 
 public class SpecialNewsActivity extends FragmentActivity {
 
-	public static final String INTENT_EXTRA_NEWS_ID = "news_id";
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,8 +22,8 @@ public class SpecialNewsActivity extends FragmentActivity {
 			}
 		});
 
-		String specialId = getIntent().getStringExtra(INTENT_EXTRA_NEWS_ID);
-		getSupportFragmentManager().beginTransaction().replace(R.id.id_special_news_list, new SpecialPageFragment(specialId)).commit();
+		String sepcialName = getIntent().getStringExtra(Constants.INTENT_EXTRA_NEWS_ID);
+		getSupportFragmentManager().beginTransaction().replace(R.id.id_special_news_list, new SpecialPageFragment(sepcialName)).commit();
 	}
 
 }

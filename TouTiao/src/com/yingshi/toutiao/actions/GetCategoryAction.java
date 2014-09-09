@@ -24,6 +24,6 @@ public class GetCategoryAction extends PaginationAction<Category>{
 
 	@Override
 	public Category convertJsonToResult(JSONObject item) throws JSONException {
-		return null;
+		return Category.fromJSON(item);
 	}
 }

@@ -11,20 +11,14 @@
  */
 package com.yingshi.toutiao.storage;
 
-import java.util.List;
-
 import android.database.sqlite.SQLiteDatabase;
 
-import com.yingshi.toutiao.model.News;
-import com.yingshi.toutiao.storage.adapters.NewsDBAdapter;
+import com.yingshi.toutiao.model.Special;
+import com.yingshi.toutiao.storage.adapters.SpecialDBAdapter;
 
-public class NewsDAO extends BaseDAO<News>{
+public class SpecialDAO extends BaseDAO<Special>{
     static final String tag = "TT-NewsDAO";
-    public NewsDAO(SQLiteDatabase mDb) {
-        super(new NewsDBAdapter(mDb));
-    }
-    
-    public List<News> findFavorites(int pageSize, int pageIndex){
-    	return ((NewsDBAdapter)getDbAdapter()).findFavorites(pageSize, pageIndex);
+    public SpecialDAO(SQLiteDatabase mDb) {
+        super(new SpecialDBAdapter(mDb));
     }
 }

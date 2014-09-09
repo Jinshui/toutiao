@@ -1,46 +1,14 @@
 package com.yingshi.toutiao.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class Special implements Parcelable {
-	private String id;
+public class Special extends BaseModel{
 	private String summary;
-	private Photo photo; 
-	private int totalCount;
-	private List<Article> articles;
-	public static final Parcelable.Creator<Special> CREATOR = new Parcelable.Creator<Special>() {
-		public Special createFromParcel(Parcel in) {
-			return new Special(in);
-		}
-
-		public Special[] newArray(int size) {
-			return new Special[size];
-		}
-	};
+	private String photoUrl; 
+	private String photoFilePath;
 	
 	public Special() {
-	}
-
-	private Special(Parcel in) {
-	}
-
-	public int describeContents() {
-		return 0;
-	}
-
-	public void writeToParcel(Parcel dest, int flags) {
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getSummary() {
@@ -51,29 +19,32 @@ public class Special implements Parcelable {
 		this.summary = summary;
 	}
 
-	public Photo getPhoto() {
-		return photo;
+	public String getPhotoUrl() {
+		return photoUrl;
 	}
 
-	public void setPhoto(Photo photo) {
-		this.photo = photo;
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 
-	public int getTotalCount() {
-		return totalCount;
+	public String getPhotoFilePath() {
+		return photoFilePath;
 	}
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
+	public void setPhotoFilePath(String photoFilePath) {
+		this.photoFilePath = photoFilePath;
 	}
-
-	public List<Article> getArticles() {
-		if(articles == null)
-			articles = new ArrayList<Article>();
-		return articles;
-	}
-
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
-	}
+	
+    public static Special fromJSON(JSONObject json) throws JSONException{
+        if(json == null)
+            throw new IllegalArgumentException("JSONObject is null");
+        Special special = new Special();
+        if(json.has("Id"))
+        	special.setId(json.getString("Id"));
+        if(json.has("Dy"))
+        	special.setSummary(json.getString("Dy"));
+        if(json.has("BigUrl"))
+        	special.setPhotoUrl(json.getString("BigUrl"));
+        return special;
+    }
 }

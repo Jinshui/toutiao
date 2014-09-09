@@ -1,6 +1,7 @@
 package com.yingshi.toutiao;
 
 import com.yingshi.toutiao.model.News;
+import com.yingshi.toutiao.storage.NewsDAO;
 import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CustomizeImageView;
 import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
@@ -23,10 +24,15 @@ public class NewsDetailActivity extends Activity
 {
 	private View mShareNewsWidget;
 	private View mToolsBar;
+	private News mNews;
+	private NewsDAO mNewsDAO;
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news_detail);
+
+		mNewsDAO = ((TouTiaoApp)getApplication()).getNewsDAO();
+		
 		HeaderView header = (HeaderView)findViewById(R.id.id_news_detail_header);
 		header.setLeftImage(R.drawable.fanhui, new OnClickListener(){
 			public void onClick(View v) {
@@ -37,7 +43,7 @@ public class NewsDetailActivity extends Activity
 		final int newsId = getIntent().getIntExtra(Constants.INTENT_EXTRA_NEWS_ID, 0);
 		new AsyncTask<Void, Void, News>(){
 			protected News doInBackground(Void... params) {
-				return ((TouTiaoApp)getApplication()).getNewsDAO().getNews(newsId);
+				return ((TouTiaoApp)getApplication()).getNewsDAO().get(newsId);
 			}
 			
 			public void onPostExecute(News news){
@@ -61,6 +67,7 @@ public class NewsDetailActivity extends Activity
 	}
 	
 	private void updateUI(News news){
+		mNews = news;
 		TextView titleView = (TextView)findViewById(R.id.id_news_detail_title);
 		titleView.setText(news.getName());
 		
@@ -101,7 +108,8 @@ public class NewsDetailActivity extends Activity
 	}
 	
 	public void addToFavorites(View view){
-		
+		mNews.setFavorite(true);
+		mNewsDAO.save(mNews);
 	}
 	
 	public void addComment(View view){

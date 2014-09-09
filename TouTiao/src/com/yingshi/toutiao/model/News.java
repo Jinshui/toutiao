@@ -4,8 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class News{
-	private String id;
+public class News extends BaseModel{
 	private String name;
 	private String summary;
 	private long time;
@@ -23,10 +22,10 @@ public class News{
 	private String thumbnailUrl;
 	
 	//used by client only
-	private long _id;
 	private String videoPhotoFilePath;
 	private String photoFilePath;
 	private String thumbnailFilePath;
+	private boolean isFavorite;
 
 	public News(){}
 	
@@ -71,22 +70,6 @@ public class News{
 	
 	public int describeContents() {
 		return 0;
-	}
-
-	public long get_id() {
-		return _id;
-	}
-
-	public void set_id(long _id) {
-		this._id = _id;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -231,5 +214,13 @@ public class News{
 
 	public void setThumbnailFilePath(String thumbnailFilePath) {
 		this.thumbnailFilePath = thumbnailFilePath;
+	}
+
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
 	}
 }

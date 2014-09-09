@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,7 +40,7 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 	
 	private String mCategory;
 	private PhotoPager mPhotoPager;
-	private PTRListAdapter<News> mPhotoPagerAdapter;
+	private PTRListAdapter<News> mNewsListAdapter;
 	private List<News> mFocusNews;
 	private NewsDAO mNewsDAO;
 	private GetNewsAction mGetnewsAction;
@@ -50,18 +49,18 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 	
 	BackgroundCallBack<Pagination<News>> getNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
 		public void onSuccess(Pagination<News> newsPage) {
-			mNewsDAO.saveNews(newsPage.getItems());
+			mNewsDAO.save(newsPage.getItems());
 		}
 		public void onFailure(ActionError error) {}
 	};
 	
 	UICallBack<Pagination<News>> getNewsListUICallback = new UICallBack<Pagination<News>>(){
 		public void onSuccess(Pagination<News> newsList) {
-			if(mPhotoPagerAdapter == null){
-				mPhotoPagerAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
-				setAdapter(mPhotoPagerAdapter);
+			if(mNewsListAdapter == null){
+				mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
+				setAdapter(mNewsListAdapter);
 			}else{
-				mPhotoPagerAdapter.addMore(newsList.getItems());
+				mNewsListAdapter.addMore(newsList.getItems());
 			}
 			if(--mAsyncTaskCount == 0){
 				showListView();
@@ -102,7 +101,7 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 		mAsyncTaskCount = 2;
 		new GetFocusAction(getActivity(), mCategory).execute(new BackgroundCallBack<List<News>>(){
 			public void onSuccess(List<News> newsList) {
-				mNewsDAO.saveNews(newsList);
+				mNewsDAO.save(newsList);
 			}
 			public void onFailure(ActionError error) {}
 		},new UICallBack<List<News>>(){
@@ -139,7 +138,7 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 		mPhotoPager.getPhotoViewPager().setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				int currentPosition = mPhotoPager.getPhotoViewPager().getCurrentItem();
-				News news = mPhotoPagerAdapter.getItem(currentPosition);
+				News news = mNewsListAdapter.getItem(currentPosition);
 				showNews(getActivity(), news);
 			}
 		});
@@ -165,10 +164,11 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 	
 	private static void showNews(Context context, News news){
 		Intent showNewsDetailIntent = new Intent();
-		showNewsDetailIntent.putExtra(Constants.INTENT_EXTRA_NEWS_ID, news.get_id());
 		if(news.isSpecial()){
+			showNewsDetailIntent.putExtra(Constants.INTENT_EXTRA_NEWS_ID, news.getName());
 			showNewsDetailIntent.setClass(context, SpecialNewsActivity.class);
 		}else{
+			showNewsDetailIntent.putExtra(Constants.INTENT_EXTRA_NEWS_ID, news.get_id());
 			showNewsDetailIntent.setClass(context, NewsDetailActivity.class);
 		}
 		context.startActivity(showNewsDetailIntent);

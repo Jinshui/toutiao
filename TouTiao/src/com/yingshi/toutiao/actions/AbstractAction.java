@@ -22,6 +22,7 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
     protected Context mAppContext;
     private UICallBack<Result> mUICallback;
     private BackgroundCallBack<Result> mBackgroundCallBack;
+    private IBackgroundProcessor<Result> mBackgroundProcessor = new NetworkBackgroundProcessor();
     private boolean mCancelled = false;
     public static enum ErrorCode{
         INVALID_REQUEST,
@@ -83,72 +84,92 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
     	public void onSuccess(T result);
     	public void onFailure(ActionError error);
     }
+    
+    public static interface IBackgroundProcessor<T> {
+    	public ActionResult<T> doInBackground();
+    }
 
+    public class NetworkBackgroundProcessor implements IBackgroundProcessor<Result>{
+		public ActionResult<Result> doInBackground() {
+	        ActionResult<Result> result = null;
+	        String response = null;
+	        try{
+	            JSONObject jsonReq = createJSONRequest();
+	            HttpRequest httpReq = new HttpRequest(URL, jsonReq.toString().getBytes());
+	            Log.d(TAG, "Sending JSON request : " + jsonReq.toString(4));
+
+	            HttpResponse httpResp = HttpRequestHandler.getInstance(
+	                            mAppContext.getApplicationContext()).processRequest(httpReq);
+	            JSONObject jsonResp = null;
+	            String jsonRespStaus = null;
+	            String jsonRespMsg = null;
+	            if(httpResp.getData() != null){
+	                response = new String(httpResp.getData());
+	                jsonResp = new JSONObject(response);
+	                Log.d(TAG, "Received JSON response : " + jsonResp.toString(4));
+	                if(jsonResp.has(RESP_STATUS))
+	                	jsonRespStaus = jsonResp.getString(RESP_STATUS);
+	                if(jsonResp.has(RESP_MSG))
+	                	jsonRespMsg = jsonResp.getString(RESP_MSG);
+	            }
+
+	            if(httpResp.getStatusCode() == HttpStatus.SC_OK ||
+	                            httpResp.getStatusCode() == HttpStatus.SC_ACCEPTED){
+	                if( RESP_STATUS_OK.equalsIgnoreCase(jsonRespStaus) ){
+	                    result = new ActionResult<Result>(createRespObject(jsonResp));
+	                } else {
+	                    result = new ActionResult<Result>(new ActionError(ErrorCode.SERVER_ERROR, jsonRespMsg));
+	                    Log.w(TAG, "Error response, code=" + jsonRespStaus + ", msg=" + jsonRespMsg);
+	                }
+	            } else if(httpResp.getStatusCode() >= HttpStatus.SC_BAD_REQUEST &&
+	                            httpResp.getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR){
+	                result = new ActionResult<Result>(new ActionError(ErrorCode.INVALID_REQUEST, jsonRespMsg));
+	            } else if(httpResp.getStatusCode() >= HttpStatus.SC_INTERNAL_SERVER_ERROR){
+	                result = new ActionResult<Result>(new ActionError(ErrorCode.SERVER_ERROR, jsonRespMsg));
+	            } else if(httpResp.getStatusCode() == HttpResponse.NETWORK_TIMEOUT){
+	                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_TIMEOUT,
+	                                mAppContext.getText(R.string.msg_network_timeout).toString()));
+	            } else if(httpResp.getStatusCode() == HttpResponse.NETWORK_ERROR){
+	                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR,
+	                                mAppContext.getText(R.string.msg_network_error).toString()));
+	            } else if(httpResp.getStatusCode() == HttpResponse.NETWORK_DISCONNECTED){
+	                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_DISCONNECTED,
+	                                mAppContext.getText(R.string.msg_network_disconnected).toString()));
+	            } else if(httpResp.getStatusCode() == HttpResponse.UNKNOWN_ERROR){
+	                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR,
+	                                httpResp.getException().getMessage()));
+	            }
+	        } catch(Exception e) {
+	            Log.e(TAG, "Failed to process action : " + mServiceId + "\n" + response, e);
+	            result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR, e.getMessage()));
+	        }
+	        if(mBackgroundCallBack != null){
+	            if(result.hasError()){
+	            	mBackgroundCallBack.onFailure(result.getError());
+	            }else{
+	            	mBackgroundCallBack.onSuccess(result.getObject());
+	            }
+	        }
+	        return result;
+		}
+    }
+    
+    public void setBackgroundProcessor(IBackgroundProcessor<Result> processor){
+    	mBackgroundProcessor = processor;
+    }
+    
     public AbstractAction(Context context){
+    	this(context, null);
+    }
+    
+    public AbstractAction(Context context, IBackgroundProcessor<Result> processor){
         mAppContext = context;
+        if(processor != null)
+        	mBackgroundProcessor = processor;
     }
 
     protected ActionResult<Result> doInBackground(Void...  params){
-        ActionResult<Result> result = null;
-        String response = null;
-        try{
-            JSONObject jsonReq = createJSONRequest();
-            HttpRequest httpReq = new HttpRequest(URL, jsonReq.toString().getBytes());
-            Log.d(TAG, "Sending JSON request : " + jsonReq.toString(4));
-
-            HttpResponse httpResp = HttpRequestHandler.getInstance(
-                            mAppContext.getApplicationContext()).processRequest(httpReq);
-            JSONObject jsonResp = null;
-            String jsonRespStaus = null;
-            String jsonRespMsg = null;
-            if(httpResp.getData() != null){
-                response = new String(httpResp.getData());
-                jsonResp = new JSONObject(response);
-                Log.d(TAG, "Received JSON response : " + jsonResp.toString(4));
-                if(jsonResp.has(RESP_STATUS))
-                	jsonRespStaus = jsonResp.getString(RESP_STATUS);
-                if(jsonResp.has(RESP_MSG))
-                	jsonRespMsg = jsonResp.getString(RESP_MSG);
-            }
-
-            if(httpResp.getStatusCode() == HttpStatus.SC_OK ||
-                            httpResp.getStatusCode() == HttpStatus.SC_ACCEPTED){
-                if( RESP_STATUS_OK.equalsIgnoreCase(jsonRespStaus) ){
-                    result = new ActionResult<Result>(createRespObject(jsonResp));
-                } else {
-                    result = new ActionResult<Result>(new ActionError(ErrorCode.SERVER_ERROR, jsonRespMsg));
-                    Log.w(TAG, "Error response, code=" + jsonRespStaus + ", msg=" + jsonRespMsg);
-                }
-            } else if(httpResp.getStatusCode() >= HttpStatus.SC_BAD_REQUEST &&
-                            httpResp.getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR){
-                result = new ActionResult<Result>(new ActionError(ErrorCode.INVALID_REQUEST, jsonRespMsg));
-            } else if(httpResp.getStatusCode() >= HttpStatus.SC_INTERNAL_SERVER_ERROR){
-                result = new ActionResult<Result>(new ActionError(ErrorCode.SERVER_ERROR, jsonRespMsg));
-            } else if(httpResp.getStatusCode() == HttpResponse.NETWORK_TIMEOUT){
-                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_TIMEOUT,
-                                mAppContext.getText(R.string.msg_network_timeout).toString()));
-            } else if(httpResp.getStatusCode() == HttpResponse.NETWORK_ERROR){
-                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR,
-                                mAppContext.getText(R.string.msg_network_error).toString()));
-            } else if(httpResp.getStatusCode() == HttpResponse.NETWORK_DISCONNECTED){
-                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_DISCONNECTED,
-                                mAppContext.getText(R.string.msg_network_disconnected).toString()));
-            } else if(httpResp.getStatusCode() == HttpResponse.UNKNOWN_ERROR){
-                result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR,
-                                httpResp.getException().getMessage()));
-            }
-        } catch(Exception e) {
-            Log.e(TAG, "Failed to process action : " + mServiceId + "\n" + response, e);
-            result = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR, e.getMessage()));
-        }
-        if(mBackgroundCallBack != null){
-            if(result.hasError()){
-            	mBackgroundCallBack.onFailure(result.getError());
-            }else{
-            	mBackgroundCallBack.onSuccess(result.getObject());
-            }
-        }
-        return result;
+    	return mBackgroundProcessor.doInBackground();
     }
 
     protected final void onPostExecute(ActionResult<Result> result) {
