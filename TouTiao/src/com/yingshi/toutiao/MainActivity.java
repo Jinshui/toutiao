@@ -19,8 +19,8 @@ import android.view.Window;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -33,14 +33,15 @@ import com.yingshi.toutiao.view.HeaderView;
 
 public class MainActivity extends SlidingFragmentActivity
 {
-
+	public static final String INTENT_EXTRA_SHOW_USER_CENTER = "show_user_center";
 	private List<RelativeLayout> mTabs = new ArrayList<RelativeLayout>();
 //	private static String[] tabTitles = { "HEADLINE", "TELEPLAY", "MOVIE", "RATINGS"};//, "明星", "综艺", "公司" };
 	private List<Category> mCategories;
 	private TabHost mTabHost;
 	private HorizontalScrollView mTabScrollView ;
 	private ViewPager mViewPager;
-
+	private UserCenterFragment mUserCenterFragment;
+	
 	private TabHost.TabContentFactory mEmptyTabContentFactory = new TabHost.TabContentFactory(){
 		public View createTabContent(String tag) {
 			return new TextView(MainActivity.this);
@@ -57,6 +58,9 @@ public class MainActivity extends SlidingFragmentActivity
 		initContentView();
 		// 初始化SlideMenu
 		initUserCenterMenu();
+		
+		if(getIntent().getBooleanExtra(INTENT_EXTRA_SHOW_USER_CENTER, false))
+			getSlidingMenu().showMenu();
 	}
 
 	private void initContentView()
@@ -79,7 +83,7 @@ public class MainActivity extends SlidingFragmentActivity
 			}});
 		headerView.setTitle(R.string.title_toutiao);
 		
-		GetCategoryAction getCategoryAction = new GetCategoryAction(this, 1, 100);
+		GetCategoryAction getCategoryAction = new GetCategoryAction(this, 1, 10);
 		getCategoryAction.execute(new UICallBack<Pagination<Category>>(){
 			public void onSuccess(Pagination<Category> result) {
 				updateUI(mCategories = result.getItems());
@@ -137,11 +141,9 @@ public class MainActivity extends SlidingFragmentActivity
 	private void initUserCenterMenu()
 	{
 		SlidingMenu menu = getSlidingMenu();
-		Fragment leftMenuFragment = new UserCenterFragment(menu);
-//		FrameLayout framelayout = new FrameLayout(this);
+		mUserCenterFragment = new UserCenterFragment(menu);
 		setBehindContentView(R.layout.view_user_center_frame);
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.id_left_menu_frame, leftMenuFragment).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.id_left_menu_frame, mUserCenterFragment).commit();
 		menu.setMode(SlidingMenu.LEFT);
 		// 设置触摸屏幕的模式
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);

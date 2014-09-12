@@ -26,10 +26,8 @@ import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
 import com.yingshi.toutiao.actions.GetFocusAction;
 import com.yingshi.toutiao.actions.GetNewsAction;
 import com.yingshi.toutiao.model.News;
-import com.yingshi.toutiao.model.NewsPage;
 import com.yingshi.toutiao.model.Pagination;
 import com.yingshi.toutiao.storage.NewsDAO;
-import com.yingshi.toutiao.util.ServerMock;
 import com.yingshi.toutiao.view.CustomizeImageView;
 import com.yingshi.toutiao.view.PhotoPager;
 import com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment;
@@ -250,16 +248,6 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 		}
 	}
 
-
-	public NewsPage loadData(){
-		Log.d(tag, "started loading page for " + mCategory);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-		}
-		return ServerMock.getNewsPage(mCategory);
-	}
-	
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 		loadPage(false);

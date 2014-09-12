@@ -52,6 +52,10 @@ public class HttpRequest {
         return reqEntity;
     }
 
+    public byte[] getData(){
+    	return mData;
+    }
+    
     /**
      * hasData() - used to determine if this request is a GET or a POST.
      *

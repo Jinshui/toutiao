@@ -38,7 +38,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 public class HttpRequestHandler {
-    static final String tag = "JIDA-RequestHandler";
+    static final String tag = "TT-RequestHandler";
     static final int DEFAULT_CONN_TIMEOUT = 10 * 1000;
     static final int DEFAULT_SO_TIMEOUT = 30 * 1000;
     private DefaultHttpClient client = null;
@@ -136,6 +136,7 @@ public class HttpRequestHandler {
             } else {
                 httpReq = new HttpGet(req.getUrl());
             }
+            Log.d(tag, new String(req.getData()));
             Log.d(tag, httpReq.getMethod() + " : " + req.getUrl());
             //set default http parameters
             HttpParams httpParameters = new BasicHttpParams();

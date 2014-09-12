@@ -1,31 +1,65 @@
 package com.yingshi.toutiao;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import java.io.FileNotFoundException;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.yingshi.toutiao.view.CustomizeImageView;
 
 public class UserCenterFragment extends Fragment
 {
+	private final static String tag = "TT-UserCenterFragment";
 	private SlidingMenu mSlidingMenu;
 	private View mView;
 	private ImageButton mReturnBtn;
-	private ImageView mUserPhoto;
+	private CustomizeImageView mUserPhoto;
 	private TextView mUserName;
 	private View mBtnFavorites;
 	private View mBtnDownloads;
 	private View mBtnPush;
 	private View mBtnClearCache;
+	
+	class PhotoUpdateBroadcastReceiver extends BroadcastReceiver{
+		public void onReceive(Context context, Intent intent) {
+			if(LoginActivity.INTENT_ACTION_PHOTO_UPDATED.equals(intent.getAction())){
+				Log.d(tag, "Received intent: " + LoginActivity.INTENT_ACTION_PHOTO_UPDATED);
+				loadUserPhoto();
+			}
+		}
+	}
 
+	private PhotoUpdateBroadcastReceiver mReceiver;
 	public UserCenterFragment(SlidingMenu slidingMenu){
 		mSlidingMenu = slidingMenu;
+	}
+	
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mReceiver = new PhotoUpdateBroadcastReceiver();
+	}
+	
+	public void onResume(){
+		super.onResume();
+		IntentFilter filter = new IntentFilter(LoginActivity.INTENT_ACTION_PHOTO_UPDATED);
+		getActivity().registerReceiver(mReceiver, filter);
+	}
+	
+	public void onPause(){
+		super.onPause();
+		getActivity().unregisterReceiver(mReceiver);
 	}
 	
 	@Override
@@ -38,18 +72,27 @@ public class UserCenterFragment extends Fragment
 		}
 		return mView;
 	}
+	
+	private void loadUserPhoto(){
+		try {
+			mUserPhoto.loadImage(getActivity().openFileInput("user_profile_photo.png"));
+		} catch (FileNotFoundException e) {
+			Log.e(tag, "Failed to load image", e);
+		}
+	}
 
 	private void initView(LayoutInflater inflater, ViewGroup container)
 	{
 		mView = inflater.inflate(R.layout.view_user_center, container, false);
 		mReturnBtn = (ImageButton)mView.findViewById(R.id.id_btn_back_to_toutiao);
-		mUserPhoto = (ImageView)mView.findViewById(R.id.id_user_profile_photo);
+		mUserPhoto = (CustomizeImageView)mView.findViewById(R.id.id_user_profile_photo);
 		mUserName = (TextView)mView.findViewById(R.id.id_user_name);
 		mBtnFavorites = mView.findViewById(R.id.id_favorites);
 		mBtnDownloads = mView.findViewById(R.id.id_downloads);
 		mBtnPush = mView.findViewById(R.id.id_push);
 		mBtnClearCache = mView.findViewById(R.id.id_clear_cache);
 		addListener();
+		loadUserPhoto();
 	}
 	
 	private void addListener(){
@@ -57,6 +100,10 @@ public class UserCenterFragment extends Fragment
 			public void onClick(View v) {
 				mSlidingMenu.showContent();
 			}});
+	}
+	
+	public void updateProfilePhoto(String url){
+		mUserPhoto.loadImage(url);
 	}
 	
 	public void showMyFavorites(){

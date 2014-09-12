@@ -22,7 +22,7 @@
             android:contentDescription="@string/img_content_description"/>
     </RelativeLayout>
 
-    <ImageView
+    <com.yingshi.toutiao.view.CustomizeImageView
         android:id="@+id/id_user_profile_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"

@@ -293,6 +293,32 @@ public class Utils {
             }
         }
     }
+    
+    public static void saveDataToOutput(InputStream is, OutputStream os) throws Exception{
+        Log.d(tag, String.format("saveDataToFile"));
+        if(is  == null || os == null) {
+            Log.d(tag, "Invalid data or file path");
+            return;
+        }
+        try {
+            byte[] data = new byte[1024];
+            int read = is.read(data);
+            while( read >= 0 ){
+                os.write(data, 0, read);
+                read = is.read(data);
+            }
+            os.flush();
+        } finally {
+            try {
+                if (os != null) {
+                    os.close();
+                    os = null;
+                }
+            } catch (Exception ex) {
+                Log.e(tag, "Error closing Output Stream", ex);
+            }
+        }
+    }
 
     public static byte[] readDataFromFile(String filePath){
         ByteArrayOutputStream bArrayOut = null;

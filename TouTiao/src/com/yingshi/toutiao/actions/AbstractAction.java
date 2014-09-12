@@ -11,12 +11,14 @@ import com.yingshi.toutiao.http.HttpRequest;
 import com.yingshi.toutiao.http.HttpRequestHandler;
 import com.yingshi.toutiao.http.HttpResponse;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, ActionResult<Result>> implements JSONConstants{
-    private static final String TAG = "JIDA-AbstractRequest";
+    private static final String TAG = "TT-AbstractRequest";
     private static final String URL = Constants.SERVER_ADDRESS;
     protected String mServiceId;
     protected Context mAppContext;
@@ -95,11 +97,10 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
 	        String response = null;
 	        try{
 	            JSONObject jsonReq = createJSONRequest();
-	            HttpRequest httpReq = new HttpRequest(URL, jsonReq.toString().getBytes());
+	            HttpRequest httpReq = new HttpRequest(URL, jsonReq.toString().getBytes("utf-8"));
 	            Log.d(TAG, "Sending JSON request : " + jsonReq.toString(4));
 
-	            HttpResponse httpResp = HttpRequestHandler.getInstance(
-	                            mAppContext.getApplicationContext()).processRequest(httpReq);
+	            HttpResponse httpResp = HttpRequestHandler.getInstance(mAppContext.getApplicationContext()).processRequest(httpReq);
 	            JSONObject jsonResp = null;
 	            String jsonRespStaus = null;
 	            String jsonRespMsg = null;
@@ -194,10 +195,15 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
     	execute(null, uiCallback);
     }
 
-    public void execute(BackgroundCallBack<Result> backgroundCallBack, UICallBack<Result> uiCallback){
+    @SuppressLint("NewApi")
+	public void execute(BackgroundCallBack<Result> backgroundCallBack, UICallBack<Result> uiCallback){
         mUICallback = uiCallback;
         mBackgroundCallBack = backgroundCallBack;
-        super.execute(new Void[0]);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
+            super.execute();
+        } else {
+        	super.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
     /**

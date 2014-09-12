@@ -1,5 +1,6 @@
 package com.yingshi.toutiao;
 
+import com.tencent.tauth.Tencent;
 import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.storage.NewsDAO;
 import com.yingshi.toutiao.util.Utils;
@@ -129,6 +130,14 @@ public class NewsDetailActivity extends Activity
 	public void shareQQ(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
 		mToolsBar.setBackgroundColor(Color.RED);
+		//分享类型
+//		Bundle params = new Bundle();
+//		params.putString(Tencent.SHARE_TO_QQ_KEY_TYPE, SHARE_TO_QZONE_TYPE_IMAGE_TEXT );
+//	    params.putString(Tencent.SHARE_TO_QQ_TITLE, "标题");//必填
+//	    params.putString(Tencent.SHARE_TO_QQ_SUMMARY, "摘要");//选填
+//	    params.putString(Tencent.SHARE_TO_QQ_TARGET_URL, "跳转URL");//必填
+//	    params.putStringArrayList(Tencent.SHARE_TO_QQ_IMAGE_URL, "图片链接ArrayList");
+//	    mTencent.shareToQzone(this, params, new BaseUiListener());
 	}
 	
 	public void cancelShare(View view){

@@ -1,21 +1,7 @@
 package com.yingshi.toutiao.util;
 
-import java.util.Date;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
-
-import com.yingshi.toutiao.R;
-import com.yingshi.toutiao.model.Article;
-import com.yingshi.toutiao.model.TempCategory;
-import com.yingshi.toutiao.model.NewsPage;
-import com.yingshi.toutiao.model.Photo;
-import com.yingshi.toutiao.model.Article.Type;
-import com.yingshi.toutiao.model.SearchResult;
-import com.yingshi.toutiao.model.Special;
-
 public class ServerMock {
+	/*
 	private final static String tag = "TT-ServerMock";
 	final static String body = "android:onClick Name of the method in this View's context to invoke when the view is clicked. This name must correspond to a public method that takes exactly one parameter of type View. For instance, if you specify android:onClick=\"sayHello\", you must declare a public void sayHello(View v) method of your context (typically, your Activity)" + 
                                "Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character. This may also be a reference to a resource (in the form \"@[package:]type:name\") or theme attribute (in the form \"?[package:][type:]name\") containing a value of this type. This corresponds to the global attribute resource symbol onClick.";
@@ -205,4 +191,5 @@ public class ServerMock {
 		}
 		return result;
 	}
+	*/
 }

@@ -45,4 +45,27 @@ public class CustomizeImageView extends ImageView{
             }
         }.execute(new Void[0]);
     }
+
+    public void loadImage(final InputStream is){
+    	loadImage(is, null);
+    }
+    
+    public void loadImage(final InputStream is, final LoadImageCallback callback){
+        new AsyncTask<Void, Void, Drawable>(){
+            protected Drawable doInBackground(Void... params) {
+                try {
+                    return Drawable.createFromStream(is, "src name");
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+            protected void onPostExecute(Drawable drawable){
+                if(drawable != null){
+                    setImageDrawable(drawable);
+                }
+                if(callback != null)
+                	callback.onImageLoaded(drawable);
+            }
+        }.execute(new Void[0]);
+    }
 }
