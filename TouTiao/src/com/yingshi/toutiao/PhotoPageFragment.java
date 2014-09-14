@@ -23,17 +23,15 @@ public class PhotoPageFragment extends Fragment{
 		mNews = news;
 	}
 	
-	public void onResume(){
-		super.onResume();
-		mImageView.loadImage(mNews.getPhotoUrl(), new LoadImageCallback(){
-			public void onImageLoaded(Drawable drawable) {
-				//TODO: Save the image
-			}
-		});
-	}
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mImageView = (CustomizeImageView) inflater.inflate(R.layout.view_news_list_photo_page, container, false);
+		if(mImageView == null){
+			mImageView = (CustomizeImageView) inflater.inflate(R.layout.view_news_list_photo_page, container, false);
+			mImageView.loadImage(mNews.getPhotoUrl(), new LoadImageCallback(){
+				public void onImageLoaded(Drawable drawable) {
+					//TODO: Save the image?
+				}
+			});
+		}
 		return mImageView;
 	}
 }

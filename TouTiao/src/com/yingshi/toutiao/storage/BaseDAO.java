@@ -53,4 +53,8 @@ public class BaseDAO<T extends BaseModel> {
     public List<T> getAll(String orderBy) {
         return mDbAdapter.fetchAll(orderBy);
     }
+
+    public List<T> search(String query, String orderBy) {
+        return mDbAdapter.fetchAll(orderBy);
+    }
 }

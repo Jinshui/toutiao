@@ -39,7 +39,6 @@ public class SearchPageFragment extends HeaderLoadingSupportPTRListFragment {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setMode(Mode.PULL_FROM_END);
 	}
 
 	public void doSearch(String keyword){
@@ -49,6 +48,7 @@ public class SearchPageFragment extends HeaderLoadingSupportPTRListFragment {
 	}
 	
 	public ViewHolder createHeaderView(LayoutInflater inflater){
+		setMode(Mode.PULL_FROM_END);
 		return null;
 	}
 

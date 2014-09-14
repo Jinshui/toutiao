@@ -2,6 +2,7 @@ package com.yingshi.toutiao.view.ptr;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public abstract class HeaderLoadingSupportPTRListFragment extends Fragment imple
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		Log.d(tag, "onCreateView");
 		View layout = inflater.inflate(R.layout.view_ptr_list_layout, container, false);
 		mListView = (CustomizedPTRListView) layout.findViewById(R.id.id_content);
 		ViewHolder holder = createHeaderView(inflater);

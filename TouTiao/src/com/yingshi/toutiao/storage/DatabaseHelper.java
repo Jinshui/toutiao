@@ -29,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ "videoPhotoFilePath text null,"
 			+ "photoFilePath text null,"
 			+ "thumbnailFilePath text null,"
+			+ "isFocus integer null,"
 			+ "isFavorite integer null"
 			+ ");";
 
@@ -39,6 +40,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ "photoUrl text null,"
 			+ "thumbnailUrl text null,"
 			+ "photoFilePath text null"
+			+ ");";
+
+	private static final String CREATE_DATABASE_CATEGORY = "create table category("
+			+ "_id integer primary key autoincrement,"
+			+ "id text not null," // id returned from server
+			+ "name text not null"
 			+ ");";
 
 	public static final String DB_NAME = "news.db";
@@ -52,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_DATABASE_NEWS);
 		db.execSQL(CREATE_DATABASE_SPECIAL);
+		db.execSQL(CREATE_DATABASE_CATEGORY);
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -3,7 +3,9 @@ package com.yingshi.toutiao.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Category {
+import com.yingshi.toutiao.util.Utils;
+
+public class Category extends BaseModel{
 	private String id;
 	private String name;
 

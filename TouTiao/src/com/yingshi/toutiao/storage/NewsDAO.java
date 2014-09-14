@@ -27,4 +27,12 @@ public class NewsDAO extends BaseDAO<News>{
     public List<News> findFavorites(int pageSize, int pageIndex){
     	return ((NewsDBAdapter)getDbAdapter()).findFavorites(pageSize, pageIndex);
     }
+    
+    public List<News> findNewsByCategory(String category){
+    	return ((NewsDBAdapter)getDbAdapter()).fetchAll("category='"+category+"' and isFocus=0", "time");
+    }
+    
+    public List<News> findFocusByCategory(String category){
+    	return ((NewsDBAdapter)getDbAdapter()).fetchAll("category='"+category+"' and isFocus=1", "time");
+    }
 }

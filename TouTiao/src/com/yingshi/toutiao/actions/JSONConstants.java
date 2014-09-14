@@ -12,8 +12,8 @@ public interface JSONConstants {
     public final static String SERVICE_ID_SEARCH="S1119";
     
     
-    public final static String RESP_STATUS="status";
-    public final static String RESP_MSG="msg";
+    public final static String RESP_STATUS="Status";
+    public final static String RESP_MSG="Msg";
     public final static String RESP_LIST="MessageList";
     
     

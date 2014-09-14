@@ -11,7 +11,6 @@
  */
 package com.yingshi.toutiao.storage.adapters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -26,7 +25,8 @@ public class NewsDBAdapter extends BaseAdapter<News> {
     private static String[] NEWS_COLUMNS = { "_id", "id", "name", "summary", 
     	"content", "time", "category", "contact", "likes", "isSpecial", 
     	"specialName", "hasVideo", "videoUrl", "videoPhotoUrl", "author", 
-    	"photoUrl", "thumbnailUrl", "videoPhotoFilePath", "photoFilePath", "thumbnailFilePath", "isFavorite"};
+    	"photoUrl", "thumbnailUrl", "videoPhotoFilePath", "photoFilePath", 
+    	"thumbnailFilePath", "isFocus", "isFavorite"};
 
     public NewsDBAdapter(SQLiteDatabase database) {
     	super(DB_TABLE_NEWS, NEWS_COLUMNS, database);
@@ -53,6 +53,7 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         initialValues.put("videoPhotoFilePath", news.getVideoPhotoFilePath());
         initialValues.put("photoFilePath", news.getPhotoFilePath());
         initialValues.put("thumbnailFilePath", news.getThumbnailFilePath());
+        initialValues.put("isFocus", news.isFocus());
         initialValues.put("isFavorite", news.isFavorite());
         return initialValues;
     }
@@ -71,7 +72,8 @@ public class NewsDBAdapter extends BaseAdapter<News> {
     public News toObject(Cursor cursor) {
     	News news = new News();
         news.set_id(cursor.getInt(cursor.getColumnIndex("_id")));
-        news.setId(cursor.getString(cursor.getColumnIndex("name")));
+        news.setId(cursor.getString(cursor.getColumnIndex("id")));
+        news.setName(cursor.getString(cursor.getColumnIndex("name")));
         news.setSummary(cursor.getString(cursor.getColumnIndex("summary")));
         news.setTime(cursor.getInt(cursor.getColumnIndex("time")));
         news.setContent(cursor.getString(cursor.getColumnIndex("content")));
@@ -89,6 +91,7 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         news.setVideoPhotoFilePath(cursor.getString(cursor.getColumnIndex("videoPhotoFilePath")));
         news.setPhotoFilePath(cursor.getString(cursor.getColumnIndex("photoFilePath")));
         news.setThumbnailFilePath(cursor.getString(cursor.getColumnIndex("thumbnailFilePath")));
+        news.setFocus(cursor.getInt(cursor.getColumnIndex("isFocus")) > 0);
         news.setFavorite(cursor.getInt(cursor.getColumnIndex("isFavorite")) > 0);
         return news;
     }

@@ -28,7 +28,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:background="@drawable/gerenzhongxin_touxiang"
+        android:src="@drawable/gerenzhongxin_touxiang"
         android:contentDescription="@string/img_content_description" />
 
     <TextView
@@ -161,7 +161,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/id_clear_cache_img"
-                android:text="@string/push"
+                android:text="@string/clear"
                 android:textColor="@color/black"
                 android:textSize="@dimen/user_center_list_item_text_size" />
         </RelativeLayout>

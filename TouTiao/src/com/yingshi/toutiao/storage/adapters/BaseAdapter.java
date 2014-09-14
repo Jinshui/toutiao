@@ -46,6 +46,11 @@ public abstract class BaseAdapter<T extends BaseModel> {
 		Log.d(tag, "fetchAll: orderByColumn=" + orderByColumn);
         return toObjectList(mDb.query(mTableName, mColumnNames, null, null, null, null, orderByColumn, null));
     }
+	
+    public List<T> fetchAll(String query, String orderByColumn) {
+		Log.d(tag, "fetchAll: orderByColumn=" + orderByColumn);
+        return toObjectList(mDb.query(mTableName, mColumnNames, query, null, null, null, orderByColumn, null));
+    }
     
 	public T fetchOneById(long rowId){
 		Log.d(tag, "fetchOneById: _id=" + rowId);

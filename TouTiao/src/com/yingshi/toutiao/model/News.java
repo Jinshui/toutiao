@@ -25,6 +25,7 @@ public class News extends BaseModel{
 	private String videoPhotoFilePath;
 	private String photoFilePath;
 	private String thumbnailFilePath;
+	private boolean isFocus;
 	private boolean isFavorite;
 
 	public News(){}
@@ -214,6 +215,14 @@ public class News extends BaseModel{
 
 	public void setThumbnailFilePath(String thumbnailFilePath) {
 		this.thumbnailFilePath = thumbnailFilePath;
+	}
+
+	public boolean isFocus() {
+		return isFocus;
+	}
+
+	public void setFocus(boolean isFocus) {
+		this.isFocus = isFocus;
 	}
 
 	public boolean isFavorite() {

@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.yingshi.toutiao.util.PreferenceUtil;
 import com.yingshi.toutiao.view.CustomizeImageView;
 
 public class UserCenterFragment extends Fragment
@@ -34,8 +35,9 @@ public class UserCenterFragment extends Fragment
 	
 	class PhotoUpdateBroadcastReceiver extends BroadcastReceiver{
 		public void onReceive(Context context, Intent intent) {
-			if(LoginActivity.INTENT_ACTION_PHOTO_UPDATED.equals(intent.getAction())){
-				Log.d(tag, "Received intent: " + LoginActivity.INTENT_ACTION_PHOTO_UPDATED);
+			if(Constants.INTENT_ACTION_PHOTO_UPDATED.equals(intent.getAction())){
+				Log.d(tag, "Received intent: " + Constants.INTENT_ACTION_PHOTO_UPDATED);
+				mUserName.setText(PreferenceUtil.getString(getActivity(), Constants.USER_NAME , ""));
 				loadUserPhoto();
 			}
 		}
@@ -53,7 +55,7 @@ public class UserCenterFragment extends Fragment
 	
 	public void onResume(){
 		super.onResume();
-		IntentFilter filter = new IntentFilter(LoginActivity.INTENT_ACTION_PHOTO_UPDATED);
+		IntentFilter filter = new IntentFilter(Constants.INTENT_ACTION_PHOTO_UPDATED);
 		getActivity().registerReceiver(mReceiver, filter);
 	}
 	
@@ -77,7 +79,8 @@ public class UserCenterFragment extends Fragment
 		try {
 			mUserPhoto.loadImage(getActivity().openFileInput("user_profile_photo.png"));
 		} catch (FileNotFoundException e) {
-			Log.e(tag, "Failed to load image", e);
+			//TODO: load from other provider?
+			Log.e(tag, "User photo not exist, " + e.getMessage());
 		}
 	}
 
@@ -91,6 +94,9 @@ public class UserCenterFragment extends Fragment
 		mBtnDownloads = mView.findViewById(R.id.id_downloads);
 		mBtnPush = mView.findViewById(R.id.id_push);
 		mBtnClearCache = mView.findViewById(R.id.id_clear_cache);
+		
+		mUserName.setText(PreferenceUtil.getString(getActivity(), Constants.USER_NAME , ""));
+		
 		addListener();
 		loadUserPhoto();
 	}

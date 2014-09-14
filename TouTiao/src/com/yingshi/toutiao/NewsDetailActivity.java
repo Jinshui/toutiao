@@ -1,16 +1,10 @@
 package com.yingshi.toutiao;
 
-import com.tencent.tauth.Tencent;
-import com.yingshi.toutiao.model.News;
-import com.yingshi.toutiao.storage.NewsDAO;
-import com.yingshi.toutiao.util.Utils;
-import com.yingshi.toutiao.view.CustomizeImageView;
-import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
-import com.yingshi.toutiao.view.HeaderView;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,12 +15,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.yingshi.toutiao.model.News;
+import com.yingshi.toutiao.storage.NewsDAO;
+import com.yingshi.toutiao.util.Utils;
+import com.yingshi.toutiao.view.CustomizeImageView;
+import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
+import com.yingshi.toutiao.view.HeaderView;
+
 public class NewsDetailActivity extends Activity
 {
 	private View mShareNewsWidget;
 	private View mToolsBar;
 	private News mNews;
 	private NewsDAO mNewsDAO;
+	private IWXAPI mWeiXinApi;
+	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -67,7 +74,7 @@ public class NewsDetailActivity extends Activity
 		mToolsBar = findViewById(R.id.id_news_detail_tools_bar);
 	}
 	
-	private void updateUI(News news){
+	private void updateUI(final News news){
 		mNews = news;
 		TextView titleView = (TextView)findViewById(R.id.id_news_detail_title);
 		titleView.setText(news.getName());
@@ -85,9 +92,18 @@ public class NewsDetailActivity extends Activity
 				}
 			});
 		
-		if(news.isHasVideo()){
+		if(news.isHasVideo() && !TextUtils.isEmpty(news.getPhotoUrl()) ){
 			View playButton = findViewById(R.id.id_news_detail_play);
-			playButton.setVisibility(View.INVISIBLE);
+			playButton.setVisibility(View.VISIBLE);
+			playButton.setOnClickListener(new OnClickListener(){
+				public void onClick(View v) {
+			        Intent intent = new Intent(Intent.ACTION_VIEW);
+			        String type = "video/* ";
+			        Uri uri = Uri.parse(news.getVideoUrl());
+			        intent.setDataAndType(uri, type);
+			        startActivity(intent);
+				}
+			});
 		}
 		
 		TextView textView = (TextView)findViewById(R.id.id_news_detail_text);
@@ -120,6 +136,22 @@ public class NewsDetailActivity extends Activity
 	public void shareWeiChat(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
 		mToolsBar.setBackgroundColor(Color.RED);
+		WXTextObject textObj = new WXTextObject();
+		textObj.text = "";
+		
+		WXMediaMessage msg = new WXMediaMessage();
+		msg.mediaObject = textObj;
+		
+		msg.description = "";
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = buildTransaction("text"); // transaction�ֶ�����Ψһ��ʶһ������
+		req.message = msg;
+		req.scene = SendMessageToWX.Req.WXSceneTimeline; // SendMessageToWX.Req.WXSceneSession;
+		mWeiXinApi.sendReq(req);
+	}
+	
+	private String buildTransaction(final String type) {
+		return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
 	}
 	
 	public void shareWeibo(View view){

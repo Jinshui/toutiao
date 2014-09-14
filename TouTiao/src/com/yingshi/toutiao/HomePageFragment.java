@@ -2,8 +2,10 @@ package com.yingshi.toutiao;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,37 +44,12 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 	private List<News> mFocusNews;
 	private NewsDAO mNewsDAO;
 	private GetNewsAction mGetnewsAction;
+	private boolean mFocusLoaded = false;
+	private boolean mNewsLoaded = false;
 	
 	private int mAsyncTaskCount = 0;
-	
-	BackgroundCallBack<Pagination<News>> getNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
-		public void onSuccess(Pagination<News> newsPage) {
-			mNewsDAO.save(newsPage.getItems());
-		}
-		public void onFailure(ActionError error) {}
-	};
-	
-	UICallBack<Pagination<News>> getNewsListUICallback = new UICallBack<Pagination<News>>(){
-		public void onSuccess(Pagination<News> newsList) {
-			if(mNewsListAdapter == null){
-				mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
-				setAdapter(mNewsListAdapter);
-			}else{
-				mNewsListAdapter.addMore(newsList.getItems());
-			}
-			if(--mAsyncTaskCount == 0){
-				showListView();
-			}
-			refreshComplete();
-		}
-		public void onFailure(ActionError error) {
-			//TODO: Show failure
-			if(--mAsyncTaskCount == 0){
-				showListView();
-			}
-			refreshComplete();
-		}
-	};
+	private BackgroundCallBack<Pagination<News>> mGetNewsListBackgroundCallback = null;
+	private UICallBack<Pagination<News>> mGetNewsListUICallback = null;
 	
 	public HomePageFragment() {
 	}
@@ -81,22 +58,36 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 		Log.d(tag, category + " new SlidePageFragment");
 		mCategory = category;
 	}
-
+	public void onAttach (Activity activity){
+		Log.d(tag, mCategory +" onAttach()");
+		super.onAttach(activity);
+	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.d(tag, mCategory + " onCreate");
+		Log.d(tag, mCategory +" onCreate()");
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
 			mCategory = savedInstanceState.getString("mCategory");
 		}
 		mNewsDAO = ((TouTiaoApp)getActivity().getApplication()).getNewsDAO();
-		loadPage(true);
+	}
+	public void onResume(){
+		Log.d(tag, mCategory +" onResume()");
+		super.onResume();
+		showLoadingView();
+		if( !mFocusLoaded )
+			loadFocusFromServer();
+		else
+			loadFocusFromDB();
+		if( !mNewsLoaded )
+			loadNewsFromServer();
+		else
+			loadNewsFromDB();
 	}
 	
-	private void loadPage(boolean showLoadingView){
-		if(showLoadingView)
-			showLoadingView();
-		mAsyncTaskCount = 2;
+	private void loadFocusFromServer(){
+		Log.d(tag, mCategory +" loadFocusFromServer()");
+		mAsyncTaskCount ++;
 		new GetFocusAction(getActivity(), mCategory).execute(new BackgroundCallBack<List<News>>(){
 			public void onSuccess(List<News> newsList) {
 				mNewsDAO.save(newsList);
@@ -104,24 +95,89 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 			public void onFailure(ActionError error) {}
 		},new UICallBack<List<News>>(){
 			public void onSuccess(List<News> newsList) {
+				mFocusLoaded = true;
 				mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
 				updatePhotoPager(0, newsList);
-				if(--mAsyncTaskCount == 0){
-					showListView();
-				}
-				refreshComplete();
+				afterLoadReturned();
 			}
 			public void onFailure(ActionError error) {
 				//TODO: Show failure
-				if(--mAsyncTaskCount == 0){
-					showListView();
-				}
-				refreshComplete();
+				afterLoadReturned();
 			}
 		});
-		
+	}
+	
+	private void loadNewsFromServer(){
+		Log.d(tag, mCategory +" loadNewsFromServer()");
+		mAsyncTaskCount ++;
 		mGetnewsAction = new GetNewsAction(getActivity(), mCategory, 1, 20);
-		mGetnewsAction.execute(getNewsListBackgroundCallback, getNewsListUICallback);
+		mGetnewsAction.execute(mGetNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsPage) {
+					mNewsDAO.save(newsPage.getItems());
+				}
+				public void onFailure(ActionError error) {}
+			}, 
+			mGetNewsListUICallback = new UICallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsList) {
+					mNewsLoaded = true;
+					if(isDetached()) //DO NOT update the view if this fragment is detached from the activity.
+						return;
+					if(mNewsListAdapter == null){
+						mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
+						setAdapter(mNewsListAdapter);
+					}else{
+						mNewsListAdapter.addMore(newsList.getItems());
+					}
+					afterLoadReturned();
+				}
+				public void onFailure(ActionError error) {
+					//TODO: Show failure
+					afterLoadReturned();
+				}
+		});
+	}
+	
+	private void loadFocusFromDB(){
+		Log.d(tag, mCategory +" loadFocusFromDB()");
+		mAsyncTaskCount ++;
+		new AsyncTask<Void, Void, List<News>>() {
+			protected List<News> doInBackground(Void... params) {
+				return mNewsDAO.findFocusByCategory(mCategory);
+			}
+			public void onPostExecute(List<News> newsList){
+				mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
+				updatePhotoPager(0, newsList);
+				afterLoadReturned();
+			}
+		}.execute();
+	}
+	
+	private void loadNewsFromDB(){
+		Log.d(tag, mCategory +" loadNewsFromDB()");
+		mAsyncTaskCount ++;
+		new AsyncTask<Void, Void, List<News>>() {
+			protected List<News> doInBackground(Void... params) {
+				return mNewsDAO.findNewsByCategory(mCategory);
+			}
+			public void onPostExecute(List<News> newsList){
+				if(mNewsListAdapter == null){
+					mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList);
+					setAdapter(mNewsListAdapter);
+				}else{
+					mNewsListAdapter.clear();
+					mNewsListAdapter.addMore(newsList);
+				}
+				afterLoadReturned();
+			}
+		}.execute();
+	}
+	
+	private void afterLoadReturned(){
+		mAsyncTaskCount --;
+		if(mAsyncTaskCount == 0){
+			showListView();
+		}
+		refreshComplete();
 	}
 	
 	public void onSaveInstanceState(Bundle outState) {
@@ -250,11 +306,46 @@ public class HomePageFragment extends HeaderLoadingSupportPTRListFragment {
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-		loadPage(false);
+		loadFocusFromServer();
+		loadNewsFromServer();
 	}
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		mGetnewsAction.getNewPageAction().execute(getNewsListBackgroundCallback, getNewsListUICallback);
+		mGetnewsAction.getNewPageAction().execute(mGetNewsListBackgroundCallback, mGetNewsListUICallback);
+	}
+	
+	public void onActivityCreated (Bundle savedInstanceState){
+		Log.d(tag, mCategory +" onActivityCreated()");
+		super.onActivityCreated(savedInstanceState);
+	}
+	public void onViewStateRestored (Bundle savedInstanceState){
+		Log.d(tag, mCategory +" onViewStateRestored()");
+		super.onViewStateRestored(savedInstanceState);
+	}
+	public void onStart (){
+		Log.d(tag, mCategory +" onStart()");
+		super.onStart();
+	}
+	
+	public void onPause (){
+		Log.d(tag, mCategory +" onPause()");
+		super.onPause();
+	}
+	public void onStop (){
+		Log.d(tag, mCategory +" onStop()");
+		super.onStop();
+	}
+	public void onDestroyView (){
+		Log.d(tag, mCategory +" onDestroyView()");
+		super.onDestroyView();
+	}
+	public void onDestroy (){
+		Log.d(tag, mCategory +" onDestroy()");
+		super.onDestroy();
+	}
+	public void onDetach (){
+		Log.d(tag, mCategory +" onDetach()");
+		super.onDetach();
 	}
 }
