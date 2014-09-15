@@ -40,7 +40,7 @@ public class MainActivity extends SlidingFragmentActivity
 	private TabHost mTabHost;
 	private HorizontalScrollView mTabScrollView ;
 	private ViewPager mViewPager;
-	private UserCenterFragment mUserCenterFragment;
+	private MainUserCenterFragment mUserCenterFragment;
 	
 	private TabHost.TabContentFactory mEmptyTabContentFactory = new TabHost.TabContentFactory(){
 		public View createTabContent(String tag) {
@@ -141,7 +141,7 @@ public class MainActivity extends SlidingFragmentActivity
 	private void initUserCenterMenu()
 	{
 		SlidingMenu menu = getSlidingMenu();
-		mUserCenterFragment = new UserCenterFragment(menu);
+		mUserCenterFragment = new MainUserCenterFragment(menu);
 		setBehindContentView(R.layout.view_user_center_frame);
 		getSupportFragmentManager().beginTransaction().replace(R.id.id_left_menu_frame, mUserCenterFragment).commit();
 		menu.setMode(SlidingMenu.LEFT);
@@ -163,7 +163,7 @@ public class MainActivity extends SlidingFragmentActivity
 	 */
 	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 		List<Category> mCategories;
-		Map<String, HomePageFragment> pages = new HashMap<String, HomePageFragment>();
+		Map<String, MainFragment> pages = new HashMap<String, MainFragment>();
 		public ScreenSlidePagerAdapter(FragmentManager fm, List<Category> categories) {
 			super(fm);
 			mCategories = categories;
@@ -171,9 +171,9 @@ public class MainActivity extends SlidingFragmentActivity
 
 		@Override
 		public Fragment getItem(int position) {
-			HomePageFragment page = pages.get(mCategories.get(position).getName());
+			MainFragment page = pages.get(mCategories.get(position).getName());
 			if(page == null){
-				page = new HomePageFragment(mCategories.get(position).getName());
+				page = new MainFragment(mCategories.get(position).getName());
 				pages.put(mCategories.get(position).getName(), page);
 			}
 			return page;

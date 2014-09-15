@@ -23,7 +23,7 @@ public class SpecialNewsActivity extends FragmentActivity {
 		});
 
 		String sepcialName = getIntent().getStringExtra(Constants.INTENT_EXTRA_NEWS_ID);
-		getSupportFragmentManager().beginTransaction().replace(R.id.id_special_news_list, new SpecialPageFragment(sepcialName)).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.id_special_news_list, new SpecialNewsFragment(sepcialName)).commit();
 	}
 
 }

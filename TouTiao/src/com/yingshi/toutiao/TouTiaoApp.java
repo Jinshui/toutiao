@@ -16,7 +16,7 @@ public class TouTiaoApp extends Application {
     private DatabaseHelper mDatabaseHelper;
     
     public void onCreate() {
-        Log.i(tag, "JIDA App is initializing");
+        Log.i(tag, "影视头条App is initializing");
         super.onCreate();
         mDatabaseHelper = new DatabaseHelper(this);
         mNewsDao = new NewsDAO(mDatabaseHelper.getWritableDatabase());

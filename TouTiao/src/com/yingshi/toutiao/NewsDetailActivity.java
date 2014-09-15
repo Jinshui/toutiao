@@ -1,5 +1,7 @@
 package com.yingshi.toutiao;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,28 +14,41 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.tencent.mm.sdk.modelmsg.WXTextObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.yingshi.toutiao.actions.AbstractAction.ActionError;
+import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
+import com.yingshi.toutiao.actions.GetCommentsAction;
+import com.yingshi.toutiao.model.Comment;
 import com.yingshi.toutiao.model.News;
+import com.yingshi.toutiao.model.Pagination;
 import com.yingshi.toutiao.storage.NewsDAO;
 import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CustomizeImageView;
 import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
 import com.yingshi.toutiao.view.HeaderView;
+import com.yingshi.toutiao.view.LoadMoreView;
+import com.yingshi.toutiao.view.LoadMoreView.OnMoreResultReturnListener;
+import com.yingshi.toutiao.view.CommentListRow;
 
-public class NewsDetailActivity extends Activity
+public class NewsDetailActivity extends Activity implements OnMoreResultReturnListener<Comment>
 {
 	private View mShareNewsWidget;
 	private View mToolsBar;
+	private LinearLayout mCommentsList;
+	private LoadMoreView<Comment> mLoadComentBtn;
 	private News mNews;
 	private NewsDAO mNewsDAO;
 	private IWXAPI mWeiXinApi;
-	
+	private GetCommentsAction mGetCommentsAction;
+	@SuppressWarnings("unchecked")
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -72,8 +87,43 @@ public class NewsDetailActivity extends Activity
 		});
 		mShareNewsWidget = findViewById(R.id.id_news_share_widget);
 		mToolsBar = findViewById(R.id.id_news_detail_tools_bar);
+		mLoadComentBtn = (LoadMoreView<Comment>)findViewById(R.id.id_news_load_comment);
+		mCommentsList = (LinearLayout)findViewById(R.id.id_news_detail_comments);
+		
+		mGetCommentsAction = new GetCommentsAction(this, mNews.getId(), mNews.getCategory(), 1, 20);
+		mGetCommentsAction.execute(new UICallBack<Pagination<Comment>>(){
+			public void onSuccess(Pagination<Comment> result) {
+                List<Comment> comments = result.getItems();
+                if(comments != null && !comments.isEmpty()){
+                    fillItems(mCommentsList, comments);
+                    updateLoadMoreView();
+                }
+			}
+			public void onFailure(ActionError error) {
+				
+			}
+		});
 	}
 	
+    protected void fillItems(LinearLayout contentView, List<Comment> items){
+        for(final Comment item : items){
+            CommentListRow view = new CommentListRow(this, null);
+            view.setProduct(item);
+            LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+            contentView.addView(view, params);
+        }
+    }
+
+    private void updateLoadMoreView(){
+        if(mGetCommentsAction.hasMore()){
+        	mLoadComentBtn.setPaginationAction(mGetCommentsAction.getNewPageAction());
+            mLoadComentBtn.setVisibility(View.VISIBLE);
+            mLoadComentBtn.setOnMoreResultReturnListener(this);
+        }else{
+        	mLoadComentBtn.setVisibility(View.GONE);
+        }
+    }
+    
 	private void updateUI(final News news){
 		mNews = news;
 		TextView titleView = (TextView)findViewById(R.id.id_news_detail_title);
@@ -91,27 +141,20 @@ public class NewsDetailActivity extends Activity
 					//TODO: Save Image?
 				}
 			});
-		
-		if(news.isHasVideo() && !TextUtils.isEmpty(news.getPhotoUrl()) ){
-			View playButton = findViewById(R.id.id_news_detail_play);
-			playButton.setVisibility(View.VISIBLE);
-			playButton.setOnClickListener(new OnClickListener(){
-				public void onClick(View v) {
-			        Intent intent = new Intent(Intent.ACTION_VIEW);
-			        String type = "video/* ";
-			        Uri uri = Uri.parse(news.getVideoUrl());
-			        intent.setDataAndType(uri, type);
-			        startActivity(intent);
-				}
-			});
-		}
+
+		View playButton = findViewById(R.id.id_news_detail_play);
+		playButton.setVisibility( ( news.isHasVideo() && !TextUtils.isEmpty(news.getPhotoUrl()) ) ?  View.VISIBLE : View.GONE);
 		
 		TextView textView = (TextView)findViewById(R.id.id_news_detail_text);
 		textView.setText(news.getContent());
 	}
 	
 	public void playVideo(View view){
-		
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String type = "video/* ";
+        Uri uri = Uri.parse(mNews.getVideoUrl());
+        intent.setDataAndType(uri, type);
+        startActivity(intent);
 	}
 	
 	public void share(View view){
@@ -175,5 +218,10 @@ public class NewsDetailActivity extends Activity
 	public void cancelShare(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
 		mToolsBar.setBackgroundColor(Color.RED);
+	}
+
+	@Override
+	public void onMoreResultReturn(List<Comment> result) {
+		
 	}
 }

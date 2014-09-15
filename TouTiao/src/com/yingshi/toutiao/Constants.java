@@ -4,6 +4,7 @@ package com.yingshi.toutiao;
 public class Constants {
 	public static final String APP_WEIXIN_ID = "wx88888888";
 	
+	public static final String UPLOAD_ADDRESS = "http://115.28.85.247/upload";
 	public static final String SERVER_ADDRESS = "http://115.28.85.247/nosession";
 //	public static final String SERVER_ADDRESS = "http://192.168.204.72:8080/my-webapp/service";
 //	public static final String SERVER_ADDRESS = "http://192.168.1.103:8080/my-webapp/service";

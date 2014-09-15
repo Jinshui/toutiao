@@ -13,7 +13,7 @@ public class SearchActivity extends FragmentActivity {
 
 	public static final String INTENT_EXTRA_SPECIAL_ID = "special_id";
 	private EditText mKeywordText;
-	private SearchPageFragment mSearchFragment;
+	private SearchFragment mSearchFragment;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class SearchActivity extends FragmentActivity {
 			}
 		});
 		mKeywordText = (EditText) findViewById(R.id.id_search_keyword_text);
-		mSearchFragment = new SearchPageFragment();
+		mSearchFragment = new SearchFragment();
 		getSupportFragmentManager().beginTransaction().replace(R.id.id_search_result_list, mSearchFragment).commit();
 	}
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:padding="@dimen/list_item_padding" >
+
+    <com.yingshi.toutiao.view.CustomizeImageView
+        android:id="@+id/id_comment_author_thumbnail"
+        android:layout_width="@dimen/list_item_icon_width"
+        android:layout_height="@dimen/list_item_icon_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/list_item_thumbnail"
+        android:contentDescription="@string/img_content_description" />
+
+    <TextView
+        android:id="@+id/id_comment_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/id_comment_author_thumbnail"
+        android:text="@string/list_item_sample_text" />
+
+    <TextView
+        android:id="@+id/id_comment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_comment_author"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/id_comment_author_thumbnail"
+        android:text="@string/list_item_special"
+        android:textSize="14sp" />
+
+</RelativeLayout>

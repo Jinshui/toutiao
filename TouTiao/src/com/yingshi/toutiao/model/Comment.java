@@ -1,52 +1,55 @@
 package com.yingshi.toutiao.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class Comment implements Parcelable {
-	private String author;
-	private long createTime;
+
+public class Comment extends BaseModel {
+	private String id;
+	private String name;
 	private String content;
-	public static final Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
-		public Comment createFromParcel(Parcel in) {
-			return new Comment(in);
-		}
+	private long time;
+	private String photoUrl;
 
-		public Comment[] newArray(int size) {
-			return new Comment[size];
-		}
-	};
-
-	private Comment(Parcel in) {
-		author = in.readString();
-		createTime = in.readLong();
-		content = in.readString();
+    public static Comment fromJSON(JSONObject json) throws JSONException{
+        if(json == null)
+            throw new IllegalArgumentException("JSONObject is null");
+        Comment comment = new Comment();
+        if(json.has("Id"))
+        	comment.setId(json.getString("Id"));
+        if(json.has("Name"))
+        	comment.setName(json.getString("Name"));
+        if(json.has("Time"))
+        	comment.setTime(Long.valueOf(json.getString("Time")));
+        if(json.has("Content"))
+        	comment.setContent(json.getString("Content"));
+        if(json.has("PicUrl"))
+        	comment.setPhotoUrl(json.getString("PicUrl"));
+        return comment;
+    }
+	
+	public String getId() {
+		return id;
 	}
 
-	public int describeContents() {
-		return 0;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(author);
-		dest.writeLong(createTime);
-		dest.writeString(content);
+	public String getName() {
+		return name;
 	}
 
-	public String getAuthor() {
-		return author;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public long getTime() {
+		return time;
 	}
 
-	public long getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(long createTime) {
-		this.createTime = createTime;
+	public void setTime(long createTime) {
+		this.time = createTime;
 	}
 
 	public String getContent() {
@@ -55,5 +58,12 @@ public class Comment implements Parcelable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 }

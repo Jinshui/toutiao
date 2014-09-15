@@ -36,8 +36,6 @@ public class News extends BaseModel{
         News news = new News();
         if(json.has("Id"))
         	news.setId(json.getString("Id"));
-        if(json.has("NewsName"))
-        	news.setName(json.getString("NewsName"));
         if(json.has("Dy"))
         	news.setSummary(json.getString("Dy"));
         if(json.has("NewsName"))

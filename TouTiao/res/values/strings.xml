@@ -38,7 +38,10 @@
     <!-- 搜索 -->
     <string name="search_header_text">搜索</string>
     <string name="search_hint">请输入搜索内容</string>
-
+    
+    <string name="press_to_load">加载评论</string>
+    <string name="no_more_load">加载完毕</string>
+    <string name="load_failed">加载失败,请重试!</string>
     
     <string name="msg_general_error">请求处理失败，请稍候重试。</string>
     <string name="msg_network_error">网络异常，请稍候重试。</string>
