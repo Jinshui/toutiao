@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -133,17 +132,17 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		dateView.setText(Utils.formatDate("yyyy/MM/dd HH:mm:ss", news.getTime()));
 		
 		CustomizeImageView imageView = (CustomizeImageView)findViewById(R.id.id_news_detail_img);
-		if(TextUtils.isEmpty(news.getPhotoUrl()))
+		if(news.getThumbnailUrls().size() == 0)
 			imageView.setVisibility(View.GONE);
 		else
-			imageView.loadImage(news.getPhotoUrl(), new LoadImageCallback(){
+			imageView.loadImage(news.getThumbnailUrls().get(0), new LoadImageCallback(){
 				public void onImageLoaded(Drawable drawable) {
 					//TODO: Save Image?
 				}
 			});
 
 		View playButton = findViewById(R.id.id_news_detail_play);
-		playButton.setVisibility( ( news.isHasVideo() && !TextUtils.isEmpty(news.getPhotoUrl()) ) ?  View.VISIBLE : View.GONE);
+		playButton.setVisibility( ( news.isHasVideo() && news.getThumbnailUrls().size()>0 ) ?  View.VISIBLE : View.GONE);
 		
 		TextView textView = (TextView)findViewById(R.id.id_news_detail_text);
 		textView.setText(news.getContent());

@@ -1,14 +1,17 @@
 package com.yingshi.toutiao.actions;
 
+import java.net.URLEncoder;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yingshi.toutiao.model.News;
 
 public class GetNewsAction extends PaginationAction<News> {
-
+    private static final String tag = "TT-GetNewsAction";
     //request keys
     private static final String NAME = "name";
     //local variables
@@ -23,7 +26,11 @@ public class GetNewsAction extends PaginationAction<News> {
     @Override
     public void addRequestParameters(JSONObject parameters) throws JSONException {
         super.addRequestParameters(parameters);
-        parameters.put(NAME, mCategory);
+        try{
+        	parameters.put(NAME, URLEncoder.encode(mCategory, "UTF-8"));
+        }catch(Exception e){
+        	Log.d(tag, "failed to add parameters", e);
+        }
     }
 
     protected GetNewsAction createNextPageAction(){

@@ -11,11 +11,13 @@
  */
 package com.yingshi.toutiao.storage.adapters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import com.yingshi.toutiao.model.News;
 
@@ -48,8 +50,20 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         initialValues.put("videoUrl", news.getVideoUrl());
         initialValues.put("videoPhotoUrl", news.getVideoPhotoUrl());
         initialValues.put("author", news.getAuthor());
-        initialValues.put("photoUrl", news.getPhotoUrl());
-        initialValues.put("thumbnailUrl", news.getThumbnailUrl());
+        String photoUrl = "";
+        for(int i=0; i<news.getPhotoUrls().size(); i++){
+        	if(i > 0)
+        		photoUrl += ";;;";
+        	photoUrl += news.getPhotoUrls().get(i);
+        }
+        initialValues.put("photoUrl", photoUrl);
+        String thumbnailUrl = "";
+        for(int i=0; i<news.getThumbnailUrls().size(); i++){
+        	if(i > 0)
+        		thumbnailUrl += ";;;";
+        	thumbnailUrl += news.getThumbnailUrls().get(i);
+        }
+        initialValues.put("thumbnailUrl", thumbnailUrl);
         initialValues.put("videoPhotoFilePath", news.getVideoPhotoFilePath());
         initialValues.put("photoFilePath", news.getPhotoFilePath());
         initialValues.put("thumbnailFilePath", news.getThumbnailFilePath());
@@ -86,8 +100,26 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         news.setVideoUrl(cursor.getString(cursor.getColumnIndex("videoUrl")));
         news.setVideoPhotoUrl(cursor.getString(cursor.getColumnIndex("videoPhotoUrl")));
         news.setAuthor(cursor.getString(cursor.getColumnIndex("author")));
-        news.setPhotoUrl(cursor.getString(cursor.getColumnIndex("photoUrl")));
-        news.setThumbnailUrl(cursor.getString(cursor.getColumnIndex("thumbnailUrl")));
+        String photoUrl = cursor.getString(cursor.getColumnIndex("photoUrl"));
+        if(!TextUtils.isEmpty(photoUrl)){
+        	String[] urls = photoUrl.split(";;;");
+        	List<String> urlList = new ArrayList<String>();
+        	for(int i = 0; urls!=null && i<urls.length; i++){
+        		if(!TextUtils.isEmpty(urls[i]))
+        			urlList.add(urls[i]);
+        	}
+            news.setPhotoUrls(urlList);
+        }
+        String thumbnailUrl = cursor.getString(cursor.getColumnIndex("thumbnailUrl"));
+        if(!TextUtils.isEmpty(thumbnailUrl)){
+        	String[] urls = thumbnailUrl.split(";;;");
+        	List<String> urlList = new ArrayList<String>();
+        	for(int i = 0; urls!=null && i<urls.length; i++){
+        		if(!TextUtils.isEmpty(urls[i]))
+        			urlList.add(urls[i]);
+        	}
+            news.setThumbnailUrls(urlList);
+        }
         news.setVideoPhotoFilePath(cursor.getString(cursor.getColumnIndex("videoPhotoFilePath")));
         news.setPhotoFilePath(cursor.getString(cursor.getColumnIndex("photoFilePath")));
         news.setThumbnailFilePath(cursor.getString(cursor.getColumnIndex("thumbnailFilePath")));

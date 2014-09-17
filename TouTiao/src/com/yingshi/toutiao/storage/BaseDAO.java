@@ -46,7 +46,7 @@ public class BaseDAO<T extends BaseModel> {
         mDbAdapter.update(object);;
     }
 
-    public T get(int _id){
+    public T get(long _id){
     	return mDbAdapter.fetchOneById(_id);
     }
 

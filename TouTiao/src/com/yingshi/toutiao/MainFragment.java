@@ -96,6 +96,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		},new UICallBack<List<News>>(){
 			public void onSuccess(List<News> newsList) {
 				mFocusLoaded = true;
+				mFocusNews = newsList;
 				mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
 				updatePhotoPager(0, newsList);
 				afterLoadReturned();
@@ -145,6 +146,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 				return mNewsDAO.findFocusByCategory(mCategory);
 			}
 			public void onPostExecute(List<News> newsList){
+				mFocusNews = newsList;
 				mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
 				updatePhotoPager(0, newsList);
 				afterLoadReturned();
@@ -207,7 +209,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 	}
 
 	private void updatePhotoPager(int position, List<News> focusNews){
-		if(focusNews.size() > 0){
+		if(focusNews != null && focusNews.size() > 0){
 			mPhotoPager.setVisibility(View.VISIBLE);
 			mPhotoPager.getPhotoNumView().setText(String.format("%d/%d", position + 1, focusNews.size()));
 			mPhotoPager.getPhotoDescriptionView().setText(focusNews.get(position).getName());
@@ -253,11 +255,11 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
             if(!TextUtils.isEmpty(news.getName())){
                 holder.newsTitle.setText(news.getName());
             }
-            if( news.getThumbnailUrl() != null){
+            if( news.getThumbnailUrls().size() > 0){
             	if(news.getThumbnailFilePath() != null)
             		holder.newsThumbnail.loadImage("file://"+news.getThumbnailFilePath());
             	else
-            		holder.newsThumbnail.loadImage(news.getThumbnailUrl());
+            		holder.newsThumbnail.loadImage(news.getThumbnailUrls().get(0));
             }
             
             holder.newsVideoSign.setVisibility( news.isHasVideo() ? View.VISIBLE : View.INVISIBLE);

@@ -7,8 +7,10 @@ import org.json.JSONObject;
 import com.yingshi.toutiao.model.Pagination;
 
 import android.content.Context;
+import android.util.Log;
 
 public abstract class PaginationAction<Result> extends AbstractAction<Pagination<Result>> {
+    private static final String tag = "TT-PaginationAction";
     //request keys
     private static final String PAGE_INDEX = "page";
     private static final String PAGE_SIZE = "num";
@@ -46,14 +48,23 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
     public final Pagination<Result> createRespObject(JSONObject response) throws JSONException {
         Pagination<Result> pagination = new Pagination<Result>();
         pagination.setPageSize(mPageSize);
-        if(response.has(COUNT))
-            pagination.setTotalCounts(response.getInt(COUNT));
-        if(response.has(RESP_LIST)){
-            JSONArray items = response.getJSONArray(RESP_LIST);
-            for(int i=0; i<items.length(); i++){
-                JSONObject item = items.getJSONObject(i);
-                pagination.getItems().add(convertJsonToResult(item));
+        if(response.has(COUNT)){
+            try{
+            	pagination.setTotalCounts(response.getInt(COUNT));
+            }catch(Exception e){
+            	Log.e(tag, "Failed to parse " + COUNT + ": " +e.getMessage());
             }
+        }
+        if(response.has(RESP_LIST)){
+        	try{
+	            JSONArray items = response.getJSONArray(RESP_LIST);
+	            for(int i=0; i<items.length(); i++){
+	                JSONObject item = items.getJSONObject(i);
+	                pagination.getItems().add(convertJsonToResult(item));
+	            }
+        	}catch(Exception e){
+            	Log.e(tag, "Failed to parse " + RESP_LIST + ": " +e.getMessage());
+        	}
         }
         mLastPageNum = mPageIndex;
         mLastResult = pagination;

@@ -1,7 +1,14 @@
 package com.yingshi.toutiao.model;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.yingshi.toutiao.util.Utils;
 
 
 public class News extends BaseModel{
@@ -18,8 +25,8 @@ public class News extends BaseModel{
 	private String videoUrl;
 	private String videoPhotoUrl;
 	private String author;
-	private String photoUrl;
-	private String thumbnailUrl;
+	private List<String> photoUrls;
+	private List<String> thumbnailUrls;
 	
 	//used by client only
 	private String videoPhotoFilePath;
@@ -40,8 +47,10 @@ public class News extends BaseModel{
         	news.setSummary(json.getString("Dy"));
         if(json.has("NewsName"))
         	news.setName(json.getString("NewsName"));
-        if(json.has("Time"))
-        	news.setTime(Long.valueOf(json.getString("Time")));
+        if(json.has("Time")){//"2014-09-16 00:16:09.0",
+        	Date date = Utils.parseDate("yyyy-MM-dd HH:mm:ss.SSS", json.getString("Time"));
+        	news.setTime(date == null ? 0 : date.getTime());
+        }
         if(json.has("TypeName"))
         	news.setCategory(json.getString("TypeName"));
         if(json.has("LinkContent"))
@@ -49,17 +58,34 @@ public class News extends BaseModel{
         if(json.has("Goods"))
         	news.setLikes(Integer.valueOf(json.getString("Goods")));
         if(json.has("IsZt"))
-        	news.setSpecial(json.getBoolean("IsZt"));
+        	news.setSpecial(!"0".equals(json.getString("IsZt")));
         if(json.has("ZtName"))
         	news.setSpecialName(json.getString("ZtName"));
         if(json.has("IsSp"))
-        	news.setHasVideo(json.getBoolean("IsSp"));
+        	news.setHasVideo(!"0".equals(json.getString("IsSp")));
         if(json.has("Author"))
         	news.setAuthor(json.getString("Author"));
-        if(json.has("BigUrl"))
-        	news.setPhotoUrl(json.getString("BigUrl"));
-        if(json.has("SmallUrl"))
-        	news.setThumbnailUrl(json.getString("SmallUrl"));
+        if(json.has("BigUrl")){
+        	Object obj = json.get("BigUrl");
+        	if(obj instanceof JSONArray){
+        		JSONArray array = (JSONArray)obj;
+        		for(int i=0; i<array.length(); i++){
+        			JSONObject jo = array.getJSONObject(i);
+        			if(jo.has("image")){
+        	        	news.getPhotoUrls().add(jo.getString("image"));
+        			}
+        		}
+        	}
+        }
+        if(json.has("SmallUrl")){
+        	Object obj = json.get("SmallUrl");
+        	if(obj instanceof JSONArray){
+        		JSONArray array = (JSONArray)obj;
+        		for(int i=0; i<array.length(); i++){
+                	news.getThumbnailUrls().add(array.getString(i));
+        		}
+        	}
+        }
         if(json.has("VidelUrl"))
         	news.setVideoUrl(json.getString("VidelUrl"));
         if(json.has("VidelPicUrl"))
@@ -175,20 +201,26 @@ public class News extends BaseModel{
 		this.author = author;
 	}
 
-	public String getPhotoUrl() {
-		return photoUrl;
+	public List<String> getPhotoUrls() {
+		if(photoUrls == null){
+			photoUrls = new ArrayList<String>();
+		}
+		return photoUrls;
 	}
 
-	public void setPhotoUrl(String photoUrl) {
-		this.photoUrl = photoUrl;
+	public void setPhotoUrls(List<String> photoUrls) {
+		this.photoUrls = photoUrls;
 	}
 
-	public String getThumbnailUrl() {
-		return thumbnailUrl;
+	public List<String> getThumbnailUrls() {
+		if(thumbnailUrls == null){
+			thumbnailUrls = new ArrayList<String>();
+		}
+		return thumbnailUrls;
 	}
 
-	public void setThumbnailUrl(String thumbnailUrl) {
-		this.thumbnailUrl = thumbnailUrl;
+	public void setThumbnailUrls(List<String> thumbnailUrls) {
+		this.thumbnailUrls = thumbnailUrls;
 	}
 
 	public String getVideoPhotoFilePath() {

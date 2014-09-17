@@ -20,7 +20,7 @@ import com.yingshi.toutiao.Constants;
 import com.yingshi.toutiao.actions.AbstractAction.ActionResult;
 
 public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, ActionResult<Result>> implements JSONConstants{
-    private static final String TAG = "TT-AbstractRequest";
+    private static final String tag = "TT-AbstractRequest";
     private static final String URL = Constants.SERVER_ADDRESS;
     protected String mServiceId;
     protected Context mAppContext;
@@ -100,7 +100,7 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
 	        String response = null;
 	        try{
 	            JSONObject jsonReq = createJSONRequest();
-	            Log.d(TAG, "Sending JSON request : " + jsonReq.toString(4));
+	            Log.d(tag, "Sending JSON request : " + jsonReq.toString(4));
 
 	            SyncHttpClient httpClient = new SyncHttpClient();
 	            RequestParams params=new RequestParams();
@@ -115,30 +115,36 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
 	    			public void onSuccess(int statusCode, Header[] headers,
 	    					JSONObject response) {
 	    				try {
-	    	                Log.d(TAG, "Received JSON response : " + response.toString(4));
+	    	                Log.d(tag, "Received JSON response : " + response.toString(4));
 		    				super.onSuccess(statusCode, headers, response);
 							mResult = new ActionResult<Result>(createRespObject(response));
-						} catch (JSONException e) {
+						} catch (Exception e) {
+							Log.e(tag, "Failed to process response message.", e);
 			            	mResult = new ActionResult<Result>(new ActionError(ErrorCode.INVALID_RESPONSE, e.getMessage()));
-						}
+						} 
 	    			}
 	    			
 	    			@Override
 	    			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 	    				super.onFailure(statusCode, headers, responseString, throwable);
-    	                Log.e(TAG, "Received Error response : StatusCode: " + statusCode + ", Received response : " + responseString);
-	    				if(statusCode >= HttpStatus.SC_BAD_REQUEST &&
-	    						statusCode < HttpStatus.SC_INTERNAL_SERVER_ERROR){
-	    					mResult = new ActionResult<Result>(new ActionError(ErrorCode.INVALID_REQUEST, responseString));
-			            } else if(statusCode >= HttpStatus.SC_INTERNAL_SERVER_ERROR){
-			            	mResult = new ActionResult<Result>(new ActionError(ErrorCode.SERVER_ERROR, responseString));
-			            } else{
-			            	mResult = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR, throwable.getMessage()));
-			            }
+    	                Log.e(tag, "Received Error response : StatusCode: " + statusCode + ", Received response : " + responseString);
+	    				try {
+	    					if(statusCode >= HttpStatus.SC_BAD_REQUEST &&
+		    						statusCode < HttpStatus.SC_INTERNAL_SERVER_ERROR){
+		    					mResult = new ActionResult<Result>(new ActionError(ErrorCode.INVALID_REQUEST, responseString));
+				            } else if(statusCode >= HttpStatus.SC_INTERNAL_SERVER_ERROR){
+				            	mResult = new ActionResult<Result>(new ActionError(ErrorCode.SERVER_ERROR, responseString));
+				            } else{
+				            	mResult = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR, throwable.getMessage()));
+				            }
+						} catch (Exception e) {
+							Log.e(tag, "Failed to process response message.", e);
+			            	mResult = new ActionResult<Result>(new ActionError(ErrorCode.INVALID_RESPONSE, e.getMessage()));
+						} 
 	    			}
 	    		});
 	        } catch(Exception e) {
-	            Log.e(TAG, "Failed to process action : " + mServiceId + "\n" + response, e);
+	            Log.e(tag, "Failed to process action : " + mServiceId + "\n" + response, e);
 	            mResult = new ActionResult<Result>(new ActionError(ErrorCode.NETWORK_ERROR, e.getMessage()));
 	        }
 	        if(mBackgroundCallBack != null){
@@ -172,7 +178,7 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
 
     protected final void onPostExecute(ActionResult<Result> result) {
         if(mCancelled){
-            Log.i(TAG, "Action has been cancelled: " + mServiceId );
+            Log.i(tag, "Action has been cancelled: " + mServiceId );
             return;
         }
         if(mUICallback != null){
@@ -207,7 +213,7 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
      * Cancel the action, and will not call the callback.
      */
     public void cancel(){
-        Log.i(TAG, "Cancelling action: " + mServiceId );
+        Log.i(tag, "Cancelling action: " + mServiceId );
         mCancelled = true;
         cancel(true);
     }

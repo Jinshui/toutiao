@@ -1,7 +1,11 @@
 package com.yingshi.toutiao.model;
 
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.yingshi.toutiao.util.Utils;
 
 
 public class Comment extends BaseModel {
@@ -20,7 +24,10 @@ public class Comment extends BaseModel {
         if(json.has("Name"))
         	comment.setName(json.getString("Name"));
         if(json.has("Time"))
-        	comment.setTime(Long.valueOf(json.getString("Time")));
+        {
+        	Date date = Utils.parseDate("yyyy-MM-dd HH:mm:ss.SSS", json.getString("Time"));
+        	comment.setTime(date == null ? 0 : date.getTime());
+        }
         if(json.has("Content"))
         	comment.setContent(json.getString("Content"));
         if(json.has("PicUrl"))

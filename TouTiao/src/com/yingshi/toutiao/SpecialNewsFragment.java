@@ -173,11 +173,11 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
             if(!TextUtils.isEmpty(news.getName())){
                 holder.newsTitle.setText(news.getName());
             }
-            if( news.getThumbnailUrl() != null){
+            if( news.getThumbnailUrls().size() > 0){
             	if(news.getThumbnailFilePath() != null)
             		holder.newsThumbnail.loadImage("file://"+news.getThumbnailFilePath());
             	else
-            		holder.newsThumbnail.loadImage(news.getThumbnailUrl());
+            		holder.newsThumbnail.loadImage(news.getThumbnailUrls().get(0));
             }
 
             if(!TextUtils.isEmpty(news.getSummary())){

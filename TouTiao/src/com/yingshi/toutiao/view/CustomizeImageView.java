@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 public class CustomizeImageView extends ImageView{
-    private static final String tag = "JIDA-JidaImageView";
+    private static final String tag = "TT-CustomizeImageView";
     
     public static interface LoadImageCallback{
     	void onImageLoaded(Drawable drawable);
@@ -33,7 +33,8 @@ public class CustomizeImageView extends ImageView{
                     InputStream is = (InputStream) new URL(url).getContent();
                     return Drawable.createFromStream(is, "src name");
                 } catch (Exception e) {
-                    return null;
+                	Log.e(tag, "Failed to load image : " + url +". Error: " + e.getMessage());
+                	return null;
                 }
             }
             protected void onPostExecute(Drawable drawable){

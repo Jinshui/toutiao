@@ -1,5 +1,6 @@
 package com.yingshi.toutiao.actions;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yingshi.toutiao.model.News;
 
 public class GetFocusAction extends AbstractAction<List<News>> {
+    private static final String tag = "TT-GetFocusAction";
     //request keys
     private static final String NAME = "name";
     //local variables
@@ -25,7 +28,11 @@ public class GetFocusAction extends AbstractAction<List<News>> {
 
     @Override
     public void addRequestParameters(JSONObject parameters) throws JSONException {
-        parameters.put(NAME, mCategory);
+        try{
+        	parameters.put(NAME, URLEncoder.encode(mCategory, "UTF-8"));
+        }catch(Exception e){
+        	Log.d(tag, "failed to add parameters", e);
+        }
     }
 
 	@Override
@@ -35,7 +42,9 @@ public class GetFocusAction extends AbstractAction<List<News>> {
             JSONArray items = response.getJSONArray(RESP_LIST);
             for(int i=0; i<items.length(); i++){
                 JSONObject item = items.getJSONObject(i);
-                mNewsList.add(News.fromJSON(item));
+                News news = News.fromJSON(item);
+                news.setFocus(true);
+                mNewsList.add(news);
             }
         }
 		return mNewsList;
