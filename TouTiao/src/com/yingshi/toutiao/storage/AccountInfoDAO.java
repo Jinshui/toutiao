@@ -13,12 +13,12 @@ package com.yingshi.toutiao.storage;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.yingshi.toutiao.model.Category;
-import com.yingshi.toutiao.storage.adapters.CategoryDBAdapter;
+import com.yingshi.toutiao.social.AccountInfo;
+import com.yingshi.toutiao.storage.adapters.AccountInfoDBAdapter;
 
-public class CategoryDAO extends BaseDAO<Category>{
-    static final String tag = "TT-CategoryDAO";
-    public CategoryDAO(SQLiteDatabase mDb) {
-        super(new CategoryDBAdapter(mDb));
+public class AccountInfoDAO extends BaseDAO<AccountInfo>{
+    static final String tag = "TT-AccountInfoDAO";
+    public AccountInfoDAO(SQLiteDatabase mDb) {
+        super(new AccountInfoDBAdapter(mDb));
     }
 }

@@ -31,7 +31,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class Utils {
-    private final static String tag = "JIDA-Utils";
+    private final static String tag = "TT-Utils";
     private static SimpleDateFormat sdf = null;
     
     public static String formatDate(String format, long date) {

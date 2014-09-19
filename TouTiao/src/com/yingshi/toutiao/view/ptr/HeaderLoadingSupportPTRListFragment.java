@@ -19,6 +19,7 @@ public abstract class HeaderLoadingSupportPTRListFragment extends Fragment imple
 		public View headerView;
 		public int height;
 	}
+	private View mLayout;
 	private CustomizedPTRListView mListView;
 	private View mLoadingView;
 	private ListAdapter mListAdapter;
@@ -46,18 +47,18 @@ public abstract class HeaderLoadingSupportPTRListFragment extends Fragment imple
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		Log.d(tag, "onCreateView");
-		View layout = inflater.inflate(R.layout.view_ptr_list_layout, container, false);
-		mListView = (CustomizedPTRListView) layout.findViewById(R.id.id_content);
+		mLayout = inflater.inflate(R.layout.view_ptr_list_layout, container, false);
+		mListView = (CustomizedPTRListView) mLayout.findViewById(R.id.id_content);
 		ViewHolder holder = createHeaderView(inflater);
 		if(holder != null && holder.headerView != null){
 			mListView.addViewToListHeader(holder.headerView, holder.height);
 		}
 		mListView.setOnRefreshListener(this);
-		mLoadingView = layout.findViewById(R.id.id_loading);
+		mLoadingView = mLayout.findViewById(R.id.id_loading);
 		//hide both before any data is available
 		mListView.setVisibility(View.GONE);
 		mLoadingView.setVisibility(View.GONE);
-		return layout;
+		return mLayout;
 	}
 	
 	/**

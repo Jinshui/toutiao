@@ -51,6 +51,8 @@ public class News extends BaseModel{
         	Date date = Utils.parseDate("yyyy-MM-dd HH:mm:ss.SSS", json.getString("Time"));
         	news.setTime(date == null ? 0 : date.getTime());
         }
+        if(json.has("Content"))
+        	news.setContent(json.getString("Content"));
         if(json.has("TypeName"))
         	news.setCategory(json.getString("TypeName"));
         if(json.has("LinkContent"))

@@ -48,6 +48,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ "name text not null"
 			+ ");";
 
+	private static final String CREATE_DATABASE_ACCOUNTS = "create table accounts("
+			+ "_id integer primary key autoincrement,"
+			+ "provider text null,"
+			+ "userName text null,"
+			+ "photoUrl text null,"
+			+ "openId text null,"
+			+ "token text null,"
+			+ "lastLogin integer null,"
+			+ "expiresIn integer null"
+			+ ");";
+
 	public static final String DB_NAME = "news.db";
 	public static final int DATABASE_VERSION = 1;
 
@@ -60,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_DATABASE_NEWS);
 		db.execSQL(CREATE_DATABASE_SPECIAL);
 		db.execSQL(CREATE_DATABASE_CATEGORY);
+		db.execSQL(CREATE_DATABASE_ACCOUNTS);
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

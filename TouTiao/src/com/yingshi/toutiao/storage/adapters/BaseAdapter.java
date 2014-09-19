@@ -12,9 +12,9 @@ import com.yingshi.toutiao.model.BaseModel;
 
 public abstract class BaseAdapter<T extends BaseModel> {
     static final String tag = "TT-NewsDBAdapter";
-    private SQLiteDatabase mDb;
-    private String mTableName;
-    private String[] mColumnNames;
+    protected SQLiteDatabase mDb;
+    protected String mTableName;
+    protected String[] mColumnNames;
 	public BaseAdapter(String tableName, String[] columnNames, SQLiteDatabase database){
 		mDb = database;
 		mTableName = tableName;
@@ -56,9 +56,9 @@ public abstract class BaseAdapter<T extends BaseModel> {
 		Log.d(tag, "fetchOneById: _id=" + rowId);
 		Cursor cursor = mDb.query(true, mTableName, mColumnNames, "_id="+rowId, null, null, null, null, null);
         if (cursor != null) {
-        	cursor.moveToFirst();
             try{
-            	return toObject(cursor);
+            	if(cursor.moveToFirst())
+            		return toObject(cursor);
             } finally {
                 cursor.close();
             }

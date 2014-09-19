@@ -1,12 +1,22 @@
 package com.yingshi.toutiao.social;
 
-public class AccountInfo {
+import com.yingshi.toutiao.model.BaseModel;
+
+public class AccountInfo extends BaseModel {
+	private String provider;
 	private String userName;
 	private String photoUrl;
 	private String openId;
 	private String token;
+	private long lastLogin;
 	private long expiresIn;
 	
+	public String getProvider() {
+		return provider;
+	}
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -30,6 +40,12 @@ public class AccountInfo {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public long getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(long lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 	public long getExpiresIn() {
 		return expiresIn;

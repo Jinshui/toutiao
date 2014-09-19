@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -114,7 +115,7 @@ public class MainActivity extends SlidingFragmentActivity
 		});
 		
 		//Pager
-		mViewPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager(), categories));
+		mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), categories));
 		//切换Pager时,要将当前对应的Tab滚动到可见位置
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			public void onPageSelected(int position) {
@@ -161,22 +162,18 @@ public class MainActivity extends SlidingFragmentActivity
 	 * A simple pager adapter that represents 5 {@link SlidePageFragment}
 	 * objects, in sequence.
 	 */
-	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+	private class MainPagerAdapter extends FragmentStatePagerAdapter {
+		public static final String tag = "TT-MainPagerAdapter";
 		List<Category> mCategories;
-		Map<String, MainFragment> pages = new HashMap<String, MainFragment>();
-		public ScreenSlidePagerAdapter(FragmentManager fm, List<Category> categories) {
+		public MainPagerAdapter(FragmentManager fm, List<Category> categories) {
 			super(fm);
 			mCategories = categories;
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-			MainFragment page = pages.get(mCategories.get(position).getName());
-			if(page == null){
-				page = new MainFragment(mCategories.get(position).getName());
-				pages.put(mCategories.get(position).getName(), page);
-			}
-			return page;
+			Log.d(tag, ": getItem: " + position);
+			return new MainFragment(mCategories.get(position).getName());
 		}
 
 		@Override

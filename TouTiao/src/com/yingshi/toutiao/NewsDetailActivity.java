@@ -5,9 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,18 +18,19 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.tencent.mm.sdk.modelmsg.WXTextObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
 import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
 import com.yingshi.toutiao.actions.GetCommentsAction;
+import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.model.Comment;
 import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.model.Pagination;
 import com.yingshi.toutiao.storage.NewsDAO;
 import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CustomizeImageView;
-import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
 import com.yingshi.toutiao.view.HeaderView;
 import com.yingshi.toutiao.view.LoadMoreView;
 import com.yingshi.toutiao.view.LoadMoreView.OnMoreResultReturnListener;
@@ -45,7 +44,6 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 	private LoadMoreView<Comment> mLoadComentBtn;
 	private News mNews;
 	private NewsDAO mNewsDAO;
-	private IWXAPI mWeiXinApi;
 	private GetCommentsAction mGetCommentsAction;
 	@SuppressWarnings("unchecked")
 	public void onCreate(Bundle savedInstanceState)
@@ -62,14 +60,15 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 			}
 		});
 		
-		final int newsId = getIntent().getIntExtra(Constants.INTENT_EXTRA_NEWS_ID, 0);
-		new AsyncTask<Void, Void, News>(){
+		final long newsId = getIntent().getLongExtra(Constants.INTENT_EXTRA_NEWS_ID, 0);
+		new ParallelTask<News>(){
 			protected News doInBackground(Void... params) {
 				return ((TouTiaoApp)getApplication()).getNewsDAO().get(newsId);
 			}
 			
 			public void onPostExecute(News news){
 				updateUI(news);
+				loadComments();
 			}
 		}.execute();
 
@@ -77,7 +76,8 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		final EditText commentTextView = (EditText)findViewById(R.id.id_news_detail_comment_text);
 		commentTextView.setOnEditorActionListener(new OnEditorActionListener(){
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if(event != null){
+				if(event != null && event.getAction() == KeyEvent.ACTION_UP
+						&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
 					addComment(commentTextView);
 					return true;
 				}
@@ -88,20 +88,6 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		mToolsBar = findViewById(R.id.id_news_detail_tools_bar);
 		mLoadComentBtn = (LoadMoreView<Comment>)findViewById(R.id.id_news_load_comment);
 		mCommentsList = (LinearLayout)findViewById(R.id.id_news_detail_comments);
-		
-		mGetCommentsAction = new GetCommentsAction(this, mNews.getId(), mNews.getCategory(), 1, 20);
-		mGetCommentsAction.execute(new UICallBack<Pagination<Comment>>(){
-			public void onSuccess(Pagination<Comment> result) {
-                List<Comment> comments = result.getItems();
-                if(comments != null && !comments.isEmpty()){
-                    fillItems(mCommentsList, comments);
-                    updateLoadMoreView();
-                }
-			}
-			public void onFailure(ActionError error) {
-				
-			}
-		});
 	}
 	
     protected void fillItems(LinearLayout contentView, List<Comment> items){
@@ -112,7 +98,7 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
             contentView.addView(view, params);
         }
     }
-
+    
     private void updateLoadMoreView(){
         if(mGetCommentsAction.hasMore()){
         	mLoadComentBtn.setPaginationAction(mGetCommentsAction.getNewPageAction());
@@ -135,11 +121,7 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		if(news.getThumbnailUrls().size() == 0)
 			imageView.setVisibility(View.GONE);
 		else
-			imageView.loadImage(news.getThumbnailUrls().get(0), new LoadImageCallback(){
-				public void onImageLoaded(Drawable drawable) {
-					//TODO: Save Image?
-				}
-			});
+			imageView.loadImage(news.getThumbnailUrls().get(0));
 
 		View playButton = findViewById(R.id.id_news_detail_play);
 		playButton.setVisibility( ( news.isHasVideo() && news.getThumbnailUrls().size()>0 ) ?  View.VISIBLE : View.GONE);
@@ -147,6 +129,22 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		TextView textView = (TextView)findViewById(R.id.id_news_detail_text);
 		textView.setText(news.getContent());
 	}
+
+    private void loadComments(){
+		mGetCommentsAction = new GetCommentsAction(this, mNews.getId(), mNews.getCategory(), 1, 20);
+		mGetCommentsAction.execute(new UICallBack<Pagination<Comment>>(){
+			public void onSuccess(Pagination<Comment> result) {
+                List<Comment> comments = result.getItems();
+                if(comments != null && !comments.isEmpty()){
+                    fillItems(mCommentsList, comments);
+                    updateLoadMoreView();
+                }
+			}
+			public void onFailure(ActionError error) {
+				
+			}
+		});
+    }
 	
 	public void playVideo(View view){
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -171,8 +169,8 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		mNewsDAO.save(mNews);
 	}
 	
-	public void addComment(View view){
-		
+	public void addComment(EditText view){
+		view.getText().toString();
 	}
 	
 	public void shareWeiChat(View view){
@@ -189,7 +187,7 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		req.transaction = buildTransaction("text"); // transaction�ֶ�����Ψһ��ʶһ������
 		req.message = msg;
 		req.scene = SendMessageToWX.Req.WXSceneTimeline; // SendMessageToWX.Req.WXSceneSession;
-		mWeiXinApi.sendReq(req);
+		WXAPIFactory.createWXAPI(this, null).sendReq(req);
 	}
 	
 	private String buildTransaction(final String type) {

@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.apache.http.Header;
 import org.apache.http.HttpStatus;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +20,7 @@ import com.loopj.android.http.SyncHttpClient;
 import com.yingshi.toutiao.Constants;
 import com.yingshi.toutiao.actions.AbstractAction.ActionResult;
 
-public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, ActionResult<Result>> implements JSONConstants{
+public abstract class AbstractAction<Result> extends ParallelTask<ActionResult<Result>> implements JSONConstants{
     private static final String tag = "TT-AbstractRequest";
     private static final String URL = Constants.SERVER_ADDRESS;
     protected String mServiceId;
@@ -112,8 +113,7 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
 	            }
 	            httpClient.post(URL, params, new JsonHttpResponseHandler(){
 	    			@Override
-	    			public void onSuccess(int statusCode, Header[] headers,
-	    					JSONObject response) {
+	    			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 	    				try {
 	    	                Log.d(tag, "Received JSON response : " + response.toString(4));
 		    				super.onSuccess(statusCode, headers, response);
@@ -123,7 +123,18 @@ public abstract class AbstractAction<Result> extends AsyncTask<Void, Void, Actio
 			            	mResult = new ActionResult<Result>(new ActionError(ErrorCode.INVALID_RESPONSE, e.getMessage()));
 						} 
 	    			}
-	    			
+	    			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+	    				super.onSuccess(statusCode, headers, response);
+	    			}
+	    			public void onSuccess(int statusCode, Header[] headers, String response) {
+	    				super.onSuccess(statusCode, headers, response);
+	    			}
+	    			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+	    				onFailure(statusCode, headers, errorResponse == null? "" : errorResponse.toString(), throwable);
+	    			}
+	    			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse){
+	    				onFailure(statusCode, headers, errorResponse == null? "" : errorResponse.toString(), throwable);
+	    			}
 	    			@Override
 	    			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 	    				super.onFailure(statusCode, headers, responseString, throwable);

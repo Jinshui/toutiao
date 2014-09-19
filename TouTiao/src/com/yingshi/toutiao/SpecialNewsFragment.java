@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,7 +27,6 @@ import com.yingshi.toutiao.model.Special;
 import com.yingshi.toutiao.storage.NewsDAO;
 import com.yingshi.toutiao.storage.SpecialDAO;
 import com.yingshi.toutiao.view.CustomizeImageView;
-import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
 import com.yingshi.toutiao.view.SpecialHeader;
 import com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment;
 import com.yingshi.toutiao.view.ptr.PTRListAdapter;
@@ -109,11 +107,7 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 			public void onSuccess(Pagination<Special> specials) {
 				if( ! specials.getItems().isEmpty() ){
 					Special special = specials.getItems().get(0);
-					mSpecialHeader.getHeaderImageView().loadImage(special.getPhotoUrl(), new LoadImageCallback(){
-						public void onImageLoaded(Drawable drawable) {
-							//TODO: Save image
-						}
-					});
+					mSpecialHeader.getHeaderImageView().loadImage(special.getPhotoUrl());
 					mSpecialHeader.getSummaryView().setText(special.getSummary());
 				}
 				if(--mAsyncTaskCount == 0){

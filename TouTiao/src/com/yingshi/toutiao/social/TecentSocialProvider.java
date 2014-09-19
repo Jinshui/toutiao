@@ -51,6 +51,7 @@ public class TecentSocialProvider implements ISocialProvider{
 					try {
 						Log.d(tag, response.toString(4));
 						AccountInfo account = new AccountInfo();
+						account.setProvider(Constants.QQ);
 						account.setOpenId(response.getString("openid"));
 						account.setToken(response.getString("access_token"));
 						account.setExpiresIn(System.currentTimeMillis() + response.getLong("expires_in") * 1000);

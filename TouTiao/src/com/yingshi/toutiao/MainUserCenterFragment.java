@@ -76,12 +76,7 @@ public class MainUserCenterFragment extends Fragment
 	}
 	
 	private void loadUserPhoto(){
-		try {
-			mUserPhoto.loadImage(getActivity().openFileInput("user_profile_photo.png"));
-		} catch (FileNotFoundException e) {
-			//TODO: load from other provider?
-			Log.e(tag, "User photo not exist, " + e.getMessage());
-		}
+		mUserPhoto.loadImage(PreferenceUtil.getString(getActivity(), Constants.USER_PHOTO_URL, null));
 	}
 
 	private void initView(LayoutInflater inflater, ViewGroup container)

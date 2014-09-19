@@ -1,18 +1,19 @@
 package com.yingshi.toutiao;
 
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 
 import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.view.CustomizeImageView;
-import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
 
 public class MainPhotoFragment extends Fragment{
-	private static final String tag = "TT-PhotoPageFragment";
+	private static final String tag = "TT-MainPhotoFragment";
 	private News mNews;
 	private long mNewsId;
 	private CustomizeImageView mImageView;
@@ -31,19 +32,20 @@ public class MainPhotoFragment extends Fragment{
 				mNews = ((TouTiaoApp)getActivity().getApplication()).getNewsDAO().get(mNewsId);
 			}
 		}
+		Log.d(tag, (mNews!=null?mNews.getCategory():"") +" onAttach()");
 	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if(mImageView == null){
-			mImageView = (CustomizeImageView) inflater.inflate(R.layout.view_news_list_photo_page, container, false);
-			if(mNews.getThumbnailUrls().size() > 0){
-				mImageView.loadImage(mNews.getThumbnailUrls().get(0), new LoadImageCallback(){
-					public void onImageLoaded(Drawable drawable) {
-						//TODO: Save the image?
-					}
-				});
-			}
-		}else{
-			((ViewGroup)mImageView.getParent()).removeView(mImageView);
+		mImageView = (CustomizeImageView) inflater.inflate(R.layout.view_news_list_photo_page, container, false);
+		if(mNews.getThumbnailUrls().size() > 0){
+			mImageView.loadImage(mNews.getThumbnailUrls().get(0));
+			mImageView.setOnClickListener(new OnClickListener(){
+				public void onClick(View v) {
+					Intent showNewsDetailIntent = new Intent();
+					showNewsDetailIntent.putExtra(Constants.INTENT_EXTRA_NEWS_ID, mNews.get_id());
+					showNewsDetailIntent.setClass(getActivity(), NewsDetailActivity.class);
+					getActivity().startActivity(showNewsDetailIntent);
+				}
+			});
 		}
 		return mImageView;
 	}

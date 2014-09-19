@@ -32,6 +32,13 @@ public class PreferenceUtil {
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(context);
         return preference.getString(key, defValue);
     }
+    
+    public static void removeKey(Context context, String key){
+        SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(context);
+        Editor editor = preference.edit();
+        editor.remove(key);
+        editor.commit();
+    }
 
     public static void saveInt(Context context, String key, int value){
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(context);

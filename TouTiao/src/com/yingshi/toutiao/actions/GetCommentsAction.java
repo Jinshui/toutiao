@@ -1,13 +1,17 @@
 package com.yingshi.toutiao.actions;
 
+import java.net.URLEncoder;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yingshi.toutiao.model.Comment;
 
 public class GetCommentsAction extends PaginationAction<Comment> {
+    private static final String tag = "TT-GetCommentsAction";
 
     //request keys
     private static final String NAME = "name";
@@ -27,7 +31,11 @@ public class GetCommentsAction extends PaginationAction<Comment> {
     public void addRequestParameters(JSONObject parameters) throws JSONException {
         super.addRequestParameters(parameters);
         parameters.put(NEWS_ID, mNewsId);
-        parameters.put(NAME, mCategory);
+        try{
+        	parameters.put(NAME, URLEncoder.encode(mCategory, "UTF-8"));
+        }catch(Exception e){
+        	Log.d(tag, "failed to add parameters", e);
+        }
     }
 
     protected GetCommentsAction createNextPageAction(){

@@ -1,8 +1,11 @@
 package com.yingshi.toutiao;
 
 
+
 public class Constants {
 	public static final String APP_WEIXIN_ID = "wx88888888";
+	
+	public static final String CACHE_DIR = "/toutiao";
 	
 	public static final String UPLOAD_ADDRESS = "http://115.28.85.247/upload";
 	public static final String SERVER_ADDRESS = "http://115.28.85.247/nosession";
@@ -20,4 +23,13 @@ public class Constants {
 	public static final String USER_TOKEN_EXPIRES_IN = "user.token.expires.in";
 	public static final String USER_PHOTO_URL = "user.photo.url";
 	public static final String USER_NAME = "user.name";
+	public static final String USER_PROVIDER = "user.provider";
+	
+	//Pagination
+	public static final int PAGE_SIZE = 20;
+	
+	//Login
+	public static final String SINA = "sina";
+	public static final String WEIXIN = "weixin";
+	public static final String QQ = "qq";
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +12,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +23,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
 import com.yingshi.toutiao.actions.AbstractAction.BackgroundCallBack;
 import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
+import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.actions.GetFocusAction;
 import com.yingshi.toutiao.actions.GetNewsAction;
 import com.yingshi.toutiao.model.News;
@@ -36,7 +35,7 @@ import com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment;
 import com.yingshi.toutiao.view.ptr.PTRListAdapter;
 
 public class MainFragment extends HeaderLoadingSupportPTRListFragment {
-	private final static String tag = "TT-SlidePageFragment";
+	private final static String tag = "TT-MainFragment";
 	
 	private String mCategory;
 	private PhotoPager mPhotoPager;
@@ -48,8 +47,30 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 	private boolean mNewsLoaded = false;
 	
 	private int mAsyncTaskCount = 0;
-	private BackgroundCallBack<Pagination<News>> mGetNewsListBackgroundCallback = null;
-	private UICallBack<Pagination<News>> mGetNewsListUICallback = null;
+	private BackgroundCallBack<Pagination<News>> mGetNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
+		public void onSuccess(Pagination<News> newsPage) {
+			mNewsDAO.save(newsPage.getItems());
+		}
+		public void onFailure(ActionError error) {}
+	};
+	private UICallBack<Pagination<News>> mGetNewsListUICallback = new UICallBack<Pagination<News>>(){
+		public void onSuccess(Pagination<News> newsList) {
+			mNewsLoaded = true;
+			if(isDetached() || getActivity() == null) //DO NOT update the view if this fragment is detached from the activity.
+				return;
+			if(mNewsListAdapter == null){
+				mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
+				setAdapter(mNewsListAdapter);
+			}else{
+				mNewsListAdapter.addMore(newsList.getItems());
+			}
+			afterLoadReturned();
+		}
+		public void onFailure(ActionError error) {
+			//TODO: Show failure
+			afterLoadReturned();
+		}
+	};
 	
 	public MainFragment() {
 	}
@@ -68,9 +89,13 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
 			mCategory = savedInstanceState.getString("mCategory");
+			mFocusLoaded = savedInstanceState.getBoolean("mFocusLoaded");
+			mNewsLoaded = savedInstanceState.getBoolean("mNewsLoaded");
 		}
 		mNewsDAO = ((TouTiaoApp)getActivity().getApplication()).getNewsDAO();
+		mGetnewsAction = new GetNewsAction(getActivity(), mCategory, 1, Constants.PAGE_SIZE);
 	}
+	
 	public void onResume(){
 		Log.d(tag, mCategory +" onResume()");
 		super.onResume();
@@ -98,7 +123,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 				mFocusLoaded = true;
 				mFocusNews = newsList;
 				mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
-				updatePhotoPager(0, newsList);
+				updatePhotoPager(0);
 				afterLoadReturned();
 			}
 			public void onFailure(ActionError error) {
@@ -111,44 +136,20 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 	private void loadNewsFromServer(){
 		Log.d(tag, mCategory +" loadNewsFromServer()");
 		mAsyncTaskCount ++;
-		mGetnewsAction = new GetNewsAction(getActivity(), mCategory, 0, 20);
-		mGetnewsAction.execute(mGetNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
-				public void onSuccess(Pagination<News> newsPage) {
-					mNewsDAO.save(newsPage.getItems());
-				}
-				public void onFailure(ActionError error) {}
-			}, 
-			mGetNewsListUICallback = new UICallBack<Pagination<News>>(){
-				public void onSuccess(Pagination<News> newsList) {
-					mNewsLoaded = true;
-					if(isDetached()) //DO NOT update the view if this fragment is detached from the activity.
-						return;
-					if(mNewsListAdapter == null){
-						mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
-						setAdapter(mNewsListAdapter);
-					}else{
-						mNewsListAdapter.addMore(newsList.getItems());
-					}
-					afterLoadReturned();
-				}
-				public void onFailure(ActionError error) {
-					//TODO: Show failure
-					afterLoadReturned();
-				}
-		});
+		mGetnewsAction.execute(mGetNewsListBackgroundCallback, mGetNewsListUICallback);
 	}
 	
 	private void loadFocusFromDB(){
 		Log.d(tag, mCategory +" loadFocusFromDB()");
 		mAsyncTaskCount ++;
-		new AsyncTask<Void, Void, List<News>>() {
+		new ParallelTask<List<News>>() {
 			protected List<News> doInBackground(Void... params) {
 				return mNewsDAO.findFocusByCategory(mCategory);
 			}
 			public void onPostExecute(List<News> newsList){
 				mFocusNews = newsList;
 				mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
-				updatePhotoPager(0, newsList);
+				updatePhotoPager(0);
 				afterLoadReturned();
 			}
 		}.execute();
@@ -157,13 +158,14 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 	private void loadNewsFromDB(){
 		Log.d(tag, mCategory +" loadNewsFromDB()");
 		mAsyncTaskCount ++;
-		new AsyncTask<Void, Void, List<News>>() {
+		new ParallelTask<List<News>>() {
 			protected List<News> doInBackground(Void... params) {
 				return mNewsDAO.findNewsByCategory(mCategory);
 			}
 			public void onPostExecute(List<News> newsList){
 				if(mNewsListAdapter == null){
 					mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList);
+					mGetnewsAction = new GetNewsAction(getActivity(), mCategory, newsList.size(), Constants.PAGE_SIZE);
 					setAdapter(mNewsListAdapter);
 				}else{
 					mNewsListAdapter.clear();
@@ -186,9 +188,12 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		super.onSaveInstanceState(outState);
 		Log.d(tag, mCategory + " onSaveInstanceState");
 		outState.putString("mCategory", mCategory);
+		outState.putBoolean("mFocusLoaded", mFocusLoaded);
+		outState.putBoolean("mNewsLoaded", mNewsLoaded);
 	}
 
 	public ViewHolder createHeaderView(LayoutInflater inflater){
+		Log.d(tag, mCategory + " createHeaderView");
 		ViewHolder holder = new ViewHolder();
 		mPhotoPager = (PhotoPager)inflater.inflate(R.layout.view_news_list_header, null);
 		mPhotoPager.getPhotoViewPager().setOnClickListener(new OnClickListener(){
@@ -200,7 +205,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		});
 		mPhotoPager.getPhotoViewPager().setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			public void onPageSelected(int position) {
-				updatePhotoPager(position, mFocusNews);
+				updatePhotoPager(position);
 			}
 		});
 		holder.headerView = mPhotoPager;
@@ -208,11 +213,11 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		return holder;
 	}
 
-	private void updatePhotoPager(int position, List<News> focusNews){
-		if(focusNews != null && focusNews.size() > 0){
+	private void updatePhotoPager(int position){
+		if(mFocusNews != null && mFocusNews.size() > 0){
 			mPhotoPager.setVisibility(View.VISIBLE);
-			mPhotoPager.getPhotoNumView().setText(String.format("%d/%d", position + 1, focusNews.size()));
-			mPhotoPager.getPhotoDescriptionView().setText(focusNews.get(position).getName());
+			mPhotoPager.getPhotoNumView().setText(String.format("%d/%d", position + 1, mFocusNews.size()));
+			mPhotoPager.getPhotoDescriptionView().setText(mFocusNews.get(position).getName());
 		}else{
 			mPhotoPager.setVisibility(View.GONE);
 		}
@@ -283,7 +288,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
     }
 	
 	private class PhotoPagerAdapter extends FragmentStatePagerAdapter {
-		SparseArray<MainPhotoFragment> pages = new  SparseArray<MainPhotoFragment>();
+		public static final String tag = "TT-PhotoPagerAdapter";
 		List<News> news;
 		public PhotoPagerAdapter(FragmentManager fm, List<News> news) {
 			super(fm);
@@ -292,12 +297,8 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 
 		@Override
 		public Fragment getItem(int position) {
-			MainPhotoFragment page = pages.get(position);
-			if(page == null){
-				page = new MainPhotoFragment(news.get(position));
-				pages.put(position, page);
-			}
-			return page;
+			Log.d(tag, mCategory + ": getItem: " + position);
+			return new MainPhotoFragment(news.get(position));
 		}
 
 		@Override
@@ -314,7 +315,12 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		mGetnewsAction.getNewPageAction().execute(mGetNewsListBackgroundCallback, mGetNewsListUICallback);
+		if(mGetnewsAction.hasMore()){
+			mGetnewsAction = (GetNewsAction)mGetnewsAction.getNewPageAction();
+			mGetnewsAction.execute(mGetNewsListBackgroundCallback, mGetNewsListUICallback);
+		}else{
+			refreshComplete();
+		}
 	}
 	
 	public void onActivityCreated (Bundle savedInstanceState){

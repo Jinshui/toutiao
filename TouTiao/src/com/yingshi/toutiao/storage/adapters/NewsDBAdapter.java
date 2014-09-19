@@ -18,11 +18,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.yingshi.toutiao.model.News;
 
 public class NewsDBAdapter extends BaseAdapter<News> {
-
+    static final String tag = "TT-NewsDBAdapter";
 	public static final String DB_TABLE_NEWS = "news";
     private static String[] NEWS_COLUMNS = { "_id", "id", "name", "summary", 
     	"content", "time", "category", "contact", "likes", "isSpecial", 
@@ -34,6 +35,15 @@ public class NewsDBAdapter extends BaseAdapter<News> {
     	super(DB_TABLE_NEWS, NEWS_COLUMNS, database);
     }
 
+    public long insert(News news) {
+    	News existingNews = fetchOneByNewsId(news.getId());
+    	if(existingNews != null){
+    		Log.d(tag, "Found existing news: " + existingNews.get_id());
+    		return existingNews.get_id();
+    	}
+    	return super.insert(news);
+    }
+    
     public ContentValues toContentValues(News news) {
         ContentValues initialValues = new ContentValues();
         initialValues.put("id", news.getId());
@@ -71,6 +81,21 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         initialValues.put("isFavorite", news.isFavorite());
         return initialValues;
     }
+    
+    
+	public News fetchOneByNewsId(String newsId){
+		Log.d(tag, "fetchOneByNewsId: newsId=" + newsId);
+		Cursor cursor = mDb.query(true, mTableName, mColumnNames, "id='"+newsId+"'", null, null, null, null, null);
+        if (cursor != null) {
+            try{
+            	if(cursor.moveToFirst())
+            		return toObject(cursor);
+            } finally {
+                cursor.close();
+            }
+        }
+        return null;
+	}
     
     public List<News> findFavorites(int pageSize, int pageIndex){
     	String columns = "";

@@ -1,11 +1,17 @@
 package com.yingshi.toutiao.view;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+
+import com.yingshi.toutiao.Constants;
+import com.yingshi.toutiao.actions.ParallelTask;
+import com.yingshi.toutiao.util.Utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
@@ -22,16 +28,20 @@ public class CustomizeImageView extends ImageView{
     }
 
     public void loadImage(final String url){
-    	loadImage(url, null);
-    }
-    
-    public void loadImage(final String url, final LoadImageCallback callback){
-        new AsyncTask<Void, Void, Drawable>(){
+    	if(TextUtils.isEmpty(url))
+    		return;
+        new ParallelTask<Drawable>(){
             protected Drawable doInBackground(Void... params) {
                 try {
+                    String cachedFileDir = getContext().getCacheDir().getAbsolutePath() + Constants.CACHE_DIR + "/images/" + url.hashCode();
+                    File existingFile = new File(cachedFileDir);
+                    if(existingFile.exists()){
+                    	return Drawable.createFromPath(cachedFileDir);
+                    }
                     Log.d(tag, "Loading img : " + url);
                     InputStream is = (InputStream) new URL(url).getContent();
-                    return Drawable.createFromStream(is, "src name");
+                    Utils.saveDataToFile(is, cachedFileDir);
+                    return Drawable.createFromPath(cachedFileDir);
                 } catch (Exception e) {
                 	Log.e(tag, "Failed to load image : " + url +". Error: " + e.getMessage());
                 	return null;
@@ -41,12 +51,10 @@ public class CustomizeImageView extends ImageView{
                 if(drawable != null){
                     setImageDrawable(drawable);
                 }
-                if(callback != null)
-                	callback.onImageLoaded(drawable);
             }
-        }.execute(new Void[0]);
+        }.execute();
     }
-
+    
     public void loadImage(final InputStream is){
     	loadImage(is, null);
     }

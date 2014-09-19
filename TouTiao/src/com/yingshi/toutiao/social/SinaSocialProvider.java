@@ -7,6 +7,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.models.User;
+import com.yingshi.toutiao.Constants;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class SinaSocialProvider implements ISocialProvider{
 				Log.d(tag, mAccessToken.toString());
 				if (mAccessToken.isSessionValid()) {
 					AccountInfo accountInfo = new AccountInfo();
+					accountInfo.setProvider(Constants.SINA);
 					accountInfo.setExpiresIn(mAccessToken.getExpiresTime());
 					accountInfo.setOpenId(mAccessToken.getUid());
 					accountInfo.setToken(mAccessToken.getToken());
