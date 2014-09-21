@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:text="@string/special_summary"
-        android:textColor="@color/gray"
         android:textSize="@dimen/special_summary_size"
         android:textStyle="bold" />
 
@@ -35,12 +34,11 @@
         android:textSize="@dimen/special_summary_size" />
 
     <TextView
-        android:id="@+id/id_special_list_page_indicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray"
         android:paddingLeft="5dp"
-        android:textColor="@color/black"
+        android:text="@string/latest_news"
         android:textSize="@dimen/special_summary_size" />
 
 </com.yingshi.toutiao.view.SpecialHeader>

@@ -52,6 +52,7 @@ public class News extends BaseModel implements Parcelable{
 	public News(){}
     
     private News(Parcel in) {
+    	super(in);
     	name = in.readString();
     	summary = in.readString();
     	time = in.readLong();
@@ -75,6 +76,7 @@ public class News extends BaseModel implements Parcelable{
     
 	
     public void writeToParcel(Parcel out, int flags) {
+    	super.writeToParcel(out, flags);
         out.writeString(name);
         out.writeString(summary);
         out.writeLong(time);

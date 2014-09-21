@@ -24,8 +24,4 @@ public class SpecialHeader extends LinearLayout {
 	public TextView getSummaryView() {
 		return (TextView) findViewById(R.id.id_special_summary_text);
 	}
-
-	public TextView getPageIndicatorView() {
-		return (TextView) findViewById(R.id.id_special_list_page_indicator);
-	}
 }

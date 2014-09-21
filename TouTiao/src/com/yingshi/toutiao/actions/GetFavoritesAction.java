@@ -23,7 +23,7 @@ public class GetFavoritesAction extends PaginationAction<News> {
 
     public class DBBackgroundProcessor implements IBackgroundProcessor<Pagination<News>>{
 		public com.yingshi.toutiao.actions.AbstractAction.ActionResult<Pagination<News>> doInBackground() {
-			Log.d(tag, "Loading favorites from database: total=" + getTotalCount() +", page="+getPageIndex()+", size="+getPageSize());
+//			Log.d(tag, "Loading favorites from database: total=" + getTotalCount() +", page="+getPageIndex()+", size="+getPageSize());
 			List<News> newsList = mFavoritesDAO.findFavorites(getPageSize(), getPageIndex());
 			Pagination<News> newsPagination = new Pagination<News>();
 			newsPagination.setItems(newsList);

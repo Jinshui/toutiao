@@ -147,12 +147,11 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 			public void onSuccess(List<News> newsList) {
 				mFocusLoaded = true;
 				mFocusNews = newsList;
-				if(isDetached()){ // This Fragment is currently invisible.
-					return;
+				if(isResumed()){ // show the pager only if the fragement is resumed
+					mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
+					updatePhotoPager(0);
+					afterLoadReturned();
 				}
-				mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
-				updatePhotoPager(0);
-				afterLoadReturned();
 			}
 			public void onFailure(ActionError error) {
 				//TODO: Show failure
@@ -332,10 +331,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
                 holder.newsTitle.setText(news.getName());
             }
             if( news.getThumbnailUrls().size() > 0){
-            	if(news.getThumbnailFilePath() != null)
-            		holder.newsThumbnail.loadImage("file://"+news.getThumbnailFilePath());
-            	else
-            		holder.newsThumbnail.loadImage(news.getThumbnailUrls().get(0));
+        		holder.newsThumbnail.loadImage(news.getThumbnailUrls().get(0));
             }
             
             holder.newsVideoSign.setVisibility( news.isHasVideo() ? View.VISIBLE : View.INVISIBLE);

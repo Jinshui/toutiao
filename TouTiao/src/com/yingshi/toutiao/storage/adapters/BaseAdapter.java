@@ -17,6 +17,7 @@ public abstract class BaseAdapter<T extends BaseModel> {
     private String[] mColumnNames;
 	public BaseAdapter(String tableName, String[] columnNames, SQLiteDatabase database){
 		mDb = database;
+		mColumnNames = columnNames;
 		mTableName = tableName;
 	}
 	
@@ -66,6 +67,7 @@ public abstract class BaseAdapter<T extends BaseModel> {
     }
     
     public List<T> fetchPage(int pageSize, int pageIndex, String query, String orderBy){
+		Log.d(tag, "fetchPage: table=" + mTableName +", pageSize="+ pageSize +", pageIndex=" + pageIndex +", query="+ query +", orderBy=" + orderBy);
     	String columns = "";
     	for(int i=0; i<mColumnNames.length; i++){
     		columns = columns + mColumnNames[i];

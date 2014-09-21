@@ -26,6 +26,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
 import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
 import com.yingshi.toutiao.actions.GetCommentsAction;
+import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.model.Comment;
 import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.model.Pagination;
@@ -33,12 +34,10 @@ import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CommentListRow;
 import com.yingshi.toutiao.view.CustomizeImageView;
 import com.yingshi.toutiao.view.HeaderView;
-import com.yingshi.toutiao.view.LoadMoreView.OnMoreResultReturnListener;
 
-public class NewsDetailActivity extends Activity implements OnMoreResultReturnListener<Comment>
+public class NewsDetailActivity extends Activity
 {
 	private View mShareNewsWidget;
-	private View mToolsBar;
 	private LinearLayout mCommentsList;
 	private ImageButton mShowCommentsBtn;
 	private News mNews;
@@ -66,7 +65,6 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 			}
 		});
 		mShareNewsWidget = findViewById(R.id.id_news_share_widget);
-		mToolsBar = findViewById(R.id.id_news_detail_tools_bar);
 		mCommentsList = (LinearLayout)findViewById(R.id.id_news_detail_comments);
 		mShowCommentsBtn = (ImageButton)findViewById(R.id.id_news_get_comment);
 		
@@ -90,7 +88,8 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		titleView.setText(mNews.getName());
 		
 		TextView dateView = (TextView)findViewById(R.id.id_news_detail_time);
-		dateView.setText(Utils.formatDate("yyyy/MM/dd HH:mm:ss", mNews.getTime()));
+		String dateViewText = String.format("%s  %s", Utils.formatDate("yyyy/MM/dd HH:mm:ss", mNews.getTime()), mNews.getAuthor());
+		dateView.setText(dateViewText);
 		
 		CustomizeImageView imageView = (CustomizeImageView)findViewById(R.id.id_news_detail_img);
 		if(mNews.getPhotoUrls().size() == 0)
@@ -118,15 +117,21 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 	public void share(View view){
 		if(mShareNewsWidget.getVisibility() == View.GONE){
 			mShareNewsWidget.setVisibility(View.VISIBLE);
-			mToolsBar.setBackgroundResource(R.drawable.share_bg);
 		}else{
 			mShareNewsWidget.setVisibility(View.GONE);
-			mToolsBar.setBackgroundColor(Color.RED);
 		}
 	}
 	
 	public void addToFavorites(View view){
-		((TouTiaoApp)getApplication()).getFavoritesDAO().save(mNews);
+		new ParallelTask<Void>() {
+			protected Void doInBackground(Void... params) {
+				((TouTiaoApp)getApplication()).getFavoritesDAO().save(mNews);
+				return null;
+			}
+			public void onPostExecute(Void result){
+				Toast.makeText(getApplication(), R.string.add_favorite_succ, Toast.LENGTH_SHORT).show();
+			}
+		}.execute();
 	}
 	
 	public void getComments(View view){
@@ -151,7 +156,6 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 	
 	public void shareWeiChat(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
-		mToolsBar.setBackgroundColor(Color.RED);
 		WXTextObject textObj = new WXTextObject();
 		textObj.text = "";
 		
@@ -160,7 +164,7 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 		
 		msg.description = "";
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
-		req.transaction = buildTransaction("text"); // transaction�ֶ�����Ψһ��ʶһ������
+		req.transaction = buildTransaction("text"); 
 		req.message = msg;
 		req.scene = SendMessageToWX.Req.WXSceneTimeline; // SendMessageToWX.Req.WXSceneSession;
 		WXAPIFactory.createWXAPI(this, null).sendReq(req);
@@ -172,12 +176,10 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 	
 	public void shareWeibo(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
-		mToolsBar.setBackgroundColor(Color.RED);
 	}
 	
 	public void shareQQ(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
-		mToolsBar.setBackgroundColor(Color.RED);
 		//分享类型
 //		Bundle params = new Bundle();
 //		params.putString(Tencent.SHARE_TO_QQ_KEY_TYPE, SHARE_TO_QZONE_TYPE_IMAGE_TEXT );
@@ -190,11 +192,5 @@ public class NewsDetailActivity extends Activity implements OnMoreResultReturnLi
 	
 	public void cancelShare(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
-		mToolsBar.setBackgroundColor(Color.RED);
-	}
-
-	@Override
-	public void onMoreResultReturn(List<Comment> result) {
-		
 	}
 }

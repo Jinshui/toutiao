@@ -42,7 +42,7 @@ public class NewsDBAdapter extends BaseAdapter<News> {
     public long insert(News news) {
     	News existingNews = fetchOneByNewsId(news.getId());
     	if(existingNews != null){
-//    		Log.d(tag, "Found existing news: " + existingNews.get_id());
+    		Log.d(tag, "Found existing record in " + getTableName() + ": " + existingNews.get_id());
     		return existingNews.get_id();
     	}
 		return super.insert(news);

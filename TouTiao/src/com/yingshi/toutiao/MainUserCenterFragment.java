@@ -35,8 +35,7 @@ public class MainUserCenterFragment extends Fragment
 		public void onReceive(Context context, Intent intent) {
 			if(Constants.INTENT_ACTION_PHOTO_UPDATED.equals(intent.getAction())){
 				Log.d(tag, "Received intent: " + Constants.INTENT_ACTION_PHOTO_UPDATED);
-				mUserName.setText(PreferenceUtil.getString(getActivity(), Constants.USER_NAME , ""));
-				loadUserPhoto();
+				loadUserInfo();
 			}
 		}
 	}
@@ -69,19 +68,6 @@ public class MainUserCenterFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
-		if (mView == null)
-		{
-			initView(inflater, container);
-		}
-		return mView;
-	}
-	
-	private void loadUserPhoto(){
-		mUserPhoto.loadImage(PreferenceUtil.getString(getActivity(), Constants.USER_PHOTO_URL, null));
-	}
-
-	private void initView(LayoutInflater inflater, ViewGroup container)
-	{
 		mView = inflater.inflate(R.layout.view_user_center, container, false);
 		mReturnBtn = (ImageButton)mView.findViewById(R.id.id_btn_back_to_toutiao);
 		mUserPhoto = (CustomizeImageView)mView.findViewById(R.id.id_user_profile_photo);
@@ -90,11 +76,16 @@ public class MainUserCenterFragment extends Fragment
 		mBtnDownloads = mView.findViewById(R.id.id_downloads);
 		mBtnPush = mView.findViewById(R.id.id_push);
 		mBtnClearCache = mView.findViewById(R.id.id_clear_cache);
-		
-		mUserName.setText(PreferenceUtil.getString(getActivity(), Constants.USER_NAME , ""));
-		
 		addListener();
-		loadUserPhoto();
+		loadUserInfo();
+		return mView;
+	}
+	
+	private void loadUserInfo(){
+		String loginUserName = PreferenceUtil.getString(getActivity(), Constants.USER_NAME , null);
+		if(loginUserName != null)
+			mUserName.setText(loginUserName);
+		mUserPhoto.loadImage(PreferenceUtil.getString(getActivity(), Constants.USER_PHOTO_URL, null));
 	}
 	
 	private void addListener(){

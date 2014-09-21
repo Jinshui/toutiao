@@ -48,6 +48,7 @@ public class CustomizedPTRListView extends PullToRefreshListView {
 			mHeaderLoadingView = createLoadingLayout(getContext(), Mode.PULL_FROM_START, a);
 			mHeaderLoadingView.setVisibility(View.GONE);
 			mListViewHeader.addView(mHeaderLoadingView, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+			getRefreshableView().setDividerHeight(0);
 			getRefreshableView().addHeaderView(mListViewHeader, null, false);
 
 			mLvFooterLoadingFrame = new FrameLayout(getContext());

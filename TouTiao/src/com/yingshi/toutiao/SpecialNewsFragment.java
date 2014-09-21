@@ -37,31 +37,6 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 	private GetSpecialNewsAction mGetSpecialNewsAction;
 	private int mAsyncTaskCount = 0;
 
-	UICallBack<Pagination<News>> getSpecialNewsListUICallback = new UICallBack<Pagination<News>>(){
-		public void onSuccess(Pagination<News> newsList) {
-			if(mSpecialNewsArrayAdapter == null){
-				mSpecialNewsArrayAdapter = new SpecialNewsArrayAdapter(getActivity(), R.layout.view_special_list_item, newsList.getItems());
-				setAdapter(mSpecialNewsArrayAdapter);
-			}else{
-				mSpecialNewsArrayAdapter.clear();
-				mSpecialNewsArrayAdapter.addMore(newsList.getItems());
-			}
-			mSpecialHeader.getPageIndicatorView().setText(newsList.getCurrentPage() + "/" + newsList.getTotalCounts()/newsList.getPageSize());
-			if(--mAsyncTaskCount == 0){
-				showListView();
-			}
-			refreshComplete();
-		}
-		public void onFailure(ActionError error) {
-			mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.createRetryPageAction();
-			//TODO: Show failure
-			if(--mAsyncTaskCount == 0){
-				showListView();
-			}
-			refreshComplete();
-		}
-	};
-	
 	public SpecialNewsFragment() {
 	}
 	
@@ -119,7 +94,6 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 					mSpecialNewsArrayAdapter.clear();
 					mSpecialNewsArrayAdapter.addMore(newsList.getItems());
 				}
-				mSpecialHeader.getPageIndicatorView().setText(newsList.getCurrentPage() + "/" + newsList.getTotalCounts()/newsList.getPageSize());
 				if(--mAsyncTaskCount == 0){
 					showListView();
 				}
@@ -167,7 +141,6 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 				}else{
 					mSpecialNewsArrayAdapter.addMore(newsList.getItems());
 				}
-				mSpecialHeader.getPageIndicatorView().setText(newsList.getCurrentPage() + "/" + newsList.getTotalCounts()/newsList.getPageSize());
 				if(--mAsyncTaskCount == 0){
 					showListView();
 				}
@@ -209,10 +182,7 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
                 holder.newsTitle.setText(news.getName());
             }
             if( news.getThumbnailUrls().size() > 0){
-            	if(news.getThumbnailFilePath() != null)
-            		holder.newsThumbnail.loadImage("file://"+news.getThumbnailFilePath());
-            	else
-            		holder.newsThumbnail.loadImage(news.getThumbnailUrls().get(0));
+        		holder.newsThumbnail.loadImage(news.getThumbnailUrls().get(0));
             }
 
             if(!TextUtils.isEmpty(news.getSummary())){
