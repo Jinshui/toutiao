@@ -75,7 +75,7 @@ public class LoadMoreView<T> extends LinearLayout{
             mStatusText.setVisibility(VISIBLE);
             mStatusText.setText(R.string.press_to_load);
             //Always create a new Asyn task because an AsynTask can be executed ONLY ONCE
-            mAction = mAction.getNewPageAction();
+            mAction = mAction.getNextPageAction();
             mStatus = LoadStatus.IDLE;
         }else{
             mStatusText.setText(R.string.no_more_load);
@@ -89,7 +89,7 @@ public class LoadMoreView<T> extends LinearLayout{
         mStatusText.setVisibility(VISIBLE);
         mStatusText.setText(R.string.load_failed);
         mProgressView.setVisibility(INVISIBLE);
-        mAction = mAction.getNewPageAction();
+        mAction = mAction.getNextPageAction();
         //Always create a new Asyn task because an AsynTask can be executed ONLY ONCE
         mStatus = LoadStatus.IDLE;
     }

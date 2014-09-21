@@ -1,5 +1,6 @@
 package com.yingshi.toutiao;
 
+import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.view.HeaderView;
 
 import android.os.Bundle;
@@ -22,8 +23,8 @@ public class SpecialNewsActivity extends FragmentActivity {
 			}
 		});
 
-		String sepcialName = getIntent().getStringExtra(Constants.INTENT_EXTRA_NEWS_ID);
-		getSupportFragmentManager().beginTransaction().replace(R.id.id_special_news_list, new SpecialNewsFragment(sepcialName)).commit();
+		News news = getIntent().getParcelableExtra(Constants.INTENT_EXTRA_NEWS);
+		getSupportFragmentManager().beginTransaction().replace(R.id.id_special_news_list, new SpecialNewsFragment(news.getSpecialName())).commit();
 	}
 
 }

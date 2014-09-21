@@ -3,15 +3,18 @@ package com.yingshi.toutiao;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.yingshi.toutiao.MainFragment.NewsArrayAdapter;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
+import com.yingshi.toutiao.actions.AbstractAction.BackgroundCallBack;
 import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
 import com.yingshi.toutiao.actions.SearchAction;
 import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.model.Pagination;
+import com.yingshi.toutiao.storage.NewsDAO;
 import com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment;
 import com.yingshi.toutiao.view.ptr.PTRListAdapter;
 
@@ -19,8 +22,15 @@ public class SearchFragment extends HeaderLoadingSupportPTRListFragment {
 	private final static String tag = "TT-SearchPageFragment";
 	private String mKeyword;
 	private SearchAction mSearchAction;
+	private NewsDAO mNewsDAO;
 	private PTRListAdapter<News> mNewsListAdapter;
-	private UICallBack<Pagination<News>> searchCallBack = new UICallBack<Pagination<News>>(){
+	private BackgroundCallBack<Pagination<News>> mSearchNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
+		public void onSuccess(Pagination<News> newsPage) {
+			mNewsDAO.save(newsPage.getItems());
+		}
+		public void onFailure(ActionError error) {}
+	};
+	private UICallBack<Pagination<News>> searchUICallBack = new UICallBack<Pagination<News>>(){
 		public void onSuccess(Pagination<News> newsList) {
 			if(mNewsListAdapter == null){
 				mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
@@ -28,9 +38,18 @@ public class SearchFragment extends HeaderLoadingSupportPTRListFragment {
 			}else{
 				mNewsListAdapter.addMore(newsList.getItems());
 			}
+			
+			if(newsList.getItems().isEmpty()){
+				Toast.makeText(getActivity(), R.string.load_complete, Toast.LENGTH_SHORT).show();
+			}
+			
+			showListView();
+			refreshComplete();
 		}
 		public void onFailure(ActionError error) {
-			//TODO: show error
+			Toast.makeText(getActivity(), R.string.load_complete, Toast.LENGTH_SHORT).show();
+			showListView();
+			refreshComplete();
 		}
 	}; 
 	
@@ -39,12 +58,14 @@ public class SearchFragment extends HeaderLoadingSupportPTRListFragment {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mNewsDAO = ((TouTiaoApp)getActivity().getApplication()).getNewsDAO();
 	}
 
 	public void doSearch(String keyword){
 		mKeyword = keyword;
+		showLoadingView();
 		mSearchAction = new SearchAction(getActivity(), mKeyword, 1, 20);
-		mSearchAction.execute(searchCallBack);
+		mSearchAction.execute(mSearchNewsListBackgroundCallback, searchUICallBack);
 	}
 	
 	public ViewHolder createHeaderView(LayoutInflater inflater){
@@ -59,6 +80,7 @@ public class SearchFragment extends HeaderLoadingSupportPTRListFragment {
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		mSearchAction.getNewPageAction().execute(searchCallBack);
+		mSearchAction = (SearchAction)mSearchAction.getNextPageAction();
+		mSearchAction.execute(mSearchNewsListBackgroundCallback, searchUICallBack);
 	}
 }

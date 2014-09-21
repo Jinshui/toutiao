@@ -36,7 +36,7 @@ public class CategoryDBAdapter extends BaseAdapter<Category> {
     
     public Category toObject(Cursor cursor) {
     	Category category = new Category();
-    	category.set_id(cursor.getInt(cursor.getColumnIndex("_id")));
+    	category.set_id(cursor.getLong(cursor.getColumnIndex("_id")));
     	category.setId(cursor.getString(cursor.getColumnIndex("id")));
     	category.setName(cursor.getString(cursor.getColumnIndex("name")));
         return category;

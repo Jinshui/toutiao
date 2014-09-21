@@ -18,11 +18,8 @@ import com.tencent.utils.HttpUtils.NetworkUnavailableException;
 
 
 public class BaseApiListener implements IRequestListener {
-	private Handler mHandler = new Handler(){
+	private static Handler mHandler = new Handler(){
 		public void handleMessage(Message msg) {
-			Bundle params = msg.getData();
-			String title = params.getString("title");
-			String response = params.getString("response");
 			super.handleMessage(msg);
 		}
 	};

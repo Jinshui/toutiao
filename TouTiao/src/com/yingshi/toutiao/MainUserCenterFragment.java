@@ -1,7 +1,5 @@
 package com.yingshi.toutiao;
 
-import java.io.FileNotFoundException;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +42,9 @@ public class MainUserCenterFragment extends Fragment
 	}
 
 	private PhotoUpdateBroadcastReceiver mReceiver;
+	
+	public MainUserCenterFragment(){}
+	
 	public MainUserCenterFragment(SlidingMenu slidingMenu){
 		mSlidingMenu = slidingMenu;
 	}
@@ -100,6 +101,11 @@ public class MainUserCenterFragment extends Fragment
 		mReturnBtn.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				mSlidingMenu.showContent();
+			}});
+		mBtnFavorites.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), FavoritesActivity.class);
+				startActivity(intent);
 			}});
 	}
 	

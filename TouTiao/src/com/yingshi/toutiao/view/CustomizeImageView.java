@@ -49,7 +49,9 @@ public class CustomizeImageView extends ImageView{
             }
             protected void onPostExecute(Drawable drawable){
                 if(drawable != null){
-                    setImageDrawable(drawable);
+//                    setImageDrawable(drawable);
+                	setBackgroundDrawable(drawable);
+//                	setBackground(drawable);
                 }
             }
         }.execute();

@@ -19,8 +19,10 @@ public class FavoritesFragment extends HeaderLoadingSupportPTRListFragment {
 	private final static String tag = "TT-MyFavoritesPageFragment";
 	private GetFavoritesAction mGetFavoritesAction;
 	private PTRListAdapter<News> mNewsListAdapter;
+	private boolean mIsLoaded = false;
 	private UICallBack<Pagination<News>> getFavoritesListUICallback = new UICallBack<Pagination<News>>(){
 		public void onSuccess(Pagination<News> newsList) {
+			mIsLoaded = true;
 			if(mNewsListAdapter == null){
 				mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
 				setAdapter(mNewsListAdapter);
@@ -31,6 +33,7 @@ public class FavoritesFragment extends HeaderLoadingSupportPTRListFragment {
 			refreshComplete();
 		}
 		public void onFailure(ActionError error) {
+			mGetFavoritesAction = (GetFavoritesAction)mGetFavoritesAction.createRetryPageAction();
 			//TODO: Show failure
 			showListView();
 			refreshComplete();
@@ -39,12 +42,19 @@ public class FavoritesFragment extends HeaderLoadingSupportPTRListFragment {
 	
 	public FavoritesFragment() {
 	}
+	
+	public void onResume(){
+		super.onResume();
+		if(!mIsLoaded){
+			showLoadingView();
+			mGetFavoritesAction  = new GetFavoritesAction(getActivity(), 1, 20);
+			mGetFavoritesAction.execute(getFavoritesListUICallback);
+		}
+	}
+	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setMode(Mode.PULL_FROM_END);
-		mGetFavoritesAction  = new GetFavoritesAction(getActivity(), 1, 20);
-		mGetFavoritesAction.execute(getFavoritesListUICallback);
 	}
 
 	@Override
@@ -53,9 +63,11 @@ public class FavoritesFragment extends HeaderLoadingSupportPTRListFragment {
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		mGetFavoritesAction.createNextPageAction().execute(getFavoritesListUICallback);
+		mGetFavoritesAction = (GetFavoritesAction)mGetFavoritesAction.getNextPageAction();
+		mGetFavoritesAction.execute(getFavoritesListUICallback);
 	}
 	public ViewHolder createHeaderView(LayoutInflater inflater) {
+		setMode(Mode.PULL_FROM_END);
 		return null;
 	}
 }

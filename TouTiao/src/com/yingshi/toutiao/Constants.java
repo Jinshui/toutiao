@@ -13,7 +13,9 @@ public class Constants {
 //	public static final String SERVER_ADDRESS = "http://192.168.1.103:8080/my-webapp/service";
 	
 	//Intents
-	public static final String INTENT_EXTRA_NEWS_ID = "news_id";
+	public static final String INTENT_EXTRA_NEWS = "news";
+//	public static final String INTENT_EXTRA_NEWS_ID = "news_id";
+//	public static final String INTENT_EXTRA_NEWS_CATEGORY = "news_category";
 	public static final String TENCENT_APP_ID = "222222";
 	public static final String INTENT_ACTION_PHOTO_UPDATED = "photo_updated";
 	

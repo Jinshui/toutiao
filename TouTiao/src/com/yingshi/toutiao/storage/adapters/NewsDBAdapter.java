@@ -24,24 +24,28 @@ import com.yingshi.toutiao.model.News;
 
 public class NewsDBAdapter extends BaseAdapter<News> {
     static final String tag = "TT-NewsDBAdapter";
-	public static final String DB_TABLE_NEWS = "news";
+    private static final String DB_TABLE_NEWS = "news";
     private static String[] NEWS_COLUMNS = { "_id", "id", "name", "summary", 
     	"content", "time", "category", "contact", "likes", "isSpecial", 
     	"specialName", "hasVideo", "videoUrl", "videoPhotoUrl", "author", 
     	"photoUrl", "thumbnailUrl", "videoPhotoFilePath", "photoFilePath", 
-    	"thumbnailFilePath", "isFocus", "isFavorite"};
+    	"thumbnailFilePath","isFocus"};
 
     public NewsDBAdapter(SQLiteDatabase database) {
     	super(DB_TABLE_NEWS, NEWS_COLUMNS, database);
+    }
+    
+    public NewsDBAdapter(String dbName, SQLiteDatabase database) {
+    	super(dbName, NEWS_COLUMNS, database);
     }
 
     public long insert(News news) {
     	News existingNews = fetchOneByNewsId(news.getId());
     	if(existingNews != null){
-    		Log.d(tag, "Found existing news: " + existingNews.get_id());
+//    		Log.d(tag, "Found existing news: " + existingNews.get_id());
     		return existingNews.get_id();
     	}
-    	return super.insert(news);
+		return super.insert(news);
     }
     
     public ContentValues toContentValues(News news) {
@@ -78,14 +82,13 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         initialValues.put("photoFilePath", news.getPhotoFilePath());
         initialValues.put("thumbnailFilePath", news.getThumbnailFilePath());
         initialValues.put("isFocus", news.isFocus());
-        initialValues.put("isFavorite", news.isFavorite());
         return initialValues;
     }
     
     
 	public News fetchOneByNewsId(String newsId){
 		Log.d(tag, "fetchOneByNewsId: newsId=" + newsId);
-		Cursor cursor = mDb.query(true, mTableName, mColumnNames, "id='"+newsId+"'", null, null, null, null, null);
+		Cursor cursor = getDatabase().query(true, getTableName(), getColumnNames(), "id='"+newsId+"'", null, null, null, null, null);
         if (cursor != null) {
             try{
             	if(cursor.moveToFirst())
@@ -97,24 +100,13 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         return null;
 	}
     
-    public List<News> findFavorites(int pageSize, int pageIndex){
-    	String columns = "";
-    	for(int i=0; i<NEWS_COLUMNS.length; i++){
-    		columns = columns + NEWS_COLUMNS[i];
-    		if(i != NEWS_COLUMNS.length - 1)
-    			columns = columns + ", ";
-    	}
-    	String sql = String.format("select %s from %s where isFavorite=1 order by time limit %d offset %d", columns, DB_TABLE_NEWS, pageSize, (pageIndex - 1)*pageSize);
-    	return toObjectList(getDatabase().rawQuery(sql, null));
-    }
-    
     public News toObject(Cursor cursor) {
     	News news = new News();
-        news.set_id(cursor.getInt(cursor.getColumnIndex("_id")));
+        news.set_id(cursor.getLong(cursor.getColumnIndex("_id")));
         news.setId(cursor.getString(cursor.getColumnIndex("id")));
         news.setName(cursor.getString(cursor.getColumnIndex("name")));
         news.setSummary(cursor.getString(cursor.getColumnIndex("summary")));
-        news.setTime(cursor.getInt(cursor.getColumnIndex("time")));
+        news.setTime(cursor.getLong(cursor.getColumnIndex("time")));
         news.setContent(cursor.getString(cursor.getColumnIndex("content")));
         news.setCategory(cursor.getString(cursor.getColumnIndex("category")));
         news.setContact(cursor.getString(cursor.getColumnIndex("contact")));
@@ -149,7 +141,6 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         news.setPhotoFilePath(cursor.getString(cursor.getColumnIndex("photoFilePath")));
         news.setThumbnailFilePath(cursor.getString(cursor.getColumnIndex("thumbnailFilePath")));
         news.setFocus(cursor.getInt(cursor.getColumnIndex("isFocus")) > 0);
-        news.setFavorite(cursor.getInt(cursor.getColumnIndex("isFavorite")) > 0);
         return news;
     }
 }

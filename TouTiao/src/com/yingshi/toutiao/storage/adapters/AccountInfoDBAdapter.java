@@ -42,7 +42,7 @@ public class AccountInfoDBAdapter extends BaseAdapter<AccountInfo> {
     
     public AccountInfo toObject(Cursor cursor) {
     	AccountInfo account = new AccountInfo();
-    	account.set_id(cursor.getInt(cursor.getColumnIndex("_id")));
+    	account.set_id(cursor.getLong(cursor.getColumnIndex("_id")));
     	account.setProvider(cursor.getString(cursor.getColumnIndex("provider")));
     	account.setUserName(cursor.getString(cursor.getColumnIndex("userName")));
     	account.setPhotoUrl(cursor.getString(cursor.getColumnIndex("photoUrl")));

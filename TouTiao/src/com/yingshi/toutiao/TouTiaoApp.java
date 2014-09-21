@@ -4,17 +4,20 @@ import android.app.Application;
 import android.util.Log;
 
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.social.AccountInfo;
 import com.yingshi.toutiao.storage.AccountInfoDAO;
 import com.yingshi.toutiao.storage.DatabaseHelper;
+import com.yingshi.toutiao.storage.FavoritesDAO;
+import com.yingshi.toutiao.storage.HeadNewsDAO;
 import com.yingshi.toutiao.storage.NewsDAO;
-import com.yingshi.toutiao.storage.SpecialDAO;
 
 public class TouTiaoApp extends Application {
     private static final String tag = "TT-TouTiaoApp";
     
     private NewsDAO mNewsDao;
-    private SpecialDAO mSpecialDAO;
+    private HeadNewsDAO mHeadNewsDAO;
+    private FavoritesDAO mFavoritesDAO;
     private AccountInfoDAO mAccountInfoDAO;
     private DatabaseHelper mDatabaseHelper;
     private AccountInfo mUserInfo;
@@ -24,20 +27,37 @@ public class TouTiaoApp extends Application {
         super.onCreate();
         mDatabaseHelper = new DatabaseHelper(this);
         mNewsDao = new NewsDAO(mDatabaseHelper.getWritableDatabase());
-        mSpecialDAO  = new SpecialDAO(mDatabaseHelper.getWritableDatabase());
+        mHeadNewsDAO = new HeadNewsDAO(mDatabaseHelper.getWritableDatabase());
+        mFavoritesDAO = new FavoritesDAO(mDatabaseHelper.getWritableDatabase());
         mAccountInfoDAO = new AccountInfoDAO(mDatabaseHelper.getWritableDatabase());
         //Register weixin
         WXAPIFactory.createWXAPI(this, null).registerApp(Constants.APP_WEIXIN_ID);
+        cleanDB();
+    }
+    
+    private void cleanDB(){
+		new ParallelTask<Void>() {
+			protected Void doInBackground(Void... params) {
+		        Log.i(tag, "Clean all cached news");
+				mHeadNewsDAO.delete();
+				mNewsDao.delete();
+				return null;
+			}
+		}.execute();
     }
 
     public NewsDAO getNewsDAO() {
         return mNewsDao;
     }
 
-    public SpecialDAO getSpecialDAO() {
-        return mSpecialDAO;
+    public HeadNewsDAO getHeadNewsDAO() {
+        return mHeadNewsDAO;
     }
-    
+
+    public FavoritesDAO getFavoritesDAO() {
+        return mFavoritesDAO;
+    }
+
     public AccountInfoDAO getAccountInfoDAO(){
     	return mAccountInfoDAO;
     }

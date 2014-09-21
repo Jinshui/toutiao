@@ -28,18 +28,42 @@ public class BaseDAO<T extends BaseModel> {
     	return mDbAdapter;
     }
 
+    public int count(){
+    	return mDbAdapter.count();
+    }
+
+    public int count(String query){
+    	return mDbAdapter.count(query);
+    }
+    
     public T save(T object){
     	object.set_id(mDbAdapter.insert(object));
         return object;
     }
 
     public void save(List<T> objects){
-    	for(T object : objects)
-    		object.set_id(mDbAdapter.insert(object));
+    	if(objects == null || objects.isEmpty())
+    		return;
+    	mDbAdapter.getDatabase().beginTransaction();
+    	try {
+			for(T object : objects)
+				object.set_id(mDbAdapter.insert(object));
+			mDbAdapter.getDatabase().setTransactionSuccessful();
+    	} finally {
+    		mDbAdapter.getDatabase().endTransaction();
+    	}
     }
 
     public void delete(long _id) {
     	mDbAdapter.delete(_id);
+    }
+    
+    public void delete(){
+    	mDbAdapter.delete(null);
+    }
+    
+    public void delete(String query){
+    	mDbAdapter.delete(query);
     }
     
     public void update(T object){

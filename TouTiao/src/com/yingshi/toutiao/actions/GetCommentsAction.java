@@ -38,7 +38,7 @@ public class GetCommentsAction extends PaginationAction<Comment> {
         }
     }
 
-    protected GetCommentsAction createNextPageAction(){
+    protected GetCommentsAction cloneCurrentPageAction(){
         GetCommentsAction action = new GetCommentsAction(
                             mAppContext,
                             mNewsId,

@@ -94,24 +94,19 @@
                     android:layout_marginTop="5dp" >
 
                     <ImageButton
-                        android:id="@+id/id_news_detail_comment"
+                        android:id="@+id/id_news_get_comment"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:background="@drawable/pinglun"
                         android:contentDescription="@string/img_content_description"
-                        android:onClick="addComment" />
+                        android:onClick="getComments" />
                 </RelativeLayout>
 	            <LinearLayout
 	                android:id="@+id/id_news_detail_comments"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
 	                android:orientation="vertical" />
-                <com.yingshi.toutiao.view.LoadMoreView
-                    android:id="@+id/id_news_load_comment"
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:visibility="invisible" />
             </LinearLayout>
         </ScrollView>
 

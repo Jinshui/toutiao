@@ -33,7 +33,7 @@ public class GetNewsAction extends PaginationAction<News> {
         }
     }
 
-    protected GetNewsAction createNextPageAction(){
+    protected GetNewsAction cloneCurrentPageAction(){
         GetNewsAction action = new GetNewsAction(
                             mAppContext,
                             mCategory,

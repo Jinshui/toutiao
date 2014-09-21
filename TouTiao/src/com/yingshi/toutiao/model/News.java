@@ -8,10 +8,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.yingshi.toutiao.util.Utils;
 
 
-public class News extends BaseModel{
+public class News extends BaseModel implements Parcelable{
+
+    public static final Parcelable.Creator<News> CREATOR
+            = new Parcelable.Creator<News>() {
+        public News createFromParcel(Parcel in) {
+            return new News(in);
+        }
+
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
+	
 	private String name;
 	private String summary;
 	private long time;
@@ -33,9 +48,57 @@ public class News extends BaseModel{
 	private String photoFilePath;
 	private String thumbnailFilePath;
 	private boolean isFocus;
-	private boolean isFavorite;
 
 	public News(){}
+    
+    private News(Parcel in) {
+    	name = in.readString();
+    	summary = in.readString();
+    	time = in.readLong();
+    	content = in.readString();
+    	category = in.readString();
+    	contact = in.readString();
+    	likes = in.readInt();
+    	isSpecial = (in.readInt() == 1);
+    	specialName = in.readString();
+    	hasVideo = (in.readInt() == 1);
+    	videoUrl = in.readString();
+    	videoPhotoUrl = in.readString();
+    	author = in.readString();
+    	photoUrls = in.createStringArrayList();
+    	thumbnailUrls = in.createStringArrayList();
+    	videoPhotoFilePath = in.readString();
+    	photoFilePath = in.readString();
+    	thumbnailFilePath = in.readString();
+    	isFocus = (in.readInt() == 1);
+    }
+    
+	
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(name);
+        out.writeString(summary);
+        out.writeLong(time);
+        out.writeString(content);
+        out.writeString(category);
+        out.writeString(contact);
+        out.writeInt(likes);
+        out.writeInt(isSpecial ? 1 : 0);
+        out.writeString(specialName);
+        out.writeInt(hasVideo ? 1 : 0);
+        out.writeString(videoUrl);
+        out.writeString(videoPhotoUrl);
+        out.writeString(author);
+        out.writeStringList(photoUrls);
+        out.writeStringList(thumbnailUrls);
+        out.writeString(videoPhotoFilePath);
+        out.writeString(photoFilePath);
+        out.writeString(thumbnailFilePath);
+        out.writeInt(isFocus ? 1 : 0);
+    }
+	
+	public int describeContents() {
+		return 0;
+	}
 	
     public static News fromJSON(JSONObject json) throws JSONException{
         if(json == null)
@@ -94,10 +157,6 @@ public class News extends BaseModel{
         	news.setVideoPhotoUrl(json.getString("VidelPicUrl"));
         return news;
     }
-	
-	public int describeContents() {
-		return 0;
-	}
 
 	public String getName() {
 		return name;
@@ -255,13 +314,5 @@ public class News extends BaseModel{
 
 	public void setFocus(boolean isFocus) {
 		this.isFocus = isFocus;
-	}
-
-	public boolean isFavorite() {
-		return isFavorite;
-	}
-
-	public void setFavorite(boolean isFavorite) {
-		this.isFavorite = isFavorite;
 	}
 }

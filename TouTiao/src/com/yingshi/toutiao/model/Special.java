@@ -1,12 +1,15 @@
 package com.yingshi.toutiao.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Special extends BaseModel{
 	private String summary;
-	private String photoUrl; 
-	private String photoFilePath;
+	private List<String> photoUrls; 
 	
 	public Special() {
 	}
@@ -19,22 +22,17 @@ public class Special extends BaseModel{
 		this.summary = summary;
 	}
 
-	public String getPhotoUrl() {
-		return photoUrl;
+	public List<String> getPhotoUrls() {
+		if(photoUrls == null){
+			photoUrls = new ArrayList<String>();
+		}
+		return photoUrls;
 	}
 
-	public void setPhotoUrl(String photoUrl) {
-		this.photoUrl = photoUrl;
+	public void setPhotoUrls(List<String> photoUrls) {
+		this.photoUrls = photoUrls;
 	}
 
-	public String getPhotoFilePath() {
-		return photoFilePath;
-	}
-
-	public void setPhotoFilePath(String photoFilePath) {
-		this.photoFilePath = photoFilePath;
-	}
-	
     public static Special fromJSON(JSONObject json) throws JSONException{
         if(json == null)
             throw new IllegalArgumentException("JSONObject is null");
@@ -43,8 +41,18 @@ public class Special extends BaseModel{
         	special.setId(json.getString("Id"));
         if(json.has("Dy"))
         	special.setSummary(json.getString("Dy"));
-        if(json.has("BigUrl"))
-        	special.setPhotoUrl(json.getString("BigUrl"));
+        if(json.has("BigUrl")){
+        	Object obj = json.get("BigUrl");
+        	if(obj instanceof JSONArray){
+        		JSONArray array = (JSONArray)obj;
+        		for(int i=0; i<array.length(); i++){
+        			JSONObject jo = array.getJSONObject(i);
+        			if(jo.has("image")){
+        				special.getPhotoUrls().add(jo.getString("image"));
+        			}
+        		}
+        	}
+        }
         return special;
     }
 }

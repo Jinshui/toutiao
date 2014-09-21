@@ -1,5 +1,6 @@
 package com.yingshi.toutiao.actions;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,8 +20,7 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
 
     private int mPageIndex;
     private int mPageSize;
-    private int mLastPageNum;
-    private Pagination<Result> mLastResult;
+    protected int mTotalCount = -1;
     /**
      * For GET_RECOMMENDATION and GET_HOT and GET_FAVORITE actions
      * @param mContext
@@ -36,7 +36,6 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
         mPageIndex = pageNum;
         mPageSize = itemsPerPage;
     }
-
 
     @Override
     public void addRequestParameters(JSONObject parameters) throws JSONException {
@@ -66,34 +65,31 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
             	Log.e(tag, "Failed to parse " + RESP_LIST + ": " +e.getMessage());
         	}
         }
-        mLastPageNum = mPageIndex;
-        mLastResult = pagination;
-        return mLastResult;
+        mTotalCount = pagination.getTotalCounts();
+        return pagination;
     }
 
-    /**
-     * This method must be called before the execute(CallBack<Result> callback) is called
-     * and can only be called once before each execution for it increases the page number
-     * for each call
-     * @return
-     */
-    public boolean hasMore(){
-        if(mLastResult == null){
-            mPageIndex = 1;
-            return true;
-        }
-        if( mLastResult.getTotalCounts() > (mLastPageNum * mPageSize)){
-            mPageIndex ++;
-            return true;
-        }
-        return false;
+    protected ActionResult<Pagination<Result>> doInBackground(Void...  params){
+    	if( mTotalCount < 0 || (mPageIndex -1) * mPageSize < mTotalCount){
+    		return super.doInBackground(params);
+    	}else{
+    		mPageIndex -= 1; //-1 so that getNextPageAction will return this page index;
+    		Pagination<Result> pagination = new Pagination<Result>();
+            pagination.setPageSize(mPageSize);
+            pagination.setCurrentPage(mPageIndex);
+            pagination.setTotalCounts(mTotalCount);
+    		return new ActionResult<Pagination<Result>>(pagination);
+    	}
     }
-    public PaginationAction<Result> getNewPageAction(){
-        PaginationAction<Result> action = createNextPageAction();
-        action.mPageIndex = mPageIndex;
-        action.mPageSize = mPageSize;
-        action.mLastPageNum = mLastPageNum;
-        action.mLastResult = mLastResult;
+    
+    public boolean hasMore(){
+    	return mTotalCount < 0 || mPageIndex * mPageSize < mTotalCount;
+    }
+    
+    public PaginationAction<Result> getNextPageAction(){
+        PaginationAction<Result> action = cloneCurrentPageAction();
+        action.mPageIndex += 1;
+        action.mTotalCount = mTotalCount;
         return action;
     }
 
@@ -105,6 +101,14 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
         return mPageSize;
     }
 
+    public final int getTotalCount(){
+    	return mTotalCount;
+    }
+    
+    public void setTotalCount(int totalCount){
+    	mTotalCount = totalCount;
+    }
+    
     /**
      * This is used to clone a new action for the current page request for retry.
      * 
@@ -113,7 +117,7 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
      * @return
      */
     public PaginationAction<Result> createRetryPageAction(){
-    	PaginationAction<Result> nextPageAction = createNextPageAction();
+    	PaginationAction<Result> nextPageAction = cloneCurrentPageAction();
     	nextPageAction.mPageIndex = nextPageAction.mPageIndex > 1 ? nextPageAction.mPageIndex -1 : 1;
     	return nextPageAction;
     }
@@ -123,6 +127,6 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
      * of the next page
      * @return
      */
-    protected abstract PaginationAction<Result> createNextPageAction();
+    protected abstract PaginationAction<Result> cloneCurrentPageAction();
     public abstract Result convertJsonToResult(JSONObject item) throws JSONException;
 }

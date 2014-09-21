@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -90,7 +91,7 @@ public class MainActivity extends SlidingFragmentActivity
 				updateUI(mCategories = result.getItems());
 			}
 			public void onFailure(ActionError error) {
-				//TODO: HOW?
+				Toast.makeText(MainActivity.this, R.string.load_failed, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

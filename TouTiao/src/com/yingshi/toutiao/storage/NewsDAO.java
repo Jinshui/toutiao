@@ -24,15 +24,15 @@ public class NewsDAO extends BaseDAO<News>{
         super(new NewsDBAdapter(mDb));
     }
     
-    public List<News> findFavorites(int pageSize, int pageIndex){
-    	return ((NewsDBAdapter)getDbAdapter()).findFavorites(pageSize, pageIndex);
+    public int deleteByCategory(String category){
+    	return getDbAdapter().delete("category='" + category + "'");
     }
     
     public List<News> findNewsByCategory(String category){
-    	return ((NewsDBAdapter)getDbAdapter()).fetchAll("category='"+category+"' and isFocus=0", "time");
+    	return getDbAdapter().fetchAll("category='"+category+"' and isFocus=0", null);
     }
     
     public List<News> findFocusByCategory(String category){
-    	return ((NewsDBAdapter)getDbAdapter()).fetchAll("category='"+category+"' and isFocus=1", "time");
+    	return getDbAdapter().fetchAll("category='"+category+"' and isFocus=1", null);
     }
 }

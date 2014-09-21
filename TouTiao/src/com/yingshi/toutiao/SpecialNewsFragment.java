@@ -17,15 +17,12 @@ import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
-import com.yingshi.toutiao.actions.AbstractAction.BackgroundCallBack;
 import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
 import com.yingshi.toutiao.actions.GetSpecialAction;
 import com.yingshi.toutiao.actions.GetSpecialNewsAction;
 import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.model.Pagination;
 import com.yingshi.toutiao.model.Special;
-import com.yingshi.toutiao.storage.NewsDAO;
-import com.yingshi.toutiao.storage.SpecialDAO;
 import com.yingshi.toutiao.view.CustomizeImageView;
 import com.yingshi.toutiao.view.SpecialHeader;
 import com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment;
@@ -37,26 +34,16 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 	private String mSpecialName;
 	private SpecialHeader mSpecialHeader;
 	private SpecialNewsArrayAdapter mSpecialNewsArrayAdapter;
-	private SpecialDAO mSpecialDAO;
-	private NewsDAO mNewsDAO;
 	private GetSpecialNewsAction mGetSpecialNewsAction;
 	private int mAsyncTaskCount = 0;
-	
-	BackgroundCallBack<Pagination<News>> getSpecialNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
-		public void onSuccess(Pagination<News> newsPage) {
-			mNewsDAO.save(newsPage.getItems());
-		}
-		public void onFailure(ActionError error) {
-			//TODO: Show error
-		}
-	};
-	
+
 	UICallBack<Pagination<News>> getSpecialNewsListUICallback = new UICallBack<Pagination<News>>(){
 		public void onSuccess(Pagination<News> newsList) {
 			if(mSpecialNewsArrayAdapter == null){
 				mSpecialNewsArrayAdapter = new SpecialNewsArrayAdapter(getActivity(), R.layout.view_special_list_item, newsList.getItems());
 				setAdapter(mSpecialNewsArrayAdapter);
 			}else{
+				mSpecialNewsArrayAdapter.clear();
 				mSpecialNewsArrayAdapter.addMore(newsList.getItems());
 			}
 			mSpecialHeader.getPageIndicatorView().setText(newsList.getCurrentPage() + "/" + newsList.getTotalCounts()/newsList.getPageSize());
@@ -66,6 +53,7 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 			refreshComplete();
 		}
 		public void onFailure(ActionError error) {
+			mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.createRetryPageAction();
 			//TODO: Show failure
 			if(--mAsyncTaskCount == 0){
 				showListView();
@@ -89,8 +77,10 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 		if (savedInstanceState != null) {
 			mSpecialName = savedInstanceState.getString("mSpecialName");
 		}
-		mSpecialDAO = ((TouTiaoApp)getActivity().getApplication()).getSpecialDAO();
-		mNewsDAO = ((TouTiaoApp)getActivity().getApplication()).getNewsDAO();
+	}
+	
+	public void onActivityCreated(Bundle savedInstanceState){
+		super.onActivityCreated(savedInstanceState);
 		loadPage(true);
 	}
 	
@@ -98,16 +88,12 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 		if(showLoadingView)
 			showLoadingView();
 		mAsyncTaskCount = 2;
-		new GetSpecialAction(getActivity(), mSpecialName).execute(new BackgroundCallBack<Pagination<Special>>(){
-			public void onSuccess(Pagination<Special> specials) {
-				mSpecialDAO.save(specials.getItems());
-			}
-			public void onFailure(ActionError error) {}
-		},new UICallBack<Pagination<Special>>(){
+		new GetSpecialAction(getActivity(), mSpecialName).execute(new UICallBack<Pagination<Special>>(){
 			public void onSuccess(Pagination<Special> specials) {
 				if( ! specials.getItems().isEmpty() ){
 					Special special = specials.getItems().get(0);
-					mSpecialHeader.getHeaderImageView().loadImage(special.getPhotoUrl());
+					if(special.getPhotoUrls().size() > 0)
+						mSpecialHeader.getHeaderImageView().loadImage(special.getPhotoUrls().get(0));
 					mSpecialHeader.getSummaryView().setText(special.getSummary());
 				}
 				if(--mAsyncTaskCount == 0){
@@ -116,7 +102,6 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 				refreshComplete();
 			}
 			public void onFailure(ActionError error) {
-				//TODO: Show failure
 				if(--mAsyncTaskCount == 0){
 					showListView();
 				}
@@ -125,7 +110,30 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 		});
 		
 		mGetSpecialNewsAction = new GetSpecialNewsAction(getActivity(), mSpecialName, 1, 20);
-		mGetSpecialNewsAction.execute(getSpecialNewsListBackgroundCallback, getSpecialNewsListUICallback);
+		mGetSpecialNewsAction.execute(new UICallBack<Pagination<News>>(){
+			public void onSuccess(Pagination<News> newsList) {
+				if(mSpecialNewsArrayAdapter == null){
+					mSpecialNewsArrayAdapter = new SpecialNewsArrayAdapter(getActivity(), R.layout.view_special_list_item, newsList.getItems());
+					setAdapter(mSpecialNewsArrayAdapter);
+				}else{
+					mSpecialNewsArrayAdapter.clear();
+					mSpecialNewsArrayAdapter.addMore(newsList.getItems());
+				}
+				mSpecialHeader.getPageIndicatorView().setText(newsList.getCurrentPage() + "/" + newsList.getTotalCounts()/newsList.getPageSize());
+				if(--mAsyncTaskCount == 0){
+					showListView();
+				}
+				refreshComplete();
+			}
+			public void onFailure(ActionError error) {
+				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.createRetryPageAction();
+				//TODO: Show failure
+				if(--mAsyncTaskCount == 0){
+					showListView();
+				}
+				refreshComplete();
+			}
+		});
 	}
 
 	public void onSaveInstanceState(Bundle outState) {
@@ -141,6 +149,39 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 		holder.headerView = mSpecialHeader;
 		holder.height = LinearLayout.LayoutParams.WRAP_CONTENT;
 		return holder;
+	}
+
+	@Override
+	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+		loadPage(false);
+	}
+
+	@Override
+	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+		mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.getNextPageAction();
+		mGetSpecialNewsAction.execute(new UICallBack<Pagination<News>>(){
+			public void onSuccess(Pagination<News> newsList) {
+				if(mSpecialNewsArrayAdapter == null){
+					mSpecialNewsArrayAdapter = new SpecialNewsArrayAdapter(getActivity(), R.layout.view_special_list_item, newsList.getItems());
+					setAdapter(mSpecialNewsArrayAdapter);
+				}else{
+					mSpecialNewsArrayAdapter.addMore(newsList.getItems());
+				}
+				mSpecialHeader.getPageIndicatorView().setText(newsList.getCurrentPage() + "/" + newsList.getTotalCounts()/newsList.getPageSize());
+				if(--mAsyncTaskCount == 0){
+					showListView();
+				}
+				refreshComplete();
+			}
+			public void onFailure(ActionError error) {
+				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.createRetryPageAction();
+				//TODO: Show failure
+				if(--mAsyncTaskCount == 0){
+					showListView();
+				}
+				refreshComplete();
+			}
+		});
 	}
 
 	protected class SpecialNewsArrayAdapter extends PTRListAdapter<News> {
@@ -182,7 +223,7 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 				public void onClick(View v) {
 					Intent showNewsDetailIntent = new Intent();
 					showNewsDetailIntent.setClass(getContext(), NewsDetailActivity.class);
-					showNewsDetailIntent.putExtra(Constants.INTENT_EXTRA_NEWS_ID, news.get_id());
+					showNewsDetailIntent.putExtra(Constants.INTENT_EXTRA_NEWS, news);
 					getActivity().startActivity(showNewsDetailIntent);
 				}
             });
@@ -196,14 +237,4 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
             View newsVideoSign;
         }
     }
-
-	@Override
-	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-		loadPage(false);
-	}
-
-	@Override
-	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		mGetSpecialNewsAction.getNewPageAction().execute(getSpecialNewsListBackgroundCallback, getSpecialNewsListUICallback);
-	}
 }

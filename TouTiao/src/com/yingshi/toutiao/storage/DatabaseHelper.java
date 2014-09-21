@@ -8,7 +8,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String tag = "TT-DatabaseHelper";
 
-	private static final String CREATE_DATABASE_NEWS = "create table news("
+	private static final String CREATE_DATABASE_SQL = "create table %s("
 			+ "_id integer primary key autoincrement,"
 			+ "id text not null," // id returned from server
 			+ "name text not null,"
@@ -29,18 +29,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ "videoPhotoFilePath text null,"
 			+ "photoFilePath text null,"
 			+ "thumbnailFilePath text null,"
-			+ "isFocus integer null,"
-			+ "isFavorite integer null"
+			+ "isFocus integer null"
 			+ ");";
-
-	private static final String CREATE_DATABASE_SPECIAL = "create table specials("
-			+ "_id integer primary key autoincrement,"
-			+ "id text not null," // id returned from server
-			+ "summary text null,"
-			+ "photoUrl text null,"
-			+ "thumbnailUrl text null,"
-			+ "photoFilePath text null"
-			+ ");";
+	private static final String CREATE_DATABASE_NEWS = String.format(CREATE_DATABASE_SQL, "news");
+	private static final String CREATE_DATABASE_NEWS_UNIQUE_INDEX = "CREATE UNIQUE INDEX news_u1 ON news(id)";
+	private static final String CREATE_DATABASE_HEADNEWS = String.format(CREATE_DATABASE_SQL, "headnews");
+	private static final String CREATE_DATABASE_HEADNEWS_UNIQUE_INDEX = "CREATE UNIQUE INDEX headnews_u1 ON headnews(id)";
+	private static final String CREATE_DATABASE_FAVORITES = String.format(CREATE_DATABASE_SQL, "favorites");
+	private static final String CREATE_DATABASE_FAVORITES_UNIQUE_INDEX = "CREATE UNIQUE INDEX favorites_u1 ON favorites(id)";
 
 	private static final String CREATE_DATABASE_CATEGORY = "create table category("
 			+ "_id integer primary key autoincrement,"
@@ -69,7 +65,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_DATABASE_NEWS);
-		db.execSQL(CREATE_DATABASE_SPECIAL);
+		db.execSQL(CREATE_DATABASE_NEWS_UNIQUE_INDEX);
+		db.execSQL(CREATE_DATABASE_HEADNEWS);
+		db.execSQL(CREATE_DATABASE_HEADNEWS_UNIQUE_INDEX);
+		db.execSQL(CREATE_DATABASE_FAVORITES);
+		db.execSQL(CREATE_DATABASE_FAVORITES_UNIQUE_INDEX);
 		db.execSQL(CREATE_DATABASE_CATEGORY);
 		db.execSQL(CREATE_DATABASE_ACCOUNTS);
 	}

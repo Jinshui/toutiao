@@ -25,7 +25,7 @@ public class Comment extends BaseModel {
         	comment.setName(json.getString("Name"));
         if(json.has("Time"))
         {
-        	Date date = Utils.parseDate("yyyy-MM-dd HH:mm:ss.SSS", json.getString("Time"));
+        	Date date = Utils.parseDate("yyyy-MM-dd HH:mm", json.getString("Time"));
         	comment.setTime(date == null ? 0 : date.getTime());
         }
         if(json.has("Content"))

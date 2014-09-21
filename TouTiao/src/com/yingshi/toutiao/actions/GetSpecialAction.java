@@ -34,7 +34,7 @@ public class GetSpecialAction extends PaginationAction<Special> {
     }
 	
 	@Override
-	protected PaginationAction<Special> createNextPageAction() {
+	protected PaginationAction<Special> cloneCurrentPageAction() {
 		return new GetSpecialAction(mAppContext, mSpecialName);
 	}
 
