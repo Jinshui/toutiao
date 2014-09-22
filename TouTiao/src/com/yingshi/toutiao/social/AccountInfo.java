@@ -6,6 +6,7 @@ public class AccountInfo extends BaseModel {
 	private String provider;
 	private String userName;
 	private String photoUrl;
+	private String photoBase64;
 	private String openId;
 	private String token;
 	private long lastLogin;
@@ -28,6 +29,12 @@ public class AccountInfo extends BaseModel {
 	}
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+	public String getPhotoBase64(){
+		return photoBase64;
+	}
+	public void setPhotoBase64(String photoBase64) {
+		this.photoBase64 = photoBase64;
 	}
 	public String getOpenId() {
 		return openId;

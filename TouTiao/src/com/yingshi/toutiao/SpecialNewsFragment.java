@@ -100,7 +100,7 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 				refreshComplete();
 			}
 			public void onFailure(ActionError error) {
-				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.createRetryPageAction();
+				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.cloneCurrentPageAction();
 				//TODO: Show failure
 				if(--mAsyncTaskCount == 0){
 					showListView();
@@ -147,7 +147,7 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 				refreshComplete();
 			}
 			public void onFailure(ActionError error) {
-				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.createRetryPageAction();
+				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.cloneCurrentPageAction();
 				//TODO: Show failure
 				if(--mAsyncTaskCount == 0){
 					showListView();

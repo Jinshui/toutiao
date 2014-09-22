@@ -46,47 +46,10 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 	private NewsDAO mNewsDAO;
 	private HeadNewsDAO mHeadNewsDAO;
 	private GetNewsAction mGetnewsAction;
-	private boolean mFocusLoaded = false;
-	private boolean mNewsLoaded = false;
+	private boolean mFocusLoadedFromServer = false;
+	private boolean mNewsLoadedFromServer = false;
 	
 	private int mAsyncTaskCount = 0;
-	private BackgroundCallBack<Pagination<News>> mGetNewsListBackgroundCallback = new BackgroundCallBack<Pagination<News>>(){
-		public void onSuccess(Pagination<News> newsPage) {
-			if("头条".equals(mCategory)){
-				mHeadNewsDAO.save(newsPage.getItems());
-			}else{
-				mNewsDAO.save(newsPage.getItems());
-			}
-		}
-		public void onFailure(ActionError error) {}
-	};
-	
-	private UICallBack<Pagination<News>> mGetNewsListUICallback = new UICallBack<Pagination<News>>(){
-		public void onSuccess(Pagination<News> newsList) {
-			mNewsLoaded = true;
-			if(isDetached() || getActivity() == null) //DO NOT update the view if this fragment is detached from the activity.
-				return;
-			if(mNewsListAdapter == null){
-				mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
-				setAdapter(mNewsListAdapter);
-			}else{
-				if(newsList.getItems().isEmpty()){
-					Toast.makeText(getActivity(), R.string.no_more_to_load, Toast.LENGTH_SHORT).show();
-				}else{
-					if(mGetnewsAction.getPageIndex() == 1){
-						mNewsListAdapter.clear();
-					}
-					mNewsListAdapter.addMore(newsList.getItems());
-				}
-			}
-			afterLoadReturned();
-		}
-		public void onFailure(ActionError error) {
-			mGetnewsAction = (GetNewsAction)mGetnewsAction.createRetryPageAction();
-			//TODO: Show failure
-			afterLoadReturned();
-		}
-	};
 	
 	public MainFragment() {
 	}
@@ -105,8 +68,8 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
 			mCategory = savedInstanceState.getString("mCategory");
-			mFocusLoaded = savedInstanceState.getBoolean("mFocusLoaded");
-			mNewsLoaded = savedInstanceState.getBoolean("mNewsLoaded");
+			mFocusLoadedFromServer = savedInstanceState.getBoolean("mFocusLoaded");
+			mNewsLoadedFromServer = savedInstanceState.getBoolean("mNewsLoaded");
 		}
 		mNewsDAO = ((TouTiaoApp)getActivity().getApplication()).getNewsDAO();
 		mHeadNewsDAO = ((TouTiaoApp)getActivity().getApplication()).getHeadNewsDAO();
@@ -117,11 +80,11 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		Log.d(tag, mCategory +" onActivityCreated()");
 		mAsyncTaskCount = 0;
 		showLoadingView();
-		if( !mFocusLoaded )
+		if( !mFocusLoadedFromServer )
 			loadFocusFromServer();
 		else
 			loadFocusFromDB();
-		if( !mNewsLoaded )
+		if( !mNewsLoadedFromServer )
 			loadNewsFromServer();
 		else
 			loadNewsFromDB();
@@ -136,16 +99,18 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 					news.setFocus(true);
 				}
 				if("头条".equals(mCategory)){
-					mHeadNewsDAO.save(newsList);
+					mHeadNewsDAO.deleteHeadFocus();//先删除旧的
+					mHeadNewsDAO.save(newsList);//后保存新的
 				}else{
-					mNewsDAO.save(newsList);
+					mNewsDAO.deleteFocusByCategory(mCategory);//先删除旧的
+					mNewsDAO.save(newsList);//后保存新的
 				}
 			}
 			public void onFailure(ActionError error) {
 			}
 		},new UICallBack<List<News>>(){
 			public void onSuccess(List<News> newsList) {
-				mFocusLoaded = true;
+				mFocusLoadedFromServer = true;
 				mFocusNews = newsList;
 				if(isResumed()){ // show the pager only if the fragement is resumed
 					mPhotoPager.getPhotoViewPager().setAdapter(new PhotoPagerAdapter(getChildFragmentManager(), newsList));
@@ -154,7 +119,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 				}
 			}
 			public void onFailure(ActionError error) {
-				//TODO: Show failure
+				loadFocusFromDB();
 				afterLoadReturned();
 			}
 		});
@@ -164,20 +129,43 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		mAsyncTaskCount ++;
 		Log.d(tag, mCategory +" loadNewsFromServer(): tasks: " + mAsyncTaskCount);
 		mGetnewsAction = new GetNewsAction(getActivity(), mCategory, 1, Constants.PAGE_SIZE);
-		mGetnewsAction.execute(mGetNewsListBackgroundCallback, mGetNewsListUICallback);
-	}
-	
-	private void clearNewsInDB(){
-		new ParallelTask<Void>() {
-			protected Void doInBackground(Void... params) {
-				if("头条".equals(mCategory)){
-					mHeadNewsDAO.delete();
-				}else{
-					mNewsDAO.deleteByCategory(mCategory);
+		mGetnewsAction.execute(
+			new BackgroundCallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsPage) {
+					if("头条".equals(mCategory)){
+						mHeadNewsDAO.deleteHeadNews();//先删除旧的
+						mHeadNewsDAO.save(newsPage.getItems());//后保存新的
+					}else{
+						mNewsDAO.deleteFocusByCategory(mCategory);//先删除旧的
+						mNewsDAO.save(newsPage.getItems());//后保存新的
+					}
 				}
-				return null;
+				public void onFailure(ActionError error) {}
+			}, 
+			new UICallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsList) {
+					mNewsLoadedFromServer = true;
+					if(isDetached() || getActivity() == null) //DO NOT update the view if this fragment is detached from the activity.
+						return;
+					if(mNewsListAdapter == null){
+						mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
+						setAdapter(mNewsListAdapter);
+					}else{
+						if(newsList.getItems().isEmpty()){
+							Toast.makeText(getActivity(), R.string.no_more_to_load, Toast.LENGTH_SHORT).show();
+						}else{
+							mNewsListAdapter.clear();
+							mNewsListAdapter.addMore(newsList.getItems());
+						}
+					}
+					afterLoadReturned();
+				}
+				public void onFailure(ActionError error) {
+					loadNewsFromDB();
+					afterLoadReturned();
+				}
 			}
-		}.execute();
+		);
 	}
 	
 	private void loadFocusFromDB(){
@@ -232,7 +220,6 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-		clearNewsInDB();
 		loadFocusFromServer();
 		loadNewsFromServer();
 	}
@@ -242,7 +229,41 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		mAsyncTaskCount ++;
 		Log.d(tag, mCategory +" onPullUpToRefresh(): tasks: " + mAsyncTaskCount);
 		mGetnewsAction = (GetNewsAction)mGetnewsAction.getNextPageAction();
-		mGetnewsAction.execute(mGetNewsListBackgroundCallback, mGetNewsListUICallback);
+		mGetnewsAction.execute(
+			new BackgroundCallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsPage) {
+					if("头条".equals(mCategory)){
+						mHeadNewsDAO.save(newsPage.getItems());//保存新的
+					}else{
+						mNewsDAO.save(newsPage.getItems());//保存新的
+					}
+				}
+				public void onFailure(ActionError error) {
+				}
+			},  
+			new UICallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsList) {
+					if(isDetached() || getActivity() == null) //DO NOT update the view if this fragment is detached from the activity.
+						return;
+					if(mNewsListAdapter == null){
+						mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
+						setAdapter(mNewsListAdapter);
+					}else{
+						if(newsList.getItems().isEmpty()){
+							Toast.makeText(getActivity(), R.string.no_more_to_load, Toast.LENGTH_SHORT).show();
+						}else{
+							mNewsListAdapter.addMore(newsList.getItems());
+						}
+					}
+					afterLoadReturned();
+				}
+				public void onFailure(ActionError error) {
+					Toast.makeText(getActivity(), R.string.load_failed, Toast.LENGTH_SHORT).show();
+					mGetnewsAction = (GetNewsAction)mGetnewsAction.cloneCurrentPageAction();
+					afterLoadReturned();
+				}
+			}
+		);
 	}
 	
 	private void afterLoadReturned(){
@@ -258,8 +279,8 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 		super.onSaveInstanceState(outState);
 		Log.d(tag, mCategory + " onSaveInstanceState");
 		outState.putString("mCategory", mCategory);
-		outState.putBoolean("mFocusLoaded", mFocusLoaded);
-		outState.putBoolean("mNewsLoaded", mNewsLoaded);
+		outState.putBoolean("mFocusLoaded", mFocusLoadedFromServer);
+		outState.putBoolean("mNewsLoaded", mNewsLoadedFromServer);
 	}
 
 	public ViewHolder createHeaderView(LayoutInflater inflater){

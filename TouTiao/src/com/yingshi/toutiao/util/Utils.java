@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -78,6 +79,15 @@ public class Utils {
             Log.e(tag, String.format("Invalid params : %s , %s", format , date), e);
             return null;
         }
+    }
+    
+    public static String encode(String str, String charSet){
+    	try {
+			return URLEncoder.encode(str, charSet);
+		} catch (UnsupportedEncodingException e) {
+            Log.e(tag, String.format("Unsupported Encoding : %s , %s", str , charSet), e);
+		}
+    	return str;
     }
 
     public static String getDecodedValue(JSONObject json, String name) throws JSONException{

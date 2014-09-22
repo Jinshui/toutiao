@@ -1,5 +1,8 @@
 package com.yingshi.toutiao;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -45,6 +49,7 @@ public class LoginActivity extends Activity implements SocialResponseListener{
 					account.setProvider(PreferenceUtil.getString(LoginActivity.this, Constants.USER_PROVIDER, null));
 					account.setUserName(PreferenceUtil.getString(LoginActivity.this, Constants.USER_NAME, null));
 					account.setPhotoUrl(PreferenceUtil.getString(LoginActivity.this, Constants.USER_PHOTO_URL, null));
+					account.setPhotoBase64(PreferenceUtil.getString(LoginActivity.this, Constants.USER_PHOTO_BASE64, null));
 					mApp.setUserInfo(account);
 					return account;
 				}else{
@@ -55,6 +60,7 @@ public class LoginActivity extends Activity implements SocialResponseListener{
 					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_PROVIDER);
 					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_NAME);
 					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_PHOTO_URL);
+					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_PHOTO_BASE64);
 					return null;
 				}
 			}
@@ -102,12 +108,33 @@ public class LoginActivity extends Activity implements SocialResponseListener{
 		Toast.makeText(this, error, Toast.LENGTH_LONG).show();
 	}
 	
-	public void onGetAccountInfo(AccountInfo accountInfo){
+	public void onGetAccountInfo(final AccountInfo accountInfo){
 		PreferenceUtil.saveString(this, Constants.USER_PHOTO_URL, accountInfo.getPhotoUrl());
 		PreferenceUtil.saveString(this, Constants.USER_NAME, accountInfo.getUserName());
 		sendBroadcast(new Intent(Constants.INTENT_ACTION_PHOTO_UPDATED));
 		mApp.getUserInfo().setUserName(accountInfo.getUserName());
 		mApp.getUserInfo().setPhotoUrl(accountInfo.getPhotoUrl());
+		new ParallelTask<Void>() {
+			protected Void doInBackground(Void... params) {
+				InputStream is = null;
+				ByteArrayOutputStream baos = null;
+				try{
+					is = (InputStream) new URL(accountInfo.getPhotoUrl()).getContent();
+					baos = new ByteArrayOutputStream();
+					int b = is.read();
+					while(b!=-1){ baos.write(b); b = is.read(); }
+					String base64String = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+					mApp.getUserInfo().setPhotoBase64(base64String);
+					PreferenceUtil.saveString(LoginActivity.this, Constants.USER_PHOTO_BASE64, base64String);
+				}catch(Exception e){
+					Log.e(tag, "Error retrieving photo from " + accountInfo.getPhotoUrl(), e);
+				}finally{
+					if(is!=null) try{is.close();}catch(Exception e){}
+					if(baos!=null) try{baos.close();}catch(Exception e){}
+				}
+				return null;
+			}
+		}.execute();
 	}
 	
 	private void showHomeActivity(){

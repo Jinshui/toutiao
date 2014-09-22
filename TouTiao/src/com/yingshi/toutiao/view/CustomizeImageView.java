@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 public class CustomizeImageView extends ImageView{
     private static final String tag = "TT-CustomizeImageView";
-    
+
     public static interface LoadImageCallback{
     	void onImageLoaded(Drawable drawable);
     }
@@ -28,6 +28,10 @@ public class CustomizeImageView extends ImageView{
     }
 
     public void loadImage(final String url){
+    	loadImage(url, null);
+    }
+
+    public void loadImage(final String url, final LoadImageCallback mLoadImageCallback){
     	if(TextUtils.isEmpty(url))
     		return;
         new ParallelTask<Drawable>(){
@@ -51,7 +55,9 @@ public class CustomizeImageView extends ImageView{
                 if(drawable != null){
 //                    setImageDrawable(drawable);
                 	setBackgroundDrawable(drawable);
-//                	setBackground(drawable);
+                }
+                if(mLoadImageCallback != null){
+                	mLoadImageCallback.onImageLoaded(drawable);
                 }
             }
         }.execute();
@@ -80,6 +86,6 @@ public class CustomizeImageView extends ImageView{
                 if(callback != null)
                 	callback.onImageLoaded(drawable);
             }
-        }.execute(new Void[0]);
+        }.execute();
     }
 }

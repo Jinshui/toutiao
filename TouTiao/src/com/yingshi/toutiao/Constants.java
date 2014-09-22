@@ -24,6 +24,7 @@ public class Constants {
 	public static final String USER_ACCESS_TOKEN = "user.token";
 	public static final String USER_TOKEN_EXPIRES_IN = "user.token.expires.in";
 	public static final String USER_PHOTO_URL = "user.photo.url";
+	public static final String USER_PHOTO_BASE64 = "user.photo.base64";
 	public static final String USER_NAME = "user.name";
 	public static final String USER_PROVIDER = "user.provider";
 	

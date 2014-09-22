@@ -1,9 +1,7 @@
 package com.yingshi.toutiao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,10 +25,13 @@ import android.widget.Toast;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
+import com.yingshi.toutiao.actions.AbstractAction.BackgroundCallBack;
 import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
 import com.yingshi.toutiao.actions.GetCategoryAction;
+import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.model.Category;
 import com.yingshi.toutiao.model.Pagination;
+import com.yingshi.toutiao.storage.CategoryDAO;
 import com.yingshi.toutiao.view.HeaderView;
 
 public class MainActivity extends SlidingFragmentActivity
@@ -43,6 +44,7 @@ public class MainActivity extends SlidingFragmentActivity
 	private HorizontalScrollView mTabScrollView ;
 	private ViewPager mViewPager;
 	private MainUserCenterFragment mUserCenterFragment;
+	private CategoryDAO mcategoryDAO;
 	
 	private TabHost.TabContentFactory mEmptyTabContentFactory = new TabHost.TabContentFactory(){
 		public View createTabContent(String tag) {
@@ -60,7 +62,7 @@ public class MainActivity extends SlidingFragmentActivity
 		initContentView();
 		// 初始化SlideMenu
 		initUserCenterMenu();
-		
+		mcategoryDAO = ((TouTiaoApp)getApplication()).getCategoryDAO();
 		if(getIntent().getBooleanExtra(INTENT_EXTRA_SHOW_USER_CENTER, false))
 			getSlidingMenu().showMenu();
 	}
@@ -84,16 +86,40 @@ public class MainActivity extends SlidingFragmentActivity
 				startActivity(showNewsDetailIntent);
 			}});
 		headerView.setTitle(R.string.title_toutiao);
-		
+		loadCategoryFromServer();
+	}
+	
+	private void loadCategoryFromServer(){
 		GetCategoryAction getCategoryAction = new GetCategoryAction(this, 1, 10);
-		getCategoryAction.execute(new UICallBack<Pagination<Category>>(){
-			public void onSuccess(Pagination<Category> result) {
-				updateUI(mCategories = result.getItems());
+		getCategoryAction.execute(
+			new BackgroundCallBack<Pagination<Category>>(){
+				public void onSuccess(Pagination<Category> result) {
+					mcategoryDAO.delete();
+					mcategoryDAO.save(result.getItems());
+				}
+				public void onFailure(ActionError error) {}
+			},
+			new UICallBack<Pagination<Category>>(){
+				public void onSuccess(Pagination<Category> result) {
+					updateUI(mCategories = result.getItems());
+				}
+				public void onFailure(ActionError error) {
+					loadCategoryFromDB();
+					Toast.makeText(MainActivity.this, R.string.load_failed, Toast.LENGTH_SHORT).show();
+				}
 			}
-			public void onFailure(ActionError error) {
-				Toast.makeText(MainActivity.this, R.string.load_failed, Toast.LENGTH_SHORT).show();
+		);
+	}
+	
+	private void loadCategoryFromDB(){
+		new ParallelTask<List<Category>>() {
+			protected List<Category> doInBackground(Void... params) {
+				return mcategoryDAO.getAll(null);
 			}
-		});
+			public void onPostExecute(List<Category> newsList){
+				updateUI(mCategories = newsList);
+			}
+		};
 	}
 	
 	private void updateUI(final List<Category> categories){

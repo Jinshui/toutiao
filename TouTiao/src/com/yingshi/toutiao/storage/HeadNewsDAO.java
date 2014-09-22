@@ -24,6 +24,14 @@ public class HeadNewsDAO extends BaseDAO<News>{
         super(new HeadNewsDBAdapter(mDb));
     }
     
+    public int deleteHeadNews(){
+    	return getDbAdapter().delete("isFocus=0");
+    }
+    
+    public int deleteHeadFocus(){
+    	return getDbAdapter().delete("isFocus=1");
+    }
+    
     public List<News> findHeadNews(){
     	return getDbAdapter().fetchAll("isFocus=0", null);
     }

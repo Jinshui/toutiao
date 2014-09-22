@@ -55,4 +55,10 @@
     
     <!-- 详情 -->
     <string name="add_favorite_succ">成功加入收藏列表</string>
+    <string name="confirm_add_comment_dlg_title">确认</string>
+    <string name="confirm_add_comment_dlg_msg">确认提交评论?</string>
+    <string name="add_comment_login_dlg_title">登陆</string>
+    <string name="add_comment_login_dlg_msg">登陆用户方可评论。您需要登陆吗?</string>
+    <string name="add_comment_succ">评论成功!</string>
+    <string name="add_comment_fail">评论失败, 请稍候重试!</string>
 </resources>

@@ -48,6 +48,7 @@ public class News extends BaseModel implements Parcelable{
 	private String photoFilePath;
 	private String thumbnailFilePath;
 	private boolean isFocus;
+	private boolean isUserCache;
 
 	public News(){}
     
@@ -72,6 +73,7 @@ public class News extends BaseModel implements Parcelable{
     	photoFilePath = in.readString();
     	thumbnailFilePath = in.readString();
     	isFocus = (in.readInt() == 1);
+    	isUserCache = (in.readInt() == 1);
     }
     
 	
@@ -96,6 +98,7 @@ public class News extends BaseModel implements Parcelable{
         out.writeString(photoFilePath);
         out.writeString(thumbnailFilePath);
         out.writeInt(isFocus ? 1 : 0);
+        out.writeInt(isUserCache ? 1 : 0);
     }
 	
 	public int describeContents() {
@@ -316,5 +319,13 @@ public class News extends BaseModel implements Parcelable{
 
 	public void setFocus(boolean isFocus) {
 		this.isFocus = isFocus;
+	}
+
+	public boolean isUserCache() {
+		return isUserCache;
+	}
+
+	public void setUserCache(boolean isUserCache) {
+		this.isUserCache = isUserCache;
 	}
 }

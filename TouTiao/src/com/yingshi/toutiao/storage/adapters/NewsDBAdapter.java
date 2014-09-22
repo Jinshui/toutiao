@@ -29,7 +29,7 @@ public class NewsDBAdapter extends BaseAdapter<News> {
     	"content", "time", "category", "contact", "likes", "isSpecial", 
     	"specialName", "hasVideo", "videoUrl", "videoPhotoUrl", "author", 
     	"photoUrl", "thumbnailUrl", "videoPhotoFilePath", "photoFilePath", 
-    	"thumbnailFilePath","isFocus"};
+    	"thumbnailFilePath","isFocus", "isUserCache"};
 
     public NewsDBAdapter(SQLiteDatabase database) {
     	super(DB_TABLE_NEWS, NEWS_COLUMNS, database);
@@ -82,6 +82,7 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         initialValues.put("photoFilePath", news.getPhotoFilePath());
         initialValues.put("thumbnailFilePath", news.getThumbnailFilePath());
         initialValues.put("isFocus", news.isFocus());
+        initialValues.put("isUserCache", news.isUserCache());
         return initialValues;
     }
     
@@ -141,6 +142,7 @@ public class NewsDBAdapter extends BaseAdapter<News> {
         news.setPhotoFilePath(cursor.getString(cursor.getColumnIndex("photoFilePath")));
         news.setThumbnailFilePath(cursor.getString(cursor.getColumnIndex("thumbnailFilePath")));
         news.setFocus(cursor.getInt(cursor.getColumnIndex("isFocus")) > 0);
+        news.setUserCache(cursor.getInt(cursor.getColumnIndex("isUserCache")) > 0);
         return news;
     }
 }

@@ -42,7 +42,7 @@ public class FavoritesFragment extends HeaderLoadingSupportPTRListFragment {
 			refreshComplete();
 		}
 		public void onFailure(ActionError error) {
-			mGetFavoritesAction = (GetFavoritesAction)mGetFavoritesAction.createRetryPageAction();
+			mGetFavoritesAction = (GetFavoritesAction)mGetFavoritesAction.cloneCurrentPageAction();
 			//TODO: Show failure
 			showListView();
 			refreshComplete();

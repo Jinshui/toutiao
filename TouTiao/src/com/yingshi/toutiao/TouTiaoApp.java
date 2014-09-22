@@ -4,9 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.social.AccountInfo;
-import com.yingshi.toutiao.storage.AccountInfoDAO;
+import com.yingshi.toutiao.storage.CategoryDAO;
 import com.yingshi.toutiao.storage.DatabaseHelper;
 import com.yingshi.toutiao.storage.FavoritesDAO;
 import com.yingshi.toutiao.storage.HeadNewsDAO;
@@ -18,7 +17,7 @@ public class TouTiaoApp extends Application {
     private NewsDAO mNewsDao;
     private HeadNewsDAO mHeadNewsDAO;
     private FavoritesDAO mFavoritesDAO;
-    private AccountInfoDAO mAccountInfoDAO;
+    private CategoryDAO mCategoryDAO;
     private DatabaseHelper mDatabaseHelper;
     private AccountInfo mUserInfo;
     
@@ -29,22 +28,21 @@ public class TouTiaoApp extends Application {
         mNewsDao = new NewsDAO(mDatabaseHelper.getWritableDatabase());
         mHeadNewsDAO = new HeadNewsDAO(mDatabaseHelper.getWritableDatabase());
         mFavoritesDAO = new FavoritesDAO(mDatabaseHelper.getWritableDatabase());
-        mAccountInfoDAO = new AccountInfoDAO(mDatabaseHelper.getWritableDatabase());
+        mCategoryDAO = new CategoryDAO(mDatabaseHelper.getWritableDatabase());
         //Register weixin
         WXAPIFactory.createWXAPI(this, null).registerApp(Constants.APP_WEIXIN_ID);
-        cleanDB();
     }
     
-    private void cleanDB(){
-		new ParallelTask<Void>() {
-			protected Void doInBackground(Void... params) {
-		        Log.i(tag, "Clean all cached news");
-				mHeadNewsDAO.delete();
-				mNewsDao.delete();
-				return null;
-			}
-		}.execute();
-    }
+//    private void cleanDB(){
+//		new ParallelTask<Void>() {
+//			protected Void doInBackground(Void... params) {
+//		        Log.i(tag, "Clean all cached news");
+//				mHeadNewsDAO.delete();
+//				mNewsDao.delete();
+//				return null;
+//			}
+//		}.execute();
+//    }
 
     public NewsDAO getNewsDAO() {
         return mNewsDao;
@@ -58,8 +56,8 @@ public class TouTiaoApp extends Application {
         return mFavoritesDAO;
     }
 
-    public AccountInfoDAO getAccountInfoDAO(){
-    	return mAccountInfoDAO;
+    public CategoryDAO getCategoryDAO(){
+    	return mCategoryDAO;
     }
     
     public void setUserInfo(AccountInfo userInfo){

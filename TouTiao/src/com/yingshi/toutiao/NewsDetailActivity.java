@@ -2,11 +2,15 @@ package com.yingshi.toutiao;
 
 import java.util.List;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +23,9 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXTextObject;
@@ -30,6 +37,8 @@ import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.model.Comment;
 import com.yingshi.toutiao.model.News;
 import com.yingshi.toutiao.model.Pagination;
+import com.yingshi.toutiao.social.AccountInfo;
+import com.yingshi.toutiao.util.DialogHelper;
 import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CommentListRow;
 import com.yingshi.toutiao.view.CustomizeImageView;
@@ -37,9 +46,11 @@ import com.yingshi.toutiao.view.HeaderView;
 
 public class NewsDetailActivity extends Activity
 {
+	private final static String tag = "TT-NewsDetailActivity";
 	private View mShareNewsWidget;
 	private LinearLayout mCommentsList;
 	private ImageButton mShowCommentsBtn;
+	private EditText mCommentTextView;
 	private News mNews;
 	private GetCommentsAction mGetCommentsAction;
 	public void onCreate(Bundle savedInstanceState)
@@ -54,11 +65,31 @@ public class NewsDetailActivity extends Activity
 			}
 		});
 		
-		final EditText commentTextView = (EditText)findViewById(R.id.id_news_detail_comment_text);
-		commentTextView.setOnEditorActionListener(new OnEditorActionListener(){
+		mCommentTextView = (EditText)findViewById(R.id.id_news_detail_comment_text);
+		mCommentTextView.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				if(((TouTiaoApp)getApplication()).getUserInfo() == null){
+					DialogHelper.createDialog(NewsDetailActivity.this, R.string.add_comment_login_dlg_msg, R.string.add_comment_login_dlg_title, 0, android.R.string.ok, new android.content.DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(android.content.DialogInterface dialog, int which) {
+							Intent intent = new Intent(NewsDetailActivity.this, LoginActivity.class);
+							startActivity(intent);
+							finish();
+						}
+					}, android.R.string.cancel, null).show();
+				}
+			}
+		});
+		mCommentTextView.setOnEditorActionListener(new OnEditorActionListener(){
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if(event != null && event.getAction() == KeyEvent.ACTION_UP
+				if(event != null && event.getAction() == KeyEvent.ACTION_DOWN
 						&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+					DialogHelper.createDialog(NewsDetailActivity.this, R.string.confirm_add_comment_dlg_msg, R.string.confirm_add_comment_dlg_title, 0, android.R.string.ok, new android.content.DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(android.content.DialogInterface dialog, int which) {
+							addComment();
+						}
+					}, android.R.string.cancel, null).show();
 					return true;
 				}
 				return false;
@@ -71,15 +102,48 @@ public class NewsDetailActivity extends Activity
 		mNews = getIntent().getParcelableExtra(Constants.INTENT_EXTRA_NEWS);
 		updateUI(mNews);
 	}
-	
-    protected void fillItems(LinearLayout contentView, List<Comment> items){
-        for(final Comment item : items){
-            CommentListRow view = new CommentListRow(this, null);
-            view.setProduct(item);
-            @SuppressWarnings("deprecation")
-			LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-            contentView.addView(view, params);
-        }
+    
+    private void addComment(){
+    	AsyncHttpClient httpClient = new AsyncHttpClient();
+    	AccountInfo userInfo = ((TouTiaoApp)getApplication()).getUserInfo();
+    	RequestParams params = new RequestParams();
+    	params.put("newsid", mNews.getId());
+    	params.put("username", userInfo.getUserName());
+    	params.put("content", Utils.encode(mCommentTextView.getText().toString(), "UTF-8"));
+    	params.put("img", userInfo.getPhotoBase64());
+    	httpClient.post(Constants.UPLOAD_ADDRESS, params, new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				super.onSuccess(statusCode, headers, response);
+                Log.d(tag, "Received JSON response : " + response.toString());
+                Toast.makeText(NewsDetailActivity.this, R.string.add_comment_succ, Toast.LENGTH_SHORT).show();
+                loadComments(null);
+			}
+			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+				super.onSuccess(statusCode, headers, response);
+                Log.d(tag, "Received JSON response : " + response.toString());
+                Toast.makeText(NewsDetailActivity.this, R.string.add_comment_succ, Toast.LENGTH_SHORT).show();
+                loadComments(null);
+			}
+			public void onSuccess(int statusCode, Header[] headers, String response) {
+				super.onSuccess(statusCode, headers, response);
+                Log.d(tag, "Received JSON response : " + response);
+                Toast.makeText(NewsDetailActivity.this, R.string.add_comment_succ, Toast.LENGTH_SHORT).show();
+                loadComments(null);
+			}
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+				onFailure(statusCode, headers, errorResponse == null? "" : errorResponse.toString(), throwable);
+			}
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse){
+				onFailure(statusCode, headers, errorResponse == null? "" : errorResponse.toString(), throwable);
+			}
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(NewsDetailActivity.this, R.string.add_comment_fail, Toast.LENGTH_SHORT).show();
+                Log.e(tag, "Received Error response : StatusCode: " + statusCode + ", Received response : " + responseString);
+			} 
+		});    		
     }
     
 	private void updateUI(final News news){
@@ -134,7 +198,7 @@ public class NewsDetailActivity extends Activity
 		}.execute();
 	}
 	
-	public void getComments(View view){
+	public void loadComments(View view){
 		mShowCommentsBtn.setVisibility(View.GONE);
 		mGetCommentsAction = new GetCommentsAction(this, mNews.getId(), mNews.getCategory(), 1, 30);
 		mGetCommentsAction.execute(new UICallBack<Pagination<Comment>>(){
@@ -153,6 +217,17 @@ public class NewsDetailActivity extends Activity
 			}
 		});
 	}
+	
+    protected void fillItems(LinearLayout contentView, List<Comment> items){
+    	contentView.removeAllViews();
+        for(final Comment item : items){
+            CommentListRow view = new CommentListRow(this, null);
+            view.setProduct(item);
+            @SuppressWarnings("deprecation")
+			LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+            contentView.addView(view, params);
+        }
+    }
 	
 	public void shareWeiChat(View view){
 		mShareNewsWidget.setVisibility(View.GONE);

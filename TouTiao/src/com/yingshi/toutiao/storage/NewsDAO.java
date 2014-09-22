@@ -24,8 +24,12 @@ public class NewsDAO extends BaseDAO<News>{
         super(new NewsDBAdapter(mDb));
     }
     
-    public int deleteByCategory(String category){
-    	return getDbAdapter().delete("category='" + category + "'");
+    public int deleteFocusByCategory(String category){
+    	return getDbAdapter().delete("category='" + category + "' and isFocus=1");
+    }
+    
+    public int deleteNewsByCategory(String category){
+    	return getDbAdapter().delete("category='" + category + "' and isFocus=0");
     }
     
     public List<News> findNewsByCategory(String category){

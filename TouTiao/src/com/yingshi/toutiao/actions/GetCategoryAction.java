@@ -18,7 +18,7 @@ public class GetCategoryAction extends PaginationAction<Category>{
 	}
 	
 	@Override
-	protected PaginationAction<Category> cloneCurrentPageAction() {
+	public PaginationAction<Category> cloneCurrentPageAction() {
 		return new GetCategoryAction(mAppContext, getPageIndex(), getPageSize());
 	}
 

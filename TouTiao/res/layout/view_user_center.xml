@@ -28,7 +28,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:src="@drawable/gerenzhongxin_touxiang"
+        android:src="@drawable/user_profile_picutre_bg"
         android:contentDescription="@string/img_content_description" />
 
     <TextView

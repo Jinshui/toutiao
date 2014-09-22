@@ -86,9 +86,7 @@ public abstract class AbstractAction<Result> extends ParallelTask<ActionResult<R
         public void onFailure(ActionError error);
     }
     
-    public static interface BackgroundCallBack<T>{
-    	public void onSuccess(T result);
-    	public void onFailure(ActionError error);
+    public static interface BackgroundCallBack<T> extends UICallBack<T>{
     }
     
     public static interface IBackgroundProcessor<T> {

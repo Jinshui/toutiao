@@ -37,7 +37,7 @@ public class SearchAction extends PaginationAction<News> {
 		}
     }
 
-    protected SearchAction cloneCurrentPageAction(){
+    public SearchAction cloneCurrentPageAction(){
         SearchAction action = new SearchAction(
                             mAppContext,
                             mKeyword,

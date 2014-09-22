@@ -99,7 +99,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/pinglun"
                         android:contentDescription="@string/img_content_description"
-                        android:onClick="getComments" />
+                        android:onClick="loadComments" />
                 </RelativeLayout>
 	            <LinearLayout
 	                android:id="@+id/id_news_detail_comments"

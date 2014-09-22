@@ -29,7 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ "videoPhotoFilePath text null,"
 			+ "photoFilePath text null,"
 			+ "thumbnailFilePath text null,"
-			+ "isFocus integer null"
+			+ "isFocus integer null,"
+			+ "isUserCache integer null"
 			+ ");";
 	private static final String CREATE_DATABASE_NEWS = String.format(CREATE_DATABASE_SQL, "news");
 	private static final String CREATE_DATABASE_NEWS_UNIQUE_INDEX = "CREATE UNIQUE INDEX news_u1 ON news(id)";
