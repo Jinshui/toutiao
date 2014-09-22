@@ -1,6 +1,7 @@
 package com.yingshi.toutiao.actions;
 
 import java.util.Iterator;
+import java.util.concurrent.Executor;
 
 import org.apache.http.Header;
 import org.apache.http.HttpStatus;
@@ -86,7 +87,9 @@ public abstract class AbstractAction<Result> extends ParallelTask<ActionResult<R
         public void onFailure(ActionError error);
     }
     
-    public static interface BackgroundCallBack<T> extends UICallBack<T>{
+    public static abstract class BackgroundCallBack<T>{
+        public abstract void onSuccess(T result);
+        public void onFailure(ActionError error){}
     }
     
     public static interface IBackgroundProcessor<T> {
@@ -203,15 +206,34 @@ public abstract class AbstractAction<Result> extends ParallelTask<ActionResult<R
     	execute(null, null);
     }
     
+    public void execute(BackgroundCallBack<Result> backgroundCallBack){
+    	execute(backgroundCallBack, null);
+    }
+    
     public void execute(UICallBack<Result> uiCallback){
     	execute(null, uiCallback);
     }
 
     @SuppressLint("NewApi")
 	public void execute(BackgroundCallBack<Result> backgroundCallBack, UICallBack<Result> uiCallback){
+    	executeOnExecutor(backgroundCallBack, uiCallback, null);
+    }
+    
+    public void executeOnExecutor(BackgroundCallBack<Result> backgroundCallBack, Executor executor){
+    	executeOnExecutor(backgroundCallBack, null, executor);
+    }
+    
+    public void executeOnExecutor(UICallBack<Result> uiCallback, Executor executor){
+    	executeOnExecutor(null, uiCallback, executor);
+    }
+
+    @SuppressLint("NewApi")
+	public void executeOnExecutor(BackgroundCallBack<Result> backgroundCallBack, UICallBack<Result> uiCallback, Executor executor){
         mUICallback = uiCallback;
         mBackgroundCallBack = backgroundCallBack;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
+        if(executor != null){
+        	super.executeOnExecutor(executor);
+        }else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
             super.execute();
         } else {
         	super.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

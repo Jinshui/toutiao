@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +15,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.yingshi.toutiao.actions.ParallelTask;
-import com.yingshi.toutiao.util.PhotoUtil;
 import com.yingshi.toutiao.util.PreferenceUtil;
 import com.yingshi.toutiao.view.CustomizeImageView;
-import com.yingshi.toutiao.view.CustomizeImageView.LoadImageCallback;
 
 public class MainUserCenterFragment extends Fragment
 {
@@ -106,6 +101,10 @@ public class MainUserCenterFragment extends Fragment
 				Intent intent = new Intent(getActivity(), FavoritesActivity.class);
 				startActivity(intent);
 			}});
+		mBtnDownloads.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				NewsDownloader.getInstance((TouTiaoApp)getActivity().getApplication()).startDownlaod();
+			}});
 	}
 	
 	public void updateProfilePhoto(String url){
@@ -113,10 +112,6 @@ public class MainUserCenterFragment extends Fragment
 	}
 	
 	public void showMyFavorites(){
-		
-	}
-	
-	public void download(){
 		
 	}
 	

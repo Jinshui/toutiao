@@ -39,10 +39,10 @@ public class MainActivity extends SlidingFragmentActivity
 	public static final String INTENT_EXTRA_SHOW_USER_CENTER = "show_user_center";
 	private List<RelativeLayout> mTabs = new ArrayList<RelativeLayout>();
 //	private static String[] tabTitles = { "HEADLINE", "TELEPLAY", "MOVIE", "RATINGS"};//, "明星", "综艺", "公司" };
-	private List<Category> mCategories;
 	private TabHost mTabHost;
 	private HorizontalScrollView mTabScrollView ;
 	private ViewPager mViewPager;
+	private View mLoadingView;
 	private MainUserCenterFragment mUserCenterFragment;
 	private CategoryDAO mcategoryDAO;
 	
@@ -73,6 +73,7 @@ public class MainActivity extends SlidingFragmentActivity
 	    mTabScrollView = (HorizontalScrollView)findViewById(R.id.tabs_scrollView);
 		mTabHost = (TabHost) findViewById(R.id.tabhost);
 		mTabHost.setup();
+		mLoadingView = findViewById(R.id.id_category_loading);
 		mViewPager = (ViewPager) findViewById(R.id.viewpager);
 		//Header view
 		headerView.setLeftImage(R.drawable.gerenzhongxin_shoucang, new OnClickListener(){
@@ -90,7 +91,9 @@ public class MainActivity extends SlidingFragmentActivity
 	}
 	
 	private void loadCategoryFromServer(){
-		GetCategoryAction getCategoryAction = new GetCategoryAction(this, 1, 10);
+		mLoadingView.setVisibility(View.VISIBLE);
+		mViewPager.setVisibility(View.GONE);
+		GetCategoryAction getCategoryAction = new GetCategoryAction(this, 1, 100);
 		getCategoryAction.execute(
 			new BackgroundCallBack<Pagination<Category>>(){
 				public void onSuccess(Pagination<Category> result) {
@@ -101,11 +104,10 @@ public class MainActivity extends SlidingFragmentActivity
 			},
 			new UICallBack<Pagination<Category>>(){
 				public void onSuccess(Pagination<Category> result) {
-					updateUI(mCategories = result.getItems());
+					updateUI(result.getItems());
 				}
 				public void onFailure(ActionError error) {
 					loadCategoryFromDB();
-					Toast.makeText(MainActivity.this, R.string.load_failed, Toast.LENGTH_SHORT).show();
 				}
 			}
 		);
@@ -117,12 +119,19 @@ public class MainActivity extends SlidingFragmentActivity
 				return mcategoryDAO.getAll(null);
 			}
 			public void onPostExecute(List<Category> newsList){
-				updateUI(mCategories = newsList);
+				updateUI(newsList);
 			}
 		};
 	}
 	
 	private void updateUI(final List<Category> categories){
+		mLoadingView.setVisibility(View.GONE);
+		mViewPager.setVisibility(View.VISIBLE);
+		if(categories == null || categories.isEmpty()){
+			Toast.makeText(MainActivity.this, R.string.load_failed, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		for (Category category : categories) {
 			RelativeLayout tabIndicator = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_news_tab_widget, null);
 			TextView tvTab = (TextView) tabIndicator.findViewById(R.id.tv_title);
