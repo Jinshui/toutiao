@@ -147,7 +147,7 @@ public class NewsDownloader{
 							mApp.getHeadNewsDAO().deleteHeadNews();//先删除旧的
 							mApp.getHeadNewsDAO().save(newsPage.getItems());//后保存新的
 						}else{
-							mApp.getNewsDAO().deleteFocusByCategory(category.getName());//先删除旧的
+							mApp.getNewsDAO().deleteNewsByCategory(category.getName());//先删除旧的
 							mApp.getNewsDAO().save(newsPage.getItems());//后保存新的
 						}
 					}

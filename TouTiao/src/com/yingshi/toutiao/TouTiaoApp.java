@@ -20,6 +20,7 @@ public class TouTiaoApp extends Application {
     private CategoryDAO mCategoryDAO;
     private DatabaseHelper mDatabaseHelper;
     private AccountInfo mUserInfo;
+    private String mCachePath;
     
     public void onCreate() {
         Log.i(tag, "影视头条App is initializing");
@@ -29,21 +30,11 @@ public class TouTiaoApp extends Application {
         mHeadNewsDAO = new HeadNewsDAO(mDatabaseHelper.getWritableDatabase());
         mFavoritesDAO = new FavoritesDAO(mDatabaseHelper.getWritableDatabase());
         mCategoryDAO = new CategoryDAO(mDatabaseHelper.getWritableDatabase());
+        mCachePath = getCacheDir().getAbsolutePath() + Constants.CACHE_DIR;
         //Register weixin
         WXAPIFactory.createWXAPI(this, null).registerApp(Constants.APP_WEIXIN_ID);
     }
     
-//    private void cleanDB(){
-//		new ParallelTask<Void>() {
-//			protected Void doInBackground(Void... params) {
-//		        Log.i(tag, "Clean all cached news");
-//				mHeadNewsDAO.delete();
-//				mNewsDao.delete();
-//				return null;
-//			}
-//		}.execute();
-//    }
-
     public NewsDAO getNewsDAO() {
         return mNewsDao;
     }
@@ -66,5 +57,9 @@ public class TouTiaoApp extends Application {
     
     public AccountInfo getUserInfo(){
     	return mUserInfo;
+    }
+    
+    public String getCachePath(){
+    	return mCachePath;
     }
 }

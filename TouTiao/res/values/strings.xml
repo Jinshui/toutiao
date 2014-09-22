@@ -10,7 +10,7 @@
     <string name="title_toutiao">影视头条</string>
     
     <!-- 用户中心 -->
-    <string name="unauthorized">未登陆</string>
+    <string name="unauthorized">未登录</string>
     <string name="favorites">我的收藏</string>
     <string name="downloads">离线下载</string>
     <string name="push">推送开关</string>
@@ -19,6 +19,7 @@
     <string name="download_complete">下载完成!</string>
     <string name="download_started">已经开始下载, 请耐心等候!</string>
     <string name="downloading">正在下载, 请耐心等候!</string>
+    <string name="clear_cache_complete">已清空缓存!</string>
     
     <!-- 列表 -->
     <string name="list_item_sample_text">测试标题</string>
@@ -64,8 +65,8 @@
     <string name="add_favorite_succ">成功加入收藏列表</string>
     <string name="confirm_add_comment_dlg_title">确认</string>
     <string name="confirm_add_comment_dlg_msg">确认提交评论?</string>
-    <string name="add_comment_login_dlg_title">登陆</string>
-    <string name="add_comment_login_dlg_msg">登陆用户方可评论。您需要登陆吗?</string>
+    <string name="add_comment_login_dlg_title">登录</string>
+    <string name="add_comment_login_dlg_msg">登录用户方可评论。您需要登录吗?</string>
     <string name="add_comment_succ">评论成功!</string>
     <string name="add_comment_fail">评论失败, 请稍候重试!</string>
 </resources>

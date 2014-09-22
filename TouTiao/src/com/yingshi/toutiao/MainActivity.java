@@ -38,7 +38,6 @@ public class MainActivity extends SlidingFragmentActivity
 {
 	public static final String INTENT_EXTRA_SHOW_USER_CENTER = "show_user_center";
 	private List<RelativeLayout> mTabs = new ArrayList<RelativeLayout>();
-//	private static String[] tabTitles = { "HEADLINE", "TELEPLAY", "MOVIE", "RATINGS"};//, "明星", "综艺", "公司" };
 	private TabHost mTabHost;
 	private HorizontalScrollView mTabScrollView ;
 	private ViewPager mViewPager;
@@ -100,7 +99,6 @@ public class MainActivity extends SlidingFragmentActivity
 					mcategoryDAO.delete();
 					mcategoryDAO.save(result.getItems());
 				}
-				public void onFailure(ActionError error) {}
 			},
 			new UICallBack<Pagination<Category>>(){
 				public void onSuccess(Pagination<Category> result) {
@@ -121,7 +119,7 @@ public class MainActivity extends SlidingFragmentActivity
 			public void onPostExecute(List<Category> newsList){
 				updateUI(newsList);
 			}
-		};
+		}.execute();
 	}
 	
 	private void updateUI(final List<Category> categories){

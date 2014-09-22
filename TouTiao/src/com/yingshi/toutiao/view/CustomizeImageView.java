@@ -4,10 +4,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
-import com.yingshi.toutiao.Constants;
-import com.yingshi.toutiao.actions.ParallelTask;
-import com.yingshi.toutiao.util.Utils;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -16,8 +12,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.yingshi.toutiao.TouTiaoApp;
+import com.yingshi.toutiao.actions.ParallelTask;
+import com.yingshi.toutiao.util.PhotoUtil;
+import com.yingshi.toutiao.util.Utils;
+
 public class CustomizeImageView extends ImageView{
     private static final String tag = "TT-CustomizeImageView";
+    private static String IMAGE_CACHE_PATH = null;
 
     public static interface LoadImageCallback{
     	void onImageLoaded(Drawable drawable);
@@ -25,6 +27,9 @@ public class CustomizeImageView extends ImageView{
     
     public CustomizeImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        if(IMAGE_CACHE_PATH == null){
+        	IMAGE_CACHE_PATH = ((TouTiaoApp)context.getApplicationContext()).getCachePath()  + "/images/";
+        }
     }
 
     public void loadImage(final String url){
@@ -37,7 +42,7 @@ public class CustomizeImageView extends ImageView{
         new ParallelTask<Drawable>(){
             protected Drawable doInBackground(Void... params) {
                 try {
-                    String cachedFileDir = getContext().getCacheDir().getAbsolutePath() + Constants.CACHE_DIR + "/images/" + url.hashCode();
+                    String cachedFileDir = IMAGE_CACHE_PATH + url.hashCode();
                     File existingFile = new File(cachedFileDir);
                     if(existingFile.exists()){
                     	return Drawable.createFromPath(cachedFileDir);
@@ -51,7 +56,8 @@ public class CustomizeImageView extends ImageView{
                 	return null;
                 }
             }
-            protected void onPostExecute(Drawable drawable){
+            @SuppressWarnings("deprecation")
+			protected void onPostExecute(Drawable drawable){
                 if(drawable != null){
 //                    setImageDrawable(drawable);
                 	setBackgroundDrawable(drawable);
@@ -65,6 +71,22 @@ public class CustomizeImageView extends ImageView{
     
     public void loadImage(final InputStream is){
     	loadImage(is, null);
+    }
+    
+    public void loadImage(final byte[] data){
+    	if(data == null || data.length == 0)
+    		return;
+        new ParallelTask<Drawable>(){
+            protected Drawable doInBackground(Void... params) {
+            	return PhotoUtil.bytes2Drawable(data);
+            }
+            @SuppressWarnings("deprecation")
+			protected void onPostExecute(Drawable drawable){
+                if(drawable != null){
+                	setBackgroundDrawable(drawable);
+              }
+            }
+        }.execute();
     }
     
     public void loadImage(final InputStream is, final LoadImageCallback callback){

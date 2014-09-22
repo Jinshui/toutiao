@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String CREATE_DATABASE_FAVORITES = String.format(CREATE_DATABASE_SQL, "favorites");
 	private static final String CREATE_DATABASE_FAVORITES_UNIQUE_INDEX = "CREATE UNIQUE INDEX favorites_u1 ON favorites(id)";
 
-	private static final String CREATE_DATABASE_CATEGORY = "create table category("
+	private static final String CREATE_DATABASE_CATEGORY = "create table categories("
 			+ "_id integer primary key autoincrement,"
 			+ "id text not null," // id returned from server
 			+ "name text not null"

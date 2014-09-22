@@ -13,14 +13,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.yingshi.toutiao.util.PreferenceUtil;
+import com.loopj.android.http.Base64;
+import com.yingshi.toutiao.actions.ParallelTask;
+import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CustomizeImageView;
 
 public class MainUserCenterFragment extends Fragment
 {
 	private final static String tag = "TT-UserCenterFragment";
+	private TouTiaoApp mApp;
 	private SlidingMenu mSlidingMenu;
 	private View mView;
 	private ImageButton mReturnBtn;
@@ -51,6 +55,7 @@ public class MainUserCenterFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mReceiver = new PhotoUpdateBroadcastReceiver();
+		mApp = (TouTiaoApp)(getActivity().getApplication());
 	}
 	
 	public void onResume(){
@@ -82,16 +87,23 @@ public class MainUserCenterFragment extends Fragment
 	}
 	
 	private void loadUserInfo(){
-		String loginUserName = PreferenceUtil.getString(getActivity(), Constants.USER_NAME , null);
-		if(loginUserName != null)
-			mUserName.setText(loginUserName);
-		String photoUrl = PreferenceUtil.getString(getActivity(), Constants.USER_PHOTO_URL, null);
-		if(photoUrl != null){
-			mUserPhoto.loadImage(photoUrl);
+		if(mApp.getUserInfo()!=null){
+			mUserName.setText(mApp.getUserInfo().getUserName());
+			if(mApp.getUserInfo().getPhotoBase64() != null){
+				mUserPhoto.loadImage(Base64.decode(mApp.getUserInfo().getPhotoBase64(), Base64.DEFAULT));
+			}else if(mApp.getUserInfo().getPhotoUrl()!=null){
+				mUserPhoto.loadImage(mApp.getUserInfo().getPhotoUrl());
+			}
 		}
 	}
 	
 	private void addListener(){
+		mUserPhoto.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				if(mApp.getUserInfo() == null){
+					getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
+				}
+			}});
 		mReturnBtn.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				mSlidingMenu.showContent();
@@ -105,21 +117,17 @@ public class MainUserCenterFragment extends Fragment
 			public void onClick(View v) {
 				NewsDownloader.getInstance((TouTiaoApp)getActivity().getApplication()).startDownlaod();
 			}});
-	}
-	
-	public void updateProfilePhoto(String url){
-		mUserPhoto.loadImage(url);
-	}
-	
-	public void showMyFavorites(){
-		
-	}
-	
-	public void tooglePush(){
-		
-	}
-	
-	public void clearCache(){
-		
+		mBtnClearCache.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				new ParallelTask<Void>() {
+					protected Void doInBackground(Void... params) {
+						Utils.removeFile(mApp.getCachePath());
+						return null;
+					}
+					protected void onPostExecute(Void result){
+						Toast.makeText(mApp, R.string.clear_cache_complete, Toast.LENGTH_SHORT).show();
+					}
+				};
+			}});
 	}
 }

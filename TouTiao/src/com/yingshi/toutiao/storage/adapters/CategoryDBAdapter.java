@@ -19,7 +19,7 @@ import com.yingshi.toutiao.model.Category;
 
 public class CategoryDBAdapter extends BaseAdapter<Category> {
 
-	public static final String DB_TABLE_NEWS = "news";
+	public static final String DB_TABLE_NEWS = "categories";
     private static String[] CATEGORY_COLUMNS = { "_id", "id", "name"};
 
     public CategoryDBAdapter(SQLiteDatabase database) {

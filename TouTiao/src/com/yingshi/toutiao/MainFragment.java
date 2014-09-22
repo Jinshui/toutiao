@@ -136,7 +136,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 						mHeadNewsDAO.deleteHeadNews();//先删除旧的
 						mHeadNewsDAO.save(newsPage.getItems());//后保存新的
 					}else{
-						mNewsDAO.deleteFocusByCategory(mCategory);//先删除旧的
+						mNewsDAO.deleteNewsByCategory(mCategory);//先删除旧的
 						mNewsDAO.save(newsPage.getItems());//后保存新的
 					}
 				}
