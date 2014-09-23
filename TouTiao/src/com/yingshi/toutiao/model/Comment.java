@@ -29,7 +29,7 @@ public class Comment extends BaseModel {
         	comment.setTime(date == null ? 0 : date.getTime());
         }
         if(json.has("Content"))
-        	comment.setContent(json.getString("Content"));
+        	comment.setContent(Utils.getDecodedValue(json, "Content"));
         if(json.has("PicUrl"))
         	comment.setPhotoUrl(json.getString("PicUrl"));
         return comment;

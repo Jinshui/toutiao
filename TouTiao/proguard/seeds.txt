@@ -1,0 +1,997 @@
+android.support.v4.app.BackStackState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.Fragment$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentActivity: FragmentActivity()
+android.support.v4.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentTabHost
+android.support.v4.app.FragmentTabHost: FragmentTabHost(android.content.Context)
+android.support.v4.app.FragmentTabHost: FragmentTabHost(android.content.Context,android.util.AttributeSet)
+android.support.v4.app.FragmentTabHost: void setup()
+android.support.v4.app.FragmentTabHost: void setup(android.content.Context,android.support.v4.app.FragmentManager)
+android.support.v4.app.FragmentTabHost: void setup(android.content.Context,android.support.v4.app.FragmentManager,int)
+android.support.v4.app.FragmentTabHost: void setOnTabChangedListener(android.widget.TabHost$OnTabChangeListener)
+android.support.v4.app.FragmentTabHost$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.view.PagerTabStrip
+android.support.v4.view.PagerTabStrip: PagerTabStrip(android.content.Context)
+android.support.v4.view.PagerTabStrip: PagerTabStrip(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColor(int)
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColorResource(int)
+android.support.v4.view.PagerTabStrip: void setPadding(int,int,int,int)
+android.support.v4.view.PagerTabStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundDrawable(android.graphics.drawable.Drawable)
+android.support.v4.view.PagerTabStrip: void setBackgroundColor(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundResource(int)
+android.support.v4.view.PagerTabStrip: void setDrawFullUnderline(boolean)
+android.support.v4.view.PagerTitleStrip
+android.support.v4.view.PagerTitleStrip: PagerTitleStrip(android.content.Context)
+android.support.v4.view.PagerTitleStrip: PagerTitleStrip(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.PagerTitleStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTitleStrip: void setNonPrimaryAlpha(float)
+android.support.v4.view.PagerTitleStrip: void setTextColor(int)
+android.support.v4.view.PagerTitleStrip: void setTextSize(int,float)
+android.support.v4.view.PagerTitleStrip: void setGravity(int)
+android.support.v4.view.ViewPager
+android.support.v4.view.ViewPager: ViewPager(android.content.Context)
+android.support.v4.view.ViewPager: ViewPager(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager: void setAdapter(android.support.v4.view.PagerAdapter)
+android.support.v4.view.ViewPager: void setCurrentItem(int)
+android.support.v4.view.ViewPager: void setCurrentItem(int,boolean)
+android.support.v4.view.ViewPager: void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener)
+android.support.v4.view.ViewPager: void setPageTransformer(boolean,android.support.v4.view.ViewPager$PageTransformer)
+android.support.v4.view.ViewPager: void setOffscreenPageLimit(int)
+android.support.v4.view.ViewPager: void setPageMargin(int)
+android.support.v4.view.ViewPager: void setPageMarginDrawable(android.graphics.drawable.Drawable)
+android.support.v4.view.ViewPager: void setPageMarginDrawable(int)
+android.support.v4.view.ViewPager$LayoutParams
+android.support.v4.view.ViewPager$LayoutParams: ViewPager$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.ContentLoadingProgressBar
+android.support.v4.widget.ContentLoadingProgressBar: ContentLoadingProgressBar(android.content.Context)
+android.support.v4.widget.ContentLoadingProgressBar: ContentLoadingProgressBar(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context)
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context,android.util.AttributeSet,int)
+android.support.v4.widget.DrawerLayout: void setDrawerShadow(android.graphics.drawable.Drawable,int)
+android.support.v4.widget.DrawerLayout: void setDrawerShadow(int,int)
+android.support.v4.widget.DrawerLayout: void setScrimColor(int)
+android.support.v4.widget.DrawerLayout: void setDrawerListener(android.support.v4.widget.DrawerLayout$DrawerListener)
+android.support.v4.widget.DrawerLayout: void setDrawerLockMode(int)
+android.support.v4.widget.DrawerLayout: void setDrawerLockMode(int,int)
+android.support.v4.widget.DrawerLayout: void setDrawerLockMode(int,android.view.View)
+android.support.v4.widget.DrawerLayout: void setDrawerTitle(int,java.lang.CharSequence)
+android.support.v4.widget.DrawerLayout$LayoutParams
+android.support.v4.widget.DrawerLayout$LayoutParams: DrawerLayout$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.SearchViewCompatIcs$MySearchView
+android.support.v4.widget.SearchViewCompatIcs$MySearchView: SearchViewCompatIcs$MySearchView(android.content.Context)
+android.support.v4.widget.SlidingPaneLayout
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context)
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context,android.util.AttributeSet,int)
+android.support.v4.widget.SlidingPaneLayout: void setParallaxDistance(int)
+android.support.v4.widget.SlidingPaneLayout: void setSliderFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: void setCoveredFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: void setPanelSlideListener(android.support.v4.widget.SlidingPaneLayout$PanelSlideListener)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawable(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawableLeft(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawableRight(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResource(int)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResourceLeft(int)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResourceRight(int)
+android.support.v4.widget.SlidingPaneLayout$LayoutParams
+android.support.v4.widget.SlidingPaneLayout$LayoutParams: SlidingPaneLayout$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SlidingPaneLayout$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.SwipeRefreshLayout
+android.support.v4.widget.SwipeRefreshLayout: SwipeRefreshLayout(android.content.Context)
+android.support.v4.widget.SwipeRefreshLayout: SwipeRefreshLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SwipeRefreshLayout: void setOnRefreshListener(android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener)
+android.support.v4.widget.SwipeRefreshLayout: void setRefreshing(boolean)
+android.support.v4.widget.SwipeRefreshLayout: void setColorScheme(int,int,int,int)
+android.support.v4.widget.SwipeRefreshLayout: void setColorSchemeResources(int,int,int,int)
+android.support.v4.widget.SwipeRefreshLayout: void setColorSchemeColors(int,int,int,int)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: PullToRefreshAdapterViewBase(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: PullToRefreshAdapterViewBase(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: PullToRefreshAdapterViewBase(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: PullToRefreshAdapterViewBase(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode,com.handmark.pulltorefresh.library.PullToRefreshBase$AnimationStyle)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: void setAdapter(android.widget.ListAdapter)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: void setEmptyView(android.view.View)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: void setOnItemClickListener(android.widget.AdapterView$OnItemClickListener)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: void setOnLastItemVisibleListener(com.handmark.pulltorefresh.library.PullToRefreshBase$OnLastItemVisibleListener)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: void setOnScrollListener(android.widget.AbsListView$OnScrollListener)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: void setScrollEmptyView(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase: void setShowIndicator(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase
+com.handmark.pulltorefresh.library.PullToRefreshBase: PullToRefreshBase(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshBase: PullToRefreshBase(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.PullToRefreshBase: PullToRefreshBase(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshBase: PullToRefreshBase(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode,com.handmark.pulltorefresh.library.PullToRefreshBase$AnimationStyle)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setScrollingWhileRefreshingEnabled(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setDisableScrollingWhileRefreshing(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setFilterTouchEvents(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setLastUpdatedLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setLoadingDrawable(android.graphics.drawable.Drawable)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setLoadingDrawable(android.graphics.drawable.Drawable,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setLongClickable(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setMode(com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setOnPullEventListener(com.handmark.pulltorefresh.library.PullToRefreshBase$OnPullEventListener)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setOnRefreshListener(com.handmark.pulltorefresh.library.PullToRefreshBase$OnRefreshListener)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setOnRefreshListener(com.handmark.pulltorefresh.library.PullToRefreshBase$OnRefreshListener2)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setPullLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setPullLabel(java.lang.CharSequence,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setPullToRefreshEnabled(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setPullToRefreshOverScrollEnabled(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setRefreshing()
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setRefreshing(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setRefreshingLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setRefreshingLabel(java.lang.CharSequence,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setReleaseLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setReleaseLabel(java.lang.CharSequence,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setScrollAnimationInterpolator(android.view.animation.Interpolator)
+com.handmark.pulltorefresh.library.PullToRefreshBase: void setShowViewWhileRefreshing(boolean)
+com.handmark.pulltorefresh.library.PullToRefreshExpandableListView
+com.handmark.pulltorefresh.library.PullToRefreshExpandableListView: PullToRefreshExpandableListView(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshExpandableListView: PullToRefreshExpandableListView(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.PullToRefreshGridView
+com.handmark.pulltorefresh.library.PullToRefreshGridView: PullToRefreshGridView(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshGridView: PullToRefreshGridView(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView
+com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView: PullToRefreshHorizontalScrollView(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView: PullToRefreshHorizontalScrollView(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.PullToRefreshListView
+com.handmark.pulltorefresh.library.PullToRefreshListView: PullToRefreshListView(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshListView: PullToRefreshListView(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.PullToRefreshListView: PullToRefreshListView(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.handmark.pulltorefresh.library.PullToRefreshListView: PullToRefreshListView(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode,com.handmark.pulltorefresh.library.PullToRefreshBase$AnimationStyle)
+com.handmark.pulltorefresh.library.PullToRefreshListView$InternalListView
+com.handmark.pulltorefresh.library.PullToRefreshListView$InternalListView: void setAdapter(android.widget.ListAdapter)
+com.handmark.pulltorefresh.library.PullToRefreshListView$InternalListView: void setEmptyView(android.view.View)
+com.handmark.pulltorefresh.library.PullToRefreshListView$InternalListView: void setEmptyViewInternal(android.view.View)
+com.handmark.pulltorefresh.library.PullToRefreshScrollView
+com.handmark.pulltorefresh.library.PullToRefreshScrollView: PullToRefreshScrollView(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshScrollView: PullToRefreshScrollView(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.PullToRefreshWebView
+com.handmark.pulltorefresh.library.PullToRefreshWebView: PullToRefreshWebView(android.content.Context)
+com.handmark.pulltorefresh.library.PullToRefreshWebView: PullToRefreshWebView(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.R$anim: int slide_in_from_bottom
+com.handmark.pulltorefresh.library.R$anim: int slide_in_from_top
+com.handmark.pulltorefresh.library.R$anim: int slide_out_to_bottom
+com.handmark.pulltorefresh.library.R$anim: int slide_out_to_top
+com.handmark.pulltorefresh.library.R$attr: int ptrAdapterViewBackground
+com.handmark.pulltorefresh.library.R$attr: int ptrAnimationStyle
+com.handmark.pulltorefresh.library.R$attr: int ptrDrawable
+com.handmark.pulltorefresh.library.R$attr: int ptrDrawableBottom
+com.handmark.pulltorefresh.library.R$attr: int ptrDrawableEnd
+com.handmark.pulltorefresh.library.R$attr: int ptrDrawableStart
+com.handmark.pulltorefresh.library.R$attr: int ptrDrawableTop
+com.handmark.pulltorefresh.library.R$attr: int ptrHeaderBackground
+com.handmark.pulltorefresh.library.R$attr: int ptrHeaderSubTextColor
+com.handmark.pulltorefresh.library.R$attr: int ptrHeaderTextAppearance
+com.handmark.pulltorefresh.library.R$attr: int ptrHeaderTextColor
+com.handmark.pulltorefresh.library.R$attr: int ptrListViewExtrasEnabled
+com.handmark.pulltorefresh.library.R$attr: int ptrMode
+com.handmark.pulltorefresh.library.R$attr: int ptrOverScroll
+com.handmark.pulltorefresh.library.R$attr: int ptrRefreshableViewBackground
+com.handmark.pulltorefresh.library.R$attr: int ptrRotateDrawableWhilePulling
+com.handmark.pulltorefresh.library.R$attr: int ptrScrollingWhileRefreshingEnabled
+com.handmark.pulltorefresh.library.R$attr: int ptrShowIndicator
+com.handmark.pulltorefresh.library.R$attr: int ptrSubHeaderTextAppearance
+com.handmark.pulltorefresh.library.R$dimen: int header_footer_left_right_padding
+com.handmark.pulltorefresh.library.R$dimen: int header_footer_top_bottom_padding
+com.handmark.pulltorefresh.library.R$dimen: int indicator_corner_radius
+com.handmark.pulltorefresh.library.R$dimen: int indicator_internal_padding
+com.handmark.pulltorefresh.library.R$dimen: int indicator_right_padding
+com.handmark.pulltorefresh.library.R$drawable: int default_ptr_flip
+com.handmark.pulltorefresh.library.R$drawable: int default_ptr_rotate
+com.handmark.pulltorefresh.library.R$drawable: int indicator_arrow
+com.handmark.pulltorefresh.library.R$drawable: int indicator_bg_bottom
+com.handmark.pulltorefresh.library.R$drawable: int indicator_bg_top
+com.handmark.pulltorefresh.library.R$id: int both
+com.handmark.pulltorefresh.library.R$id: int disabled
+com.handmark.pulltorefresh.library.R$id: int fl_inner
+com.handmark.pulltorefresh.library.R$id: int flip
+com.handmark.pulltorefresh.library.R$id: int gridview
+com.handmark.pulltorefresh.library.R$id: int manualOnly
+com.handmark.pulltorefresh.library.R$id: int pullDownFromTop
+com.handmark.pulltorefresh.library.R$id: int pullFromEnd
+com.handmark.pulltorefresh.library.R$id: int pullFromStart
+com.handmark.pulltorefresh.library.R$id: int pullUpFromBottom
+com.handmark.pulltorefresh.library.R$id: int pull_to_refresh_image
+com.handmark.pulltorefresh.library.R$id: int pull_to_refresh_progress
+com.handmark.pulltorefresh.library.R$id: int pull_to_refresh_sub_text
+com.handmark.pulltorefresh.library.R$id: int pull_to_refresh_text
+com.handmark.pulltorefresh.library.R$id: int rotate
+com.handmark.pulltorefresh.library.R$id: int scrollview
+com.handmark.pulltorefresh.library.R$id: int webview
+com.handmark.pulltorefresh.library.R$layout: int pull_to_refresh_header_horizontal
+com.handmark.pulltorefresh.library.R$layout: int pull_to_refresh_header_vertical
+com.handmark.pulltorefresh.library.R$styleable: int[] PullToRefresh
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrAdapterViewBackground
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrAnimationStyle
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrDrawable
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrDrawableBottom
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrDrawableEnd
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrDrawableStart
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrDrawableTop
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrHeaderBackground
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrHeaderSubTextColor
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrHeaderTextAppearance
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrHeaderTextColor
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrListViewExtrasEnabled
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrMode
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrOverScroll
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrRefreshableViewBackground
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrRotateDrawableWhilePulling
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrScrollingWhileRefreshingEnabled
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrShowIndicator
+com.handmark.pulltorefresh.library.R$styleable: int PullToRefresh_ptrSubHeaderTextAppearance
+com.handmark.pulltorefresh.library.extras.PullToRefreshWebView2
+com.handmark.pulltorefresh.library.extras.PullToRefreshWebView2: PullToRefreshWebView2(android.content.Context)
+com.handmark.pulltorefresh.library.extras.PullToRefreshWebView2: PullToRefreshWebView2(android.content.Context,android.util.AttributeSet)
+com.handmark.pulltorefresh.library.internal.FlipLoadingLayout
+com.handmark.pulltorefresh.library.internal.IndicatorLayout
+com.handmark.pulltorefresh.library.internal.LoadingLayout
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setHeight(int)
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setWidth(int)
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setLastUpdatedLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setLoadingDrawable(android.graphics.drawable.Drawable)
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setPullLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setRefreshingLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setReleaseLabel(java.lang.CharSequence)
+com.handmark.pulltorefresh.library.internal.LoadingLayout: void setTextTypeface(android.graphics.Typeface)
+com.handmark.pulltorefresh.library.internal.RotateLoadingLayout
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: CustomViewAbove(android.content.Context)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: CustomViewAbove(android.content.Context,android.util.AttributeSet)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setCurrentItem(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setCurrentItem(int,boolean)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setOnPageChangeListener(com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove$OnPageChangeListener)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setOnOpenedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnOpenedListener)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setOnClosedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnClosedListener)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setSlidingEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setContent(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setCustomViewBehind(com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setAboveOffset(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: void setTouchMode(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: CustomViewBehind(android.content.Context)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: CustomViewBehind(android.content.Context,android.util.AttributeSet)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setCustomViewAbove(com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setCanvasTransformer(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$CanvasTransformer)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setWidthOffset(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setMarginThreshold(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setContent(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setSecondaryContent(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setChildrenEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setMode(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setScrollScale(float)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setShadowDrawable(android.graphics.drawable.Drawable)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setSecondaryShadowDrawable(android.graphics.drawable.Drawable)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setShadowWidth(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setFadeEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setFadeDegree(float)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setTouchMode(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setSelectorEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setSelectedView(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: void setSelectorBitmap(android.graphics.Bitmap)
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int behindOffset
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int behindScrollScale
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int behindWidth
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int fadeDegree
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int fadeEnabled
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int mode
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int selectorDrawable
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int selectorEnabled
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int shadowDrawable
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int shadowWidth
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int touchModeAbove
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int touchModeBehind
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int viewAbove
+com.jeremyfeinstein.slidingmenu.lib.R$attr: int viewBehind
+com.jeremyfeinstein.slidingmenu.lib.R$id: int fullscreen
+com.jeremyfeinstein.slidingmenu.lib.R$id: int left
+com.jeremyfeinstein.slidingmenu.lib.R$id: int margin
+com.jeremyfeinstein.slidingmenu.lib.R$id: int right
+com.jeremyfeinstein.slidingmenu.lib.R$id: int selected_view
+com.jeremyfeinstein.slidingmenu.lib.R$id: int slidingmenumain
+com.jeremyfeinstein.slidingmenu.lib.R$layout: int slidingmenumain
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int[] SlidingMenu
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_behindOffset
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_behindScrollScale
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_behindWidth
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_fadeDegree
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_fadeEnabled
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_mode
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_selectorDrawable
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_selectorEnabled
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_shadowDrawable
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_shadowWidth
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_touchModeAbove
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_touchModeBehind
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_viewAbove
+com.jeremyfeinstein.slidingmenu.lib.R$styleable: int SlidingMenu_viewBehind
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Context)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.app.Activity,int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Context,android.util.AttributeSet)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Context,android.util.AttributeSet,int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setContent(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setContent(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setMenu(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setMenu(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSecondaryMenu(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSecondaryMenu(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSlidingEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setMode(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setStatic(boolean)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setBehindOffset(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setBehindOffsetRes(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setAboveOffset(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setAboveOffsetRes(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setBehindWidth(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setBehindWidthRes(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setBehindScrollScale(float)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setTouchmodeMarginThreshold(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setBehindCanvasTransformer(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$CanvasTransformer)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setTouchModeAbove(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setTouchModeBehind(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setShadowDrawable(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setShadowDrawable(android.graphics.drawable.Drawable)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSecondaryShadowDrawable(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSecondaryShadowDrawable(android.graphics.drawable.Drawable)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setShadowWidthRes(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setShadowWidth(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setFadeEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setFadeDegree(float)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSelectorEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSelectedView(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSelectorDrawable(int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setSelectorBitmap(android.graphics.Bitmap)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setOnOpenListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnOpenListener)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setOnCloseListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnCloseListener)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setOnOpenedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnOpenedListener)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: void setOnClosedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnClosedListener)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$SavedState: android.os.Parcelable$Creator CREATOR
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity: SlidingFragmentActivity()
+com.sina.weibo.sdk.R$color: int com_sina_weibo_sdk_blue
+com.sina.weibo.sdk.R$color: int com_sina_weibo_sdk_loginview_text_color
+com.sina.weibo.sdk.R$dimen: int activity_horizontal_margin
+com.sina.weibo.sdk.R$dimen: int activity_vertical_margin
+com.sina.weibo.sdk.R$dimen: int com_sina_weibo_sdk_loginview_compound_drawable_padding
+com.sina.weibo.sdk.R$dimen: int com_sina_weibo_sdk_loginview_padding
+com.sina.weibo.sdk.R$dimen: int com_sina_weibo_sdk_loginview_padding_bottom
+com.sina.weibo.sdk.R$dimen: int com_sina_weibo_sdk_loginview_padding_left
+com.sina.weibo.sdk.R$dimen: int com_sina_weibo_sdk_loginview_padding_right
+com.sina.weibo.sdk.R$dimen: int com_sina_weibo_sdk_loginview_padding_top
+com.sina.weibo.sdk.R$dimen: int com_sina_weibo_sdk_loginview_text_size
+com.sina.weibo.sdk.R$drawable: int com_sina_weibo_sdk_button_blue
+com.sina.weibo.sdk.R$drawable: int com_sina_weibo_sdk_button_grey
+com.sina.weibo.sdk.R$drawable: int com_sina_weibo_sdk_login_button_with_account_text
+com.sina.weibo.sdk.R$drawable: int com_sina_weibo_sdk_login_button_with_frame_logo
+com.sina.weibo.sdk.R$drawable: int com_sina_weibo_sdk_login_button_with_original_logo
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_button_blue_focused
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_button_blue_normal
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_button_blue_pressed
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_button_grey_focused
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_button_grey_normal
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_button_grey_pressed
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_login_button_with_frame_logo_focused
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_login_button_with_frame_logo_normal
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_login_button_with_frame_logo_pressed
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_login_with_account_text_focused
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_login_with_account_text_normal
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_login_with_account_text_pressed
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_login_with_text
+com.sina.weibo.sdk.R$drawable: int ic_com_sina_weibo_sdk_logo
+com.sina.weibo.sdk.R$string: int com_sina_weibo_sdk_login
+com.sina.weibo.sdk.R$string: int com_sina_weibo_sdk_login_with_weibo_account
+com.sina.weibo.sdk.R$string: int com_sina_weibo_sdk_logout
+com.sina.weibo.sdk.R$style: int AppBaseTheme
+com.sina.weibo.sdk.R$style: int AppTheme
+com.sina.weibo.sdk.R$style: int com_sina_weibo_sdk_loginview_default_style
+com.sina.weibo.sdk.R$style: int com_sina_weibo_sdk_loginview_silver_style
+com.sina.weibo.sdk.api.CmdObject: android.os.Parcelable$Creator CREATOR
+com.sina.weibo.sdk.api.ImageObject: android.os.Parcelable$Creator CREATOR
+com.sina.weibo.sdk.api.MusicObject: android.os.Parcelable$Creator CREATOR
+com.sina.weibo.sdk.api.TextObject: android.os.Parcelable$Creator CREATOR
+com.sina.weibo.sdk.api.VideoObject: android.os.Parcelable$Creator CREATOR
+com.sina.weibo.sdk.api.VoiceObject: android.os.Parcelable$Creator CREATOR
+com.sina.weibo.sdk.api.WebpageObject: android.os.Parcelable$Creator CREATOR
+com.sina.weibo.sdk.widget.LoginButton
+com.sina.weibo.sdk.widget.LoginButton: LoginButton(android.content.Context)
+com.sina.weibo.sdk.widget.LoginButton: LoginButton(android.content.Context,android.util.AttributeSet)
+com.sina.weibo.sdk.widget.LoginButton: LoginButton(android.content.Context,android.util.AttributeSet,int)
+com.sina.weibo.sdk.widget.LoginButton: void setWeiboAuthInfo(com.sina.weibo.sdk.auth.WeiboAuth$AuthInfo,com.sina.weibo.sdk.auth.WeiboAuthListener)
+com.sina.weibo.sdk.widget.LoginButton: void setWeiboAuthInfo(java.lang.String,java.lang.String,java.lang.String,com.sina.weibo.sdk.auth.WeiboAuthListener)
+com.sina.weibo.sdk.widget.LoginButton: void setStyle(int)
+com.sina.weibo.sdk.widget.LoginButton: void setExternalOnClickListener(android.view.View$OnClickListener)
+com.sina.weibo.sdk.widget.LoginoutButton
+com.sina.weibo.sdk.widget.LoginoutButton: LoginoutButton(android.content.Context)
+com.sina.weibo.sdk.widget.LoginoutButton: LoginoutButton(android.content.Context,android.util.AttributeSet)
+com.sina.weibo.sdk.widget.LoginoutButton: LoginoutButton(android.content.Context,android.util.AttributeSet,int)
+com.sina.weibo.sdk.widget.LoginoutButton: void setWeiboAuthInfo(com.sina.weibo.sdk.auth.WeiboAuth$AuthInfo,com.sina.weibo.sdk.auth.WeiboAuthListener)
+com.sina.weibo.sdk.widget.LoginoutButton: void setWeiboAuthInfo(java.lang.String,java.lang.String,java.lang.String,com.sina.weibo.sdk.auth.WeiboAuthListener)
+com.sina.weibo.sdk.widget.LoginoutButton: void setLogoutInfo(com.sina.weibo.sdk.auth.Oauth2AccessToken,com.sina.weibo.sdk.net.RequestListener)
+com.sina.weibo.sdk.widget.LoginoutButton: void setLogoutListener(com.sina.weibo.sdk.net.RequestListener)
+com.sina.weibo.sdk.widget.LoginoutButton: void setExternalOnClickListener(android.view.View$OnClickListener)
+com.tencent.connect.avatar.b
+com.tencent.connect.avatar.b: b(android.content.Context)
+com.tencent.connect.avatar.c
+com.tencent.connect.avatar.c: c(android.content.Context)
+com.tencent.connect.avatar.c: void setImageBitmap(android.graphics.Bitmap)
+com.tencent.connect.common.AssistActivity
+com.tencent.connect.common.AssistActivity: AssistActivity()
+com.tencent.connect.dataprovider.DataType$TextAndMediaPath: android.os.Parcelable$Creator CREATOR
+com.tencent.connect.dataprovider.DataType$TextOnly: android.os.Parcelable$Creator CREATOR
+com.tencent.open.PKDialog
+com.tencent.open.PKDialog: java.lang.String TAG
+com.tencent.open.PKDialog: int WEBVIEW_HEIGHT
+com.tencent.open.PKDialog: int MSG_COMPLETE
+com.tencent.open.PKDialog: int MSG_CANCEL
+com.tencent.open.PKDialog: int MSG_SHOW_TIPS
+com.tencent.open.PKDialog: int MSG_ON_LOAD
+com.tencent.open.PKDialog: int MSG_SHOW_PROCESS
+com.tencent.open.PKDialog: java.lang.String mUrl
+com.tencent.open.PKDialog: com.tencent.tauth.IUiListener listener
+com.tencent.open.PKDialog: com.tencent.open.PKDialog$OnTimeListener mListener
+com.tencent.open.PKDialog: android.os.Handler mHandler
+com.tencent.open.PKDialog: com.tencent.open.b.a mFlMain
+com.tencent.open.PKDialog: android.webkit.WebView mWebView
+com.tencent.open.PKDialog: java.lang.ref.WeakReference sWeakContext
+com.tencent.open.PKDialog: int mWebviewHeight
+com.tencent.open.PKDialog: android.widget.Toast sToast
+com.tencent.open.PKDialog: PKDialog(android.content.Context,java.lang.String,java.lang.String,com.tencent.tauth.IUiListener,com.tencent.connect.auth.QQToken)
+com.tencent.open.PKDialog: void onBackPressed()
+com.tencent.open.PKDialog: void onCreate(android.os.Bundle)
+com.tencent.open.PKDialog: void createViews()
+com.tencent.open.PKDialog: void initViews()
+com.tencent.open.PKDialog: void callJs(java.lang.String,java.lang.String)
+com.tencent.open.PKDialog: void showTips(android.content.Context,java.lang.String)
+com.tencent.open.PKDialog: void showProcessDialog(android.content.Context,java.lang.String)
+com.tencent.open.PKDialog: void loadUrlWithBrowser(java.lang.String,java.lang.String,java.lang.String)
+com.tencent.open.PKDialog: void onKeyboardShown(int)
+com.tencent.open.PKDialog: void onKeyboardHidden()
+com.tencent.open.PKDialog: void onConsoleMessage(java.lang.String)
+com.tencent.open.PKDialog: android.os.Handler access$200(com.tencent.open.PKDialog)
+com.tencent.open.PKDialog: java.lang.String access$300()
+com.tencent.open.PKDialog: java.lang.ref.WeakReference access$400()
+com.tencent.open.PKDialog: com.tencent.open.PKDialog$OnTimeListener access$500(com.tencent.open.PKDialog)
+com.tencent.open.PKDialog: android.webkit.WebView access$600(com.tencent.open.PKDialog)
+com.tencent.open.PKDialog: void access$800(android.content.Context,java.lang.String)
+com.tencent.open.PKDialog: void access$900(android.content.Context,java.lang.String)
+com.tencent.open.PKDialog: void <clinit>()
+com.tencent.open.PKDialog$1
+com.tencent.open.PKDialog$FbWebViewClient
+com.tencent.open.PKDialog$FbWebViewClient: com.tencent.open.PKDialog this$0
+com.tencent.open.PKDialog$FbWebViewClient: PKDialog$FbWebViewClient(com.tencent.open.PKDialog)
+com.tencent.open.PKDialog$FbWebViewClient: boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String)
+com.tencent.open.PKDialog$FbWebViewClient: void onReceivedError(android.webkit.WebView,int,java.lang.String,java.lang.String)
+com.tencent.open.PKDialog$FbWebViewClient: void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap)
+com.tencent.open.PKDialog$FbWebViewClient: void onPageFinished(android.webkit.WebView,java.lang.String)
+com.tencent.open.PKDialog$FbWebViewClient: PKDialog$FbWebViewClient(com.tencent.open.PKDialog,com.tencent.open.PKDialog$1)
+com.tencent.open.PKDialog$JsListener
+com.tencent.open.PKDialog$JsListener: com.tencent.open.PKDialog this$0
+com.tencent.open.PKDialog$JsListener: PKDialog$JsListener(com.tencent.open.PKDialog)
+com.tencent.open.PKDialog$JsListener: void onComplete(java.lang.String)
+com.tencent.open.PKDialog$JsListener: void onCancel(java.lang.String)
+com.tencent.open.PKDialog$JsListener: void showMsg(java.lang.String)
+com.tencent.open.PKDialog$JsListener: void onLoad(java.lang.String)
+com.tencent.open.PKDialog$JsListener: PKDialog$JsListener(com.tencent.open.PKDialog,com.tencent.open.PKDialog$1)
+com.tencent.open.PKDialog$OnTimeListener
+com.tencent.open.PKDialog$OnTimeListener: java.lang.ref.WeakReference mWeakCtx
+com.tencent.open.PKDialog$OnTimeListener: java.lang.String mAction
+com.tencent.open.PKDialog$OnTimeListener: java.lang.String mUrl
+com.tencent.open.PKDialog$OnTimeListener: java.lang.String mAppid
+com.tencent.open.PKDialog$OnTimeListener: com.tencent.tauth.IUiListener mWeakL
+com.tencent.open.PKDialog$OnTimeListener: PKDialog$OnTimeListener(android.content.Context,java.lang.String,java.lang.String,java.lang.String,com.tencent.tauth.IUiListener)
+com.tencent.open.PKDialog$OnTimeListener: void onComplete(java.lang.String)
+com.tencent.open.PKDialog$OnTimeListener: void onComplete(java.lang.Object)
+com.tencent.open.PKDialog$OnTimeListener: void onError(com.tencent.tauth.UiError)
+com.tencent.open.PKDialog$OnTimeListener: void onCancel()
+com.tencent.open.PKDialog$OnTimeListener: void access$700(com.tencent.open.PKDialog$OnTimeListener,java.lang.String)
+com.tencent.open.PKDialog$THandler
+com.tencent.open.PKDialog$THandler: com.tencent.open.PKDialog$OnTimeListener mL
+com.tencent.open.PKDialog$THandler: PKDialog$THandler(com.tencent.open.PKDialog$OnTimeListener,android.os.Looper)
+com.tencent.open.PKDialog$THandler: void handleMessage(android.os.Message)
+com.tencent.open.TDialog$1
+com.tencent.open.TDialog$FbWebViewClient
+com.tencent.open.TDialog$FbWebViewClient: com.tencent.open.TDialog this$0
+com.tencent.open.TDialog$FbWebViewClient: TDialog$FbWebViewClient(com.tencent.open.TDialog)
+com.tencent.open.TDialog$FbWebViewClient: boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String)
+com.tencent.open.TDialog$FbWebViewClient: void onReceivedError(android.webkit.WebView,int,java.lang.String,java.lang.String)
+com.tencent.open.TDialog$FbWebViewClient: void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap)
+com.tencent.open.TDialog$FbWebViewClient: void onPageFinished(android.webkit.WebView,java.lang.String)
+com.tencent.open.TDialog$FbWebViewClient: TDialog$FbWebViewClient(com.tencent.open.TDialog,com.tencent.open.TDialog$1)
+com.tencent.open.TDialog$JsListener
+com.tencent.open.TDialog$JsListener: com.tencent.open.TDialog this$0
+com.tencent.open.TDialog$JsListener: TDialog$JsListener(com.tencent.open.TDialog)
+com.tencent.open.TDialog$JsListener: void onAddShare(java.lang.String)
+com.tencent.open.TDialog$JsListener: void onInvite(java.lang.String)
+com.tencent.open.TDialog$JsListener: void onCancelAddShare(java.lang.String)
+com.tencent.open.TDialog$JsListener: void onCancelLogin()
+com.tencent.open.TDialog$JsListener: void onCancelInvite()
+com.tencent.open.TDialog$JsListener: void onComplete(java.lang.String)
+com.tencent.open.TDialog$JsListener: void onCancel(java.lang.String)
+com.tencent.open.TDialog$JsListener: void showMsg(java.lang.String)
+com.tencent.open.TDialog$JsListener: void onLoad(java.lang.String)
+com.tencent.open.TDialog$JsListener: TDialog$JsListener(com.tencent.open.TDialog,com.tencent.open.TDialog$1)
+com.tencent.open.TDialog$OnTimeListener
+com.tencent.open.TDialog$OnTimeListener: java.lang.ref.WeakReference mWeakCtx
+com.tencent.open.TDialog$OnTimeListener: java.lang.String mAction
+com.tencent.open.TDialog$OnTimeListener: java.lang.String mUrl
+com.tencent.open.TDialog$OnTimeListener: java.lang.String mAppid
+com.tencent.open.TDialog$OnTimeListener: com.tencent.tauth.IUiListener mWeakL
+com.tencent.open.TDialog$OnTimeListener: TDialog$OnTimeListener(android.content.Context,java.lang.String,java.lang.String,java.lang.String,com.tencent.tauth.IUiListener)
+com.tencent.open.TDialog$OnTimeListener: void onComplete(java.lang.String)
+com.tencent.open.TDialog$OnTimeListener: void onComplete(java.lang.Object)
+com.tencent.open.TDialog$OnTimeListener: void onError(com.tencent.tauth.UiError)
+com.tencent.open.TDialog$OnTimeListener: void onCancel()
+com.tencent.open.TDialog$OnTimeListener: void access$000(com.tencent.open.TDialog$OnTimeListener,java.lang.String)
+com.tencent.open.TDialog$THandler
+com.tencent.open.TDialog$THandler: com.tencent.open.TDialog$OnTimeListener mL
+com.tencent.open.TDialog$THandler: TDialog$THandler(com.tencent.open.TDialog$OnTimeListener,android.os.Looper)
+com.tencent.open.TDialog$THandler: void handleMessage(android.os.Message)
+com.tencent.open.a$b: a$b()
+com.tencent.open.a$b: void call(java.lang.String,java.util.List,com.tencent.open.a$a)
+com.tencent.open.a$b: boolean customCallback()
+com.tencent.open.b: com.tencent.open.a jsBridge
+com.tencent.open.b: android.webkit.WebChromeClient mChromeClient
+com.tencent.open.b: b(android.content.Context)
+com.tencent.open.b: b(android.content.Context,int)
+com.tencent.open.b: void onCreate(android.os.Bundle)
+com.tencent.open.b: void onConsoleMessage(java.lang.String)
+com.tencent.open.b.a
+com.tencent.open.b.a: a(android.content.Context)
+com.tencent.tauth.AuthActivity
+com.tencent.tauth.AuthActivity: AuthActivity()
+com.yingshi.toutiao.FavoritesActivity
+com.yingshi.toutiao.FavoritesActivity: FavoritesActivity()
+com.yingshi.toutiao.LoginActivity
+com.yingshi.toutiao.LoginActivity: LoginActivity()
+com.yingshi.toutiao.LoginActivity: void loginQQ(android.view.View)
+com.yingshi.toutiao.LoginActivity: void loginWeibo(android.view.View)
+com.yingshi.toutiao.LoginActivity: void loginWeixin(android.view.View)
+com.yingshi.toutiao.LoginActivity: void enter(android.view.View)
+com.yingshi.toutiao.MainActivity
+com.yingshi.toutiao.MainActivity: MainActivity()
+com.yingshi.toutiao.NewsDetailActivity
+com.yingshi.toutiao.NewsDetailActivity: NewsDetailActivity()
+com.yingshi.toutiao.NewsDetailActivity: void playVideo(android.view.View)
+com.yingshi.toutiao.NewsDetailActivity: void share(android.view.View)
+com.yingshi.toutiao.NewsDetailActivity: void addToFavorites(android.view.View)
+com.yingshi.toutiao.NewsDetailActivity: void loadComments(android.view.View)
+com.yingshi.toutiao.NewsDetailActivity: void shareWeiChat(android.view.View)
+com.yingshi.toutiao.NewsDetailActivity: void shareWeibo(android.view.View)
+com.yingshi.toutiao.NewsDetailActivity: void shareQQ(android.view.View)
+com.yingshi.toutiao.NewsDetailActivity: void cancelShare(android.view.View)
+com.yingshi.toutiao.R$anim: int slide_in_from_bottom
+com.yingshi.toutiao.R$anim: int slide_in_from_top
+com.yingshi.toutiao.R$anim: int slide_out_to_bottom
+com.yingshi.toutiao.R$anim: int slide_out_to_top
+com.yingshi.toutiao.R$attr: int behindOffset
+com.yingshi.toutiao.R$attr: int behindScrollScale
+com.yingshi.toutiao.R$attr: int behindWidth
+com.yingshi.toutiao.R$attr: int fadeDegree
+com.yingshi.toutiao.R$attr: int fadeEnabled
+com.yingshi.toutiao.R$attr: int mode
+com.yingshi.toutiao.R$attr: int ptrAdapterViewBackground
+com.yingshi.toutiao.R$attr: int ptrAnimationStyle
+com.yingshi.toutiao.R$attr: int ptrDrawable
+com.yingshi.toutiao.R$attr: int ptrDrawableBottom
+com.yingshi.toutiao.R$attr: int ptrDrawableEnd
+com.yingshi.toutiao.R$attr: int ptrDrawableStart
+com.yingshi.toutiao.R$attr: int ptrDrawableTop
+com.yingshi.toutiao.R$attr: int ptrHeaderBackground
+com.yingshi.toutiao.R$attr: int ptrHeaderSubTextColor
+com.yingshi.toutiao.R$attr: int ptrHeaderTextAppearance
+com.yingshi.toutiao.R$attr: int ptrHeaderTextColor
+com.yingshi.toutiao.R$attr: int ptrListViewExtrasEnabled
+com.yingshi.toutiao.R$attr: int ptrMode
+com.yingshi.toutiao.R$attr: int ptrOverScroll
+com.yingshi.toutiao.R$attr: int ptrRefreshableViewBackground
+com.yingshi.toutiao.R$attr: int ptrRotateDrawableWhilePulling
+com.yingshi.toutiao.R$attr: int ptrScrollingWhileRefreshingEnabled
+com.yingshi.toutiao.R$attr: int ptrShowIndicator
+com.yingshi.toutiao.R$attr: int ptrSubHeaderTextAppearance
+com.yingshi.toutiao.R$attr: int selectorDrawable
+com.yingshi.toutiao.R$attr: int selectorEnabled
+com.yingshi.toutiao.R$attr: int shadowDrawable
+com.yingshi.toutiao.R$attr: int shadowWidth
+com.yingshi.toutiao.R$attr: int touchModeAbove
+com.yingshi.toutiao.R$attr: int touchModeBehind
+com.yingshi.toutiao.R$attr: int viewAbove
+com.yingshi.toutiao.R$attr: int viewBehind
+com.yingshi.toutiao.R$color: int action_bar_selected
+com.yingshi.toutiao.R$color: int action_bar_text_color
+com.yingshi.toutiao.R$color: int action_bar_unselected
+com.yingshi.toutiao.R$color: int black
+com.yingshi.toutiao.R$color: int blue
+com.yingshi.toutiao.R$color: int category_desc_color
+com.yingshi.toutiao.R$color: int com_sina_weibo_sdk_blue
+com.yingshi.toutiao.R$color: int com_sina_weibo_sdk_loginview_text_color
+com.yingshi.toutiao.R$color: int dark_yellow
+com.yingshi.toutiao.R$color: int deep_gray
+com.yingshi.toutiao.R$color: int gray
+com.yingshi.toutiao.R$color: int header_text_color
+com.yingshi.toutiao.R$color: int pink
+com.yingshi.toutiao.R$color: int red
+com.yingshi.toutiao.R$color: int white
+com.yingshi.toutiao.R$color: int yellow
+com.yingshi.toutiao.R$dimen: int activity_horizontal_margin
+com.yingshi.toutiao.R$dimen: int activity_vertical_margin
+com.yingshi.toutiao.R$dimen: int com_sina_weibo_sdk_loginview_compound_drawable_padding
+com.yingshi.toutiao.R$dimen: int com_sina_weibo_sdk_loginview_padding
+com.yingshi.toutiao.R$dimen: int com_sina_weibo_sdk_loginview_padding_bottom
+com.yingshi.toutiao.R$dimen: int com_sina_weibo_sdk_loginview_padding_left
+com.yingshi.toutiao.R$dimen: int com_sina_weibo_sdk_loginview_padding_right
+com.yingshi.toutiao.R$dimen: int com_sina_weibo_sdk_loginview_padding_top
+com.yingshi.toutiao.R$dimen: int com_sina_weibo_sdk_loginview_text_size
+com.yingshi.toutiao.R$dimen: int header_bar_size
+com.yingshi.toutiao.R$dimen: int header_footer_left_right_padding
+com.yingshi.toutiao.R$dimen: int header_footer_top_bottom_padding
+com.yingshi.toutiao.R$dimen: int indicator_corner_radius
+com.yingshi.toutiao.R$dimen: int indicator_internal_padding
+com.yingshi.toutiao.R$dimen: int indicator_right_padding
+com.yingshi.toutiao.R$dimen: int list_item_height
+com.yingshi.toutiao.R$dimen: int list_item_icon_height
+com.yingshi.toutiao.R$dimen: int list_item_icon_width
+com.yingshi.toutiao.R$dimen: int list_item_padding
+com.yingshi.toutiao.R$dimen: int news_detail_add_comment_background_height
+com.yingshi.toutiao.R$dimen: int news_detail_comment_size
+com.yingshi.toutiao.R$dimen: int news_detail_image_height
+com.yingshi.toutiao.R$dimen: int news_detail_load_comments
+com.yingshi.toutiao.R$dimen: int news_detail_text_size
+com.yingshi.toutiao.R$dimen: int news_detail_time_size
+com.yingshi.toutiao.R$dimen: int news_detail_title_size
+com.yingshi.toutiao.R$dimen: int shadow_width
+com.yingshi.toutiao.R$dimen: int share_body_height
+com.yingshi.toutiao.R$dimen: int share_btn_text_size
+com.yingshi.toutiao.R$dimen: int share_cancel_height
+com.yingshi.toutiao.R$dimen: int share_cancel_text_size
+com.yingshi.toutiao.R$dimen: int share_provider_icon_height
+com.yingshi.toutiao.R$dimen: int share_provider_icon_width
+com.yingshi.toutiao.R$dimen: int slidingmenu_offset
+com.yingshi.toutiao.R$dimen: int special_header_img_height
+com.yingshi.toutiao.R$dimen: int special_summary_text_size
+com.yingshi.toutiao.R$dimen: int special_summary_title_size
+com.yingshi.toutiao.R$dimen: int title_size
+com.yingshi.toutiao.R$dimen: int user_center_list_item_height
+com.yingshi.toutiao.R$dimen: int user_center_list_item_icon_height
+com.yingshi.toutiao.R$dimen: int user_center_list_item_icon_width
+com.yingshi.toutiao.R$dimen: int user_center_list_item_text_size
+com.yingshi.toutiao.R$dimen: int user_center_list_item_width
+com.yingshi.toutiao.R$drawable: int button_bk
+com.yingshi.toutiao.R$drawable: int com_sina_weibo_sdk_button_blue
+com.yingshi.toutiao.R$drawable: int com_sina_weibo_sdk_button_grey
+com.yingshi.toutiao.R$drawable: int com_sina_weibo_sdk_login_button_with_account_text
+com.yingshi.toutiao.R$drawable: int com_sina_weibo_sdk_login_button_with_frame_logo
+com.yingshi.toutiao.R$drawable: int com_sina_weibo_sdk_login_button_with_original_logo
+com.yingshi.toutiao.R$drawable: int comment_add_bg
+com.yingshi.toutiao.R$drawable: int content_bk
+com.yingshi.toutiao.R$drawable: int daohanglan_img
+com.yingshi.toutiao.R$drawable: int default_ptr_flip
+com.yingshi.toutiao.R$drawable: int default_ptr_rotate
+com.yingshi.toutiao.R$drawable: int fanhui
+com.yingshi.toutiao.R$drawable: int favorite
+com.yingshi.toutiao.R$drawable: int gerenzhongxin_beijing
+com.yingshi.toutiao.R$drawable: int gerenzhongxin_fanhui
+com.yingshi.toutiao.R$drawable: int gerenzhongxin_shoucang
+com.yingshi.toutiao.R$drawable: int gerenzhongxin_touxiang
+com.yingshi.toutiao.R$drawable: int gerenzhongxin_tuisong
+com.yingshi.toutiao.R$drawable: int gerenzhongxin_xiazai
+com.yingshi.toutiao.R$drawable: int headline1
+com.yingshi.toutiao.R$drawable: int headline2
+com.yingshi.toutiao.R$drawable: int headline3
+com.yingshi.toutiao.R$drawable: int headline4
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_blue_focused
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_blue_normal
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_blue_pressed
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_grey_focused
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_grey_normal
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_grey_pressed
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_login_button_with_frame_logo_focused
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_login_button_with_frame_logo_normal
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_login_button_with_frame_logo_pressed
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_login_with_account_text_focused
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_login_with_account_text_normal
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_login_with_account_text_pressed
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_login_with_text
+com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_logo
+com.yingshi.toutiao.R$drawable: int ic_launcher
+com.yingshi.toutiao.R$drawable: int indicator_arrow
+com.yingshi.toutiao.R$drawable: int indicator_bg_bottom
+com.yingshi.toutiao.R$drawable: int indicator_bg_top
+com.yingshi.toutiao.R$drawable: int list_item_thumbnail
+com.yingshi.toutiao.R$drawable: int list_view_divider
+com.yingshi.toutiao.R$drawable: int login_bg
+com.yingshi.toutiao.R$drawable: int login_logo
+com.yingshi.toutiao.R$drawable: int login_qq
+com.yingshi.toutiao.R$drawable: int login_weibo
+com.yingshi.toutiao.R$drawable: int login_weixin
+com.yingshi.toutiao.R$drawable: int movie1
+com.yingshi.toutiao.R$drawable: int movie2
+com.yingshi.toutiao.R$drawable: int movie3
+com.yingshi.toutiao.R$drawable: int news_detail_default
+com.yingshi.toutiao.R$drawable: int p1
+com.yingshi.toutiao.R$drawable: int p2
+com.yingshi.toutiao.R$drawable: int p3
+com.yingshi.toutiao.R$drawable: int p4
+com.yingshi.toutiao.R$drawable: int p5
+com.yingshi.toutiao.R$drawable: int photo_num_bg
+com.yingshi.toutiao.R$drawable: int pinglun
+com.yingshi.toutiao.R$drawable: int play
+com.yingshi.toutiao.R$drawable: int rating1
+com.yingshi.toutiao.R$drawable: int rating2
+com.yingshi.toutiao.R$drawable: int rating3
+com.yingshi.toutiao.R$drawable: int rating4
+com.yingshi.toutiao.R$drawable: int remove
+com.yingshi.toutiao.R$drawable: int search_bg
+com.yingshi.toutiao.R$drawable: int shadow
+com.yingshi.toutiao.R$drawable: int share
+com.yingshi.toutiao.R$drawable: int share_bg
+com.yingshi.toutiao.R$drawable: int share_cancel_bg
+com.yingshi.toutiao.R$drawable: int share_qq
+com.yingshi.toutiao.R$drawable: int share_sina_weibo
+com.yingshi.toutiao.R$drawable: int share_weichat
+com.yingshi.toutiao.R$drawable: int shipin
+com.yingshi.toutiao.R$drawable: int shuru
+com.yingshi.toutiao.R$drawable: int sousuo_sousuo
+com.yingshi.toutiao.R$drawable: int sousuo_sousuolan
+com.yingshi.toutiao.R$drawable: int special_header
+com.yingshi.toutiao.R$drawable: int teleplay1
+com.yingshi.toutiao.R$drawable: int teleplay2
+com.yingshi.toutiao.R$drawable: int teleplay3
+com.yingshi.toutiao.R$drawable: int text_view_border
+com.yingshi.toutiao.R$drawable: int title_bar
+com.yingshi.toutiao.R$drawable: int user_profile_picutre_bg
+com.yingshi.toutiao.R$drawable: int user_profile_picutre_default
+com.yingshi.toutiao.R$drawable: int welcome
+com.yingshi.toutiao.R$drawable: int zhuanti
+com.yingshi.toutiao.R$id: int both
+com.yingshi.toutiao.R$id: int disabled
+com.yingshi.toutiao.R$id: int fl_inner
+com.yingshi.toutiao.R$id: int flip
+com.yingshi.toutiao.R$id: int fullscreen
+com.yingshi.toutiao.R$id: int gridview
+com.yingshi.toutiao.R$id: int id_btn_back_to_toutiao
+com.yingshi.toutiao.R$id: int id_btn_enter
+com.yingshi.toutiao.R$id: int id_btn_left
+com.yingshi.toutiao.R$id: int id_btn_login_qq
+com.yingshi.toutiao.R$id: int id_btn_login_weibo
+com.yingshi.toutiao.R$id: int id_btn_login_weixin
+com.yingshi.toutiao.R$id: int id_btn_right
+com.yingshi.toutiao.R$id: int id_category_loading
+com.yingshi.toutiao.R$id: int id_clear_cache
+com.yingshi.toutiao.R$id: int id_clear_cache_img
+com.yingshi.toutiao.R$id: int id_comment_author
+com.yingshi.toutiao.R$id: int id_comment_author_thumbnail
+com.yingshi.toutiao.R$id: int id_comment_text
+com.yingshi.toutiao.R$id: int id_content
+com.yingshi.toutiao.R$id: int id_downloads
+com.yingshi.toutiao.R$id: int id_downloads_img
+com.yingshi.toutiao.R$id: int id_favorite_img
+com.yingshi.toutiao.R$id: int id_favorites
+com.yingshi.toutiao.R$id: int id_favorites_header
+com.yingshi.toutiao.R$id: int id_favorites_list
+com.yingshi.toutiao.R$id: int id_item_divider
+com.yingshi.toutiao.R$id: int id_left_menu_frame
+com.yingshi.toutiao.R$id: int id_loading
+com.yingshi.toutiao.R$id: int id_main_header
+com.yingshi.toutiao.R$id: int id_news_detail_comment_text
+com.yingshi.toutiao.R$id: int id_news_detail_comments
+com.yingshi.toutiao.R$id: int id_news_detail_favorite
+com.yingshi.toutiao.R$id: int id_news_detail_header
+com.yingshi.toutiao.R$id: int id_news_detail_img
+com.yingshi.toutiao.R$id: int id_news_detail_play
+com.yingshi.toutiao.R$id: int id_news_detail_share
+com.yingshi.toutiao.R$id: int id_news_detail_text
+com.yingshi.toutiao.R$id: int id_news_detail_time
+com.yingshi.toutiao.R$id: int id_news_detail_title
+com.yingshi.toutiao.R$id: int id_news_detail_tools_bar
+com.yingshi.toutiao.R$id: int id_news_get_comment
+com.yingshi.toutiao.R$id: int id_news_share_widget
+com.yingshi.toutiao.R$id: int id_news_special_header
+com.yingshi.toutiao.R$id: int id_news_special_sign
+com.yingshi.toutiao.R$id: int id_news_thumbnail
+com.yingshi.toutiao.R$id: int id_news_title
+com.yingshi.toutiao.R$id: int id_news_video_sign
+com.yingshi.toutiao.R$id: int id_photo_description
+com.yingshi.toutiao.R$id: int id_photo_number
+com.yingshi.toutiao.R$id: int id_photos_pager
+com.yingshi.toutiao.R$id: int id_push
+com.yingshi.toutiao.R$id: int id_push_img
+com.yingshi.toutiao.R$id: int id_search_btn
+com.yingshi.toutiao.R$id: int id_search_header
+com.yingshi.toutiao.R$id: int id_search_keyword_text
+com.yingshi.toutiao.R$id: int id_search_result_list
+com.yingshi.toutiao.R$id: int id_share_qq_img
+com.yingshi.toutiao.R$id: int id_share_weibo_img
+com.yingshi.toutiao.R$id: int id_share_weichat_img
+com.yingshi.toutiao.R$id: int id_special_header_img
+com.yingshi.toutiao.R$id: int id_special_news_list
+com.yingshi.toutiao.R$id: int id_special_summary
+com.yingshi.toutiao.R$id: int id_special_summary_text
+com.yingshi.toutiao.R$id: int id_special_thumbnail
+com.yingshi.toutiao.R$id: int id_special_title
+com.yingshi.toutiao.R$id: int id_special_video_sign
+com.yingshi.toutiao.R$id: int id_txt_title
+com.yingshi.toutiao.R$id: int id_user_name
+com.yingshi.toutiao.R$id: int id_user_profile_photo
+com.yingshi.toutiao.R$id: int left
+com.yingshi.toutiao.R$id: int load_status_view
+com.yingshi.toutiao.R$id: int manualOnly
+com.yingshi.toutiao.R$id: int margin
+com.yingshi.toutiao.R$id: int progressView
+com.yingshi.toutiao.R$id: int pullDownFromTop
+com.yingshi.toutiao.R$id: int pullFromEnd
+com.yingshi.toutiao.R$id: int pullFromStart
+com.yingshi.toutiao.R$id: int pullUpFromBottom
+com.yingshi.toutiao.R$id: int pull_to_refresh_image
+com.yingshi.toutiao.R$id: int pull_to_refresh_progress
+com.yingshi.toutiao.R$id: int pull_to_refresh_sub_text
+com.yingshi.toutiao.R$id: int pull_to_refresh_text
+com.yingshi.toutiao.R$id: int right
+com.yingshi.toutiao.R$id: int rotate
+com.yingshi.toutiao.R$id: int scrollview
+com.yingshi.toutiao.R$id: int selected_view
+com.yingshi.toutiao.R$id: int slidingmenumain
+com.yingshi.toutiao.R$id: int tabhost
+com.yingshi.toutiao.R$id: int tabs_scrollView
+com.yingshi.toutiao.R$id: int tv_title
+com.yingshi.toutiao.R$id: int viewpager
+com.yingshi.toutiao.R$id: int webview
+com.yingshi.toutiao.R$layout: int activity_favorites
+com.yingshi.toutiao.R$layout: int activity_login
+com.yingshi.toutiao.R$layout: int activity_news
+com.yingshi.toutiao.R$layout: int activity_news_detail
+com.yingshi.toutiao.R$layout: int activity_search
+com.yingshi.toutiao.R$layout: int activity_special
+com.yingshi.toutiao.R$layout: int activity_welcome
+com.yingshi.toutiao.R$layout: int pull_to_refresh_header_horizontal
+com.yingshi.toutiao.R$layout: int pull_to_refresh_header_vertical
+com.yingshi.toutiao.R$layout: int slidingmenumain
+com.yingshi.toutiao.R$layout: int view_comment_list_item
+com.yingshi.toutiao.R$layout: int view_header_bar
+com.yingshi.toutiao.R$layout: int view_load_comments
+com.yingshi.toutiao.R$layout: int view_news_detail_share
+com.yingshi.toutiao.R$layout: int view_news_list_header
+com.yingshi.toutiao.R$layout: int view_news_list_item
+com.yingshi.toutiao.R$layout: int view_news_list_photo_page
+com.yingshi.toutiao.R$layout: int view_news_tab_widget
+com.yingshi.toutiao.R$layout: int view_ptr_list_layout
+com.yingshi.toutiao.R$layout: int view_special_list_header
+com.yingshi.toutiao.R$layout: int view_special_list_item
+com.yingshi.toutiao.R$layout: int view_user_center
+com.yingshi.toutiao.R$layout: int view_user_center_frame
+com.yingshi.toutiao.R$string: int action_settings
+com.yingshi.toutiao.R$string: int add_comment_fail
+com.yingshi.toutiao.R$string: int add_comment_login_dlg_msg
+com.yingshi.toutiao.R$string: int add_comment_login_dlg_title
+com.yingshi.toutiao.R$string: int add_comment_succ
+com.yingshi.toutiao.R$string: int add_favorite_succ
+com.yingshi.toutiao.R$string: int app_name
+com.yingshi.toutiao.R$string: int clear
+com.yingshi.toutiao.R$string: int clear_cache_complete
+com.yingshi.toutiao.R$string: int com_sina_weibo_sdk_login
+com.yingshi.toutiao.R$string: int com_sina_weibo_sdk_login_with_weibo_account
+com.yingshi.toutiao.R$string: int com_sina_weibo_sdk_logout
+com.yingshi.toutiao.R$string: int confirm_add_comment_dlg_msg
+com.yingshi.toutiao.R$string: int confirm_add_comment_dlg_title
+com.yingshi.toutiao.R$string: int download_complete
+com.yingshi.toutiao.R$string: int download_failed
+com.yingshi.toutiao.R$string: int download_started
+com.yingshi.toutiao.R$string: int downloading
+com.yingshi.toutiao.R$string: int downloads
+com.yingshi.toutiao.R$string: int favorites
+com.yingshi.toutiao.R$string: int hello_world
+com.yingshi.toutiao.R$string: int img_content_description
+com.yingshi.toutiao.R$string: int latest_news
+com.yingshi.toutiao.R$string: int list_item_sample_text
+com.yingshi.toutiao.R$string: int list_item_special
+com.yingshi.toutiao.R$string: int load_comment_failed
+com.yingshi.toutiao.R$string: int load_complete
+com.yingshi.toutiao.R$string: int load_failed
+com.yingshi.toutiao.R$string: int load_special_fails
+com.yingshi.toutiao.R$string: int loading
+com.yingshi.toutiao.R$string: int msg_general_error
+com.yingshi.toutiao.R$string: int msg_network_disconnected
+com.yingshi.toutiao.R$string: int msg_network_error
+com.yingshi.toutiao.R$string: int msg_network_timeout
+com.yingshi.toutiao.R$string: int my_favorites
+com.yingshi.toutiao.R$string: int no_comments_found
+com.yingshi.toutiao.R$string: int no_more_load
+com.yingshi.toutiao.R$string: int no_more_to_load
+com.yingshi.toutiao.R$string: int press_to_load
+com.yingshi.toutiao.R$string: int push
+com.yingshi.toutiao.R$string: int search_header_text
+com.yingshi.toutiao.R$string: int search_hint
+com.yingshi.toutiao.R$string: int share_cancel
+com.yingshi.toutiao.R$string: int share_qq
+com.yingshi.toutiao.R$string: int share_sina_weibo
+com.yingshi.toutiao.R$string: int share_weichat
+com.yingshi.toutiao.R$string: int special_header_text
+com.yingshi.toutiao.R$string: int special_summary
+com.yingshi.toutiao.R$string: int title_toutiao
+com.yingshi.toutiao.R$string: int unauthorized
+com.yingshi.toutiao.R$string: int write_comments
+com.yingshi.toutiao.R$style: int AppBaseTheme
+com.yingshi.toutiao.R$style: int AppTheme
+com.yingshi.toutiao.R$style: int app_style
+com.yingshi.toutiao.R$style: int com_sina_weibo_sdk_loginview_default_style
+com.yingshi.toutiao.R$style: int com_sina_weibo_sdk_loginview_silver_style
+com.yingshi.toutiao.R$styleable: int[] PullToRefresh
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrAdapterViewBackground
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrAnimationStyle
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrDrawable
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrDrawableBottom
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrDrawableEnd
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrDrawableStart
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrDrawableTop
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrHeaderBackground
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrHeaderSubTextColor
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrHeaderTextAppearance
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrHeaderTextColor
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrListViewExtrasEnabled
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrMode
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrOverScroll
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrRefreshableViewBackground
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrRotateDrawableWhilePulling
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrScrollingWhileRefreshingEnabled
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrShowIndicator
+com.yingshi.toutiao.R$styleable: int PullToRefresh_ptrSubHeaderTextAppearance
+com.yingshi.toutiao.R$styleable: int[] SlidingMenu
+com.yingshi.toutiao.R$styleable: int SlidingMenu_behindOffset
+com.yingshi.toutiao.R$styleable: int SlidingMenu_behindScrollScale
+com.yingshi.toutiao.R$styleable: int SlidingMenu_behindWidth
+com.yingshi.toutiao.R$styleable: int SlidingMenu_fadeDegree
+com.yingshi.toutiao.R$styleable: int SlidingMenu_fadeEnabled
+com.yingshi.toutiao.R$styleable: int SlidingMenu_mode
+com.yingshi.toutiao.R$styleable: int SlidingMenu_selectorDrawable
+com.yingshi.toutiao.R$styleable: int SlidingMenu_selectorEnabled
+com.yingshi.toutiao.R$styleable: int SlidingMenu_shadowDrawable
+com.yingshi.toutiao.R$styleable: int SlidingMenu_shadowWidth
+com.yingshi.toutiao.R$styleable: int SlidingMenu_touchModeAbove
+com.yingshi.toutiao.R$styleable: int SlidingMenu_touchModeBehind
+com.yingshi.toutiao.R$styleable: int SlidingMenu_viewAbove
+com.yingshi.toutiao.R$styleable: int SlidingMenu_viewBehind
+com.yingshi.toutiao.SearchActivity
+com.yingshi.toutiao.SearchActivity: SearchActivity()
+com.yingshi.toutiao.SearchActivity: void doSearch(android.view.View)
+com.yingshi.toutiao.SearchActivity$SearchFragment: void doSearch(java.lang.String)
+com.yingshi.toutiao.SpecialNewsActivity
+com.yingshi.toutiao.SpecialNewsActivity: SpecialNewsActivity()
+com.yingshi.toutiao.TouTiaoApp
+com.yingshi.toutiao.TouTiaoApp: TouTiaoApp()
+com.yingshi.toutiao.WelcomeActivity
+com.yingshi.toutiao.WelcomeActivity: WelcomeActivity()
+com.yingshi.toutiao.model.BaseModel: android.os.Parcelable$Creator CREATOR
+com.yingshi.toutiao.model.News: android.os.Parcelable$Creator CREATOR
+com.yingshi.toutiao.view.CommentListRow
+com.yingshi.toutiao.view.CommentListRow: CommentListRow(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.CommentListRow: void setProduct(com.yingshi.toutiao.model.Comment)
+com.yingshi.toutiao.view.CustomizeImageView
+com.yingshi.toutiao.view.CustomizeImageView: CustomizeImageView(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.HeaderView
+com.yingshi.toutiao.view.HeaderView: HeaderView(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.HeaderView: void setLeftImage(int,android.view.View$OnClickListener)
+com.yingshi.toutiao.view.HeaderView: void setRightImage(int,android.view.View$OnClickListener)
+com.yingshi.toutiao.view.HeaderView: void setTitle(int)
+com.yingshi.toutiao.view.LoadMoreView
+com.yingshi.toutiao.view.LoadMoreView: LoadMoreView(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.LoadMoreView: void setOnMoreResultReturnListener(com.yingshi.toutiao.view.LoadMoreView$OnMoreResultReturnListener)
+com.yingshi.toutiao.view.LoadMoreView: void setPaginationAction(com.yingshi.toutiao.actions.PaginationAction)
+com.yingshi.toutiao.view.OuterViewPager
+com.yingshi.toutiao.view.OuterViewPager: OuterViewPager(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.OuterViewPager: OuterViewPager(android.content.Context)
+com.yingshi.toutiao.view.PhotoPager
+com.yingshi.toutiao.view.PhotoPager: PhotoPager(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.ShareNewsWidget
+com.yingshi.toutiao.view.ShareNewsWidget: ShareNewsWidget(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.SpecialHeader
+com.yingshi.toutiao.view.SpecialHeader: SpecialHeader(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.ptr.CustomizedPTRListView
+com.yingshi.toutiao.view.ptr.CustomizedPTRListView: CustomizedPTRListView(android.content.Context)
+com.yingshi.toutiao.view.ptr.CustomizedPTRListView: CustomizedPTRListView(android.content.Context,android.util.AttributeSet)
+com.yingshi.toutiao.view.ptr.CustomizedPTRListView: CustomizedPTRListView(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode)
+com.yingshi.toutiao.view.ptr.CustomizedPTRListView: CustomizedPTRListView(android.content.Context,com.handmark.pulltorefresh.library.PullToRefreshBase$Mode,com.handmark.pulltorefresh.library.PullToRefreshBase$AnimationStyle)
