@@ -92,6 +92,14 @@ public abstract class PaginationAction<Result> extends AbstractAction<Pagination
         action.mTotalCount = mTotalCount;
         return action;
     }
+    
+    public PaginationAction<Result> getPreviousPageAction(){
+        PaginationAction<Result> action = cloneCurrentPageAction();
+        if(action.mPageIndex > 1)
+        	action.mPageIndex -= 1;
+        action.mTotalCount = mTotalCount;
+        return action;
+    }
 
     public final int getPageIndex(){
         return mPageIndex;

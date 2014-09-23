@@ -180,6 +180,8 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 			}
 			public void onPostExecute(List<News> newsList){
 				mFocusNews = newsList;
+				if(!mFocusNews.isEmpty())
+					mFocusLoadedFromServer = true;
 				if(isDetached()){ // This Fragment is currently invisible.
 					return;
 				}
@@ -201,6 +203,8 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 				return mNewsDAO.findNewsByCategory(mCategory);
 			}
 			public void onPostExecute(List<News> newsList){
+				if(!newsList.isEmpty())
+					mNewsLoadedFromServer = true;
 				//The pager is viewing another page now.
 				if(getActivity() == null)
 					return;
@@ -259,7 +263,7 @@ public class MainFragment extends HeaderLoadingSupportPTRListFragment {
 				}
 				public void onFailure(ActionError error) {
 					Toast.makeText(getActivity(), R.string.load_failed, Toast.LENGTH_SHORT).show();
-					mGetnewsAction = (GetNewsAction)mGetnewsAction.cloneCurrentPageAction();
+					mGetnewsAction = (GetNewsAction)mGetnewsAction.getPreviousPageAction();
 					afterLoadReturned();
 				}
 			}

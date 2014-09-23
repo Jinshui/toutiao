@@ -16,7 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:text="@string/special_summary"
-        android:textSize="@dimen/special_summary_size"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/special_summary_title_size"
         android:textStyle="bold" />
 
     <View
@@ -30,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/special_summary_size" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/special_summary_text_size" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -39,6 +40,7 @@
         android:background="@color/gray"
         android:paddingLeft="5dp"
         android:text="@string/latest_news"
-        android:textSize="@dimen/special_summary_size" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/special_summary_text_size" />
 
 </com.yingshi.toutiao.view.SpecialHeader>

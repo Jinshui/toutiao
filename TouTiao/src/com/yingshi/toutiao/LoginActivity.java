@@ -33,45 +33,6 @@ public class LoginActivity extends Activity implements SocialResponseListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		mApp = (TouTiaoApp)getApplication();
-		loadAccountInfo();
-	}
-	
-	private void loadAccountInfo(){
-		new ParallelTask<AccountInfo>() {
-			protected AccountInfo doInBackground(Void... params) {
-				long expiresIn = Long.parseLong(PreferenceUtil.getString(LoginActivity.this, Constants.USER_TOKEN_EXPIRES_IN, "0"));
-				if(expiresIn > System.currentTimeMillis()){
-					//the session is still valid
-					AccountInfo account = new AccountInfo();
-					account.setExpiresIn(expiresIn);
-					account.setOpenId(PreferenceUtil.getString(LoginActivity.this, Constants.USER_OPEN_ID, null));
-					account.setToken(PreferenceUtil.getString(LoginActivity.this, Constants.USER_ACCESS_TOKEN, null));
-					account.setProvider(PreferenceUtil.getString(LoginActivity.this, Constants.USER_PROVIDER, null));
-					account.setUserName(PreferenceUtil.getString(LoginActivity.this, Constants.USER_NAME, null));
-					account.setPhotoUrl(PreferenceUtil.getString(LoginActivity.this, Constants.USER_PHOTO_URL, null));
-					account.setPhotoBase64(PreferenceUtil.getString(LoginActivity.this, Constants.USER_PHOTO_BASE64, null));
-					mApp.setUserInfo(account);
-					return account;
-				}else{
-					//session has expired
-					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_TOKEN_EXPIRES_IN);
-					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_OPEN_ID);
-					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_ACCESS_TOKEN);
-					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_PROVIDER);
-					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_NAME);
-					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_PHOTO_URL);
-					PreferenceUtil.removeKey(LoginActivity.this, Constants.USER_PHOTO_BASE64);
-					return null;
-				}
-			}
-			
-			public void onPostExecute(AccountInfo account){
-				if(account != null){
-					Log.d(tag, "User has already login and the token has not expired yet!");
-					showHomeActivity();
-				}
-			}
-		}.execute();
 	}
 	
 	public void loginQQ(View view) {

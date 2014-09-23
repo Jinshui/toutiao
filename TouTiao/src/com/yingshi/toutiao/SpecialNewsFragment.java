@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
@@ -101,6 +102,7 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 			}
 			public void onFailure(ActionError error) {
 				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.cloneCurrentPageAction();
+				Toast.makeText(getActivity(), R.string.load_special_fails, Toast.LENGTH_SHORT).show();
 				//TODO: Show failure
 				if(--mAsyncTaskCount == 0){
 					showListView();
@@ -147,7 +149,8 @@ public class SpecialNewsFragment extends HeaderLoadingSupportPTRListFragment{
 				refreshComplete();
 			}
 			public void onFailure(ActionError error) {
-				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.cloneCurrentPageAction();
+				mGetSpecialNewsAction = (GetSpecialNewsAction)mGetSpecialNewsAction.getPreviousPageAction();
+				Toast.makeText(getActivity(), R.string.load_special_fails, Toast.LENGTH_SHORT).show();
 				//TODO: Show failure
 				if(--mAsyncTaskCount == 0){
 					showListView();

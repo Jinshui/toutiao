@@ -127,7 +127,7 @@ public class MainUserCenterFragment extends Fragment
 					protected void onPostExecute(Void result){
 						Toast.makeText(mApp, R.string.clear_cache_complete, Toast.LENGTH_SHORT).show();
 					}
-				};
+				}.execute();
 			}});
 	}
 }

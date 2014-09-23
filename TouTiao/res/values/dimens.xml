@@ -43,6 +43,7 @@
     
     <!-- Special News -->
     <dimen name="special_header_img_height">80dp</dimen>
-    <dimen name="special_summary_size">16sp</dimen>
+    <dimen name="special_summary_title_size">18sp</dimen>
+    <dimen name="special_summary_text_size">16sp</dimen>
     
 </resources>
