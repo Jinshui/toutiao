@@ -2,8 +2,9 @@ package com.yingshi.toutiao;
 
 
 
-public class Constants {
-	public static final String APP_WEIXIN_ID = "wx88888888";
+public class Constants {//159357
+	public static final String APP_WEIXIN_ID = "wxc0ff6c151ffb2eab";
+	public static final String APP_TENCENT_ID = "222222";
 	
 	public static final String CACHE_DIR = "/toutiao";
 	
@@ -16,7 +17,6 @@ public class Constants {
 	public static final String INTENT_EXTRA_NEWS = "news";
 //	public static final String INTENT_EXTRA_NEWS_ID = "news_id";
 //	public static final String INTENT_EXTRA_NEWS_CATEGORY = "news_category";
-	public static final String TENCENT_APP_ID = "222222";
 	public static final String INTENT_ACTION_PHOTO_UPDATED = "photo_updated";
 	
 	//Preference keys

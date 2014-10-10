@@ -2481,29 +2481,32 @@ com.tencent.connect.share.a$1
 com.tencent.connect.share.a$2
 com.tencent.connect.share.a$3
 com.tencent.connect.share.a$4
-com.tencent.mm.sdk.b.a:
-    public static void b(java.lang.String,java.lang.String)
-com.tencent.mm.sdk.b.a$a:
-    public abstract void d(java.lang.String,java.lang.String)
-com.tencent.mm.sdk.b.b:
-    public final void d(java.lang.String,java.lang.String)
 com.tencent.mm.sdk.constants.Build
 com.tencent.mm.sdk.constants.ConstantsAPI
 com.tencent.mm.sdk.constants.ConstantsAPI$Token
 com.tencent.mm.sdk.constants.ConstantsAPI$WXApp
-com.tencent.mm.sdk.modelbase.BaseReq:
-    public void fromBundle(android.os.Bundle)
-com.tencent.mm.sdk.modelbase.BaseResp
+com.tencent.mm.sdk.modelbase.BaseResp:
+    public abstract int getType()
+    public void toBundle(android.os.Bundle)
+    public abstract boolean checkArgs()
 com.tencent.mm.sdk.modelbase.BaseResp$ErrCode
-com.tencent.mm.sdk.modelmsg.GetMessageFromWX
-com.tencent.mm.sdk.modelmsg.GetMessageFromWX$Req
+com.tencent.mm.sdk.modelmsg.GetMessageFromWX:
+    private GetMessageFromWX()
+com.tencent.mm.sdk.modelmsg.GetMessageFromWX$Req:
+    public java.lang.String username
 com.tencent.mm.sdk.modelmsg.GetMessageFromWX$Resp
-com.tencent.mm.sdk.modelmsg.LaunchFromWX
-com.tencent.mm.sdk.modelmsg.LaunchFromWX$Req
+com.tencent.mm.sdk.modelmsg.LaunchFromWX:
+    private LaunchFromWX()
 com.tencent.mm.sdk.modelmsg.LaunchFromWX$Resp
-com.tencent.mm.sdk.modelmsg.SendAuth
+com.tencent.mm.sdk.modelmsg.SendAuth:
+    private SendAuth()
 com.tencent.mm.sdk.modelmsg.SendAuth$Req
-com.tencent.mm.sdk.modelmsg.SendAuth$Resp
+com.tencent.mm.sdk.modelmsg.SendAuth$Resp:
+    private static final java.lang.String TAG
+    private static final int LENGTH_LIMIT
+    public int getType()
+    public void toBundle(android.os.Bundle)
+    public boolean checkArgs()
 com.tencent.mm.sdk.modelmsg.SendMessageToWX:
     private SendMessageToWX()
 com.tencent.mm.sdk.modelmsg.SendMessageToWX$Req:
@@ -2513,10 +2516,12 @@ com.tencent.mm.sdk.modelmsg.SendMessageToWX$Req:
     private static final java.lang.String TAG
     private static final int FAV_CONTENT_LENGTH_LIMIT
     public SendMessageToWX$Req(android.os.Bundle)
-    public void fromBundle(android.os.Bundle)
-com.tencent.mm.sdk.modelmsg.SendMessageToWX$Resp
-com.tencent.mm.sdk.modelmsg.ShowMessageFromWX
-com.tencent.mm.sdk.modelmsg.ShowMessageFromWX$Req
+com.tencent.mm.sdk.modelmsg.SendMessageToWX$Resp:
+    public int getType()
+    public void toBundle(android.os.Bundle)
+    public boolean checkArgs()
+com.tencent.mm.sdk.modelmsg.ShowMessageFromWX:
+    private ShowMessageFromWX()
 com.tencent.mm.sdk.modelmsg.ShowMessageFromWX$Resp
 com.tencent.mm.sdk.modelmsg.WXAppExtendObject
 com.tencent.mm.sdk.modelmsg.WXAppLaunchData
@@ -2529,7 +2534,6 @@ com.tencent.mm.sdk.modelmsg.WXFileObject:
     public WXFileObject(java.lang.String)
     public void setFileData(byte[])
     public void setFilePath(java.lang.String)
-    public void unserialize(android.os.Bundle)
 com.tencent.mm.sdk.modelmsg.WXImageObject
 com.tencent.mm.sdk.modelmsg.WXMediaMessage:
     private static final java.lang.String TAG
@@ -2540,12 +2544,9 @@ com.tencent.mm.sdk.modelmsg.WXMediaMessage:
     private static final int MESSAGE_ACTION_LENGTH_LIMIT
     private static final int MESSAGE_EXT_LENGTH_LIMIT
     public static final java.lang.String ACTION_WXAPPMESSAGE
-    public final void setThumbImage(android.graphics.Bitmap)
 com.tencent.mm.sdk.modelmsg.WXMediaMessage$Builder:
     public static final java.lang.String KEY_IDENTIFIER
     public WXMediaMessage$Builder()
-    public static com.tencent.mm.sdk.modelmsg.WXMediaMessage fromBundle(android.os.Bundle)
-    private static java.lang.String pathOldToNew(java.lang.String)
 com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject:
     public static final int TYPE_UNKNOWN
     public static final int TYPE_TEXT
@@ -2557,47 +2558,45 @@ com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject:
     public static final int TYPE_APPDATA
     public static final int TYPE_EMOJI
     public static final int TYPE_PRODUCT
-    public abstract void unserialize(android.os.Bundle)
 com.tencent.mm.sdk.modelmsg.WXMusicObject
-com.tencent.mm.sdk.modelmsg.WXTextObject:
+com.tencent.mm.sdk.modelmsg.WXTextObject
+com.tencent.mm.sdk.modelmsg.WXVideoObject
+com.tencent.mm.sdk.modelmsg.WXWebpageObject:
     private static final java.lang.String TAG
     private static final int LENGTH_LIMIT
-    public void unserialize(android.os.Bundle)
-com.tencent.mm.sdk.modelmsg.WXVideoObject
-com.tencent.mm.sdk.modelmsg.WXWebpageObject
+    public WXWebpageObject(java.lang.String)
 com.tencent.mm.sdk.modelmsg.package-info
 com.tencent.mm.sdk.modelpay.PayReq
 com.tencent.mm.sdk.modelpay.PayReq$Options
-com.tencent.mm.sdk.modelpay.PayResp
+com.tencent.mm.sdk.modelpay.PayResp:
+    public void toBundle(android.os.Bundle)
+    public int getType()
+    public boolean checkArgs()
 com.tencent.mm.sdk.openapi.IWXAPI:
     public abstract void unregisterApp()
-    public abstract boolean handleIntent(android.content.Intent,com.tencent.mm.sdk.openapi.IWXAPIEventHandler)
     public abstract boolean isWXAppInstalled()
     public abstract boolean isWXAppSupportAPI()
     public abstract int getWXAppSupportAPI()
     public abstract boolean openWXApp()
     public abstract boolean sendResp(com.tencent.mm.sdk.modelbase.BaseResp)
     public abstract void detach()
-com.tencent.mm.sdk.openapi.IWXAPIEventHandler
 com.tencent.mm.sdk.openapi.WXAPIFactory:
     private static final java.lang.String TAG
+    public static com.tencent.mm.sdk.openapi.IWXAPI createWXAPI(android.content.Context,java.lang.String)
     private WXAPIFactory()
 com.tencent.mm.sdk.openapi.WXApiImplComm:
     private static final java.lang.String TAG
     private static final java.lang.String WX_APP_SIGNATURE
     private WXApiImplComm()
-    public static boolean isIntentFromWx(android.content.Intent,java.lang.String)
 com.tencent.mm.sdk.openapi.WXApiImplV10:
     private static final java.lang.String TAG
     public final void unregisterApp()
-    public final boolean handleIntent(android.content.Intent,com.tencent.mm.sdk.openapi.IWXAPIEventHandler)
     public final boolean isWXAppInstalled()
     public final boolean isWXAppSupportAPI()
     public final int getWXAppSupportAPI()
     public final boolean openWXApp()
     public final boolean sendResp(com.tencent.mm.sdk.modelbase.BaseResp)
     public final void detach()
-    private boolean checkSumConsistent(byte[],byte[])
 com.tencent.open.SocialApi
 com.tencent.open.SocialApiIml
 com.tencent.open.SocialApiIml$1
@@ -2879,6 +2878,8 @@ com.yingshi.toutiao.SpecialNewsFragment:
     private static final java.lang.String tag
 com.yingshi.toutiao.TouTiaoApp:
     private static final java.lang.String tag
+com.yingshi.toutiao.WXEntryActivity:
+    private static final java.lang.String tag
 com.yingshi.toutiao.actions.AbstractAction:
     private static final java.lang.String tag
     private static final java.lang.String URL
@@ -3040,8 +3041,8 @@ com.yingshi.toutiao.util.Utils:
     404:415:public static java.lang.String getRealPathFromURI(android.net.Uri,android.app.Activity)
 com.yingshi.toutiao.view.CustomizeImageView:
     private static final java.lang.String tag
-    73:74:public void loadImage(java.io.InputStream)
-    93:112:public void loadImage(java.io.InputStream,com.yingshi.toutiao.view.CustomizeImageView$LoadImageCallback)
+    83:84:public void loadImage(java.io.InputStream)
+    103:122:public void loadImage(java.io.InputStream,com.yingshi.toutiao.view.CustomizeImageView$LoadImageCallback)
 com.yingshi.toutiao.view.CustomizeImageView$3
 com.yingshi.toutiao.view.LoadMoreView$LoadStatus:
     1:1:public static com.yingshi.toutiao.view.LoadMoreView$LoadStatus[] values()

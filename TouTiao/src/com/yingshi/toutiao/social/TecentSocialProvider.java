@@ -27,8 +27,8 @@ public class TecentSocialProvider implements ISocialProvider{
 	}
 	
 	private void initTencent(){
-		mQQAuth = QQAuth.createInstance(Constants.TENCENT_APP_ID, mActivity.getApplicationContext());
-		mTencent = Tencent.createInstance(Constants.TENCENT_APP_ID, mActivity);
+		mQQAuth = QQAuth.createInstance(Constants.APP_TENCENT_ID, mActivity.getApplicationContext());
+		mTencent = Tencent.createInstance(Constants.APP_TENCENT_ID, mActivity);
 //		String expiresIn = PreferenceUtil.getString(this, TENCENT_EXPIRES_IN, "0");
 //		long seconds = ( Long.parseLong(expiresIn) - System.currentTimeMillis() ) / 1000;
 //		if(seconds > 0){

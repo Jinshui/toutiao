@@ -16,7 +16,7 @@
     <application
         android:name=".TouTiaoApp"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/app_style" >
         <activity
@@ -34,6 +34,7 @@
         <activity android:name=".SpecialNewsActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".FavoritesActivity" />
+        <activity android:name=".WXEntryActivity" />
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"

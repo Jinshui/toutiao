@@ -81,9 +81,7 @@ public class MainActivity extends SlidingFragmentActivity
 			}});
 		headerView.setRightImage(R.drawable.sousuo_sousuo, new OnClickListener(){
 			public void onClick(View v) {
-				Intent showNewsDetailIntent = new Intent();
-				showNewsDetailIntent.setClass(MainActivity.this, SearchActivity.class);
-				startActivity(showNewsDetailIntent);
+				startActivity(new Intent(MainActivity.this, SearchActivity.class));
 			}});
 		headerView.setTitle(R.string.title_toutiao);
 		loadCategoryFromServer();

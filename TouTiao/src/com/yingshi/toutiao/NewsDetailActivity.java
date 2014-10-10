@@ -1,5 +1,6 @@
 package com.yingshi.toutiao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -8,6 +9,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,10 +29,15 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 import com.yingshi.toutiao.actions.AbstractAction.ActionError;
 import com.yingshi.toutiao.actions.AbstractAction.UICallBack;
 import com.yingshi.toutiao.actions.GetCommentsAction;
@@ -51,8 +59,15 @@ public class NewsDetailActivity extends Activity
 	private LinearLayout mCommentsList;
 	private ImageButton mShowCommentsBtn;
 	private EditText mCommentTextView;
+	private CustomizeImageView mImageView;
 	private News mNews;
 	private GetCommentsAction mGetCommentsAction;
+	
+
+    
+    private IWXAPI mWxapi = null;
+    private Tencent mTencent = null;
+	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -69,14 +84,7 @@ public class NewsDetailActivity extends Activity
 		mCommentTextView.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				if(((TouTiaoApp)getApplication()).getUserInfo() == null){
-					DialogHelper.createDialog(NewsDetailActivity.this, R.string.add_comment_login_dlg_msg, R.string.add_comment_login_dlg_title, 0, android.R.string.ok, new android.content.DialogInterface.OnClickListener(){
-						@Override
-						public void onClick(android.content.DialogInterface dialog, int which) {
-							Intent intent = new Intent(NewsDetailActivity.this, LoginActivity.class);
-							startActivity(intent);
-							finish();
-						}
-					}, android.R.string.cancel, null).show();
+					showLonginConfirmDialog();
 				}
 			}
 		});
@@ -84,12 +92,7 @@ public class NewsDetailActivity extends Activity
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				if(event != null && event.getAction() == KeyEvent.ACTION_DOWN
 						&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
-					DialogHelper.createDialog(NewsDetailActivity.this, R.string.confirm_add_comment_dlg_msg, R.string.confirm_add_comment_dlg_title, 0, android.R.string.ok, new android.content.DialogInterface.OnClickListener(){
-						@Override
-						public void onClick(android.content.DialogInterface dialog, int which) {
-							addComment();
-						}
-					}, android.R.string.cancel, null).show();
+					showAddCommentConfirmDialog();
 					return true;
 				}
 				return false;
@@ -101,11 +104,40 @@ public class NewsDetailActivity extends Activity
 		
 		mNews = getIntent().getParcelableExtra(Constants.INTENT_EXTRA_NEWS);
 		updateUI(mNews);
+		
+        //Register weixin
+        mWxapi = WXAPIFactory.createWXAPI(this, Constants.APP_WEIXIN_ID, true);
+        mWxapi.registerApp(Constants.APP_WEIXIN_ID);
+        mTencent = Tencent.createInstance(Constants.APP_TENCENT_ID, this);
+	}
+	
+	private void showLonginConfirmDialog(){
+		DialogHelper.createDialog(NewsDetailActivity.this, R.string.add_comment_login_dlg_msg, R.string.add_comment_login_dlg_title, 0, android.R.string.ok, new android.content.DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(android.content.DialogInterface dialog, int which) {
+				Intent intent = new Intent(NewsDetailActivity.this, LoginActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		}, android.R.string.cancel, null).show();
 	}
     
+	private void showAddCommentConfirmDialog(){
+		DialogHelper.createDialog(this, R.string.confirm_add_comment_dlg_msg, R.string.confirm_add_comment_dlg_title, 0, android.R.string.ok, new android.content.DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(android.content.DialogInterface dialog, int which) {
+				addComment();
+			}
+		}, android.R.string.cancel, null).show();
+	}
+	
     private void addComment(){
-    	AsyncHttpClient httpClient = new AsyncHttpClient();
     	AccountInfo userInfo = ((TouTiaoApp)getApplication()).getUserInfo();
+    	if(userInfo == null){
+    		showLonginConfirmDialog();
+    		return;
+    	}
+    	AsyncHttpClient httpClient = new AsyncHttpClient();
     	RequestParams params = new RequestParams();
     	params.put("newsid", mNews.getId());
     	params.put("username", userInfo.getUserName());
@@ -155,11 +187,11 @@ public class NewsDetailActivity extends Activity
 		String dateViewText = String.format("%s  %s", Utils.formatDate("yyyy/MM/dd HH:mm:ss", mNews.getTime()), mNews.getAuthor());
 		dateView.setText(dateViewText);
 		
-		CustomizeImageView imageView = (CustomizeImageView)findViewById(R.id.id_news_detail_img);
+		mImageView = (CustomizeImageView)findViewById(R.id.id_news_detail_img);
 		if(mNews.getPhotoUrls().size() == 0)
-			imageView.setVisibility(View.GONE);
+			mImageView.setVisibility(View.GONE);
 		else
-			imageView.loadImage(mNews.getPhotoUrls().get(0));
+			mImageView.loadImage(mNews.getPhotoUrls().get(0));
 
 		View playButton = findViewById(R.id.id_news_detail_play);
 		playButton.setVisibility( ( mNews.isHasVideo() && mNews.getThumbnailUrls().size()>0 ) ?  View.VISIBLE : View.GONE);
@@ -230,19 +262,33 @@ public class NewsDetailActivity extends Activity
     }
 	
 	public void shareWeiChat(View view){
+		Log.d(tag, "shareWeiChat");
 		mShareNewsWidget.setVisibility(View.GONE);
-		WXTextObject textObj = new WXTextObject();
-		textObj.text = "";
+	    WXWebpageObject webpage = new WXWebpageObject();  
+	    webpage.webpageUrl = mNews.getPhotoUrls().get(0);  
 		
-		WXMediaMessage msg = new WXMediaMessage();
-		msg.mediaObject = textObj;
-		
-		msg.description = "";
+		WXMediaMessage msg = new WXMediaMessage(webpage);
+	    msg.title = mNews.getName().length() > 512 ? mNews.getName().substring(0, 512) : mNews.getName();
+	    msg.description = mNews.getContent().length() > 1024 ? mNews.getContent().substring(0, 1024) : mNews.getContent();
+	    Bitmap thumbnail = null;
+	    if(!mNews.getThumbnailUrls().isEmpty()){
+	    	String imagePath = CustomizeImageView.getCachedImagePath(mNews.getThumbnailUrls().get(0));
+	    	if(imagePath != null){
+	    		thumbnail = BitmapFactory.decodeFile(imagePath);
+	    	}
+	    }
+	    if(thumbnail == null){
+	    	thumbnail = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+	    }
+    	msg.setThumbImage(thumbnail);
+	    
+	    
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
 		req.transaction = buildTransaction("text"); 
 		req.message = msg;
 		req.scene = SendMessageToWX.Req.WXSceneTimeline; // SendMessageToWX.Req.WXSceneSession;
-		WXAPIFactory.createWXAPI(this, null).sendReq(req);
+		mWxapi.sendReq(req);
+		Log.d(tag, "shareWeiChat done");
 	}
 	
 	private String buildTransaction(final String type) {
@@ -256,14 +302,31 @@ public class NewsDetailActivity extends Activity
 	public void shareQQ(View view){
 		mShareNewsWidget.setVisibility(View.GONE);
 		//分享类型
-//		Bundle params = new Bundle();
-//		params.putString(Tencent.SHARE_TO_QQ_KEY_TYPE, SHARE_TO_QZONE_TYPE_IMAGE_TEXT );
-//	    params.putString(Tencent.SHARE_TO_QQ_TITLE, "标题");//必填
-//	    params.putString(Tencent.SHARE_TO_QQ_SUMMARY, "摘要");//选填
-//	    params.putString(Tencent.SHARE_TO_QQ_TARGET_URL, "跳转URL");//必填
-//	    params.putStringArrayList(Tencent.SHARE_TO_QQ_IMAGE_URL, "图片链接ArrayList");
-//	    mTencent.shareToQzone(this, params, new BaseUiListener());
+		Bundle params = new Bundle();
+        params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
+        params.putString(QzoneShare.SHARE_TO_QQ_TITLE, mNews.getName());
+        params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, mNews.getContent());
+        params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, mNews.getPhotoUrls().get(0));
+        params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, (ArrayList<String>)mNews.getPhotoUrls());
+        doShareToQzone(params);
 	}
+	
+    private void doShareToQzone(final Bundle params) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+            	mTencent.shareToQzone(NewsDetailActivity.this, params, new IUiListener() {
+                    public void onCancel() {
+                    }
+                    public void onError(UiError e) {
+                    }
+					public void onComplete(Object response) {
+					}
+
+                });
+            }
+        }).start();
+    }
 	
 	public void cancelShare(View view){
 		mShareNewsWidget.setVisibility(View.GONE);

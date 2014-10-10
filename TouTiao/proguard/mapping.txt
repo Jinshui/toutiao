@@ -19,26 +19,29 @@ android.support.v4.app.ActivityCompatHoneycomb -> a:
     java.lang.String a(byte[]) -> a
     boolean a(android.content.Context,com.tencent.mm.sdk.a.a$a) -> a
     byte[] a(java.lang.String,int,java.lang.String) -> a
-    com.tencent.mm.sdk.openapi.IWXAPI createWXAPI(android.content.Context,java.lang.String) -> b
-    boolean validateAppSignatureForPackage(android.content.Context,java.lang.String,boolean) -> a
+    java.lang.Object a(int,java.lang.String) -> a
+    android.os.Bundle toBundle(com.tencent.mm.sdk.modelmsg.WXMediaMessage) -> a
+    com.tencent.mm.sdk.modelmsg.WXMediaMessage fromBundle(android.os.Bundle) -> a
+    com.tencent.mm.sdk.openapi.IWXAPI createWXAPI(android.content.Context,java.lang.String,boolean) -> a
+    boolean validateAppSignatureForPackage(android.content.Context,java.lang.String,boolean) -> b
     org.json.JSONObject request(com.tencent.connect.auth.QQToken,android.content.Context,java.lang.String,android.os.Bundle,java.lang.String) -> a
     void requestAsync(com.tencent.connect.auth.QQToken,android.content.Context,java.lang.String,android.os.Bundle,java.lang.String,com.tencent.tauth.IRequestListener) -> a
     com.tencent.utils.Util$Statistic openUrl2(android.content.Context,java.lang.String,java.lang.String,android.os.Bundle) -> a
     java.lang.String a(org.apache.http.HttpResponse) -> a
-    org.apache.http.client.HttpClient getHttpClient$1220a24e(android.content.Context,java.lang.String) -> c
-    java.lang.String encodeUrl(android.os.Bundle) -> a
+    org.apache.http.client.HttpClient getHttpClient$1220a24e(android.content.Context,java.lang.String) -> b
+    java.lang.String encodeUrl(android.os.Bundle) -> b
     java.lang.String encodePostBody(android.os.Bundle,java.lang.String) -> a
     int a(android.content.Context) -> a
-    java.lang.String getAppVersionName(android.content.Context,java.lang.String) -> d
+    java.lang.String getAppVersionName(android.content.Context,java.lang.String) -> c
     int compareVersion(java.lang.String,java.lang.String) -> b
     boolean isAppSignatureValid(android.content.Context,java.lang.String,java.lang.String) -> a
-    java.lang.String getAppSignatureMD5(android.content.Context,java.lang.String) -> e
+    java.lang.String getAppSignatureMD5(android.content.Context,java.lang.String) -> d
     boolean isActivityExist(android.content.Context,android.content.Intent) -> b
     android.app.AlertDialog createDialog(android.content.Context,int,int,int,int,android.content.DialogInterface$OnClickListener,int,android.content.DialogInterface$OnClickListener) -> a
     void saveStringMap(android.content.Context,java.util.Map) -> a
     void saveString(android.content.Context,java.lang.String,java.lang.String) -> b
     java.lang.String getString(android.content.Context,java.lang.String,java.lang.String) -> c
-    void removeKey(android.content.Context,java.lang.String) -> f
+    void removeKey(android.content.Context,java.lang.String) -> e
 android.support.v4.app.BackStackRecord -> b:
     android.support.v4.app.FragmentManagerImpl mManager -> l
     android.support.v4.app.ActivityCompatHoneycomb mHead$fe619d5 -> a
@@ -489,6 +492,7 @@ android.support.v4.app.FragmentTabHost$TabInfo -> B:
     int[] $SWITCH_TABLE$com$handmark$pulltorefresh$library$PullToRefreshBase$Orientation() -> a
     android.content.Context a() -> b
     void serialize(android.os.Bundle) -> a
+    void unserialize(android.os.Bundle) -> b
     int type() -> c
     void setContentLengthLimit(int) -> a
     boolean checkArgs() -> d
@@ -3292,60 +3296,138 @@ com.tencent.connect.common.Constants -> eY:
     java.lang.String PACKAGE_QZONE -> a
     java.lang.String PACKAGE_QQ -> b
     java.lang.String SIGNATRUE_QZONE -> c
-com.tencent.mm.sdk.a.a$a -> eZ:
+com.tencent.mm.sdk.a -> eZ:
+    android.content.ContentResolver a -> a
+    java.lang.String[] b -> b
+    java.util.HashMap c -> c
+    com.tencent.mm.sdk.a$a d -> d
+    java.lang.Object getValue(java.lang.String) -> a
+    java.util.Map getAll() -> getAll
+    java.lang.String getString(java.lang.String,java.lang.String) -> getString
+    int getInt(java.lang.String,int) -> getInt
+    long getLong(java.lang.String,long) -> getLong
+    float getFloat(java.lang.String,float) -> getFloat
+    boolean getBoolean(java.lang.String,boolean) -> getBoolean
+    boolean contains(java.lang.String) -> contains
+    android.content.SharedPreferences$Editor edit() -> edit
+    void registerOnSharedPreferenceChangeListener(android.content.SharedPreferences$OnSharedPreferenceChangeListener) -> registerOnSharedPreferenceChangeListener
+    void unregisterOnSharedPreferenceChangeListener(android.content.SharedPreferences$OnSharedPreferenceChangeListener) -> unregisterOnSharedPreferenceChangeListener
+    java.util.Set getStringSet(java.lang.String,java.util.Set) -> getStringSet
+com.tencent.mm.sdk.a$a -> fa:
+    java.util.Map e -> a
+    java.util.Set f -> b
+    boolean g -> c
+    android.content.ContentResolver a -> d
+    android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String) -> putString
+    android.content.SharedPreferences$Editor putInt(java.lang.String,int) -> putInt
+    android.content.SharedPreferences$Editor putLong(java.lang.String,long) -> putLong
+    android.content.SharedPreferences$Editor putFloat(java.lang.String,float) -> putFloat
+    android.content.SharedPreferences$Editor putBoolean(java.lang.String,boolean) -> putBoolean
+    android.content.SharedPreferences$Editor remove(java.lang.String) -> remove
+    android.content.SharedPreferences$Editor clear() -> clear
+    boolean commit() -> commit
+    void apply() -> apply
+    android.content.SharedPreferences$Editor putStringSet(java.lang.String,java.util.Set) -> putStringSet
+com.tencent.mm.sdk.a.a$a -> fb:
     java.lang.String h -> a
     java.lang.String i -> b
     java.lang.String j -> c
     int flags -> d
     android.os.Bundle k -> e
-com.tencent.mm.sdk.a.a.a$a -> fa:
+com.tencent.mm.sdk.a.a.a$a -> fc:
     java.lang.String l -> a
     java.lang.String m -> b
     java.lang.String j -> c
-com.tencent.mm.sdk.b.a -> fb:
+com.tencent.mm.sdk.b.a -> fd:
     int level -> a
     com.tencent.mm.sdk.b.a$a o -> b
     void a(java.lang.String,java.lang.String) -> a
-    void c(java.lang.String,java.lang.String) -> b
+    void b(java.lang.String,java.lang.String) -> b
+    void c(java.lang.String,java.lang.String) -> c
     void a(java.lang.String,java.lang.String,java.lang.Object[]) -> a
     int a() -> a
-com.tencent.mm.sdk.b.a$a -> fc:
-    void e(java.lang.String,java.lang.String) -> a
-    void f(java.lang.String,java.lang.String) -> b
+com.tencent.mm.sdk.b.a$a -> fe:
+    void d(java.lang.String,java.lang.String) -> a
+    void e(java.lang.String,java.lang.String) -> b
+    void f(java.lang.String,java.lang.String) -> c
     int b() -> a
-com.tencent.mm.sdk.b.c -> fd:
+com.tencent.mm.sdk.b.c -> ff:
     boolean a(java.lang.String) -> a
-com.tencent.mm.sdk.modelbase.BaseReq -> fe:
+com.tencent.mm.sdk.c.a$b -> fg:
+    android.net.Uri CONTENT_URI -> a
+com.tencent.mm.sdk.modelbase.BaseReq -> fh:
     java.lang.String transaction -> a
+    java.lang.String openId -> b
+    int getType() -> a
     void toBundle(android.os.Bundle) -> a
-    boolean checkArgs() -> a
-com.tencent.mm.sdk.modelmsg.SendMessageToWX$Req -> ff:
+    void fromBundle(android.os.Bundle) -> b
+    boolean checkArgs() -> b
+com.tencent.mm.sdk.modelbase.BaseResp -> fi:
+    int errCode -> a
+    java.lang.String errStr -> b
+    void fromBundle(android.os.Bundle) -> a
+com.tencent.mm.sdk.modelmsg.GetMessageFromWX$Req -> fj:
+    int getType() -> a
+    void toBundle(android.os.Bundle) -> a
+    void fromBundle(android.os.Bundle) -> b
+    boolean checkArgs() -> b
+com.tencent.mm.sdk.modelmsg.LaunchFromWX$Req -> fk:
+    int getType() -> a
+    boolean checkArgs() -> b
+com.tencent.mm.sdk.modelmsg.SendAuth$Resp -> fl:
+    void fromBundle(android.os.Bundle) -> a
+com.tencent.mm.sdk.modelmsg.SendMessageToWX$Req -> fm:
     com.tencent.mm.sdk.modelmsg.WXMediaMessage message -> b
     int scene -> c
+    int getType() -> a
+    void fromBundle(android.os.Bundle) -> b
     void toBundle(android.os.Bundle) -> a
+    boolean checkArgs() -> b
+com.tencent.mm.sdk.modelmsg.SendMessageToWX$Resp -> fn:
+    void fromBundle(android.os.Bundle) -> a
+com.tencent.mm.sdk.modelmsg.ShowMessageFromWX$Req -> fo:
+    com.tencent.mm.sdk.modelmsg.WXMediaMessage message -> b
+    int getType() -> a
+    void toBundle(android.os.Bundle) -> a
+    void fromBundle(android.os.Bundle) -> b
+    boolean checkArgs() -> b
+com.tencent.mm.sdk.modelmsg.WXMediaMessage -> fp:
+    int sdkVer -> a
+    java.lang.String title -> b
+    java.lang.String description -> c
+    byte[] thumbData -> d
+    com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject mediaObject -> e
+    java.lang.String mediaTagName -> f
+    java.lang.String messageAction -> g
+    java.lang.String messageExt -> h
     boolean checkArgs() -> a
-com.tencent.mm.sdk.modelmsg.WXMediaMessage -> fg:
-    java.lang.String description -> a
-    com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject mediaObject -> b
-com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject -> fh:
+com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject -> fq:
     void serialize(android.os.Bundle) -> a
+    void unserialize(android.os.Bundle) -> b
     int type() -> c
     boolean checkArgs() -> d
-com.tencent.mm.sdk.modelmsg.WXTextObject -> fi:
-    java.lang.String text -> a
+com.tencent.mm.sdk.modelmsg.WXWebpageObject -> fr:
+    java.lang.String webpageUrl -> a
     void serialize(android.os.Bundle) -> a
+    void unserialize(android.os.Bundle) -> b
     int type() -> c
     boolean checkArgs() -> d
-com.tencent.mm.sdk.openapi.IWXAPI -> fj:
+com.tencent.mm.sdk.modelpay.PayResp -> fs:
+    void fromBundle(android.os.Bundle) -> a
+com.tencent.mm.sdk.openapi.IWXAPI -> ft:
     boolean registerApp(java.lang.String) -> a
+    boolean handleIntent(android.content.Intent,com.tencent.mm.sdk.openapi.IWXAPIEventHandler) -> a
     boolean sendReq(com.tencent.mm.sdk.modelbase.BaseReq) -> a
-com.tencent.mm.sdk.openapi.WXApiImplV10 -> fk:
+com.tencent.mm.sdk.openapi.IWXAPIEventHandler -> fu:
+    void onResp(com.tencent.mm.sdk.modelbase.BaseResp) -> a
+com.tencent.mm.sdk.openapi.WXApiImplV10 -> fv:
     android.content.Context context -> a
     java.lang.String appId -> b
     boolean checkSignature -> c
     boolean detached -> d
     java.lang.String wxappPayEntryClassname -> e
     boolean registerApp(java.lang.String) -> a
+    boolean handleIntent(android.content.Intent,com.tencent.mm.sdk.openapi.IWXAPIEventHandler) -> a
     boolean sendReq(com.tencent.mm.sdk.modelbase.BaseReq) -> a
 com.tencent.open.PKDialog -> com.tencent.open.PKDialog:
     java.lang.String TAG -> TAG
@@ -3460,25 +3542,25 @@ com.tencent.open.TDialog$OnTimeListener -> com.tencent.open.TDialog$OnTimeListen
 com.tencent.open.TDialog$THandler -> com.tencent.open.TDialog$THandler:
     com.tencent.open.TDialog$OnTimeListener mL -> mL
     void handleMessage(android.os.Message) -> handleMessage
-com.tencent.open.a -> fl:
+com.tencent.open.a -> fw:
     java.util.HashMap a -> a
     void a(com.tencent.open.a$b,java.lang.String) -> a
     void a(java.lang.String,java.lang.String,java.util.List,com.tencent.open.a$a) -> a
     boolean a(android.webkit.WebView,java.lang.String) -> a
-com.tencent.open.a$a -> fm:
+com.tencent.open.a$a -> fx:
     java.lang.ref.WeakReference a -> a
     long b -> b
     void a() -> a
-com.tencent.open.a$b -> fn:
+com.tencent.open.a$b -> fy:
     void call(java.lang.String,java.util.List,com.tencent.open.a$a) -> call
     boolean customCallback() -> customCallback
-com.tencent.open.a.a -> fo:
+com.tencent.open.a.a -> fz:
     java.lang.String a -> a
     java.lang.String b -> b
     java.lang.String a(android.content.Context) -> c
     java.lang.String b(android.content.Context) -> a
     java.lang.String c(android.content.Context) -> b
-com.tencent.open.a.b -> fp:
+com.tencent.open.a.b -> fA:
     android.content.Context a -> b
     android.database.sqlite.SQLiteDatabase b -> c
     com.tencent.open.a.b$a c -> d
@@ -3489,10 +3571,10 @@ com.tencent.open.a.b -> fp:
     boolean b() -> b
     java.util.ArrayList c() -> c
     java.util.ArrayList d() -> d
-com.tencent.open.a.b$a -> fq:
+com.tencent.open.a.b$a -> fB:
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
-com.tencent.open.a.c -> fr:
+com.tencent.open.a.c -> fC:
     com.tencent.open.a.c a -> a
     long b -> b
     int c -> c
@@ -3512,13 +3594,13 @@ com.tencent.open.a.c -> fr:
     boolean a(com.tencent.open.a.c,boolean) -> a
     java.util.ArrayList b(com.tencent.open.a.c) -> b
     com.tencent.open.a.b c(com.tencent.open.a.c) -> c
-com.tencent.open.a.c$1 -> fs:
+com.tencent.open.a.c$1 -> fD:
     java.lang.String a -> a
     android.content.Context b -> b
     android.os.Bundle c -> c
     com.tencent.open.a.c d -> d
     void run() -> run
-com.tencent.open.a.d -> ft:
+com.tencent.open.a.d -> fE:
     java.lang.String a -> a
     java.lang.String b -> b
     java.lang.String c -> c
@@ -3528,12 +3610,12 @@ com.tencent.open.a.d -> ft:
     java.lang.String g -> g
     java.lang.String h -> h
     java.lang.String i -> i
-com.tencent.open.b -> fu:
+com.tencent.open.b -> fF:
     com.tencent.open.a jsBridge -> jsBridge
     android.webkit.WebChromeClient mChromeClient -> mChromeClient
     void onCreate(android.os.Bundle) -> onCreate
     void onConsoleMessage(java.lang.String) -> onConsoleMessage
-com.tencent.open.b$1 -> fv:
+com.tencent.open.b$1 -> fG:
     com.tencent.open.b a -> a
     boolean onConsoleMessage(android.webkit.ConsoleMessage) -> onConsoleMessage
     void onConsoleMessage(java.lang.String,int,java.lang.String) -> onConsoleMessage
@@ -3542,11 +3624,11 @@ com.tencent.open.b.a -> com.tencent.open.b.a:
     com.tencent.open.b.a$a d -> b
     void a(com.tencent.open.b.a$a) -> a
     void onMeasure(int,int) -> onMeasure
-com.tencent.open.b.a$a -> fw:
+com.tencent.open.b.a$a -> fH:
     void onKeyboardShown(int) -> onKeyboardShown
     void onKeyboardHidden() -> onKeyboardHidden
-com.tencent.stat.MtaSDkException -> fx:
-com.tencent.stat.StatConfig -> fy:
+com.tencent.stat.MtaSDkException -> fI:
+com.tencent.stat.StatConfig -> fJ:
     com.tencent.stat.common.StatLogger logger -> e
     com.tencent.stat.StatConfig$OnlineConfig userCfg -> a
     com.tencent.stat.StatConfig$OnlineConfig sdkCfg -> b
@@ -3608,15 +3690,15 @@ com.tencent.stat.StatConfig -> fy:
     void setCurrentDaySessionNumbers(int) -> c
     int getCurrentDaySessionNumbers() -> s
     int getMaxReportEventLength() -> t
-com.tencent.stat.StatConfig$OnlineConfig -> fz:
+com.tencent.stat.StatConfig$OnlineConfig -> fK:
     int type -> a
     org.json.JSONObject props -> b
     java.lang.String md5sum -> c
     int version -> d
-com.tencent.stat.StatDispatchCallback -> fA:
+com.tencent.stat.StatDispatchCallback -> fL:
     void onDispatchSuccess() -> a
     void onDispatchFailure() -> b
-com.tencent.stat.StatDispatcher -> fB:
+com.tencent.stat.StatDispatcher -> fM:
     com.tencent.stat.common.StatLogger logger -> a
     org.apache.http.impl.client.DefaultHttpClient client -> b
     android.os.Handler handler -> c
@@ -3628,14 +3710,14 @@ com.tencent.stat.StatDispatcher -> fB:
     void sendHttpPost(java.util.List,com.tencent.stat.StatDispatchCallback) -> a
     void send(java.util.List,com.tencent.stat.StatDispatchCallback) -> b
     void send(com.tencent.stat.event.Event,com.tencent.stat.StatDispatchCallback) -> a
-com.tencent.stat.StatDispatcher$1 -> fC:
+com.tencent.stat.StatDispatcher$1 -> fN:
     long getKeepAliveDuration(org.apache.http.HttpResponse,org.apache.http.protocol.HttpContext) -> getKeepAliveDuration
-com.tencent.stat.StatDispatcher$2 -> fD:
+com.tencent.stat.StatDispatcher$2 -> fO:
     java.util.List val$evs -> a
     com.tencent.stat.StatDispatchCallback val$cb -> b
     com.tencent.stat.StatDispatcher this$0 -> c
     void run() -> run
-com.tencent.stat.StatReportStrategy -> fE:
+com.tencent.stat.StatReportStrategy -> fP:
     com.tencent.stat.StatReportStrategy INSTANT -> a
     com.tencent.stat.StatReportStrategy ONLY_WIFI -> b
     com.tencent.stat.StatReportStrategy BATCH -> c
@@ -3647,7 +3729,7 @@ com.tencent.stat.StatReportStrategy -> fE:
     com.tencent.stat.StatReportStrategy[] $VALUES -> i
     com.tencent.stat.StatReportStrategy[] values() -> a
     com.tencent.stat.StatReportStrategy getStatReportStrategy(int) -> a
-com.tencent.stat.StatService -> fF:
+com.tencent.stat.StatService -> fQ:
     android.os.Handler handler -> a
     long lastActivityTimestamp -> b
     long nextDayStartTimestamp -> c
@@ -3666,26 +3748,26 @@ com.tencent.stat.StatService -> fF:
     void trackCustomEvent(android.content.Context,java.lang.String,java.lang.String[]) -> a
     com.tencent.stat.common.StatLogger access$000() -> a
     java.lang.Thread$UncaughtExceptionHandler access$100() -> b
-com.tencent.stat.StatService$1 -> fG:
+com.tencent.stat.StatService$1 -> fR:
     android.content.Context val$tempContext -> a
     void uncaughtException(java.lang.Thread,java.lang.Throwable) -> uncaughtException
-com.tencent.stat.StatService$2 -> fH:
+com.tencent.stat.StatService$2 -> fS:
     int[] $SwitchMap$com$tencent$stat$StatReportStrategy -> a
-com.tencent.stat.StatService$StatTask -> fI:
+com.tencent.stat.StatService$StatTask -> fT:
     com.tencent.stat.event.Event ev -> a
     com.tencent.stat.StatReportStrategy strategy -> b
     void sendEvents() -> a
     void sendEventsNow(boolean) -> a
     void run() -> run
     com.tencent.stat.event.Event access$200(com.tencent.stat.StatService$StatTask) -> a
-com.tencent.stat.StatService$StatTask$1 -> fJ:
+com.tencent.stat.StatService$StatTask$1 -> fU:
     com.tencent.stat.StatService$StatTask this$0 -> a
     void onDispatchSuccess() -> a
     void onDispatchFailure() -> b
-com.tencent.stat.StatService$StatTask$2 -> fK:
+com.tencent.stat.StatService$StatTask$2 -> fV:
     void onDispatchSuccess() -> a
     void onDispatchFailure() -> b
-com.tencent.stat.StatStore -> fL:
+com.tencent.stat.StatStore -> fW:
     com.tencent.stat.StatStore$StatStoreHelper helper -> b
     android.os.Handler handler -> c
     int numStoredEvents -> a
@@ -3712,58 +3794,58 @@ com.tencent.stat.StatStore -> fL:
     com.tencent.stat.StatStore$StatStoreHelper access$300(com.tencent.stat.StatStore) -> b
     com.tencent.stat.common.StatLogger access$400() -> c
     void access$500(com.tencent.stat.StatStore,java.util.List,int) -> b
-com.tencent.stat.StatStore$1 -> fM:
+com.tencent.stat.StatStore$1 -> fX:
     com.tencent.stat.StatStore this$0 -> a
     void run() -> run
-com.tencent.stat.StatStore$2 -> fN:
+com.tencent.stat.StatStore$2 -> fY:
     java.util.List val$evs -> a
     int val$status -> b
     com.tencent.stat.StatStore this$0 -> c
     void run() -> run
-com.tencent.stat.StatStore$3 -> fO:
+com.tencent.stat.StatStore$3 -> fZ:
     java.util.List val$evs -> a
     com.tencent.stat.StatStore this$0 -> b
     void run() -> run
-com.tencent.stat.StatStore$4 -> fP:
+com.tencent.stat.StatStore$4 -> ga:
     com.tencent.stat.event.Event val$ev -> a
     com.tencent.stat.StatDispatchCallback val$cb -> b
     com.tencent.stat.StatStore this$0 -> c
     void run() -> run
-com.tencent.stat.StatStore$5 -> fQ:
+com.tencent.stat.StatStore$5 -> gb:
     com.tencent.stat.StatConfig$OnlineConfig val$cfg -> a
     com.tencent.stat.StatStore this$0 -> b
     void run() -> run
-com.tencent.stat.StatStore$6 -> fR:
+com.tencent.stat.StatStore$6 -> gc:
     com.tencent.stat.StatStore this$0 -> a
     void run() -> run
-com.tencent.stat.StatStore$7 -> fS:
+com.tencent.stat.StatStore$7 -> gd:
     int val$maxNumber -> a
     com.tencent.stat.StatStore this$0 -> b
     void run() -> run
-com.tencent.stat.StatStore$7$1 -> fT:
+com.tencent.stat.StatStore$7$1 -> ge:
     java.util.List val$evs -> a
     int val$loadNumber -> b
     com.tencent.stat.StatStore$7 this$1 -> c
     void onDispatchSuccess() -> a
     void onDispatchFailure() -> b
-com.tencent.stat.StatStore$StatStoreHelper -> fU:
+com.tencent.stat.StatStore$StatStoreHelper -> gf:
     java.lang.String DATABASE_NAME -> a
     int DATABASE_VERSION -> b
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void upgradeUserToVer3(android.database.sqlite.SQLiteDatabase) -> a
     void upgradeEventsToVer3(android.database.sqlite.SQLiteDatabase) -> b
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
-com.tencent.stat.StatStore$StoredEvent -> fV:
+com.tencent.stat.StatStore$StoredEvent -> gg:
     long id -> a
     java.lang.String content -> b
     int send_count -> c
-com.tencent.stat.common.Env -> fW:
+com.tencent.stat.common.Env -> gh:
     com.tencent.stat.common.Env$BasicEnv basicEnv -> a
     java.lang.Integer tel_network -> b
     java.lang.String conn -> c
     org.json.JSONObject attr_json -> d
     void encode(org.json.JSONObject) -> a
-com.tencent.stat.common.Env$BasicEnv -> fX:
+com.tencent.stat.common.Env$BasicEnv -> gi:
     java.lang.String appVersion -> a
     java.lang.String sdkVersion -> b
     android.util.DisplayMetrics display -> c
@@ -3776,31 +3858,31 @@ com.tencent.stat.common.Env$BasicEnv -> fX:
     java.lang.String timezone -> j
     java.lang.String sd -> k
     int jb -> l
-com.tencent.stat.common.RC4 -> fY:
+com.tencent.stat.common.RC4 -> gj:
     byte[] key -> a
     byte[] encrypt(byte[]) -> a
     byte[] decrypt(byte[]) -> b
     byte[] encrypt(byte[],byte[]) -> a
-com.tencent.stat.common.SdkProtection -> fZ:
+com.tencent.stat.common.SdkProtection -> gk:
     long valueNotSet -> a
     long getPreferencesValue(android.content.Context,java.lang.String) -> a
     boolean beginCheck(android.content.Context) -> a
     void endCheck(android.content.Context) -> b
-com.tencent.stat.common.StatBase64 -> ga:
+com.tencent.stat.common.StatBase64 -> gl:
     boolean $assertionsDisabled -> a
     byte[] decode(byte[],int) -> a
     byte[] encode(byte[],int) -> b
-com.tencent.stat.common.StatBase64$Coder -> gb:
+com.tencent.stat.common.StatBase64$Coder -> gm:
     byte[] output -> a
     int op -> b
-com.tencent.stat.common.StatBase64$Decoder -> gc:
+com.tencent.stat.common.StatBase64$Decoder -> gn:
     int[] DECODE -> c
     int[] DECODE_WEBSAFE -> d
     int state -> e
     int value -> f
     int[] alphabet -> g
     boolean process(byte[],int,int,boolean) -> a
-com.tencent.stat.common.StatBase64$Encoder -> gd:
+com.tencent.stat.common.StatBase64$Encoder -> go:
     byte[] ENCODE -> f
     byte[] ENCODE_WEBSAFE -> g
     byte[] tail -> h
@@ -3812,7 +3894,7 @@ com.tencent.stat.common.StatBase64$Encoder -> gd:
     byte[] alphabet -> k
     boolean $assertionsDisabled -> l
     boolean process(byte[],int,int,boolean) -> a
-com.tencent.stat.common.StatCommonHelper -> ge:
+com.tencent.stat.common.StatCommonHelper -> gp:
     java.lang.String userId -> a
     java.lang.String appkey -> b
     java.lang.String macId -> c
@@ -3850,10 +3932,10 @@ com.tencent.stat.common.StatCommonHelper -> ge:
     java.lang.String getDateFormat(long) -> a
     java.lang.String encode(java.lang.String) -> c
     java.lang.String decode(java.lang.String) -> d
-com.tencent.stat.common.StatCommonHelper$RootCmd -> gf:
+com.tencent.stat.common.StatCommonHelper$RootCmd -> gq:
     int systemRootState -> a
     boolean isRootSystem() -> a
-com.tencent.stat.common.StatLogger -> gg:
+com.tencent.stat.common.StatLogger -> gr:
     java.lang.String tag -> b
     boolean debugEnable -> a
     int logLevel -> c
@@ -3866,41 +3948,41 @@ com.tencent.stat.common.StatLogger -> gg:
     void e(java.lang.Exception) -> a
     void debug(java.lang.Object) -> f
     void d(java.lang.Object) -> g
-com.tencent.stat.common.StatPreferences -> gh:
+com.tencent.stat.common.StatPreferences -> gs:
     android.content.SharedPreferences defaultPerferences -> a
     android.content.SharedPreferences getInstance(android.content.Context) -> a
     long getLong(android.content.Context,java.lang.String,long) -> a
     void putLong(android.content.Context,java.lang.String,long) -> b
     java.lang.String getString(android.content.Context,java.lang.String,java.lang.String) -> a
     void putString(android.content.Context,java.lang.String,java.lang.String) -> b
-com.tencent.stat.common.User -> gi:
+com.tencent.stat.common.User -> gt:
     java.lang.String uid -> a
     java.lang.String mac -> b
     int type -> c
-com.tencent.stat.event.AdditionEvent -> gj:
+com.tencent.stat.event.AdditionEvent -> gu:
     java.util.Map map -> b
     com.tencent.stat.event.EventType getType() -> a
     boolean onEncode(org.json.JSONObject) -> a
-com.tencent.stat.event.CustomEvent -> gk:
+com.tencent.stat.event.CustomEvent -> gv:
     com.tencent.stat.event.CustomEvent$Key key -> b
     long duration -> c
     void setArgs(java.lang.String[]) -> a
     com.tencent.stat.event.EventType getType() -> a
     boolean onEncode(org.json.JSONObject) -> a
-com.tencent.stat.event.CustomEvent$Key -> gl:
+com.tencent.stat.event.CustomEvent$Key -> gw:
     java.lang.String id -> a
     java.lang.String[] args -> b
     java.util.Properties prop -> c
     java.lang.String toString() -> toString
     int hashCode() -> hashCode
     boolean equals(java.lang.Object) -> equals
-com.tencent.stat.event.ErrorEvent -> gm:
+com.tencent.stat.event.ErrorEvent -> gx:
     java.lang.String error -> b
     int errorAttr -> c
     int maxErrorLength -> d
     com.tencent.stat.event.EventType getType() -> a
     boolean onEncode(org.json.JSONObject) -> a
-com.tencent.stat.event.Event -> gn:
+com.tencent.stat.event.Event -> gy:
     java.lang.String appkey -> b
     long timestamp -> c
     int sessionId -> d
@@ -3912,7 +3994,7 @@ com.tencent.stat.event.Event -> gn:
     boolean onEncode(org.json.JSONObject) -> a
     boolean encode(org.json.JSONObject) -> b
     java.lang.String toJsonString() -> d
-com.tencent.stat.event.EventType -> go:
+com.tencent.stat.event.EventType -> gz:
     com.tencent.stat.event.EventType PAGE_VIEW -> e
     com.tencent.stat.event.EventType SESSION_ENV -> a
     com.tencent.stat.event.EventType ERROR -> b
@@ -3921,7 +4003,7 @@ com.tencent.stat.event.EventType -> go:
     com.tencent.stat.event.EventType MONITOR_STAT -> f
     int v -> g
     int GetIntValue() -> a
-com.tencent.stat.event.SessionEnv -> gp:
+com.tencent.stat.event.SessionEnv -> gA:
     com.tencent.stat.common.Env env -> b
     org.json.JSONObject cfgJson -> c
     com.tencent.stat.event.EventType getType() -> a
@@ -3930,7 +4012,7 @@ com.tencent.tauth.AuthActivity -> com.tencent.tauth.AuthActivity:
     void onCreate(android.os.Bundle) -> onCreate
     void execAuthCallback(android.os.Bundle,java.lang.String) -> a
     void execShareToQQCallback(android.os.Bundle) -> a
-com.tencent.tauth.IRequestListener -> gq:
+com.tencent.tauth.IRequestListener -> gB:
     void onComplete(org.json.JSONObject) -> a
     void onIOException(java.io.IOException) -> a
     void onMalformedURLException(java.net.MalformedURLException) -> a
@@ -3940,18 +4022,18 @@ com.tencent.tauth.IRequestListener -> gq:
     void onNetworkUnavailableException(com.tencent.utils.HttpUtils$NetworkUnavailableException) -> a
     void onHttpStatusException(com.tencent.utils.HttpUtils$HttpStatusException) -> a
     void onUnknowException(java.lang.Exception) -> a
-com.tencent.tauth.IUiListener -> gr:
+com.tencent.tauth.IUiListener -> gC:
     void onComplete(java.lang.Object) -> onComplete
     void onError(com.tencent.tauth.UiError) -> onError
     void onCancel() -> onCancel
-com.tencent.tauth.Tencent -> gs:
+com.tencent.tauth.Tencent -> gD:
     com.tencent.connect.auth.QQAuth mQQAuth -> a
     boolean checkManifestConfig(android.content.Context,java.lang.String) -> a
-com.tencent.tauth.UiError -> gt:
+com.tencent.tauth.UiError -> gE:
     int errorCode -> a
     java.lang.String errorMessage -> b
     java.lang.String errorDetail -> c
-com.tencent.utils.HttpUtils$1 -> gu:
+com.tencent.utils.HttpUtils$1 -> gF:
     com.tencent.connect.auth.QQToken a -> a
     android.content.Context b -> b
     java.lang.String c -> c
@@ -3959,21 +4041,21 @@ com.tencent.utils.HttpUtils$1 -> gu:
     java.lang.String e -> e
     com.tencent.tauth.IRequestListener f -> f
     void run() -> run
-com.tencent.utils.HttpUtils$CustomSSLSocketFactory -> gv:
+com.tencent.utils.HttpUtils$CustomSSLSocketFactory -> gG:
     javax.net.ssl.SSLContext a -> a
     java.net.Socket createSocket(java.net.Socket,java.lang.String,int,boolean) -> createSocket
     java.net.Socket createSocket() -> createSocket
-com.tencent.utils.HttpUtils$HttpStatusException -> gw:
-com.tencent.utils.HttpUtils$MyX509TrustManager -> gx:
+com.tencent.utils.HttpUtils$HttpStatusException -> gH:
+com.tencent.utils.HttpUtils$MyX509TrustManager -> gI:
     javax.net.ssl.X509TrustManager a -> a
     void checkClientTrusted(java.security.cert.X509Certificate[],java.lang.String) -> checkClientTrusted
     void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String) -> checkServerTrusted
     java.security.cert.X509Certificate[] getAcceptedIssuers() -> getAcceptedIssuers
-com.tencent.utils.HttpUtils$NetworkProxy -> gy:
+com.tencent.utils.HttpUtils$NetworkProxy -> gJ:
     java.lang.String host -> a
     int port -> b
-com.tencent.utils.HttpUtils$NetworkUnavailableException -> gz:
-com.tencent.utils.OpenConfig -> gA:
+com.tencent.utils.HttpUtils$NetworkUnavailableException -> gK:
+com.tencent.utils.OpenConfig -> gL:
     java.util.HashMap a -> a
     java.lang.String b -> b
     android.content.Context c -> c
@@ -3994,20 +4076,20 @@ com.tencent.utils.OpenConfig -> gA:
     android.content.Context a(com.tencent.utils.OpenConfig) -> a
     void a(com.tencent.utils.OpenConfig,org.json.JSONObject) -> a
     int a(com.tencent.utils.OpenConfig,int) -> a
-com.tencent.utils.OpenConfig$1 -> gB:
+com.tencent.utils.OpenConfig$1 -> gM:
     android.os.Bundle a -> a
     com.tencent.utils.OpenConfig b -> b
     void run() -> run
-com.tencent.utils.ServerSetting -> gC:
+com.tencent.utils.ServerSetting -> gN:
     java.lang.String a -> a
     com.tencent.utils.ServerSetting b -> b
     java.lang.ref.WeakReference c -> c
     com.tencent.utils.ServerSetting getInstance() -> a
     java.lang.String getEnvUrl(android.content.Context,java.lang.String) -> a
-com.tencent.utils.TemporaryStorage -> gD:
+com.tencent.utils.TemporaryStorage -> gO:
     java.util.HashMap a -> a
     java.lang.Object get(java.lang.String) -> a
-com.tencent.utils.Util -> gE:
+com.tencent.utils.Util -> gP:
     boolean b -> a
     java.lang.String encodeUrl(android.os.Bundle) -> a
     android.os.Bundle decodeUrl(java.lang.String) -> a
@@ -4024,17 +4106,20 @@ com.tencent.utils.Util -> gE:
     char a(int) -> a
     void reportBernoulli(android.content.Context,java.lang.String,long,java.lang.String) -> a
     java.lang.String toHexString(byte[]) -> a
-com.tencent.utils.Util$1 -> gF:
+com.tencent.utils.Util$1 -> gQ:
     android.content.Context a -> a
     android.os.Bundle b -> b
     void run() -> run
-com.tencent.utils.Util$Statistic -> gG:
+com.tencent.utils.Util$Statistic -> gR:
     java.lang.String response -> a
     long reqSize -> b
     long rspSize -> c
 com.yingshi.toutiao.FavoritesActivity -> com.yingshi.toutiao.FavoritesActivity:
     void onCreate(android.os.Bundle) -> onCreate
-com.yingshi.toutiao.FavoritesActivity$FavoritesFragment -> gH:
+com.yingshi.toutiao.FavoritesActivity$1 -> gS:
+    com.yingshi.toutiao.FavoritesActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.yingshi.toutiao.FavoritesActivity$FavoritesFragment -> gT:
     com.yingshi.toutiao.actions.GetFavoritesAction mGetFavoritesAction -> N
     com.yingshi.toutiao.view.ptr.PTRListAdapter mNewsListAdapter -> O
     boolean mIsLoaded -> P
@@ -4050,11 +4135,11 @@ com.yingshi.toutiao.FavoritesActivity$FavoritesFragment -> gH:
     void access$4(com.yingshi.toutiao.FavoritesActivity$FavoritesFragment) -> c
     com.yingshi.toutiao.actions.GetFavoritesAction access$5(com.yingshi.toutiao.FavoritesActivity$FavoritesFragment) -> d
     void access$6(com.yingshi.toutiao.FavoritesActivity$FavoritesFragment,com.yingshi.toutiao.actions.GetFavoritesAction) -> a
-com.yingshi.toutiao.FavoritesActivity$FavoritesFragment$1 -> gI:
+com.yingshi.toutiao.FavoritesActivity$FavoritesFragment$1 -> gU:
     com.yingshi.toutiao.FavoritesActivity$FavoritesFragment this$1 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.FavoritesActivity$FavoritesFragment$2 -> gJ:
+com.yingshi.toutiao.FavoritesActivity$FavoritesFragment$2 -> gV:
     com.yingshi.toutiao.FavoritesActivity$FavoritesFragment this$1 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
@@ -4071,7 +4156,7 @@ com.yingshi.toutiao.LoginActivity -> com.yingshi.toutiao.LoginActivity:
     void onGetAccountInfo(com.yingshi.toutiao.social.AccountInfo) -> b
     void showHomeActivity() -> a
     com.yingshi.toutiao.TouTiaoApp access$0(com.yingshi.toutiao.LoginActivity) -> a
-com.yingshi.toutiao.LoginActivity$1 -> gK:
+com.yingshi.toutiao.LoginActivity$1 -> gW:
     com.yingshi.toutiao.LoginActivity this$0 -> a
     com.yingshi.toutiao.social.AccountInfo val$accountInfo -> b
     java.lang.Void doInBackground$10299ca() -> b
@@ -4095,38 +4180,38 @@ com.yingshi.toutiao.MainActivity -> com.yingshi.toutiao.MainActivity:
     java.util.List access$5(com.yingshi.toutiao.MainActivity) -> e
     android.widget.HorizontalScrollView access$6(com.yingshi.toutiao.MainActivity) -> f
     void access$7(com.yingshi.toutiao.MainActivity,int) -> a
-com.yingshi.toutiao.MainActivity$1 -> gL:
+com.yingshi.toutiao.MainActivity$1 -> gX:
     com.yingshi.toutiao.MainActivity this$0 -> a
     android.view.View createTabContent(java.lang.String) -> createTabContent
-com.yingshi.toutiao.MainActivity$2 -> gM:
+com.yingshi.toutiao.MainActivity$2 -> gY:
     com.yingshi.toutiao.MainActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainActivity$3 -> gN:
+com.yingshi.toutiao.MainActivity$3 -> gZ:
     com.yingshi.toutiao.MainActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainActivity$4 -> gO:
+com.yingshi.toutiao.MainActivity$4 -> ha:
     com.yingshi.toutiao.MainActivity this$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainActivity$5 -> gP:
+com.yingshi.toutiao.MainActivity$5 -> hb:
     com.yingshi.toutiao.MainActivity this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainActivity$6 -> gQ:
+com.yingshi.toutiao.MainActivity$6 -> hc:
     com.yingshi.toutiao.MainActivity this$0 -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.MainActivity$7 -> gR:
+com.yingshi.toutiao.MainActivity$7 -> hd:
     com.yingshi.toutiao.MainActivity this$0 -> a
     java.util.List val$categories -> b
     void onTabChanged(java.lang.String) -> onTabChanged
-com.yingshi.toutiao.MainActivity$8 -> gS:
+com.yingshi.toutiao.MainActivity$8 -> he:
     com.yingshi.toutiao.MainActivity this$0 -> a
     void onPageSelected(int) -> a
-com.yingshi.toutiao.MainActivity$MainPagerAdapter -> gT:
+com.yingshi.toutiao.MainActivity$MainPagerAdapter -> hf:
     java.util.List mCategories -> a
     android.support.v4.app.Fragment getItem(int) -> a
     int getCount() -> b
-com.yingshi.toutiao.MainFragment -> gU:
+com.yingshi.toutiao.MainFragment -> hg:
     java.lang.String mCategory -> N
     com.yingshi.toutiao.view.PhotoPager mPhotoPager -> O
     com.yingshi.toutiao.view.ptr.PTRListAdapter mNewsListAdapter -> P
@@ -4173,59 +4258,59 @@ com.yingshi.toutiao.MainFragment -> gU:
     java.util.List access$14(com.yingshi.toutiao.MainFragment) -> i
     void access$15(com.yingshi.toutiao.MainFragment,com.yingshi.toutiao.actions.GetNewsAction) -> a
     com.yingshi.toutiao.actions.GetNewsAction access$16(com.yingshi.toutiao.MainFragment) -> j
-com.yingshi.toutiao.MainFragment$1 -> gV:
+com.yingshi.toutiao.MainFragment$1 -> hh:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainFragment$10 -> gW:
+com.yingshi.toutiao.MainFragment$10 -> hi:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onPageSelected(int) -> a
-com.yingshi.toutiao.MainFragment$2 -> gX:
+com.yingshi.toutiao.MainFragment$2 -> hj:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainFragment$3 -> gY:
+com.yingshi.toutiao.MainFragment$3 -> hk:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainFragment$4 -> gZ:
+com.yingshi.toutiao.MainFragment$4 -> hl:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainFragment$5 -> ha:
+com.yingshi.toutiao.MainFragment$5 -> hm:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.MainFragment$6 -> hb:
+com.yingshi.toutiao.MainFragment$6 -> hn:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.MainFragment$7 -> hc:
+com.yingshi.toutiao.MainFragment$7 -> ho:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainFragment$8 -> hd:
+com.yingshi.toutiao.MainFragment$8 -> hp:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.MainFragment$9 -> he:
+com.yingshi.toutiao.MainFragment$9 -> hq:
     com.yingshi.toutiao.MainFragment this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainFragment$NewsArrayAdapter -> hf:
+com.yingshi.toutiao.MainFragment$NewsArrayAdapter -> hr:
     android.view.LayoutInflater mInflater -> a
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-com.yingshi.toutiao.MainFragment$NewsArrayAdapter$1 -> hg:
+com.yingshi.toutiao.MainFragment$NewsArrayAdapter$1 -> hs:
     com.yingshi.toutiao.MainFragment$NewsArrayAdapter this$1 -> a
     com.yingshi.toutiao.model.News val$news -> b
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainFragment$NewsArrayAdapter$ViewHolder -> hh:
+com.yingshi.toutiao.MainFragment$NewsArrayAdapter$ViewHolder -> ht:
     com.yingshi.toutiao.view.CustomizeImageView newsThumbnail -> a
     android.widget.TextView newsTitle -> b
     android.view.View newsVideoSign -> c
     android.view.View newsSpecialSign -> d
-com.yingshi.toutiao.MainFragment$PhotoPagerAdapter -> hi:
+com.yingshi.toutiao.MainFragment$PhotoPagerAdapter -> hu:
     java.util.List news -> a
     com.yingshi.toutiao.MainFragment this$0 -> b
     android.support.v4.app.Fragment getItem(int) -> a
     int getCount() -> b
-com.yingshi.toutiao.MainPhotoFragment -> hj:
+com.yingshi.toutiao.MainPhotoFragment -> hv:
     com.yingshi.toutiao.model.News mNews -> M
     com.yingshi.toutiao.view.CustomizeImageView mImageView -> N
     void onCreate(android.os.Bundle) -> b
@@ -4233,10 +4318,10 @@ com.yingshi.toutiao.MainPhotoFragment -> hj:
     void onActivityCreated(android.os.Bundle) -> c
     void onSaveInstanceState(android.os.Bundle) -> e
     com.yingshi.toutiao.model.News access$0(com.yingshi.toutiao.MainPhotoFragment) -> a
-com.yingshi.toutiao.MainPhotoFragment$1 -> hk:
+com.yingshi.toutiao.MainPhotoFragment$1 -> hw:
     com.yingshi.toutiao.MainPhotoFragment this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainUserCenterFragment -> hl:
+com.yingshi.toutiao.MainUserCenterFragment -> hx:
     com.yingshi.toutiao.TouTiaoApp mApp -> M
     com.jeremyfeinstein.slidingmenu.lib.SlidingMenu mSlidingMenu -> N
     android.view.View mView -> O
@@ -4255,27 +4340,27 @@ com.yingshi.toutiao.MainUserCenterFragment -> hl:
     void access$0(com.yingshi.toutiao.MainUserCenterFragment) -> a
     com.yingshi.toutiao.TouTiaoApp access$1(com.yingshi.toutiao.MainUserCenterFragment) -> b
     com.jeremyfeinstein.slidingmenu.lib.SlidingMenu access$2(com.yingshi.toutiao.MainUserCenterFragment) -> c
-com.yingshi.toutiao.MainUserCenterFragment$1 -> hm:
+com.yingshi.toutiao.MainUserCenterFragment$1 -> hy:
     com.yingshi.toutiao.MainUserCenterFragment this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainUserCenterFragment$2 -> hn:
+com.yingshi.toutiao.MainUserCenterFragment$2 -> hz:
     com.yingshi.toutiao.MainUserCenterFragment this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainUserCenterFragment$3 -> ho:
+com.yingshi.toutiao.MainUserCenterFragment$3 -> hA:
     com.yingshi.toutiao.MainUserCenterFragment this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainUserCenterFragment$4 -> hp:
+com.yingshi.toutiao.MainUserCenterFragment$4 -> hB:
     com.yingshi.toutiao.MainUserCenterFragment this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.MainUserCenterFragment$5 -> hq:
+com.yingshi.toutiao.MainUserCenterFragment$5 -> hC:
     com.yingshi.toutiao.MainUserCenterFragment this$0 -> a
     void onClick(android.view.View) -> onClick
     com.yingshi.toutiao.MainUserCenterFragment access$0(com.yingshi.toutiao.MainUserCenterFragment$5) -> a
-com.yingshi.toutiao.MainUserCenterFragment$5$1 -> hr:
+com.yingshi.toutiao.MainUserCenterFragment$5$1 -> hD:
     com.yingshi.toutiao.MainUserCenterFragment$5 this$1 -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.MainUserCenterFragment$PhotoUpdateBroadcastReceiver -> hs:
+com.yingshi.toutiao.MainUserCenterFragment$PhotoUpdateBroadcastReceiver -> hE:
     com.yingshi.toutiao.MainUserCenterFragment this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.yingshi.toutiao.NewsDetailActivity -> com.yingshi.toutiao.NewsDetailActivity:
@@ -4283,9 +4368,12 @@ com.yingshi.toutiao.NewsDetailActivity -> com.yingshi.toutiao.NewsDetailActivity
     android.widget.LinearLayout mCommentsList -> b
     android.widget.ImageButton mShowCommentsBtn -> c
     android.widget.EditText mCommentTextView -> d
-    com.yingshi.toutiao.model.News mNews -> e
-    com.yingshi.toutiao.actions.GetCommentsAction mGetCommentsAction -> f
+    com.yingshi.toutiao.view.CustomizeImageView mImageView -> e
+    com.yingshi.toutiao.model.News mNews -> f
+    com.yingshi.toutiao.actions.GetCommentsAction mGetCommentsAction -> g
+    com.tencent.mm.sdk.openapi.IWXAPI mWxapi -> h
     void onCreate(android.os.Bundle) -> onCreate
+    void showLonginConfirmDialog() -> a
     void playVideo(android.view.View) -> playVideo
     void share(android.view.View) -> share
     void addToFavorites(android.view.View) -> addToFavorites
@@ -4296,27 +4384,27 @@ com.yingshi.toutiao.NewsDetailActivity -> com.yingshi.toutiao.NewsDetailActivity
     void shareQQ(android.view.View) -> shareQQ
     void cancelShare(android.view.View) -> cancelShare
     void access$0(com.yingshi.toutiao.NewsDetailActivity) -> a
-    com.yingshi.toutiao.model.News access$1(com.yingshi.toutiao.NewsDetailActivity) -> b
-    android.widget.LinearLayout access$2(com.yingshi.toutiao.NewsDetailActivity) -> c
-    android.widget.ImageButton access$3(com.yingshi.toutiao.NewsDetailActivity) -> d
-com.yingshi.toutiao.NewsDetailActivity$1 -> ht:
+    void access$1(com.yingshi.toutiao.NewsDetailActivity) -> b
+    void access$2(com.yingshi.toutiao.NewsDetailActivity) -> c
+    com.yingshi.toutiao.model.News access$3(com.yingshi.toutiao.NewsDetailActivity) -> d
+    android.widget.LinearLayout access$4(com.yingshi.toutiao.NewsDetailActivity) -> e
+    android.widget.ImageButton access$5(com.yingshi.toutiao.NewsDetailActivity) -> f
+com.yingshi.toutiao.NewsDetailActivity$1 -> hF:
     com.yingshi.toutiao.NewsDetailActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.NewsDetailActivity$2 -> hu:
+com.yingshi.toutiao.NewsDetailActivity$2 -> hG:
     com.yingshi.toutiao.NewsDetailActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-    com.yingshi.toutiao.NewsDetailActivity access$0(com.yingshi.toutiao.NewsDetailActivity$2) -> a
-com.yingshi.toutiao.NewsDetailActivity$2$1 -> hv:
-    com.yingshi.toutiao.NewsDetailActivity$2 this$1 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.yingshi.toutiao.NewsDetailActivity$3 -> hw:
+com.yingshi.toutiao.NewsDetailActivity$3 -> hH:
     com.yingshi.toutiao.NewsDetailActivity this$0 -> a
     boolean onEditorAction(android.widget.TextView,int,android.view.KeyEvent) -> onEditorAction
-    com.yingshi.toutiao.NewsDetailActivity access$0(com.yingshi.toutiao.NewsDetailActivity$3) -> a
-com.yingshi.toutiao.NewsDetailActivity$3$1 -> hx:
-    com.yingshi.toutiao.NewsDetailActivity$3 this$1 -> a
+com.yingshi.toutiao.NewsDetailActivity$4 -> hI:
+    com.yingshi.toutiao.NewsDetailActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.yingshi.toutiao.NewsDetailActivity$4 -> hy:
+com.yingshi.toutiao.NewsDetailActivity$5 -> hJ:
+    com.yingshi.toutiao.NewsDetailActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.yingshi.toutiao.NewsDetailActivity$6 -> hK:
     com.yingshi.toutiao.NewsDetailActivity this$0 -> c
     void onSuccess(int,org.apache.http.Header[],org.json.JSONObject) -> a
     void onSuccess(int,org.apache.http.Header[],org.json.JSONArray) -> a
@@ -4324,48 +4412,48 @@ com.yingshi.toutiao.NewsDetailActivity$4 -> hy:
     void onFailure(int,org.apache.http.Header[],java.lang.Throwable,org.json.JSONObject) -> a
     void onFailure(int,org.apache.http.Header[],java.lang.Throwable,org.json.JSONArray) -> a
     void onFailure(int,org.apache.http.Header[],java.lang.String,java.lang.Throwable) -> a
-com.yingshi.toutiao.NewsDetailActivity$5 -> hz:
+com.yingshi.toutiao.NewsDetailActivity$7 -> hL:
     com.yingshi.toutiao.NewsDetailActivity this$0 -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.NewsDetailActivity$6 -> hA:
+com.yingshi.toutiao.NewsDetailActivity$8 -> hM:
     com.yingshi.toutiao.NewsDetailActivity this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.NewsDownloader -> hB:
+com.yingshi.toutiao.NewsDownloader -> hN:
     java.util.concurrent.ThreadPoolExecutor mExecutor -> a
     com.yingshi.toutiao.TouTiaoApp mApp -> b
     int mTaskCount -> c
     com.yingshi.toutiao.NewsDownloader mInstance -> d
     void access$1(com.yingshi.toutiao.NewsDownloader,java.util.List) -> a
     void access$2(com.yingshi.toutiao.NewsDownloader) -> a
-com.yingshi.toutiao.NewsDownloader$1 -> hC:
+com.yingshi.toutiao.NewsDownloader$1 -> hO:
     java.util.concurrent.atomic.AtomicInteger mCount -> a
     java.lang.Thread newThread(java.lang.Runnable) -> newThread
-com.yingshi.toutiao.NewsDownloader$2 -> hD:
+com.yingshi.toutiao.NewsDownloader$2 -> hP:
     com.yingshi.toutiao.NewsDownloader this$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.NewsDownloader$3 -> hE:
+com.yingshi.toutiao.NewsDownloader$3 -> hQ:
     com.yingshi.toutiao.NewsDownloader this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.NewsDownloader$4 -> hF:
+com.yingshi.toutiao.NewsDownloader$4 -> hR:
     com.yingshi.toutiao.NewsDownloader this$0 -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.NewsDownloader$5 -> hG:
+com.yingshi.toutiao.NewsDownloader$5 -> hS:
     com.yingshi.toutiao.NewsDownloader this$0 -> a
     com.yingshi.toutiao.model.Category val$category -> b
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.NewsDownloader$6 -> hH:
+com.yingshi.toutiao.NewsDownloader$6 -> hT:
     com.yingshi.toutiao.NewsDownloader this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.NewsDownloader$7 -> hI:
+com.yingshi.toutiao.NewsDownloader$7 -> hU:
     com.yingshi.toutiao.NewsDownloader this$0 -> a
     com.yingshi.toutiao.model.Category val$category -> b
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.NewsDownloader$8 -> hJ:
+com.yingshi.toutiao.NewsDownloader$8 -> hV:
     com.yingshi.toutiao.NewsDownloader this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
@@ -4374,10 +4462,10 @@ com.yingshi.toutiao.SearchActivity -> com.yingshi.toutiao.SearchActivity:
     com.yingshi.toutiao.SearchActivity$SearchFragment mSearchFragment -> f
     void onCreate(android.os.Bundle) -> onCreate
     void doSearch(android.view.View) -> doSearch
-com.yingshi.toutiao.SearchActivity$1 -> hK:
+com.yingshi.toutiao.SearchActivity$1 -> hW:
     com.yingshi.toutiao.SearchActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.SearchActivity$SearchFragment -> hL:
+com.yingshi.toutiao.SearchActivity$SearchFragment -> hX:
     java.lang.String mKeyword -> N
     com.yingshi.toutiao.actions.SearchAction mSearchAction -> O
     com.yingshi.toutiao.storage.NewsDAO mNewsDAO -> P
@@ -4394,19 +4482,19 @@ com.yingshi.toutiao.SearchActivity$SearchFragment -> hL:
     void access$2(com.yingshi.toutiao.SearchActivity$SearchFragment,com.yingshi.toutiao.view.ptr.PTRListAdapter) -> a
     void access$3(com.yingshi.toutiao.SearchActivity$SearchFragment) -> c
     void access$4(com.yingshi.toutiao.SearchActivity$SearchFragment) -> d
-com.yingshi.toutiao.SearchActivity$SearchFragment$1 -> hM:
+com.yingshi.toutiao.SearchActivity$SearchFragment$1 -> hY:
     com.yingshi.toutiao.SearchActivity$SearchFragment this$1 -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.SearchActivity$SearchFragment$2 -> hN:
+com.yingshi.toutiao.SearchActivity$SearchFragment$2 -> hZ:
     com.yingshi.toutiao.SearchActivity$SearchFragment this$1 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
 com.yingshi.toutiao.SpecialNewsActivity -> com.yingshi.toutiao.SpecialNewsActivity:
     void onCreate(android.os.Bundle) -> onCreate
-com.yingshi.toutiao.SpecialNewsActivity$1 -> hO:
+com.yingshi.toutiao.SpecialNewsActivity$1 -> ia:
     com.yingshi.toutiao.SpecialNewsActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.SpecialNewsFragment -> hP:
+com.yingshi.toutiao.SpecialNewsFragment -> ib:
     java.lang.String mSpecialName -> N
     com.yingshi.toutiao.view.SpecialHeader mSpecialHeader -> O
     com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter mSpecialNewsArrayAdapter -> P
@@ -4428,28 +4516,28 @@ com.yingshi.toutiao.SpecialNewsFragment -> hP:
     void access$6(com.yingshi.toutiao.SpecialNewsFragment,com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter) -> a
     com.yingshi.toutiao.actions.GetSpecialNewsAction access$7(com.yingshi.toutiao.SpecialNewsFragment) -> f
     void access$8(com.yingshi.toutiao.SpecialNewsFragment,com.yingshi.toutiao.actions.GetSpecialNewsAction) -> a
-com.yingshi.toutiao.SpecialNewsFragment$1 -> hQ:
+com.yingshi.toutiao.SpecialNewsFragment$1 -> ic:
     com.yingshi.toutiao.SpecialNewsFragment this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.SpecialNewsFragment$2 -> hR:
+com.yingshi.toutiao.SpecialNewsFragment$2 -> id:
     com.yingshi.toutiao.SpecialNewsFragment this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.SpecialNewsFragment$3 -> hS:
+com.yingshi.toutiao.SpecialNewsFragment$3 -> ie:
     com.yingshi.toutiao.SpecialNewsFragment this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter -> hT:
+com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter -> if:
     android.view.LayoutInflater mInflater -> a
     com.yingshi.toutiao.SpecialNewsFragment this$0 -> b
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     com.yingshi.toutiao.SpecialNewsFragment access$0(com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter) -> a
-com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter$1 -> hU:
+com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter$1 -> ig:
     com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter this$1 -> a
     com.yingshi.toutiao.model.News val$news -> b
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter$ViewHolder -> hV:
+com.yingshi.toutiao.SpecialNewsFragment$SpecialNewsArrayAdapter$ViewHolder -> ih:
     com.yingshi.toutiao.view.CustomizeImageView newsThumbnail -> a
     android.widget.TextView newsTitle -> b
     android.widget.TextView newsSummary -> c
@@ -4470,19 +4558,23 @@ com.yingshi.toutiao.TouTiaoApp -> com.yingshi.toutiao.TouTiaoApp:
     void setUserInfo(com.yingshi.toutiao.social.AccountInfo) -> a
     com.yingshi.toutiao.social.AccountInfo getUserInfo() -> e
     java.lang.String getCachePath() -> f
+com.yingshi.toutiao.WXEntryActivity -> com.yingshi.toutiao.WXEntryActivity:
+    com.tencent.mm.sdk.openapi.IWXAPI api -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onResp(com.tencent.mm.sdk.modelbase.BaseResp) -> a
 com.yingshi.toutiao.WelcomeActivity -> com.yingshi.toutiao.WelcomeActivity:
     com.yingshi.toutiao.TouTiaoApp mApp -> a
     void onCreate(android.os.Bundle) -> onCreate
     com.yingshi.toutiao.TouTiaoApp access$0(com.yingshi.toutiao.WelcomeActivity) -> a
-com.yingshi.toutiao.WelcomeActivity$1 -> hW:
+com.yingshi.toutiao.WelcomeActivity$1 -> ii:
     com.yingshi.toutiao.WelcomeActivity this$0 -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.WelcomeActivity$2 -> hX:
+com.yingshi.toutiao.WelcomeActivity$2 -> ij:
     com.yingshi.toutiao.WelcomeActivity this$0 -> a
     java.lang.Void doInBackground$10299ca() -> b
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.actions.AbstractAction -> hY:
+com.yingshi.toutiao.actions.AbstractAction -> ik:
     java.lang.String mServiceId -> a
     android.content.Context mAppContext -> b
     com.yingshi.toutiao.actions.AbstractAction$UICallBack mUICallback -> d
@@ -4500,27 +4592,27 @@ com.yingshi.toutiao.actions.AbstractAction -> hY:
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     org.json.JSONObject access$2(com.yingshi.toutiao.actions.AbstractAction) -> a
     com.yingshi.toutiao.actions.AbstractAction$BackgroundCallBack access$3(com.yingshi.toutiao.actions.AbstractAction) -> b
-com.yingshi.toutiao.actions.AbstractAction$ActionError -> hZ:
-com.yingshi.toutiao.actions.AbstractAction$ActionResult -> ia:
+com.yingshi.toutiao.actions.AbstractAction$ActionError -> il:
+com.yingshi.toutiao.actions.AbstractAction$ActionResult -> im:
     com.yingshi.toutiao.actions.AbstractAction$ActionError mError -> a
     java.lang.Object mObject -> b
     boolean hasError() -> a
-com.yingshi.toutiao.actions.AbstractAction$BackgroundCallBack -> ib:
+com.yingshi.toutiao.actions.AbstractAction$BackgroundCallBack -> in:
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.actions.AbstractAction$ErrorCode -> ic:
+com.yingshi.toutiao.actions.AbstractAction$ErrorCode -> io:
     com.yingshi.toutiao.actions.AbstractAction$ErrorCode INVALID_REQUEST -> a
     com.yingshi.toutiao.actions.AbstractAction$ErrorCode INVALID_RESPONSE -> b
     com.yingshi.toutiao.actions.AbstractAction$ErrorCode SERVER_ERROR -> c
     com.yingshi.toutiao.actions.AbstractAction$ErrorCode NETWORK_TIMEOUT -> e
     com.yingshi.toutiao.actions.AbstractAction$ErrorCode NETWORK_DISCONNECTED -> f
     com.yingshi.toutiao.actions.AbstractAction$ErrorCode NETWORK_ERROR -> d
-com.yingshi.toutiao.actions.AbstractAction$IBackgroundProcessor -> id:
+com.yingshi.toutiao.actions.AbstractAction$IBackgroundProcessor -> ip:
     com.yingshi.toutiao.actions.AbstractAction$ActionResult doInBackground() -> a
-com.yingshi.toutiao.actions.AbstractAction$NetworkBackgroundProcessor -> ie:
+com.yingshi.toutiao.actions.AbstractAction$NetworkBackgroundProcessor -> iq:
     com.yingshi.toutiao.actions.AbstractAction$ActionResult mResult -> a
     com.yingshi.toutiao.actions.AbstractAction this$0 -> b
     com.yingshi.toutiao.actions.AbstractAction$ActionResult doInBackground() -> a
-com.yingshi.toutiao.actions.AbstractAction$NetworkBackgroundProcessor$1 -> if:
+com.yingshi.toutiao.actions.AbstractAction$NetworkBackgroundProcessor$1 -> ir:
     com.yingshi.toutiao.actions.AbstractAction$NetworkBackgroundProcessor this$1 -> c
     void onSuccess(int,org.apache.http.Header[],org.json.JSONObject) -> a
     void onSuccess(int,org.apache.http.Header[],org.json.JSONArray) -> a
@@ -4528,50 +4620,50 @@ com.yingshi.toutiao.actions.AbstractAction$NetworkBackgroundProcessor$1 -> if:
     void onFailure(int,org.apache.http.Header[],java.lang.Throwable,org.json.JSONObject) -> a
     void onFailure(int,org.apache.http.Header[],java.lang.Throwable,org.json.JSONArray) -> a
     void onFailure(int,org.apache.http.Header[],java.lang.String,java.lang.Throwable) -> a
-com.yingshi.toutiao.actions.AbstractAction$UICallBack -> ig:
+com.yingshi.toutiao.actions.AbstractAction$UICallBack -> is:
     void onSuccess(java.lang.Object) -> a
     void onFailure$30c4fd98() -> a
-com.yingshi.toutiao.actions.GetCategoryAction -> ih:
+com.yingshi.toutiao.actions.GetCategoryAction -> it:
     void addRequestParameters(org.json.JSONObject) -> a
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
-com.yingshi.toutiao.actions.GetCommentsAction -> ii:
+com.yingshi.toutiao.actions.GetCommentsAction -> iu:
     java.lang.String mNewsId -> f
     java.lang.String mCategory -> g
     void addRequestParameters(org.json.JSONObject) -> a
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
-com.yingshi.toutiao.actions.GetFavoritesAction -> ij:
+com.yingshi.toutiao.actions.GetFavoritesAction -> iv:
     com.yingshi.toutiao.storage.FavoritesDAO mFavoritesDAO -> f
     void addRequestParameters(org.json.JSONObject) -> a
     com.yingshi.toutiao.actions.GetFavoritesAction cloneCurrentPageAction() -> c
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
     com.yingshi.toutiao.storage.FavoritesDAO access$2(com.yingshi.toutiao.actions.GetFavoritesAction) -> a
-com.yingshi.toutiao.actions.GetFavoritesAction$DBBackgroundProcessor -> ik:
+com.yingshi.toutiao.actions.GetFavoritesAction$DBBackgroundProcessor -> iw:
     com.yingshi.toutiao.actions.GetFavoritesAction this$0 -> a
     com.yingshi.toutiao.actions.AbstractAction$ActionResult doInBackground() -> a
-com.yingshi.toutiao.actions.GetFocusAction -> il:
+com.yingshi.toutiao.actions.GetFocusAction -> ix:
     java.lang.String mCategory -> d
     void addRequestParameters(org.json.JSONObject) -> a
     java.lang.Object createRespObject(org.json.JSONObject) -> b
-com.yingshi.toutiao.actions.GetNewsAction -> im:
+com.yingshi.toutiao.actions.GetNewsAction -> iy:
     java.lang.String mCategory -> f
     void addRequestParameters(org.json.JSONObject) -> a
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
-com.yingshi.toutiao.actions.GetSpecialAction -> in:
+com.yingshi.toutiao.actions.GetSpecialAction -> iz:
     java.lang.String mSpecialName -> f
     void addRequestParameters(org.json.JSONObject) -> a
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
-com.yingshi.toutiao.actions.GetSpecialNewsAction -> io:
+com.yingshi.toutiao.actions.GetSpecialNewsAction -> iA:
     java.lang.String mSpecialName -> f
     void addRequestParameters(org.json.JSONObject) -> a
     com.yingshi.toutiao.actions.GetSpecialNewsAction cloneCurrentPageAction() -> c
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
-com.yingshi.toutiao.actions.PaginationAction -> ip:
+com.yingshi.toutiao.actions.PaginationAction -> iB:
     int mPageIndex -> d
     int mPageSize -> e
     int mTotalCount -> f
@@ -4587,14 +4679,14 @@ com.yingshi.toutiao.actions.PaginationAction -> ip:
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
     java.lang.Object createRespObject(org.json.JSONObject) -> b
-com.yingshi.toutiao.actions.ParallelTask -> iq:
+com.yingshi.toutiao.actions.ParallelTask -> iC:
     void execute() -> a
-com.yingshi.toutiao.actions.SearchAction -> ir:
+com.yingshi.toutiao.actions.SearchAction -> iD:
     java.lang.String mKeyword -> f
     void addRequestParameters(org.json.JSONObject) -> a
     java.lang.Object convertJsonToResult(org.json.JSONObject) -> c
     com.yingshi.toutiao.actions.PaginationAction cloneCurrentPageAction() -> b
-com.yingshi.toutiao.model.BaseModel -> is:
+com.yingshi.toutiao.model.BaseModel -> iE:
     android.os.Parcelable$Creator CREATOR -> CREATOR
     long _id -> a
     java.lang.String id -> b
@@ -4604,10 +4696,10 @@ com.yingshi.toutiao.model.BaseModel -> is:
     void set_id(long) -> a
     java.lang.String getId() -> b
     void setId(java.lang.String) -> a
-com.yingshi.toutiao.model.BaseModel$1 -> it:
+com.yingshi.toutiao.model.BaseModel$1 -> iF:
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
     java.lang.Object[] newArray(int) -> newArray
-com.yingshi.toutiao.model.Category -> iu:
+com.yingshi.toutiao.model.Category -> iG:
     java.lang.String id -> a
     java.lang.String name -> b
     java.lang.String getId() -> b
@@ -4615,7 +4707,7 @@ com.yingshi.toutiao.model.Category -> iu:
     java.lang.String getName() -> c
     void setName(java.lang.String) -> b
     com.yingshi.toutiao.model.Category fromJSON(org.json.JSONObject) -> a
-com.yingshi.toutiao.model.Comment -> iv:
+com.yingshi.toutiao.model.Comment -> iH:
     java.lang.String id -> a
     java.lang.String name -> b
     java.lang.String content -> c
@@ -4626,7 +4718,7 @@ com.yingshi.toutiao.model.Comment -> iv:
     java.lang.String getName() -> c
     java.lang.String getContent() -> d
     java.lang.String getPhotoUrl() -> e
-com.yingshi.toutiao.model.News -> iw:
+com.yingshi.toutiao.model.News -> iI:
     android.os.Parcelable$Creator CREATOR -> CREATOR
     java.lang.String name -> a
     java.lang.String summary -> b
@@ -4691,19 +4783,19 @@ com.yingshi.toutiao.model.News -> iw:
     void setFocus(boolean) -> c
     boolean isUserCache() -> v
     void setUserCache(boolean) -> d
-com.yingshi.toutiao.model.News$1 -> ix:
+com.yingshi.toutiao.model.News$1 -> iJ:
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
     java.lang.Object[] newArray(int) -> newArray
-com.yingshi.toutiao.model.Pagination -> iy:
+com.yingshi.toutiao.model.Pagination -> iK:
     int totalCounts -> a
     java.util.List items -> b
-com.yingshi.toutiao.model.Special -> iz:
+com.yingshi.toutiao.model.Special -> iL:
     java.lang.String summary -> a
     java.util.List photoUrls -> b
     java.lang.String getSummary() -> c
     java.util.List getPhotoUrls() -> d
     com.yingshi.toutiao.model.Special fromJSON(org.json.JSONObject) -> a
-com.yingshi.toutiao.social.AccountInfo -> iA:
+com.yingshi.toutiao.social.AccountInfo -> iM:
     java.lang.String provider -> a
     java.lang.String userName -> b
     java.lang.String photoUrl -> c
@@ -4725,65 +4817,65 @@ com.yingshi.toutiao.social.AccountInfo -> iA:
     void setToken(java.lang.String) -> g
     long getExpiresIn() -> i
     void setExpiresIn(long) -> b
-com.yingshi.toutiao.social.ISocialProvider -> iB:
+com.yingshi.toutiao.social.ISocialProvider -> iN:
     void login(com.yingshi.toutiao.social.SocialResponseListener) -> a
     void getAccountInfo(com.yingshi.toutiao.social.SocialResponseListener) -> b
-com.yingshi.toutiao.social.SinaSocialProvider -> iC:
+com.yingshi.toutiao.social.SinaSocialProvider -> iO:
     android.app.Activity mActivity -> b
     com.sina.weibo.sdk.auth.Oauth2AccessToken mAccessToken -> a
     void login(com.yingshi.toutiao.social.SocialResponseListener) -> a
     void getAccountInfo(com.yingshi.toutiao.social.SocialResponseListener) -> b
-com.yingshi.toutiao.social.SinaSocialProvider$1 -> iD:
+com.yingshi.toutiao.social.SinaSocialProvider$1 -> iP:
     com.yingshi.toutiao.social.SinaSocialProvider this$0 -> a
     com.yingshi.toutiao.social.SocialResponseListener val$callback -> b
     void onComplete(android.os.Bundle) -> a
     void onCancel() -> a
     void onWeiboException(com.sina.weibo.sdk.exception.WeiboException) -> a
-com.yingshi.toutiao.social.SinaSocialProvider$2 -> iE:
+com.yingshi.toutiao.social.SinaSocialProvider$2 -> iQ:
     com.yingshi.toutiao.social.SocialResponseListener val$callback -> a
     void onComplete(java.lang.String) -> a
     void onWeiboException(com.sina.weibo.sdk.exception.WeiboException) -> a
-com.yingshi.toutiao.social.SocialResponseListener -> iF:
+com.yingshi.toutiao.social.SocialResponseListener -> iR:
     void onLoginSuccess(com.yingshi.toutiao.social.AccountInfo) -> a
     void onFailure(java.lang.String) -> a
     void onGetAccountInfo(com.yingshi.toutiao.social.AccountInfo) -> b
-com.yingshi.toutiao.social.TecentSocialProvider -> iG:
+com.yingshi.toutiao.social.TecentSocialProvider -> iS:
     com.tencent.connect.auth.QQAuth mQQAuth -> a
     com.tencent.tauth.Tencent mTencent -> b
     com.tencent.connect.UserInfo mInfo -> c
     android.app.Activity mActivity -> d
     void login(com.yingshi.toutiao.social.SocialResponseListener) -> a
     void getAccountInfo(com.yingshi.toutiao.social.SocialResponseListener) -> b
-com.yingshi.toutiao.social.TecentSocialProvider$1 -> iH:
+com.yingshi.toutiao.social.TecentSocialProvider$1 -> iT:
     com.yingshi.toutiao.social.SocialResponseListener val$callback -> a
     void onCancel() -> onCancel
     void onComplete(java.lang.Object) -> onComplete
     void onError(com.tencent.tauth.UiError) -> onError
-com.yingshi.toutiao.social.TecentSocialProvider$2 -> iI:
+com.yingshi.toutiao.social.TecentSocialProvider$2 -> iU:
     com.yingshi.toutiao.social.SocialResponseListener val$callback -> a
     void onError(com.tencent.tauth.UiError) -> onError
     void onComplete(java.lang.Object) -> onComplete
     void onCancel() -> onCancel
-com.yingshi.toutiao.storage.BaseDAO -> iJ:
+com.yingshi.toutiao.storage.BaseDAO -> iV:
     com.yingshi.toutiao.storage.adapters.BaseAdapter mDbAdapter -> a
     void save(java.util.List) -> a
     void delete() -> a
     java.util.List getAll(java.lang.String) -> a
-com.yingshi.toutiao.storage.CategoryDAO -> iK:
-com.yingshi.toutiao.storage.DatabaseHelper -> iL:
+com.yingshi.toutiao.storage.CategoryDAO -> iW:
+com.yingshi.toutiao.storage.DatabaseHelper -> iX:
     java.lang.String CREATE_DATABASE_NEWS -> a
     java.lang.String CREATE_DATABASE_HEADNEWS -> b
     java.lang.String CREATE_DATABASE_FAVORITES -> c
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
-com.yingshi.toutiao.storage.FavoritesDAO -> iM:
-com.yingshi.toutiao.storage.HeadNewsDAO -> iN:
+com.yingshi.toutiao.storage.FavoritesDAO -> iY:
+com.yingshi.toutiao.storage.HeadNewsDAO -> iZ:
     int deleteHeadNews() -> b
     int deleteHeadFocus() -> c
-com.yingshi.toutiao.storage.NewsDAO -> iO:
+com.yingshi.toutiao.storage.NewsDAO -> ja:
     int deleteFocusByCategory(java.lang.String) -> b
     int deleteNewsByCategory(java.lang.String) -> c
-com.yingshi.toutiao.storage.adapters.BaseAdapter -> iP:
+com.yingshi.toutiao.storage.adapters.BaseAdapter -> jb:
     android.database.sqlite.SQLiteDatabase mDb -> a
     java.lang.String mTableName -> b
     java.lang.String[] mColumnNames -> c
@@ -4796,21 +4888,21 @@ com.yingshi.toutiao.storage.adapters.BaseAdapter -> iP:
     java.util.List fetchPage(int,int,java.lang.String,java.lang.String) -> a
     int count(java.lang.String) -> c
     java.util.List toObjectList(android.database.Cursor) -> b
-com.yingshi.toutiao.storage.adapters.CategoryDBAdapter -> iQ:
+com.yingshi.toutiao.storage.adapters.CategoryDBAdapter -> jc:
     java.lang.String[] CATEGORY_COLUMNS -> d
     com.yingshi.toutiao.model.BaseModel toObject(android.database.Cursor) -> a
     android.content.ContentValues toContentValues(com.yingshi.toutiao.model.BaseModel) -> a
-com.yingshi.toutiao.storage.adapters.FavoritesDBAdapter -> iR:
+com.yingshi.toutiao.storage.adapters.FavoritesDBAdapter -> jd:
     java.util.List findFavorites(int,int) -> a
-com.yingshi.toutiao.storage.adapters.HeadNewsDBAdapter -> iS:
-com.yingshi.toutiao.storage.adapters.NewsDBAdapter -> iT:
+com.yingshi.toutiao.storage.adapters.HeadNewsDBAdapter -> je:
+com.yingshi.toutiao.storage.adapters.NewsDBAdapter -> jf:
     java.lang.String[] NEWS_COLUMNS -> d
     com.yingshi.toutiao.model.News fetchOneByNewsId(java.lang.String) -> d
     com.yingshi.toutiao.model.News toObject(android.database.Cursor) -> b
     com.yingshi.toutiao.model.BaseModel toObject(android.database.Cursor) -> a
     long insert(com.yingshi.toutiao.model.BaseModel) -> b
     android.content.ContentValues toContentValues(com.yingshi.toutiao.model.BaseModel) -> a
-com.yingshi.toutiao.util.Utils -> iU:
+com.yingshi.toutiao.util.Utils -> jg:
     java.text.SimpleDateFormat sdf -> a
     java.lang.String formatDate(java.lang.String,long) -> a
     java.util.Date parseDate(java.lang.String,java.lang.String) -> a
@@ -4826,16 +4918,17 @@ com.yingshi.toutiao.view.CommentListRow -> com.yingshi.toutiao.view.CommentListR
 com.yingshi.toutiao.view.CustomizeImageView -> com.yingshi.toutiao.view.CustomizeImageView:
     java.lang.String IMAGE_CACHE_PATH -> a
     void loadImage(java.lang.String) -> a
+    java.lang.String getCachedImagePath(java.lang.String) -> b
     void loadImage(byte[]) -> a
     java.lang.String access$0() -> a
-com.yingshi.toutiao.view.CustomizeImageView$1 -> iV:
+com.yingshi.toutiao.view.CustomizeImageView$1 -> jh:
     com.yingshi.toutiao.view.CustomizeImageView this$0 -> a
     java.lang.String val$url -> b
     android.support.v4.app.FragmentManager$OnBackStackChangedListener val$mLoadImageCallback$2ddfbc12 -> c
     android.graphics.drawable.Drawable doInBackground$3775178d() -> b
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.yingshi.toutiao.view.CustomizeImageView$2 -> iW:
+com.yingshi.toutiao.view.CustomizeImageView$2 -> ji:
     com.yingshi.toutiao.view.CustomizeImageView this$0 -> a
     byte[] val$data -> b
     void onPostExecute(java.lang.Object) -> onPostExecute
@@ -4859,14 +4952,14 @@ com.yingshi.toutiao.view.LoadMoreView -> com.yingshi.toutiao.view.LoadMoreView:
     android.support.v4.app.FragmentManager$OnBackStackChangedListener access$1$48ae838c(com.yingshi.toutiao.view.LoadMoreView) -> b
     void access$2(com.yingshi.toutiao.view.LoadMoreView) -> c
     void access$3(com.yingshi.toutiao.view.LoadMoreView) -> d
-com.yingshi.toutiao.view.LoadMoreView$1 -> iX:
+com.yingshi.toutiao.view.LoadMoreView$1 -> jj:
     com.yingshi.toutiao.view.LoadMoreView this$0 -> a
     void onClick(android.view.View) -> onClick
-com.yingshi.toutiao.view.LoadMoreView$2 -> iY:
+com.yingshi.toutiao.view.LoadMoreView$2 -> jk:
     com.yingshi.toutiao.view.LoadMoreView this$0 -> a
     void onFailure$30c4fd98() -> a
     void onSuccess(java.lang.Object) -> a
-com.yingshi.toutiao.view.LoadMoreView$LoadStatus -> iZ:
+com.yingshi.toutiao.view.LoadMoreView$LoadStatus -> jl:
     com.yingshi.toutiao.view.LoadMoreView$LoadStatus IDLE -> a
     com.yingshi.toutiao.view.LoadMoreView$LoadStatus LOADING -> b
     com.yingshi.toutiao.view.LoadMoreView$LoadStatus NOMORE -> c
@@ -4885,7 +4978,7 @@ com.yingshi.toutiao.view.ptr.CustomizedPTRListView -> com.yingshi.toutiao.view.p
     android.widget.LinearLayout mListViewHeader -> n
     void handleStyledAttributes(android.content.res.TypedArray) -> a
     void addViewToListHeader(android.view.View,int) -> a
-com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment -> ja:
+com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment -> jm:
     android.view.View mLayout -> N
     com.yingshi.toutiao.view.ptr.CustomizedPTRListView mListView -> M
     android.view.View mLoadingView -> O
@@ -4895,9 +4988,9 @@ com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment -> ja:
     com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment$ViewHolder createHeaderView(android.view.LayoutInflater) -> a
     void showLoadingView() -> E
     void showListView() -> F
-com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment$ViewHolder -> jb:
+com.yingshi.toutiao.view.ptr.HeaderLoadingSupportPTRListFragment$ViewHolder -> jn:
     android.view.View headerView -> a
     int height -> b
-com.yingshi.toutiao.view.ptr.PTRListAdapter -> jc:
+com.yingshi.toutiao.view.ptr.PTRListAdapter -> jo:
     java.util.List mObjects -> a
     void addMore(java.util.Collection) -> a

@@ -3,7 +3,6 @@ package com.yingshi.toutiao;
 import android.app.Application;
 import android.util.Log;
 
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.yingshi.toutiao.social.AccountInfo;
 import com.yingshi.toutiao.storage.CategoryDAO;
 import com.yingshi.toutiao.storage.DatabaseHelper;
@@ -31,8 +30,6 @@ public class TouTiaoApp extends Application {
         mFavoritesDAO = new FavoritesDAO(mDatabaseHelper.getWritableDatabase());
         mCategoryDAO = new CategoryDAO(mDatabaseHelper.getWritableDatabase());
         mCachePath = getCacheDir().getAbsolutePath() + Constants.CACHE_DIR;
-        //Register weixin
-        WXAPIFactory.createWXAPI(this, null).registerApp(Constants.APP_WEIXIN_ID);
     }
     
     public NewsDAO getNewsDAO() {

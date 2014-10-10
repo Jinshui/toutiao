@@ -69,6 +69,16 @@ public class CustomizeImageView extends ImageView{
         }.execute();
     }
     
+    public static String getCachedImagePath(String url){
+        String cachedFileDir = IMAGE_CACHE_PATH + url.hashCode();
+        File existingFile = new File(cachedFileDir);
+        if(existingFile.exists()){
+        	return cachedFileDir;
+        }else{
+        	return null;
+        }
+    }
+    
     public void loadImage(final InputStream is){
     	loadImage(is, null);
     }

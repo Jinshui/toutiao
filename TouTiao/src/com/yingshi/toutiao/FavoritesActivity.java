@@ -15,7 +15,9 @@ import com.yingshi.toutiao.view.ptr.PTRListAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +33,11 @@ public class FavoritesActivity extends FragmentActivity
 		setContentView(R.layout.activity_favorites);
 		HeaderView headerView = (HeaderView) findViewById(R.id.id_favorites_header);
 		headerView.setTitle(R.string.my_favorites);
+		headerView.setLeftImage(R.drawable.fanhui, new OnClickListener(){
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		getSupportFragmentManager().beginTransaction().replace(R.id.id_favorites_list, new FavoritesFragment()).commit();
 	}
 	

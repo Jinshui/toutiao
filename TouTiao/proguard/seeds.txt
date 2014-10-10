@@ -680,10 +680,6 @@ com.yingshi.toutiao.R$drawable: int gerenzhongxin_shoucang
 com.yingshi.toutiao.R$drawable: int gerenzhongxin_touxiang
 com.yingshi.toutiao.R$drawable: int gerenzhongxin_tuisong
 com.yingshi.toutiao.R$drawable: int gerenzhongxin_xiazai
-com.yingshi.toutiao.R$drawable: int headline1
-com.yingshi.toutiao.R$drawable: int headline2
-com.yingshi.toutiao.R$drawable: int headline3
-com.yingshi.toutiao.R$drawable: int headline4
 com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_blue_focused
 com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_blue_normal
 com.yingshi.toutiao.R$drawable: int ic_com_sina_weibo_sdk_button_blue_pressed
@@ -709,22 +705,11 @@ com.yingshi.toutiao.R$drawable: int login_logo
 com.yingshi.toutiao.R$drawable: int login_qq
 com.yingshi.toutiao.R$drawable: int login_weibo
 com.yingshi.toutiao.R$drawable: int login_weixin
-com.yingshi.toutiao.R$drawable: int movie1
-com.yingshi.toutiao.R$drawable: int movie2
-com.yingshi.toutiao.R$drawable: int movie3
+com.yingshi.toutiao.R$drawable: int logo
 com.yingshi.toutiao.R$drawable: int news_detail_default
-com.yingshi.toutiao.R$drawable: int p1
-com.yingshi.toutiao.R$drawable: int p2
-com.yingshi.toutiao.R$drawable: int p3
-com.yingshi.toutiao.R$drawable: int p4
-com.yingshi.toutiao.R$drawable: int p5
 com.yingshi.toutiao.R$drawable: int photo_num_bg
 com.yingshi.toutiao.R$drawable: int pinglun
 com.yingshi.toutiao.R$drawable: int play
-com.yingshi.toutiao.R$drawable: int rating1
-com.yingshi.toutiao.R$drawable: int rating2
-com.yingshi.toutiao.R$drawable: int rating3
-com.yingshi.toutiao.R$drawable: int rating4
 com.yingshi.toutiao.R$drawable: int remove
 com.yingshi.toutiao.R$drawable: int search_bg
 com.yingshi.toutiao.R$drawable: int shadow
@@ -739,9 +724,6 @@ com.yingshi.toutiao.R$drawable: int shuru
 com.yingshi.toutiao.R$drawable: int sousuo_sousuo
 com.yingshi.toutiao.R$drawable: int sousuo_sousuolan
 com.yingshi.toutiao.R$drawable: int special_header
-com.yingshi.toutiao.R$drawable: int teleplay1
-com.yingshi.toutiao.R$drawable: int teleplay2
-com.yingshi.toutiao.R$drawable: int teleplay3
 com.yingshi.toutiao.R$drawable: int text_view_border
 com.yingshi.toutiao.R$drawable: int title_bar
 com.yingshi.toutiao.R$drawable: int user_profile_picutre_bg
@@ -963,6 +945,8 @@ com.yingshi.toutiao.SpecialNewsActivity
 com.yingshi.toutiao.SpecialNewsActivity: SpecialNewsActivity()
 com.yingshi.toutiao.TouTiaoApp
 com.yingshi.toutiao.TouTiaoApp: TouTiaoApp()
+com.yingshi.toutiao.WXEntryActivity
+com.yingshi.toutiao.WXEntryActivity: WXEntryActivity()
 com.yingshi.toutiao.WelcomeActivity
 com.yingshi.toutiao.WelcomeActivity: WelcomeActivity()
 com.yingshi.toutiao.model.BaseModel: android.os.Parcelable$Creator CREATOR
