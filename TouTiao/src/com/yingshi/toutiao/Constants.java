@@ -4,7 +4,8 @@ package com.yingshi.toutiao;
 
 public class Constants {//159357
 	public static final String APP_WEIXIN_ID = "wxc0ff6c151ffb2eab";
-	public static final String APP_TENCENT_ID = "222222";
+	public static final String APP_TENCENT_ID = "1103289406";
+	public static final String APP_WEIBO_KEY = "3491377561"; //ce23d9dacb21705e8ac3e82cc18a145b
 	
 	public static final String CACHE_DIR = "/toutiao";
 	

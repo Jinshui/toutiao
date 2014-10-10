@@ -16,8 +16,6 @@ import android.util.Log;
 
 public class SinaSocialProvider implements ISocialProvider{
 	private static final String tag = "TT-SinaSocialProvider";
-	public static final String APP_KEY      = "3491377561"; //ce23d9dacb21705e8ac3e82cc18a145b
-//	public static final String APP_KEY      = "2045436852"; //ce23d9dacb21705e8ac3e82cc18a145b
 	public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
     public static final String SCOPE = 
             "email,direct_messages_read,direct_messages_write,"
@@ -33,7 +31,7 @@ public class SinaSocialProvider implements ISocialProvider{
 	
 	
 	public void login(final SocialResponseListener callback) {
-		WeiboAuth mWeiboAuth = new WeiboAuth(mActivity, APP_KEY, REDIRECT_URL, SCOPE);
+		WeiboAuth mWeiboAuth = new WeiboAuth(mActivity, Constants.APP_WEIBO_KEY, REDIRECT_URL, SCOPE);
 		mWeiboAuth.anthorize(new WeiboAuthListener() {
 			public void onComplete(Bundle values) {
 				mAccessToken = Oauth2AccessToken.parseAccessToken(values); // 从 Bundle 中解析 Token

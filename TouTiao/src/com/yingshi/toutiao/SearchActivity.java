@@ -65,28 +65,6 @@ public class SearchActivity extends FragmentActivity {
 			}
 			public void onFailure(ActionError error) {}
 		};
-		private UICallBack<Pagination<News>> searchUICallBack = new UICallBack<Pagination<News>>(){
-			public void onSuccess(Pagination<News> newsList) {
-				if(mNewsListAdapter == null){
-					mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
-					setAdapter(mNewsListAdapter);
-				}else{
-					mNewsListAdapter.addMore(newsList.getItems());
-				}
-				
-				if(newsList.getItems().isEmpty()){
-					Toast.makeText(getActivity(), R.string.load_complete, Toast.LENGTH_SHORT).show();
-				}
-				
-				showListView();
-				refreshComplete();
-			}
-			public void onFailure(ActionError error) {
-				Toast.makeText(getActivity(), R.string.load_complete, Toast.LENGTH_SHORT).show();
-				showListView();
-				refreshComplete();
-			}
-		}; 
 		
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -97,7 +75,30 @@ public class SearchActivity extends FragmentActivity {
 			mKeyword = keyword;
 			showLoadingView();
 			mSearchAction = new SearchAction(getActivity(), mKeyword, 1, 20);
-			mSearchAction.execute(mSearchNewsListBackgroundCallback, searchUICallBack);
+//			mSearchAction.execute(mSearchNewsListBackgroundCallback, searchUICallBack);
+			mSearchAction.execute(new UICallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsList) {
+					if(mNewsListAdapter == null){
+						mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
+						setAdapter(mNewsListAdapter);
+					}else{
+						mNewsListAdapter.clear();
+						mNewsListAdapter.addMore(newsList.getItems());
+					}
+					
+					if(newsList.getItems().isEmpty()){
+						Toast.makeText(getActivity(), R.string.search_no_result, Toast.LENGTH_SHORT).show();
+					}
+					
+					showListView();
+					refreshComplete();
+				}
+				public void onFailure(ActionError error) {
+					Toast.makeText(getActivity(), R.string.load_complete, Toast.LENGTH_SHORT).show();
+					showListView();
+					refreshComplete();
+				}
+			});
 		}
 		
 		public ViewHolder createHeaderView(LayoutInflater inflater){
@@ -113,7 +114,29 @@ public class SearchActivity extends FragmentActivity {
 		@Override
 		public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 			mSearchAction = (SearchAction)mSearchAction.getNextPageAction();
-			mSearchAction.execute(mSearchNewsListBackgroundCallback, searchUICallBack);
+//			mSearchAction.execute(mSearchNewsListBackgroundCallback, searchUICallBack);
+			mSearchAction.execute(new UICallBack<Pagination<News>>(){
+				public void onSuccess(Pagination<News> newsList) {
+					if(mNewsListAdapter == null){
+						mNewsListAdapter = new NewsArrayAdapter(getActivity(), R.layout.view_news_list_item, newsList.getItems());
+						setAdapter(mNewsListAdapter);
+					}else{
+						mNewsListAdapter.addMore(newsList.getItems());
+					}
+					
+					if(newsList.getItems().isEmpty()){
+						Toast.makeText(getActivity(), R.string.load_complete, Toast.LENGTH_SHORT).show();
+					}
+					
+					showListView();
+					refreshComplete();
+				}
+				public void onFailure(ActionError error) {
+					Toast.makeText(getActivity(), R.string.load_complete, Toast.LENGTH_SHORT).show();
+					showListView();
+					refreshComplete();
+				}
+			});
 		}
 	}
 }

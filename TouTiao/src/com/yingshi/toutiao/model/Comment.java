@@ -22,7 +22,7 @@ public class Comment extends BaseModel {
         if(json.has("Id"))
         	comment.setId(json.getString("Id"));
         if(json.has("Name"))
-        	comment.setName(json.getString("Name"));
+        	comment.setName(Utils.getDecodedValue(json, "Name"));
         if(json.has("Time"))
         {
         	Date date = Utils.parseDate("yyyy-MM-dd HH:mm", json.getString("Time"));
