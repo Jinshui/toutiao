@@ -38,6 +38,7 @@
     <string name="share_sina_weibo">新浪微博</string>
     <string name="share_qq">QQ空间</string>
     <string name="share_sina_weibo_not_support">您的设备不支持分享到新浪微博</string>
+    <string name="share_weichat_not_installed">您的设备尚未安装微信,请安装后再分享!</string>
     
     <!-- 专题 -->
     <string name="special_header_text">专题</string>

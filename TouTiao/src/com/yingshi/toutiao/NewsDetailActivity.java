@@ -134,11 +134,7 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
         // 注册第三方应用到微博客户端中，注册成功后该应用将显示在微博的应用列表中。
         // 但该附件栏集成分享权限需要合作申请，详情请查看 Demo 提示
         // NOTE：请务必提前注册，即界面初始化的时候或是应用程序初始化时，进行注册
-        mWeiboShareAPI.registerApp();
-        
-        // 如果未安装微博客户端，设置下载微博对应的回调
-        if (!mWeiboShareAPI.isWeiboAppInstalled()) {
-        }
+//        mWeiboShareAPI.registerApp();
         
 		// 当 Activity 被重新初始化时（该 Activity 处于后台时，可能会由于内存不足被杀掉了），
         // 需要调用 {@link IWeiboShareAPI#handleWeiboResponse} 来接收微博客户端返回的数据。
@@ -301,6 +297,12 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 	
 	public void shareWeiChat(View view){
 		Log.d(tag, "shareWeiChat");
+		
+		if(!mWxapi.isWXAppInstalled()){
+            Toast.makeText(this, R.string.share_weichat_not_installed, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		mShareNewsWidget.setVisibility(View.GONE);
 	    WXWebpageObject webpage = new WXWebpageObject();  
 	    webpage.webpageUrl = getNewsUrl(); 
@@ -345,7 +347,8 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 		mShareNewsWidget.setVisibility(View.GONE);
         try {
 	        // 检查微博客户端环境是否正常，如果未安装微博，弹出对话框询问用户下载微博客户端
-	        if (mWeiboShareAPI.checkEnvironment(true)) {                    
+	        if (mWeiboShareAPI.checkEnvironment(true)) {    
+	        	mWeiboShareAPI.registerApp();
 	            if (mWeiboShareAPI.isWeiboAppSupportAPI()) {
 	                int supportApi = mWeiboShareAPI.getWeiboAppSupportAPI();
 	                if (supportApi >= 10351 /*ApiUtils.BUILD_INT_VER_2_2*/) {

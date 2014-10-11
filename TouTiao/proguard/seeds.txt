@@ -716,6 +716,7 @@ com.yingshi.toutiao.R$drawable: int shadow
 com.yingshi.toutiao.R$drawable: int share
 com.yingshi.toutiao.R$drawable: int share_bg
 com.yingshi.toutiao.R$drawable: int share_cancel_bg
+com.yingshi.toutiao.R$drawable: int share_moments
 com.yingshi.toutiao.R$drawable: int share_qq
 com.yingshi.toutiao.R$drawable: int share_sina_weibo
 com.yingshi.toutiao.R$drawable: int share_weichat
@@ -789,7 +790,10 @@ com.yingshi.toutiao.R$id: int id_search_keyword_text
 com.yingshi.toutiao.R$id: int id_search_result_list
 com.yingshi.toutiao.R$id: int id_share_qq_img
 com.yingshi.toutiao.R$id: int id_share_weibo_img
+com.yingshi.toutiao.R$id: int id_share_weichat_btn
 com.yingshi.toutiao.R$id: int id_share_weichat_img
+com.yingshi.toutiao.R$id: int id_share_weichat_moments_btn
+com.yingshi.toutiao.R$id: int id_share_weichat_moments_img
 com.yingshi.toutiao.R$id: int id_special_header_img
 com.yingshi.toutiao.R$id: int id_special_news_list
 com.yingshi.toutiao.R$id: int id_special_summary
@@ -888,9 +892,12 @@ com.yingshi.toutiao.R$string: int press_to_load
 com.yingshi.toutiao.R$string: int push
 com.yingshi.toutiao.R$string: int search_header_text
 com.yingshi.toutiao.R$string: int search_hint
+com.yingshi.toutiao.R$string: int search_no_result
 com.yingshi.toutiao.R$string: int share_cancel
+com.yingshi.toutiao.R$string: int share_moments
 com.yingshi.toutiao.R$string: int share_qq
 com.yingshi.toutiao.R$string: int share_sina_weibo
+com.yingshi.toutiao.R$string: int share_sina_weibo_not_support
 com.yingshi.toutiao.R$string: int share_weichat
 com.yingshi.toutiao.R$string: int special_header_text
 com.yingshi.toutiao.R$string: int special_summary
