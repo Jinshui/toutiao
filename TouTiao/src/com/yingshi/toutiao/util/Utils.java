@@ -83,7 +83,8 @@ public class Utils {
     
     public static String encode(String str, String charSet){
     	try {
-			return URLEncoder.encode(str, charSet);
+    		if(str != null)
+    			return URLEncoder.encode(str, charSet);
 		} catch (UnsupportedEncodingException e) {
             Log.e(tag, String.format("Unsupported Encoding : %s , %s", str , charSet), e);
 		}

@@ -75,7 +75,7 @@ public class MainActivity extends SlidingFragmentActivity
 		mLoadingView = findViewById(R.id.id_category_loading);
 		mViewPager = (ViewPager) findViewById(R.id.viewpager);
 		//Header view
-		headerView.setLeftImage(R.drawable.gerenzhongxin_shoucang, new OnClickListener(){
+		headerView.setLeftImage(R.drawable.settings, new OnClickListener(){
 			public void onClick(View v) {
 				getSlidingMenu().showMenu();
 			}});

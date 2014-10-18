@@ -47,16 +47,6 @@
             android:src="@drawable/login_qq" />
 
         <ImageView
-            android:id="@+id/id_btn_login_weibo"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="6dp"
-            android:contentDescription="@string/img_content_description"
-            android:onClick="loginWeibo"
-            android:src="@drawable/login_weibo" />
-
-        <ImageView
             android:id="@+id/id_btn_login_weixin"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -65,6 +55,16 @@
             android:contentDescription="@string/img_content_description"
             android:onClick="loginWeixin"
             android:src="@drawable/login_weixin" />
+
+        <ImageView
+            android:id="@+id/id_btn_login_weibo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="6dp"
+            android:contentDescription="@string/img_content_description"
+            android:onClick="loginWeibo"
+            android:src="@drawable/login_weibo" />
     </LinearLayout>
 
     <View

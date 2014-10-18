@@ -37,6 +37,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:singleLine="true"
             android:layout_toLeftOf="@+id/id_search_btn"
             android:background="@drawable/text_view_border"
             android:gravity="center_vertical"

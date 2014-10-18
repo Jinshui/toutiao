@@ -21,6 +21,7 @@ import com.yingshi.toutiao.social.ISocialProvider;
 import com.yingshi.toutiao.social.SinaSocialProvider;
 import com.yingshi.toutiao.social.SocialResponseListener;
 import com.yingshi.toutiao.social.TecentSocialProvider;
+import com.yingshi.toutiao.social.WeixinSocialProvider;
 import com.yingshi.toutiao.util.PreferenceUtil;
 
 @SuppressLint("ShowToast")
@@ -46,7 +47,8 @@ public class LoginActivity extends Activity implements SocialResponseListener{
 	}
 
 	public void loginWeixin(View view) {
-
+		mAuthProvider = new WeixinSocialProvider(this);
+		mAuthProvider.login(this);
 	}
 
 	public void enter(View view) {

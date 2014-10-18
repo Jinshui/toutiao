@@ -12,10 +12,12 @@
     <dimen name="title_size">24sp</dimen>
     
     <!-- News List -->
-    <dimen name="list_item_height">76dp</dimen>
-    <dimen name="list_item_icon_width">70dp</dimen>
+    <dimen name="list_item_height">86dp</dimen>
+    <dimen name="list_item_icon_width">80dp</dimen>
     <dimen name="list_item_icon_height">60dp</dimen>
-    <dimen name="list_item_padding">5dp</dimen>
+    <dimen name="list_item_padding_1">15dp</dimen>
+    <dimen name="list_item_padding_2">12dp</dimen>
+    <dimen name="list_item_divider_height">0.3dip</dimen>
     
     <!-- User center -->
     <dimen name="user_center_list_item_width">200dp</dimen>
@@ -27,8 +29,8 @@
     <!-- News Detail -->
     <dimen name="news_detail_image_height">200dp</dimen>
     <dimen name="news_detail_title_size">20sp</dimen>
-    <dimen name="news_detail_time_size">12sp</dimen>
-    <dimen name="news_detail_text_size">16sp</dimen>
+    <dimen name="news_detail_time_size">14sp</dimen>
+    <dimen name="news_detail_text_size">18sp</dimen>
     <dimen name="news_detail_comment_size">16sp</dimen>
     <dimen name="news_detail_add_comment_background_height">40dp</dimen>    
     <dimen name="news_detail_load_comments">50dp</dimen>

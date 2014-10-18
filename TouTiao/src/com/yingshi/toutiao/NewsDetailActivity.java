@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -76,7 +77,7 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 	private CustomizeImageView mImageView;
 	private News mNews;
 	private GetCommentsAction mGetCommentsAction;
-	
+	private LinearLayout mMoreImgPanel;
 
     
     private IWXAPI mWxapi = null;
@@ -229,6 +230,24 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 
 		View playButton = findViewById(R.id.id_news_detail_play);
 		playButton.setVisibility( ( mNews.isHasVideo() && mNews.getThumbnailUrls().size()>0 ) ?  View.VISIBLE : View.GONE);
+
+		mMoreImgPanel = (LinearLayout)findViewById(R.id.id_news_more_img_panel);
+		if(mNews.getPhotoUrls().size() > 1){
+			mMoreImgPanel.setVisibility(View.VISIBLE);
+			for(int i=1; i < mNews.getPhotoUrls().size(); i++){
+				String url = mNews.getPhotoUrls().get(i);
+				CustomizeImageView view = new CustomizeImageView(this);
+				LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				params.setMargins(0, 15, 0, 0);
+				params.gravity = Gravity.CENTER_HORIZONTAL;
+				view.setPadding(0, 0, 0, 0);
+				view.setAdjustViewBounds(true);
+				mMoreImgPanel.addView(view, params);
+				view.loadImageToSrc(url);
+			}
+		}else{
+			mMoreImgPanel.setVisibility(View.GONE);
+		}
 		
 		TextView textView = (TextView)findViewById(R.id.id_news_detail_text);
 		textView.setText(mNews.getContent());

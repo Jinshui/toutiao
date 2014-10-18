@@ -1975,99 +1975,19 @@ com.sina.sso.RemoteSSO$Stub:
     static final int TRANSACTION_getPackageName
     static final int TRANSACTION_getActivityName
     static final int TRANSACTION_getLoginUserName
-    13:16:public RemoteSSO$Stub()
-    34:34:public android.os.IBinder asBinder()
 com.sina.sso.RemoteSSO$Stub$Proxy:
     85:85:public java.lang.String getInterfaceDescriptor()
-com.sina.weibo.sdk.BuildConfig
-com.sina.weibo.sdk.R:
-    9:9:public R()
-com.sina.weibo.sdk.R$color:
-    10:10:public R$color()
-com.sina.weibo.sdk.R$dimen:
-    14:14:public R$dimen()
-com.sina.weibo.sdk.R$drawable:
-    25:25:public R$drawable()
-com.sina.weibo.sdk.R$string:
-    46:46:public R$string()
-com.sina.weibo.sdk.R$style
-com.sina.weibo.sdk.api.BaseMediaObject:
-    public static final int MEDIA_TYPE_TEXT
-    public static final int MEDIA_TYPE_IMAGE
-    public static final int MEDIA_TYPE_MUSIC
-    public static final int MEDIA_TYPE_VIDEO
-    public static final int MEDIA_TYPE_WEBPAGE
-    public static final int MEDIA_TYPE_VOICE
-    public static final int MEDIA_TYPE_CMD
-    public abstract int getObjType()
-    protected abstract com.sina.weibo.sdk.api.BaseMediaObject toExtraMediaObject(java.lang.String)
-com.sina.weibo.sdk.api.CmdObject:
-    public static final java.lang.String CMD_HOME
-    70:70:public int getObjType()
-    75:75:protected com.sina.weibo.sdk.api.BaseMediaObject toExtraMediaObject(java.lang.String)
 com.sina.weibo.sdk.api.ImageObject:
     private static final int DATA_SIZE
-    126:126:public int getObjType()
-    131:131:protected com.sina.weibo.sdk.api.BaseMediaObject toExtraMediaObject(java.lang.String)
-com.sina.weibo.sdk.api.MusicObject
-com.sina.weibo.sdk.api.MusicObject$1
-com.sina.weibo.sdk.api.TextObject:
-    72:72:public int getObjType()
-    77:77:protected com.sina.weibo.sdk.api.BaseMediaObject toExtraMediaObject(java.lang.String)
-com.sina.weibo.sdk.api.VideoObject
-com.sina.weibo.sdk.api.VideoObject$1
-com.sina.weibo.sdk.api.VoiceObject:
-    public static final java.lang.String EXTRA_KEY_DEFAULTTEXT
-    105:105:public int getObjType()
-    110:117:protected com.sina.weibo.sdk.api.BaseMediaObject toExtraMediaObject(java.lang.String)
-com.sina.weibo.sdk.api.WebpageObject:
-    public static final java.lang.String EXTRA_KEY_DEFAULTTEXT
-    71:71:public int getObjType()
-    76:83:protected com.sina.weibo.sdk.api.BaseMediaObject toExtraMediaObject(java.lang.String)
-com.sina.weibo.sdk.api.WeiboMessage:
-    38:40:public WeiboMessage(android.os.Bundle)
-    51:55:public com.sina.weibo.sdk.api.WeiboMessage toObject(android.os.Bundle)
 com.sina.weibo.sdk.api.WeiboMultiMessage:
     private static final java.lang.String TAG
-    47:49:public WeiboMultiMessage(android.os.Bundle)
-    68:80:public com.sina.weibo.sdk.api.WeiboMultiMessage toObject(android.os.Bundle)
 com.sina.weibo.sdk.api.share.ApiUtils:
     private static final java.lang.String TAG
-    public static final int BUILD_INT
-    public static final int BUILD_INT_VER_2_2
-    public static final int BUILD_INT_VER_2_3
-    public static final int BUILD_INT_VER_2_5
     private static final java.lang.String WEIBO_IDENTITY_ACTION
     private static final java.lang.String WEIBO_SIGN
-    47:47:public ApiUtils()
-com.sina.weibo.sdk.api.share.Base:
-    public abstract void toBundle(android.os.Bundle)
-    public abstract void fromBundle(android.os.Bundle)
-com.sina.weibo.sdk.api.share.BaseRequest:
-    public java.lang.String packageName
-    52:54:public void fromBundle(android.os.Bundle)
-com.sina.weibo.sdk.api.share.BaseResponse:
-    44:48:public void toBundle(android.os.Bundle)
 com.sina.weibo.sdk.api.share.IVersionCheckHandler
-com.sina.weibo.sdk.api.share.IWeiboHandler$Request
-com.sina.weibo.sdk.api.share.IWeiboShareAPI:
-    public abstract boolean isWeiboAppInstalled()
-    public abstract boolean handleWeiboRequest(android.content.Intent,com.sina.weibo.sdk.api.share.IWeiboHandler$Request)
-    public abstract boolean launchWeibo()
-    public abstract boolean sendResponse(com.sina.weibo.sdk.api.share.BaseResponse)
-    public abstract void registerWeiboDownloadListener(com.sina.weibo.sdk.api.share.IWeiboDownloadListener)
-com.sina.weibo.sdk.api.share.ProvideMessageForWeiboRequest
-com.sina.weibo.sdk.api.share.ProvideMessageForWeiboResponse
-com.sina.weibo.sdk.api.share.ProvideMultiMessageForWeiboResponse
-com.sina.weibo.sdk.api.share.SendMessageToWeiboRequest:
-    38:40:public SendMessageToWeiboRequest(android.os.Bundle)
-    49:51:public void fromBundle(android.os.Bundle)
-com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest:
-    38:40:public SendMultiMessageToWeiboRequest(android.os.Bundle)
-    49:51:public void fromBundle(android.os.Bundle)
 com.sina.weibo.sdk.api.share.VersionCheckHandler:
     private static final java.lang.String TAG
-    48:49:public void setPackageName(java.lang.String)
 com.sina.weibo.sdk.api.share.WeiboDownloader:
     private static final java.lang.String TITLE_CHINESS
     private static final java.lang.String PROMPT_CHINESS
@@ -2077,37 +1997,15 @@ com.sina.weibo.sdk.api.share.WeiboDownloader:
     private static final java.lang.String PROMPT_ENGLISH
     private static final java.lang.String OK_ENGLISH
     private static final java.lang.String CANCEL_ENGLISH
-    35:35:public WeiboDownloader()
 com.sina.weibo.sdk.api.share.WeiboShareAPIImpl:
     private static final java.lang.String TAG
-    93:93:public boolean isWeiboAppInstalled()
-    205:227:public boolean handleWeiboRequest(android.content.Intent,com.sina.weibo.sdk.api.share.IWeiboHandler$Request)
-    238:256:public boolean launchWeibo()
-    303:316:public boolean sendResponse(com.sina.weibo.sdk.api.share.BaseResponse)
-    327:328:public void registerWeiboDownloadListener(com.sina.weibo.sdk.api.share.IWeiboDownloadListener)
-com.sina.weibo.sdk.api.share.WeiboShareSDK:
-    27:27:public WeiboShareSDK()
 com.sina.weibo.sdk.auth.Oauth2AccessToken:
     private static final java.lang.String KEY_UID
     private static final java.lang.String KEY_ACCESS_TOKEN
     private static final java.lang.String KEY_EXPIRES_IN
     private static final java.lang.String KEY_REFRESH_TOKEN
-    61:75:public Oauth2AccessToken(java.lang.String)
-    83:89:public Oauth2AccessToken(java.lang.String,java.lang.String)
-    99:116:public static com.sina.weibo.sdk.auth.Oauth2AccessToken parseAccessToken(java.lang.String)
-    156:161:public android.os.Bundle toBundle()
-    213:213:public java.lang.String getRefreshToken()
 com.sina.weibo.sdk.auth.WeiboAuth:
-    public static final java.lang.String TAG
     private static final java.lang.String OAUTH2_BASE_URL
-    public static final int OBTAIN_AUTH_CODE
-    public static final int OBTAIN_AUTH_TOKEN
-    156:157:public void setAuthInfo(com.sina.weibo.sdk.auth.WeiboAuth$AuthInfo)
-com.sina.weibo.sdk.auth.WeiboAuth$AuthInfo:
-    82:82:public java.lang.String getAppKey()
-    90:90:public java.lang.String getScope()
-    94:94:public java.lang.String getPackageName()
-    98:98:public java.lang.String getKeyHash()
 com.sina.weibo.sdk.auth.WeiboDialog:
     private static final java.lang.String TAG
     private static final int WEBVIEW_CONTAINER_MARGIN_TOP
@@ -2117,45 +2015,43 @@ com.sina.weibo.sdk.auth.sso.SsoHandler:
     private static final java.lang.String DEFAULT_SINA_WEIBO_PACKAGE_NAME
     private static final java.lang.String DEFAULT_WEIBO_REMOTE_SSO_SERVICE_NAME
     private static final int REQUEST_CODE_SSO_AUTH
-    128:129:public void authorize(com.sina.weibo.sdk.auth.WeiboAuthListener,java.lang.String)
-    173:237:public void authorizeCallBack(int,int,android.content.Intent)
-    249:263:public static android.content.ComponentName isServiceExisted(android.content.Context,java.lang.String)
-com.sina.weibo.sdk.codestyle.CodingRuler
-com.sina.weibo.sdk.codestyle.SampleCode
-com.sina.weibo.sdk.constant.WBAuthErrorCode
-com.sina.weibo.sdk.constant.WBConstants
-com.sina.weibo.sdk.constant.WBConstants$Base
-com.sina.weibo.sdk.constant.WBConstants$ErrorCode
-com.sina.weibo.sdk.constant.WBConstants$Media
-com.sina.weibo.sdk.constant.WBConstants$Msg
-com.sina.weibo.sdk.constant.WBConstants$Response
-com.sina.weibo.sdk.constant.WBConstants$SDK
+com.sina.weibo.sdk.codestyle.CodingRuler:
+    private static final int MSG_AUTH_NONE
+    private static final int MSG_AUTH_SUCCESS
+    private static final int MSG_AUTH_FAILED
+    protected java.lang.Object mObject0
+    private java.lang.Object mObject1
+    private java.lang.Object mObject2
+    private java.lang.Object mObject3
+    private java.lang.Object mObject4
+    141:141:protected void doSomething()
+    151:151:private void doSomethingInternal(int,float)
+    157:185:private void conditionFun()
+    195:208:private void switchFun()
+    220:238:private void circulationFun()
+    254:254:private void exceptionFun()
+    261:261:private void otherFun()
+com.sina.weibo.sdk.codestyle.SampleCode:
+    private static final int MSG_AUTH_NONE
+    private static final int MSG_AUTH_SUCCESS
+    private static final int MSG_AUTH_FAILED
+    protected java.lang.Object mObject0
+    private java.lang.Object mObject1
+    private java.lang.Object mObject2
+    private java.lang.Object mObject3
+    private java.lang.Object mObject4
+    68:68:protected void doSomething()
+    78:78:private void doSomethingInternal(int,float)
 com.sina.weibo.sdk.exception.WeiboAuthException:
     private static final long serialVersionUID
-    public static final java.lang.String DEFAULT_AUTH_ERROR_CODE
-    public static final java.lang.String DEFAULT_AUTH_ERROR_DESC
-    public static final java.lang.String DEFAULT_AUTH_ERROR_TYPE
-    74:74:public java.lang.String getErrorType()
-    83:83:public java.lang.String getErrorCode()
 com.sina.weibo.sdk.exception.WeiboDialogException:
     private static final long serialVersionUID
-    58:58:public int getErrorCode()
-    67:67:public java.lang.String getFailingUrl()
 com.sina.weibo.sdk.exception.WeiboException:
     private static final long serialVersionUID
-    55:56:public WeiboException(java.lang.String,java.lang.Throwable)
 com.sina.weibo.sdk.exception.WeiboHttpException:
     private static final long serialVersionUID
-    49:49:public int getStatusCode()
 com.sina.weibo.sdk.exception.WeiboShareException:
     private static final long serialVersionUID
-    51:52:public WeiboShareException(java.lang.String,java.lang.Throwable)
-    60:61:public WeiboShareException(java.lang.Throwable)
-com.sina.weibo.sdk.net.AsyncWeiboRunner:
-    29:29:public AsyncWeiboRunner()
-    46:61:public static void requestByThread(java.lang.String,com.sina.weibo.sdk.net.WeiboParameters,java.lang.String,com.sina.weibo.sdk.net.RequestListener)
-    76:76:public static java.lang.String request(java.lang.String,com.sina.weibo.sdk.net.WeiboParameters,java.lang.String)
-com.sina.weibo.sdk.net.AsyncWeiboRunner$1
 com.sina.weibo.sdk.net.HttpManager:
     private static final java.lang.String MULTIPART_FORM_DATA
     private static final java.lang.String HTTP_METHOD_POST
@@ -2163,127 +2059,72 @@ com.sina.weibo.sdk.net.HttpManager:
     private static final int CONNECTION_TIMEOUT
     private static final int SOCKET_TIMEOUT
     private static final int BUFFER_SIZE
-com.sina.weibo.sdk.net.NetStateManager:
-    37:37:public NetStateManager()
-    38:38:static synthetic void access$0(android.content.Context)
-com.sina.weibo.sdk.net.NetStateManager$NetState:
-    1:1:public static com.sina.weibo.sdk.net.NetStateManager$NetState[] values()
-    1:1:public static com.sina.weibo.sdk.net.NetStateManager$NetState valueOf(java.lang.String)
-com.sina.weibo.sdk.net.NetStateManager$NetStateReceive
 com.sina.weibo.sdk.net.WeiboParameters:
     private static final java.lang.String DEFAULT_CHARSET
-    42:42:public java.util.LinkedHashMap getParams()
-    46:47:public void setParams(java.util.LinkedHashMap)
-    51:52:public void add(java.lang.String,java.lang.String)
-    56:57:public void add(java.lang.String,int)
-    61:62:public void add(java.lang.String,long)
-    66:67:public void add(java.lang.String,java.lang.Object)
-    74:75:public void put(java.lang.String,int)
-    82:83:public void put(java.lang.String,android.graphics.Bitmap)
-    86:87:public void put(java.lang.String,java.lang.Object)
-    105:105:public boolean containsKey(java.lang.String)
-    109:109:public boolean containsValue(java.lang.String)
-    113:113:public int size()
 com.sina.weibo.sdk.openapi.AbsOpenAPI:
     protected static final java.lang.String API_SERVER
     protected static final java.lang.String HTTPMETHOD_POST
     protected static final java.lang.String HTTPMETHOD_GET
     protected static final java.lang.String KEY_ACCESS_TOKEN
-    89:98:protected java.lang.String requestSync(java.lang.String,com.sina.weibo.sdk.net.WeiboParameters,java.lang.String)
-com.sina.weibo.sdk.openapi.CommentsAPI
-com.sina.weibo.sdk.openapi.InviteAPI
+com.sina.weibo.sdk.openapi.CommentsAPI:
+    private static final int READ_API_TO_ME
+    private static final int READ_API_BY_ME
+    private static final int READ_API_SHOW
+    private static final int READ_API_TIMELINE
+    private static final int READ_API_MENTIONS
+    private static final int READ_API_SHOW_BATCH
+    private static final int WRITE_API_CREATE
+    private static final int WRITE_API_DESTROY
+    private static final int WRITE_API_SDESTROY_BATCH
+    private static final int WRITE_API_REPLY
+    private static final java.lang.String API_BASE_URL
 com.sina.weibo.sdk.openapi.LogoutAPI:
     private static final java.lang.String REVOKE_OAUTH_URL
-com.sina.weibo.sdk.openapi.StatusesAPI
+com.sina.weibo.sdk.openapi.StatusesAPI:
+    private static final java.lang.String API_BASE_URL
+    private static final int READ_API_FRIENDS_TIMELINE
+    private static final int READ_API_MENTIONS
+    private static final int WRITE_API_UPDATE
+    private static final int WRITE_API_REPOST
+    private static final int WRITE_API_UPLOAD
+    private static final int WRITE_API_UPLOAD_URL_TEXT
 com.sina.weibo.sdk.openapi.UsersAPI:
     private static final int READ_USER
     private static final int READ_USER_BY_DOMAIN
     private static final int READ_USER_COUNT
     private static final java.lang.String API_BASE_URL
-    70:73:public void show(java.lang.String,com.sina.weibo.sdk.net.RequestListener)
-    82:85:public void domainShow(java.lang.String,com.sina.weibo.sdk.net.RequestListener)
-    94:96:public void counts(long[],com.sina.weibo.sdk.net.RequestListener)
-    108:110:public java.lang.String showSync(long)
-    117:119:public java.lang.String showSync(java.lang.String)
-    126:128:public java.lang.String domainShowSync(java.lang.String)
-    135:136:public java.lang.String countsSync(long[])
-    140:147:private com.sina.weibo.sdk.net.WeiboParameters buildCountsParams(long[])
-com.sina.weibo.sdk.openapi.legacy.AccountAPI
-com.sina.weibo.sdk.openapi.legacy.AccountAPI$CAPITAL
-com.sina.weibo.sdk.openapi.legacy.ActivityInvokeAPI
-com.sina.weibo.sdk.openapi.legacy.CommonAPI
-com.sina.weibo.sdk.openapi.legacy.CommonAPI$CAPITAL
-com.sina.weibo.sdk.openapi.legacy.FavoritesAPI
-com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI
-com.sina.weibo.sdk.openapi.legacy.GroupAPI
-com.sina.weibo.sdk.openapi.legacy.LocationAPI
-com.sina.weibo.sdk.openapi.legacy.PlaceAPI
-com.sina.weibo.sdk.openapi.legacy.RegisterAPI
-com.sina.weibo.sdk.openapi.legacy.SearchAPI
-com.sina.weibo.sdk.openapi.legacy.ShortUrlAPI
-com.sina.weibo.sdk.openapi.legacy.StatusesAPI
-com.sina.weibo.sdk.openapi.legacy.SuggestionsAPI
-com.sina.weibo.sdk.openapi.legacy.SuggestionsAPI$STATUSES_TYPE
-com.sina.weibo.sdk.openapi.legacy.SuggestionsAPI$USER_CATEGORY
-com.sina.weibo.sdk.openapi.legacy.TagsAPI
-com.sina.weibo.sdk.openapi.legacy.TrendsAPI
-com.sina.weibo.sdk.openapi.models.AbsDataObject
-com.sina.weibo.sdk.openapi.models.Comment
-com.sina.weibo.sdk.openapi.models.CommentList
-com.sina.weibo.sdk.openapi.models.Coordinate
-com.sina.weibo.sdk.openapi.models.ErrorInfo
-com.sina.weibo.sdk.openapi.models.Favorite
-com.sina.weibo.sdk.openapi.models.FavoriteList
-com.sina.weibo.sdk.openapi.models.Geo
-com.sina.weibo.sdk.openapi.models.GeoList
-com.sina.weibo.sdk.openapi.models.Group
-com.sina.weibo.sdk.openapi.models.GroupList
-com.sina.weibo.sdk.openapi.models.GroupTag
-com.sina.weibo.sdk.openapi.models.IParseable
-com.sina.weibo.sdk.openapi.models.MusicInfo
-com.sina.weibo.sdk.openapi.models.OffsetGeo
-com.sina.weibo.sdk.openapi.models.Poi
-com.sina.weibo.sdk.openapi.models.PoiList
-com.sina.weibo.sdk.openapi.models.Privacy
-com.sina.weibo.sdk.openapi.models.Remind
-com.sina.weibo.sdk.openapi.models.Status
-com.sina.weibo.sdk.openapi.models.StatusList
-com.sina.weibo.sdk.openapi.models.Tag
-com.sina.weibo.sdk.openapi.models.User:
-    public com.sina.weibo.sdk.openapi.models.Status status
-com.sina.weibo.sdk.openapi.models.Visible
-com.sina.weibo.sdk.utils.BitmapHelper
-com.sina.weibo.sdk.utils.ImageUtils
-com.sina.weibo.sdk.utils.LogUtil:
-    27:27:public LogUtil()
-    36:37:public static void enableLog()
-    43:44:public static void disableLog()
-    102:109:public static void w(java.lang.String,java.lang.String)
-    118:125:public static void v(java.lang.String,java.lang.String)
-    133:137:public static java.lang.String getStackTraceMsg()
-com.sina.weibo.sdk.utils.MD5:
-    27:27:public MD5()
-    64:65:public static void main(java.lang.String[])
-com.sina.weibo.sdk.utils.NetworkHelper:
-    40:40:public NetworkHelper()
-    83:91:public static boolean isWifiValid(android.content.Context)
-    102:114:public static boolean isMobileNetwork(android.content.Context)
-    151:152:public static android.net.NetworkInfo getNetworkInfo(android.content.Context,int)
-    174:180:public static int getNetworkType(android.content.Context)
-    196:202:public static int getWifiState(android.content.Context)
-    213:214:public static android.net.NetworkInfo$DetailedState getWifiConnectivityState(android.content.Context)
-    228:255:public static boolean wifiConnection(android.content.Context,java.lang.String,java.lang.String)
+com.sina.weibo.sdk.openapi.legacy.AccountAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.CommonAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.FavoritesAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.GroupAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.LocationAPI:
+    private static final java.lang.String API_BASE_URL
+    private static final int READ_API_GPS_TO_OFFSET
+    private static final int READ_API_SEARCH_POIS_BY_GEO
+    private static final int READ_API_GET_TO_ADDRESS
+com.sina.weibo.sdk.openapi.legacy.PlaceAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.RegisterAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.SearchAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.ShortUrlAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.StatusesAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.SuggestionsAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.TagsAPI:
+    private static final java.lang.String SERVER_URL_PRIX
+com.sina.weibo.sdk.openapi.legacy.TrendsAPI:
+    private static final java.lang.String SERVER_URL_PRIX
 com.sina.weibo.sdk.utils.ResourceManager:
-    public static final int dimen_dialog_left_margin
-    public static final int dimen_dialog_top_margin
-    public static final int dimen_dialog_right_margin
-    public static final int dimen_dialog_bottom_margin
-    public static final int DIALOG_LEFT_MARGIN
-    public static final int DIALOG_TOP_MARGIN
-    public static final int DIALOG_RIGHT_MARGIN
-    public static final int DIALOG_BOTTOM_MARGIN
-    public static final int drawable_dialog_background
-    public static final int drawable_dialog_close_button
     private static final java.lang.String DIALOG_BACKGROUND_IMAGE_NAME
     private static final java.lang.String DIALOG_CLOSE_BUTTON_IMAGE_NAME
     private static final java.lang.String DRAWABLE
@@ -2292,93 +2133,22 @@ com.sina.weibo.sdk.utils.ResourceManager:
     private static final java.lang.String DRAWABLE_HDPI
     private static final java.lang.String DRAWABLE_XHDPI
     private static final java.lang.String DRAWABLE_XXHDPI
-    public static final int string_loading
-    public static final int string_network_not_available
     private static final java.lang.String LOADING_EN
     private static final java.lang.String LOADING_ZH_CN
     private static final java.lang.String LOADING_ZH_TW
     private static final java.lang.String NETWORK_NOT_AVAILABLE_EN
     private static final java.lang.String NETWORK_NOT_AVAILABLE_ZH_CN
     private static final java.lang.String NETWORK_NOT_AVAILABLE_ZH_TW
-    212:212:public static int getDimensionPixelSize(int)
     384:387:private static android.view.View extractView(android.content.Context,java.lang.String,android.view.ViewGroup)
     392:401:private static android.graphics.drawable.Drawable extractDrawable(android.content.Context,java.lang.String)
 com.sina.weibo.sdk.utils.SecurityHelper:
     private static final java.lang.String WEIBO_MD5_SIGNATURE
-    38:38:public SecurityHelper()
-    90:106:public static boolean checkResponseAppLegal(android.content.Context,android.content.Intent)
-com.sina.weibo.sdk.utils.UIUtils:
-    30:30:public UIUtils()
-    57:60:public static void showAlert(android.content.Context,int,int)
-    70:73:public static void showToast(android.content.Context,int,int)
-    96:101:public static void showToastInCenter(android.content.Context,int,int)
 com.sina.weibo.sdk.utils.Utility:
     private static final java.lang.String DEFAULT_CHARSET
-    38:38:public Utility()
-    138:138:public static java.lang.String safeString(java.lang.String)
 com.sina.weibo.sdk.widget.LoginButton:
     private static final java.lang.String TAG
-    public static final int LOGIN_INCON_STYLE_1
-    public static final int LOGIN_INCON_STYLE_2
-    public static final int LOGIN_INCON_STYLE_3
-    197:200:public void onActivityResult(int,int,android.content.Intent)
 com.sina.weibo.sdk.widget.LoginoutButton:
     private static final java.lang.String TAG
-    180:183:public void onActivityResult(int,int,android.content.Intent)
-com.tencent.a.a.a.a
-com.tencent.a.a.a.b
-com.tencent.a.a.a.c
-com.tencent.a.a.a.d
-com.tencent.a.b.a
-com.tencent.a.b.a$1
-com.tencent.a.b.b
-com.tencent.a.b.b$a
-com.tencent.a.b.b$b
-com.tencent.a.b.c
-com.tencent.a.b.c$a
-com.tencent.a.b.c$b
-com.tencent.a.b.d
-com.tencent.a.b.d$1
-com.tencent.a.b.d$a
-com.tencent.a.b.d$b
-com.tencent.a.b.d$c
-com.tencent.a.b.e
-com.tencent.a.b.e$a
-com.tencent.a.b.e$b
-com.tencent.a.b.e$c
-com.tencent.a.b.f
-com.tencent.a.b.f$1
-com.tencent.a.b.f$2
-com.tencent.a.b.f$a
-com.tencent.a.b.f$b
-com.tencent.a.b.f$c
-com.tencent.a.b.g
-com.tencent.a.b.g$1
-com.tencent.a.b.g$a
-com.tencent.a.b.g$b
-com.tencent.a.b.g$c
-com.tencent.a.b.h
-com.tencent.a.b.i
-com.tencent.a.b.j
-com.tencent.a.b.k
-com.tencent.a.b.k$a
-com.tencent.a.b.l
-com.tencent.a.b.m
-com.tencent.a.b.n
-com.tencent.a.b.o
-com.tencent.a.b.p
-com.tencent.a.b.q
-com.tencent.a.b.r
-com.tencent.b.a.g:
-    60:61:public static final void c(java.lang.String,java.lang.String)
-com.tencent.connect.UserInfo:
-    public static final java.lang.String GRAPH_OPEN_ID
-    25:26:public UserInfo(android.content.Context,com.tencent.connect.auth.QQAuth,com.tencent.connect.auth.QQToken)
-    36:40:public void getVipUserInfo(com.tencent.tauth.IUiListener)
-    43:47:public void getVipUserRichInfo(com.tencent.tauth.IUiListener)
-    54:59:public void getTenPayAddr(com.tencent.tauth.IUiListener)
-    66:70:public void getOpenId(com.tencent.tauth.IUiListener)
-com.tencent.connect.auth.AuthConstants
 com.tencent.connect.auth.AuthDialog:
     52:52:static synthetic android.os.Handler f(com.tencent.connect.auth.AuthDialog)
 com.tencent.connect.auth.AuthDialog$JsListener:
@@ -2386,41 +2156,6 @@ com.tencent.connect.auth.AuthDialog$JsListener:
     512:514:public void onCancel(java.lang.String)
     518:519:public void showMsg(java.lang.String)
     523:524:public void onLoad(java.lang.String)
-com.tencent.connect.auth.QQAuth:
-    108:114:public int login(android.app.Activity,java.lang.String,com.tencent.tauth.IUiListener)
-    168:169:public int reAuth(android.app.Activity,java.lang.String,com.tencent.tauth.IUiListener)
-    180:189:public void logout(android.content.Context)
-    211:213:public void setAccessToken(java.lang.String,java.lang.String)
-    236:240:public void setOpenId(android.content.Context,java.lang.String)
-    263:266:public boolean onActivityResult(int,int,android.content.Intent)
-com.tencent.connect.auth.QQToken:
-    public static final int AUTH_WEB
-    public static final int AUTH_QQ
-    public static final int AUTH_QZONE
-    27:28:public void setAppId(java.lang.String)
-    53:53:public int getAuthSource()
-    57:58:public void setAuthSource(int)
-    61:61:public long getExpireTimeInSecond()
-com.tencent.connect.avatar.ImageActivity
-com.tencent.connect.avatar.ImageActivity$1
-com.tencent.connect.avatar.ImageActivity$2
-com.tencent.connect.avatar.ImageActivity$2$1
-com.tencent.connect.avatar.ImageActivity$3
-com.tencent.connect.avatar.ImageActivity$4
-com.tencent.connect.avatar.ImageActivity$5
-com.tencent.connect.avatar.ImageActivity$6
-com.tencent.connect.avatar.ImageActivity$6$1
-com.tencent.connect.avatar.ImageActivity$QQAvatarImp
-com.tencent.connect.avatar.ImageActivity$a
-com.tencent.connect.avatar.QQAvatar
-com.tencent.connect.avatar.a
-com.tencent.connect.avatar.c:
-    private float j
-    private float k
-    102:106:public void a(android.graphics.Rect)
-    294:320:private void c()
-com.tencent.connect.common.AssistActivity:
-    13:14:public static android.content.Intent getAssistActivityIntent(android.content.Context)
 com.tencent.connect.common.BaseApi:
     private static final java.lang.String KEY_REQUEST_CODE
     protected static final java.lang.String DEFAULT_PF
@@ -2433,186 +2168,33 @@ com.tencent.connect.common.BaseApi:
     protected static final java.lang.String VERSION
     protected static final java.lang.String PLATFORM
     276:276:protected android.content.Intent getAgentIntent()
-    281:298:protected android.content.Intent getAgentIntentWithTarget(java.lang.String)
-com.tencent.connect.common.Constants:
-    public static final java.lang.String SDK_VERSION
-    public static final java.lang.String SDK_QUA
-    public static final java.lang.String SDK_VERSION_STRING
-    public static final java.lang.String SDK_BUILD
-    public static final java.lang.String PARAM_ACCESS_TOKEN
-    public static final java.lang.String PARAM_KEY_STR
-    public static final java.lang.String PARAM_KEY_TYPE
-    public static final java.lang.String PARAM_PLATFORM
-    public static final java.lang.String SOURCE_QZONE
-    public static final java.lang.String SOURCE_QQ
-    public static final java.lang.String DEFAULT_PF
-    public static final java.lang.String PARAM_CLIENT_ID
-    public static final java.lang.String PARAM_APP_ID
-    public static final java.lang.String PARAM_CONSUMER_KEY
-    public static final java.lang.String PARAM_OPEN_ID
-    public static final java.lang.String PARAM_HOPEN_ID
-    public static final java.lang.String PARAM_PLATFORM_ID
-    public static final java.lang.String KEY_REQUEST_CODE
-    public static final java.lang.String PREFERENCE_PF
-    public static final java.lang.String PARAM_SCOPE
-    public static final java.lang.String PARAM_EXPIRES_IN
-    public static final int ERROR_IO
-    public static final int ERROR_URL
-    public static final int ERROR_JSON
-    public static final int ERROR_PARAM
-    public static final int ERROR_UNKNOWN
-    public static final int ERROR_CONNECTTIMEOUT
-    public static final int ERROR_SOCKETTIMEOUT
-    public static final int ERROR_HTTPSTATUS_ERROR
-    public static final int ERROR_NETWORK_UNAVAILABLE
-    public static final int ERROR_FILE_EXISTED
-    public static final int ERROR_NO_SDCARD
-    public static final int ERROR_LOCATION_TIMEOUT
-    public static final int ERROR_LOCATION_VERIFY_FAILED
-    public static final java.lang.String MSG_LOCATION_TIMEOUT_ERROR
-    public static final java.lang.String MSG_LOCATION_VERIFY_ERROR
-    public static final java.lang.String MSG_IO_ERROR
-    public static final java.lang.String MSG_URL_ERROR
-    public static final java.lang.String MSG_JSON_ERROR
-    public static final java.lang.String MSG_SHARE_TYPE_ERROR
-    public static final java.lang.String MSG_PARAM_NULL_ERROR
-    public static final java.lang.String MSG_PARAM_ERROR
-    public static final java.lang.String MSG_PARAM_QQ_VERSION_ERROR
-    public static final java.lang.String MSG_PARAM_TITLE_NULL_ERROR
-    public static final java.lang.String MSG_PARAM_IMAGE_ERROR
-    public static final java.lang.String MSG_PARAM_TARGETURL_NULL_ERROR
-    public static final java.lang.String MSG_PARAM_TARGETURL_ERROR
-    public static final java.lang.String MSG_PARAM_IMAGE_URL_FORMAT_ERROR
-    public static final java.lang.String MSG_PARAM_IMAGE_URL_MUST_BE_LOCAL
-    public static final java.lang.String MSG_UNKNOWN_ERROR
-    public static final java.lang.String MSG_CONNECTTIMEOUT_ERROR
-    public static final java.lang.String MSG_SOCKETTIMEOUT_ERROR
-    public static final java.lang.String MSG_IMAGE_ERROR
-    public static final java.lang.String MSG_OPEN_BROWSER_ERROR
-    public static final java.lang.String MSG_SHARE_NOSD_ERROR
-    public static final java.lang.String MSG_SHARE_GETIMG_ERROR
-    public static final java.lang.String MSG_SHARE_TO_QQ_ERROR
-    public static final java.lang.String MSG_NO_SDCARD
-    public static final java.lang.String HTTP_GET
-    public static final java.lang.String HTTP_POST
-    public static final java.lang.String GRAPH_BASE
-    public static final java.lang.String GRAPH_INTIMATE_FRIENDS
-    public static final java.lang.String GRAPH_NICK_TIPS
-    public static final java.lang.String KEY_PARAMS
-    public static final java.lang.String KEY_ACTION
-    public static final java.lang.String KEY_RESPONSE
-    public static final java.lang.String KEY_ERROR_CODE
-    public static final java.lang.String KEY_ERROR_MSG
-    public static final java.lang.String KEY_ERROR_DETAIL
-    public static final java.lang.String KEY_APP_NAME
-    public static final int CODE_REQUEST_MIN
-    public static final int CODE_REQUEST_MAX
-    public static final int UI_NONE
-    public static final int UI_ACTIVITY
-    public static final int UI_DIALOG
-    public static final int UI_CHECK_TOKEN
-    public static final int ACTIVITY_OK
-    public static final int ACTIVITY_CANCEL
-    public static final java.lang.String MOBILEQQ_PACKAGE_NAME
-    public static final java.lang.String CANCEL_URI
-    public static final java.lang.String CLOSE_URI
-    public static final java.lang.String DOWNLOAD_URI
-    11:11:public Constants()
-com.tencent.connect.dataprovider.CallbackManager
-com.tencent.connect.dataprovider.Constants
-com.tencent.connect.dataprovider.DataType
-com.tencent.connect.dataprovider.DataType$1
-com.tencent.connect.dataprovider.DataType$TextAndMediaPath
-com.tencent.connect.dataprovider.DataType$TextAndMediaPath$1
-com.tencent.connect.dataprovider.DataType$TextOnly
-com.tencent.connect.dataprovider.DataType$TextOnly$1
-com.tencent.connect.dataprovider.ErrorCode
-com.tencent.connect.share.QQShare:
-    public static final java.lang.String SHARE_TO_QQ_IMAGE_URL
-    public static final java.lang.String SHARE_TO_QQ_IMAGE_LOCAL_URL
-    public static final java.lang.String SHARE_TO_QQ_TITLE
-    public static final java.lang.String SHARE_TO_QQ_SUMMARY
-    public static final java.lang.String SHARE_TO_QQ_SITE
-    public static final java.lang.String SHARE_TO_QQ_TARGET_URL
-    public static final java.lang.String SHARE_TO_QQ_APP_NAME
-    public static final java.lang.String SHARE_TO_QQ_AUDIO_URL
-    public static final java.lang.String SHARE_TO_QQ_KEY_TYPE
-    public static final java.lang.String SHARE_TO_QQ_EXT_STR
-    public static final java.lang.String SHARE_TO_QQ_EXT_INT
-    public static final int SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN
-    public static final int SHARE_TO_QQ_FLAG_QZONE_ITEM_HIDE
-    public static final int SHARE_TO_QQ_TYPE_DEFAULT
-    public static final int SHARE_TO_QQ_TYPE_AUDIO
-    public static final int SHARE_TO_QQ_TYPE_IMAGE
-com.tencent.connect.share.QzoneShare:
-    public static final java.lang.String SHARE_TO_QZONE_KEY_TYPE
-    public static final int SHARE_TO_QZONE_TYPE_NO_TYPE
-    public static final int SHARE_TO_QZONE_TYPE_IMAGE_TEXT
-    public static final int SHARE_TO_QZONE_TYPE_IMAGE
-    public static final java.lang.String SHARE_TO_QQ_IMAGE_URL
-    public static final java.lang.String SHARE_TO_QQ_IMAGE_LOCAL_URL
-    public static final java.lang.String SHARE_TO_QQ_TITLE
-    public static final java.lang.String SHARE_TO_QQ_SUMMARY
-    public static final java.lang.String SHARE_TO_QQ_SITE
-    public static final java.lang.String SHARE_TO_QQ_TARGET_URL
-    public static final java.lang.String SHARE_TO_QQ_APP_NAME
-    public static final java.lang.String SHARE_TO_QQ_AUDIO_URL
-    public static final java.lang.String SHARE_TO_QQ_EXT_STR
-    public static final java.lang.String SHARE_TO_QQ_EXT_INT
-com.tencent.mm.sdk.constants.Build
-com.tencent.mm.sdk.constants.ConstantsAPI
-com.tencent.mm.sdk.constants.ConstantsAPI$Token
-com.tencent.mm.sdk.constants.ConstantsAPI$WXApp
-com.tencent.mm.sdk.modelbase.BaseResp:
-    public abstract int getType()
-    public void toBundle(android.os.Bundle)
-    public abstract boolean checkArgs()
-com.tencent.mm.sdk.modelbase.BaseResp$ErrCode
-com.tencent.mm.sdk.modelmsg.GetMessageFromWX:
-    private GetMessageFromWX()
-com.tencent.mm.sdk.modelmsg.GetMessageFromWX$Req:
-    public java.lang.String username
-com.tencent.mm.sdk.modelmsg.GetMessageFromWX$Resp
-com.tencent.mm.sdk.modelmsg.LaunchFromWX:
-    private LaunchFromWX()
-com.tencent.mm.sdk.modelmsg.LaunchFromWX$Resp
-com.tencent.mm.sdk.modelmsg.SendAuth:
-    private SendAuth()
-com.tencent.mm.sdk.modelmsg.SendAuth$Req
+com.tencent.mm.sdk.modelmsg.GetMessageFromWX$Resp:
+    private static final java.lang.String TAG
+com.tencent.mm.sdk.modelmsg.SendAuth$Req:
+    private static final java.lang.String TAG
+    private static final int LENGTH_LIMIT
 com.tencent.mm.sdk.modelmsg.SendAuth$Resp:
     private static final java.lang.String TAG
     private static final int LENGTH_LIMIT
-    public int getType()
-    public void toBundle(android.os.Bundle)
-    public boolean checkArgs()
-com.tencent.mm.sdk.modelmsg.SendMessageToWX:
-    private SendMessageToWX()
 com.tencent.mm.sdk.modelmsg.SendMessageToWX$Req:
-    public static final int WXSceneSession
-    public static final int WXSceneTimeline
-    public static final int WXSceneFavorite
     private static final java.lang.String TAG
     private static final int FAV_CONTENT_LENGTH_LIMIT
-    public SendMessageToWX$Req(android.os.Bundle)
-com.tencent.mm.sdk.modelmsg.SendMessageToWX$Resp:
-    public int getType()
-    public void toBundle(android.os.Bundle)
-    public boolean checkArgs()
-com.tencent.mm.sdk.modelmsg.ShowMessageFromWX:
-    private ShowMessageFromWX()
-com.tencent.mm.sdk.modelmsg.ShowMessageFromWX$Resp
-com.tencent.mm.sdk.modelmsg.WXAppExtendObject
-com.tencent.mm.sdk.modelmsg.WXAppLaunchData
-com.tencent.mm.sdk.modelmsg.WXAppLaunchData$Builder
-com.tencent.mm.sdk.modelmsg.WXEmojiObject
+com.tencent.mm.sdk.modelmsg.WXAppExtendObject:
+    private static final java.lang.String TAG
+    private static final int EXTINFO_LENGTH_LIMIT
+    private static final int PATH_LENGTH_LIMIT
+    private static final int CONTENT_LENGTH_LIMIT
+com.tencent.mm.sdk.modelmsg.WXEmojiObject:
+    private static final java.lang.String TAG
+    private static final int CONTENT_LENGTH_LIMIT
 com.tencent.mm.sdk.modelmsg.WXFileObject:
     private static final java.lang.String TAG
     private static final int CONTENT_LENGTH_LIMIT
-    public WXFileObject(byte[])
-    public WXFileObject(java.lang.String)
-    public void setFileData(byte[])
-    public void setFilePath(java.lang.String)
-com.tencent.mm.sdk.modelmsg.WXImageObject
+com.tencent.mm.sdk.modelmsg.WXImageObject:
+    private static final java.lang.String TAG
+    private static final int CONTENT_LENGTH_LIMIT
+    private static final int PATH_LENGTH_LIMIT
+    private static final int URL_LENGTH_LIMIT
 com.tencent.mm.sdk.modelmsg.WXMediaMessage:
     private static final java.lang.String TAG
     private static final int THUMB_LENGTH_LIMIT
@@ -2621,289 +2203,97 @@ com.tencent.mm.sdk.modelmsg.WXMediaMessage:
     private static final int MEDIA_TAG_NAME_LENGTH_LIMIT
     private static final int MESSAGE_ACTION_LENGTH_LIMIT
     private static final int MESSAGE_EXT_LENGTH_LIMIT
-    public static final java.lang.String ACTION_WXAPPMESSAGE
-com.tencent.mm.sdk.modelmsg.WXMediaMessage$Builder:
-    public static final java.lang.String KEY_IDENTIFIER
-    public WXMediaMessage$Builder()
-com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject:
-    public static final int TYPE_UNKNOWN
-    public static final int TYPE_TEXT
-    public static final int TYPE_IMAGE
-    public static final int TYPE_MUSIC
-    public static final int TYPE_VIDEO
-    public static final int TYPE_URL
-    public static final int TYPE_FILE
-    public static final int TYPE_APPDATA
-    public static final int TYPE_EMOJI
-    public static final int TYPE_PRODUCT
-com.tencent.mm.sdk.modelmsg.WXMusicObject
-com.tencent.mm.sdk.modelmsg.WXTextObject
-com.tencent.mm.sdk.modelmsg.WXVideoObject
+com.tencent.mm.sdk.modelmsg.WXMusicObject:
+    private static final java.lang.String TAG
+    private static final int LENGTH_LIMIT
+com.tencent.mm.sdk.modelmsg.WXTextObject:
+    private static final java.lang.String TAG
+    private static final int LENGTH_LIMIT
+com.tencent.mm.sdk.modelmsg.WXVideoObject:
+    private static final java.lang.String TAG
+    private static final int LENGTH_LIMIT
 com.tencent.mm.sdk.modelmsg.WXWebpageObject:
     private static final java.lang.String TAG
     private static final int LENGTH_LIMIT
-    public WXWebpageObject(java.lang.String)
 com.tencent.mm.sdk.modelmsg.package-info
-com.tencent.mm.sdk.modelpay.PayReq
-com.tencent.mm.sdk.modelpay.PayReq$Options
-com.tencent.mm.sdk.modelpay.PayResp:
-    public void toBundle(android.os.Bundle)
-    public int getType()
-    public boolean checkArgs()
-com.tencent.mm.sdk.openapi.IWXAPI:
-    public abstract void unregisterApp()
-    public abstract boolean isWXAppInstalled()
-    public abstract boolean isWXAppSupportAPI()
-    public abstract int getWXAppSupportAPI()
-    public abstract boolean openWXApp()
-    public abstract boolean sendResp(com.tencent.mm.sdk.modelbase.BaseResp)
-    public abstract void detach()
+com.tencent.mm.sdk.modelpay.PayReq:
+    private static final java.lang.String TAG
+    private static final int EXTDATA_MAX_LENGTH
 com.tencent.mm.sdk.openapi.WXAPIFactory:
     private static final java.lang.String TAG
-    public static com.tencent.mm.sdk.openapi.IWXAPI createWXAPI(android.content.Context,java.lang.String)
-    private WXAPIFactory()
 com.tencent.mm.sdk.openapi.WXApiImplComm:
     private static final java.lang.String TAG
     private static final java.lang.String WX_APP_SIGNATURE
     private WXApiImplComm()
 com.tencent.mm.sdk.openapi.WXApiImplV10:
     private static final java.lang.String TAG
-    public final void unregisterApp()
-    public final boolean isWXAppInstalled()
-    public final boolean isWXAppSupportAPI()
-    public final int getWXAppSupportAPI()
-    public final boolean openWXApp()
-    public final boolean sendResp(com.tencent.mm.sdk.modelbase.BaseResp)
-    public final void detach()
-com.tencent.open.SocialApi
-com.tencent.open.SocialApiIml
-com.tencent.open.SocialApiIml$1
-com.tencent.open.SocialApiIml$a
-com.tencent.open.SocialApiIml$b
-com.tencent.open.SocialApiIml$c
-com.tencent.open.SocialConstants
+com.tencent.open.PKDialog:
+    private static final int WEBVIEW_HEIGHT
+    private static final int MSG_COMPLETE
+    private static final int MSG_CANCEL
+    private static final int MSG_SHOW_TIPS
+    private static final int MSG_ON_LOAD
+    private static final int MSG_SHOW_PROCESS
+    400:412:private void loadUrlWithBrowser(java.lang.String,java.lang.String,java.lang.String)
+    54:54:static synthetic android.os.Handler access$200(com.tencent.open.PKDialog)
+com.tencent.open.PKDialog$JsListener:
+    227:230:public void onComplete(java.lang.String)
+    234:236:public void onCancel(java.lang.String)
+    240:241:public void showMsg(java.lang.String)
+    250:251:public void onLoad(java.lang.String)
 com.tencent.open.TDialog:
-    private com.tencent.tauth.IUiListener h
-    private boolean n
-    private com.tencent.connect.auth.QQToken o
-    203:210:public TDialog(android.content.Context,java.lang.String,java.lang.String,com.tencent.tauth.IUiListener,com.tencent.connect.auth.QQToken)
-com.tencent.open.TaskGuide
-com.tencent.open.TaskGuide$1
-com.tencent.open.TaskGuide$2
-com.tencent.open.TaskGuide$3
-com.tencent.open.TaskGuide$4
-com.tencent.open.TaskGuide$a
-com.tencent.open.TaskGuide$b
-com.tencent.open.TaskGuide$c
-com.tencent.open.TaskGuide$d
-com.tencent.open.TaskGuide$d$1
-com.tencent.open.TaskGuide$e
-com.tencent.open.TaskGuide$f
-com.tencent.open.TaskGuide$g
-com.tencent.open.TaskGuide$h
-com.tencent.open.TaskGuide$i
-com.tencent.open.TaskGuide$j
-com.tencent.open.TaskGuide$j$1
-com.tencent.open.TaskGuide$k
-com.tencent.open.c
-com.tencent.open.c$a
-com.tencent.qzone.Albums
-com.tencent.qzone.Albums$AlbumSecurity
-com.tencent.stat.EasyActivity
-com.tencent.stat.EasyListActivity
-com.tencent.stat.MtaSDkException:
-    public MtaSDkException(java.lang.String,java.lang.Throwable)
-    public MtaSDkException(java.lang.Throwable)
-com.tencent.stat.StatAppMonitor
-com.tencent.stat.StatConfig:
-    public StatConfig()
-    public static void setDebugEnable(boolean)
-    public static void setSessionTimoutMillis(int)
-    public static void setMaxBatchReportCount(int)
-    public static void setMaxSendRetryCount(int)
-    public static void setMaxStoreEventCount(int)
-    public static java.lang.String getCustomProperty(java.lang.String)
-    public static java.lang.String getCustomProperty(java.lang.String,java.lang.String)
-    public static void setAppKey(java.lang.String)
-    public static void setQQ(android.content.Context,java.lang.String)
-    public static int getMaxParallelTimmingEvents()
-    public static void setMaxParallelTimmingEvents(int)
-    public static void setMaxSessionStatReportCount(int)
-    public static void setMaxDaySessionNumbers(int)
-    public static void setMaxReportEventLength(int)
-com.tencent.stat.StatReportStrategy:
-    public static com.tencent.stat.StatReportStrategy valueOf(java.lang.String)
-com.tencent.stat.StatService:
-    public StatService()
-    public static void startNewSession(android.content.Context)
-    public static void stopSession()
-    public static void onResume(android.content.Context)
-    public static void setEnvAttributes(android.content.Context,java.util.Map)
-    public static void onPause(android.content.Context)
-    public static void reportError(android.content.Context,java.lang.String)
-    public static void reportException(android.content.Context,java.lang.Throwable)
-    public static void trackCustomKVEvent(android.content.Context,java.lang.String,java.util.Properties)
-    public static varargs void trackCustomBeginEvent(android.content.Context,java.lang.String,java.lang.String[])
-    public static varargs void trackCustomEndEvent(android.content.Context,java.lang.String,java.lang.String[])
-    public static void trackCustomBeginKVEvent(android.content.Context,java.lang.String,java.util.Properties)
-    public static void trackCustomEndKVEvent(android.content.Context,java.lang.String,java.util.Properties)
-    public static void reportAppMonitorStat(android.content.Context,com.tencent.stat.StatAppMonitor)
-    public static void commitEvents(android.content.Context,int)
-com.tencent.stat.common.Env:
-    public static void appendEnvAttr(android.content.Context,java.util.Map)
-com.tencent.stat.common.StatCommonHelper:
-    public static java.lang.String getActivityName(android.content.Context)
-com.tencent.stat.common.StatConstants
-com.tencent.stat.common.StatLogger:
-    public int getLogLevel()
-    public void setLogLevel(int)
-    public void setTag(java.lang.String)
-    public void verbose(java.lang.Object)
-    public void v(java.lang.Object)
-com.tencent.stat.event.CustomEvent:
-    public com.tencent.stat.event.CustomEvent$Key getKey()
-    public void setDuration(long)
-    public void setProperties(java.util.Properties)
-com.tencent.stat.event.ErrorEvent:
-    public ErrorEvent(android.content.Context,int,java.lang.String)
-com.tencent.stat.event.MonitorStatEvent
-com.tencent.stat.event.PageView
-com.tencent.t.Weibo
+    53:53:static synthetic android.os.Handler a(com.tencent.open.TDialog)
+com.tencent.open.TDialog$JsListener:
+    382:384:public void onAddShare(java.lang.String)
+    389:390:public void onInvite(java.lang.String)
+    395:397:public void onCancelAddShare(java.lang.String)
+    402:403:public void onCancelLogin()
+    408:410:public void onCancelInvite()
+    413:416:public void onComplete(java.lang.String)
+    419:422:public void onCancel(java.lang.String)
+    426:427:public void showMsg(java.lang.String)
+    436:437:public void onLoad(java.lang.String)
 com.tencent.tauth.AuthActivity:
     private static final java.lang.String ACTION_KEY
     private static final java.lang.String ACTION_SHARE_TO_QQ
     private static final java.lang.String ACTION_SHARE_TO_QZONE
-com.tencent.tauth.LbsAgent
-com.tencent.tauth.LbsAgent$OnGetLocationListener
-com.tencent.tauth.LocationApi
-com.tencent.tauth.LocationApi$1
-com.tencent.tauth.LocationApi$2
-com.tencent.tauth.LocationApi$3
-com.tencent.tauth.LocationApi$BaseRequestListener
-com.tencent.tauth.LocationApi$TaskRequestListener
-com.tencent.tauth.SosoLocationListener
-com.tencent.tauth.Tencent:
-    private com.tencent.tauth.LocationApi mLocationApi
-    135:135:public int login(android.app.Activity,java.lang.String,com.tencent.tauth.IUiListener)
-    155:157:public void logout(android.content.Context)
-    160:160:public int reAuth(android.app.Activity,java.lang.String,com.tencent.tauth.IUiListener)
-    165:167:public int ask(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    171:173:public int reactive(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    177:180:public int searchNearby(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    184:187:public int deleteLocation(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    192:194:public int brag(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    199:201:public int challenge(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    206:208:public int gift(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    213:215:public int invite(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    222:224:public int story(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    230:234:public void setAvatar(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    248:252:public void setAvatar(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener,int,int)
-    256:257:public void requestAsync(java.lang.String,android.os.Bundle,java.lang.String,com.tencent.tauth.IRequestListener,java.lang.Object)
-    262:262:public org.json.JSONObject request(java.lang.String,android.os.Bundle,java.lang.String)
-    266:268:public void shareToQQ(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    277:279:public void grade(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    284:286:public void voice(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    289:291:public void showTaskGuideWindow(android.app.Activity,android.os.Bundle,com.tencent.tauth.IUiListener)
-    370:370:public boolean onActivityResult(int,int,android.content.Intent)
-    374:374:public boolean isSessionValid()
-    378:378:public java.lang.String getAppId()
-    382:382:public java.lang.String getAccessToken()
-    386:386:public long getExpiresIn()
-    400:400:public java.lang.String getOpenId()
-    422:424:public void setAccessToken(java.lang.String,java.lang.String)
-    435:440:public void setOpenId(java.lang.String)
-    448:449:public boolean isReady()
-    453:453:public com.tencent.connect.auth.QQToken getQQToken()
-    461:473:public boolean isSupportSSOLogin(android.app.Activity)
-com.tencent.utils.AsynLoadImgBack:
-    public static final int LOAD_IMAGE_COMPLETED
-    public static final int LOAD_IMAGE_PATH_NULL
-    public static final int LOAD_IMAGE_NO_SDCARD
-    public static final int LOAD_IMAGE_IMAGE_FORMAT_ERROR
-com.tencent.utils.DataConvert
-com.tencent.utils.HttpUtils:
-    158:159:private HttpUtils()
-    873:999:public static org.json.JSONObject upload(com.tencent.connect.auth.QQToken,android.content.Context,java.lang.String,android.os.Bundle)
-com.tencent.utils.HttpUtils$HttpStatusException:
-    public static final java.lang.String ERROR_INFO
-com.tencent.utils.HttpUtils$NetworkUnavailableException:
-    public static final java.lang.String ERROR_INFO
-com.tencent.utils.OpenConfig:
-    282:284:public double getDouble(java.lang.String)
-    316:318:public java.lang.Object get(java.lang.String)
-com.tencent.utils.ServerSetting:
-    public static final int ENVIRONMENT_NORMOL
-    public static final int ENVIRONMENT_EXPERIENCE
-    public static final java.lang.String KEY_OPEN_SETTING
-    public static final java.lang.String KEY_OPEN_ENV
-    public static final java.lang.String KEY_HOST_FUSION
-    public static final java.lang.String KEY_HOST_APPIC
-    public static final java.lang.String KEY_HOST_OPEN_MOBILE
-    public static final java.lang.String KEY_HOST_MAPP_QZONE
-    public static final java.lang.String KEY_HOST_ANALY
-    public static final java.lang.String KEY_HOST_QZAPP_QLOGO
-    public static final java.lang.String KEY_HOST_I_GTIMG
-    public static final java.lang.String KEY_HOST_APP_SUPPORT
-    public static final java.lang.String KEY_HOST_QZS_QQ
-    public static final java.lang.String DEFAULT_REDIRECT_URI
-    public static final java.lang.String DEFAULT_CGI_AUTHORIZE
-    public static final java.lang.String DEFAULT_URL_SEND_STORY
-    public static final java.lang.String DEFAULT_URL_INVITE
-    public static final java.lang.String DEFAULT_URL_REPORT
-    public static final java.lang.String DEFAULT_URL_GRAPH_BASE
-    public static final java.lang.String DEFAULT_URL_BRAG
-    public static final java.lang.String DEFAULT_URL_ASK
-    public static final java.lang.String DEFAULT_URL_GIFT
-    public static final java.lang.String DEFAULT_LOCAL_STORAGE_URI
-    public static final java.lang.String DEFAULT_URL_VOICE
-    public static final java.lang.String DEFAULT_URL_REACTIVE
-    72:73:public void changeServer()
-    118:161:public void setEnvironment(android.content.Context,int)
-com.tencent.utils.SystemUtils:
-    public static final java.lang.String QQ_VERSION_NAME_4_1_0
-    public static final java.lang.String QQ_VERSION_NAME_4_2_0
-    public static final java.lang.String QQ_VERSION_NAME_4_3_0
-    public static final java.lang.String QQ_VERSION_NAME_4_5_0
-    public static final java.lang.String QQ_VERSION_NAME_4_6_0
-    public static final java.lang.String QQ_SHARE_CALLBACK_ACTION
-    public static final java.lang.String QZONE_SHARE_CALLBACK_ACTION
-    22:22:public SystemUtils()
-    178:185:public static java.lang.String getRealPathFromUri(android.app.Activity,android.net.Uri)
-    210:237:public static boolean checkMobileQQ(android.content.Context)
-com.tencent.utils.TemporaryStorage:
-    13:13:public TemporaryStorage()
-com.tencent.utils.Util:
-    80:100:public static java.lang.String encodePostBody(android.os.Bundle,java.lang.String)
-    259:358:public static com.tencent.utils.Util$Statistic upload(android.content.Context,java.lang.String,android.os.Bundle)
-    371:389:private static java.lang.String a(org.apache.http.HttpResponse)
-    468:472:public static void showAlert(android.content.Context,java.lang.String,java.lang.String)
-    776:784:public static java.lang.String toHexString(java.lang.String)
-    790:815:public static java.lang.String hexToString(java.lang.String)
-    825:832:public static java.lang.String getAppVersion(android.content.Context)
+com.tencent.tauth.LbsAgent:
+    private static final java.lang.String SOSO_VERIFY_NAME
+    private static final java.lang.String SOSO_VERIFY_CODE
+com.tencent.tauth.LocationApi:
+    private static final java.lang.String CGI_SEARCH_NEARBY
+    private static final java.lang.String CGI_DELETE_LOCATION
+    private static final int MSG_GET_LOCATION_TIMEOUT
+    private static final int MSG_VERIFY_SOSOCODE_SUCCESS
+    private static final int MSG_VERIFY_SOSOCODE_FAILED
+    private static final java.lang.String ACTION_SEARCH
+    private static final java.lang.String ACTION_DELETE
+    private static final java.lang.String EVENT_ID_SEARCH
+    private static final java.lang.String EVENT_ID_DELETE
+    private static final int PAGE_DEFAULT
 com.tencent.utils.Util$TBufferedOutputStream
-com.tencent.weiyun.FileManager
-com.tencent.weiyun.FileManager$DownLoadImp
-com.tencent.weiyun.FileManager$DownLoadImp$1
-com.tencent.weiyun.FileManager$DownLoadImp$2
-com.tencent.weiyun.FileManager$DownLoadImp$3
-com.tencent.weiyun.FileManager$GetFileListListener
-com.tencent.weiyun.FileManager$UploadFileImp
-com.tencent.weiyun.FileManager$UploadFileImp$1
-com.tencent.weiyun.FileManager$UploadFileImp$2
-com.tencent.weiyun.FileManager$UploadFileImp$3
-com.tencent.weiyun.FileManager$WeiyunFileType
-com.tencent.weiyun.IDownLoadFileCallBack
-com.tencent.weiyun.IGetFileListListener
-com.tencent.weiyun.IUploadFileCallBack
-com.tencent.weiyun.RecordManager
-com.tencent.weiyun.RecordManager$1
-com.tencent.weiyun.RecordManager$2
-com.tencent.weiyun.RecordManager$3
-com.tencent.weiyun.RecordManager$4
-com.tencent.weiyun.RecordManager$5
-com.tencent.weiyun.RecordManager$6
-com.tencent.weiyun.WeiyunFile
-com.tencent.wpa.WPA
+com.tencent.weiyun.FileManager$DownLoadImp:
+    private static final java.lang.String DOWNLOAD_PIC_URL
+    private static final java.lang.String DOWNLOAD_THUMB_URL
+    private static final java.lang.String DOWNLOAD_MUSIC_URL
+    private static final java.lang.String DOWNLOAD_VIDEO_URL
+    private static final java.lang.String DOWNLOAD_ENCRYPT_URL
+    private static final java.lang.String DOWNLOAD_COOKIE_NAME
+    private static final java.lang.String DOWNLOAD_COOKIE_VALUE
+    private static final java.lang.String DOWNLOAD_SERVER_HOST
+    private static final java.lang.String DOWNLOAD_SERVER_PORT
+    private static final java.lang.String DOWNLOAD_THUMB_SIZE
+    private static final int MAX_ERROR_TIMES
+    private static final int GET_PERMISSON_DOWN
+    private static final int DOWNLOAD_PROGRESS
+    private static final int DOWNLOAD_PROGRESS_DONE
+com.tencent.weiyun.FileManager$UploadFileImp:
+    private static final java.lang.String UPLOAD_IMAGE_URL
+    private static final java.lang.String UPLOAD_MUSIC_URL
+    private static final java.lang.String UPLOAD_VIDEO_URL
+    private static final int GET_PERMISSON_DONE
+    private static final int UPLOAD_PROGRESS
+    private static final int UPLOAD_PROGRESS_DONE
 com.yingshi.toutiao.BuildConfig
 com.yingshi.toutiao.Constants
 com.yingshi.toutiao.FavoritesActivity:

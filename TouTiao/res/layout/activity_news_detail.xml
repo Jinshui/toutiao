@@ -19,7 +19,9 @@
 
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:scrollbars="none"
+            >
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -71,19 +73,26 @@
                         android:contentDescription="@string/img_content_description"
                         android:onClick="playVideo" />
                 </FrameLayout>
+                
+	            <LinearLayout
+                    android:id="@+id/id_news_more_img_panel"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical" >
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/id_news_detail_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/deep_gray_1"
                     android:textSize="@dimen/news_detail_text_size"
-                    android:textStyle="bold" />
+                    />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_marginTop="5dp"
                     android:background="@color/gray" />
 
@@ -94,8 +103,8 @@
 
                     <ImageButton
                         android:id="@+id/id_news_get_comment"
-                        android:layout_width="60dp"
-                        android:layout_height="30dp"
+                        android:layout_width="45dp"
+                        android:layout_height="22dp"
                         android:layout_alignParentRight="true"
                         android:background="@drawable/pinglun"
                         android:contentDescription="@string/img_content_description"

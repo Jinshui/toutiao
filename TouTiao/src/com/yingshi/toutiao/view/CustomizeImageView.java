@@ -5,6 +5,16 @@ import java.io.InputStream;
 import java.net.URL;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.text.TextUtils;
@@ -25,6 +35,13 @@ public class CustomizeImageView extends ImageView{
     	void onImageLoaded(Drawable drawable);
     }
     
+    public CustomizeImageView(Context context) {
+        super(context);
+        if(IMAGE_CACHE_PATH == null){
+        	IMAGE_CACHE_PATH = ((TouTiaoApp)context.getApplicationContext()).getCachePath()  + "/images/";
+        }
+    }
+    
     public CustomizeImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         if(IMAGE_CACHE_PATH == null){
@@ -36,11 +53,28 @@ public class CustomizeImageView extends ImageView{
     	loadImage(url, null);
     }
 
+    public void loadImageToSrc(final String url){
+    	loadImage(url, null, false );
+    }
+    
     public void loadImage(final String url, final LoadImageCallback mLoadImageCallback){
+    	loadImage(url, mLoadImageCallback, true );
+    }
+    
+    public void loadRoundImage(final String url, int pixes){
+    	loadImage(url, null, true, pixes);
+    }
+    
+    private void loadImage(final String url, final LoadImageCallback mLoadImageCallback, final boolean background){
+    	loadImage(url, mLoadImageCallback, background, 0 );
+    }
+    
+    private void loadImage(final String url, final LoadImageCallback mLoadImageCallback, final boolean background, final int cornerPixes){
     	if(TextUtils.isEmpty(url))
     		return;
         new ParallelTask<Drawable>(){
-            protected Drawable doInBackground(Void... params) {
+            @SuppressWarnings("deprecation")
+			protected Drawable doInBackground(Void... params) {
                 try {
                     String cachedFileDir = IMAGE_CACHE_PATH + url.hashCode();
                     File existingFile = new File(cachedFileDir);
@@ -50,6 +84,11 @@ public class CustomizeImageView extends ImageView{
                     Log.d(tag, "Loading img : " + url);
                     InputStream is = (InputStream) new URL(url).getContent();
                     Utils.saveDataToFile(is, cachedFileDir);
+                    if(cornerPixes > 0){
+                    	BitmapFactory.decodeFile(cachedFileDir);
+                    	Bitmap roundBitmap = toRoundCorner(BitmapFactory.decodeFile(cachedFileDir), cornerPixes);
+                    	return new BitmapDrawable(roundBitmap);
+                    }
                     return Drawable.createFromPath(cachedFileDir);
                 } catch (Exception e) {
                 	Log.e(tag, "Failed to load image : " + url +". Error: " + e.getMessage());
@@ -59,8 +98,10 @@ public class CustomizeImageView extends ImageView{
             @SuppressWarnings("deprecation")
 			protected void onPostExecute(Drawable drawable){
                 if(drawable != null){
-//                    setImageDrawable(drawable);
-                	setBackgroundDrawable(drawable);
+                	if(background)
+                		setBackgroundDrawable(drawable);
+                	else
+                		setImageDrawable(drawable);
                 }
                 if(mLoadImageCallback != null){
                 	mLoadImageCallback.onImageLoaded(drawable);
@@ -68,6 +109,8 @@ public class CustomizeImageView extends ImageView{
             }
         }.execute();
     }
+    
+    
     
     public static String getCachedImagePath(String url){
         String cachedFileDir = IMAGE_CACHE_PATH + url.hashCode();
@@ -119,5 +162,29 @@ public class CustomizeImageView extends ImageView{
                 	callback.onImageLoaded(drawable);
             }
         }.execute();
+    }
+    
+    /**
+     * 获取圆角位图的方法
+     * @param bitmap 需要转化成圆角的位图
+     * @param pixels 圆角的度数，数值越大，圆角越大
+     * @return 处理后的圆角位图
+     */
+    private static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {
+    	Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+    			bitmap.getHeight(), Config.ARGB_8888);
+    	Canvas canvas = new Canvas(output);
+    	final int color = 0xff424242;
+    	final Paint paint = new Paint();
+    	final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+    	final RectF rectF = new RectF(rect);
+    	final float roundPx = pixels;
+    	paint.setAntiAlias(true);
+    	canvas.drawARGB(0, 0, 0, 0);
+    	paint.setColor(color);
+    	canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+    	paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+    	canvas.drawBitmap(bitmap, rect, rect, paint);
+    	return output;
     }
 }
