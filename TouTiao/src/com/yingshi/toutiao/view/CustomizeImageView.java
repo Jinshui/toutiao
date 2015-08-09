@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.yingshi.toutiao.R;
 import com.yingshi.toutiao.TouTiaoApp;
 import com.yingshi.toutiao.actions.ParallelTask;
 import com.yingshi.toutiao.util.PhotoUtil;
@@ -59,10 +60,14 @@ public class CustomizeImageView extends ImageView{
     
     public void loadImage(final String url, final LoadImageCallback mLoadImageCallback){
     	loadImage(url, mLoadImageCallback, true );
-    }
+    }//list_item_thumbnail
     
     public void loadRoundImage(final String url, int pixes){
     	loadImage(url, null, true, pixes);
+    }
+    
+    public void loadRoundImageWithDefault(final String url, int resId, int pixes){
+    	loadImage(url, resId, null, true, pixes);
     }
     
     private void loadImage(final String url, final LoadImageCallback mLoadImageCallback, final boolean background){
@@ -70,6 +75,10 @@ public class CustomizeImageView extends ImageView{
     }
     
     private void loadImage(final String url, final LoadImageCallback mLoadImageCallback, final boolean background, final int cornerPixes){
+    	loadImage(url, 0, mLoadImageCallback, background, 0 );
+    }
+    
+    private void loadImage(final String url, final int defaultRes, final LoadImageCallback mLoadImageCallback, final boolean background, final int cornerPixes){
     	if(TextUtils.isEmpty(url))
     		return;
         new ParallelTask<Drawable>(){
@@ -79,19 +88,29 @@ public class CustomizeImageView extends ImageView{
                     String cachedFileDir = IMAGE_CACHE_PATH + url.hashCode();
                     File existingFile = new File(cachedFileDir);
                     if(existingFile.exists()){
+                        if(cornerPixes > 0){
+                        	Bitmap roundBitmap = toRoundCorner(BitmapFactory.decodeFile(cachedFileDir), cornerPixes);
+                        	return new BitmapDrawable(roundBitmap);
+                        }
                     	return Drawable.createFromPath(cachedFileDir);
                     }
                     Log.d(tag, "Loading img : " + url);
                     InputStream is = (InputStream) new URL(url).getContent();
                     Utils.saveDataToFile(is, cachedFileDir);
                     if(cornerPixes > 0){
-                    	BitmapFactory.decodeFile(cachedFileDir);
                     	Bitmap roundBitmap = toRoundCorner(BitmapFactory.decodeFile(cachedFileDir), cornerPixes);
                     	return new BitmapDrawable(roundBitmap);
                     }
                     return Drawable.createFromPath(cachedFileDir);
                 } catch (Exception e) {
                 	Log.e(tag, "Failed to load image : " + url +". Error: " + e.getMessage());
+                	if(defaultRes > 0){
+                        if(cornerPixes > 0){
+                        	Bitmap roundBitmap = toRoundCorner(BitmapFactory.decodeResource(getContext().getResources(), defaultRes), cornerPixes);
+                        	return new BitmapDrawable(roundBitmap);
+                        }
+                        return new BitmapDrawable(BitmapFactory.decodeResource(getContext().getResources(), defaultRes));
+                	}
                 	return null;
                 }
             }

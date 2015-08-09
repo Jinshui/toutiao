@@ -25,7 +25,7 @@ public class CommentListRow extends LinearLayout{
     public void setProduct(final Comment comment){
         if(comment == null)
             return;
-        mAuthorImg.loadRoundImage(comment.getPhotoUrl(), 20);
+        mAuthorImg.loadRoundImageWithDefault(comment.getPhotoUrl(), R.drawable.list_item_thumbnail, 20);
         mAuthorTxt.setText(comment.getName());
         mCommentText.setText(comment.getContent());
     }

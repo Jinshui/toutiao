@@ -13,6 +13,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -114,6 +116,28 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 				return false;
 			}
 		});
+		
+		//For samsung only
+		mCommentTextView.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				mCommentTextView.removeTextChangedListener(this);//防止递归错误
+				if (s.length() > 1 && s.charAt(s.length() - 1) == '\n') { 
+					s.delete(s.length() - 1, s.length());
+					mCommentTextView.clearFocus(); 
+					showAddCommentConfirmDialog();
+				}
+				mCommentTextView.addTextChangedListener(this);  
+            }  
+        }); 
+		
 		mShareNewsWidget = findViewById(R.id.id_news_share_widget);
 		mCommentsList = (LinearLayout)findViewById(R.id.id_news_detail_comments);
 		mShowCommentsBtn = (ImageButton)findViewById(R.id.id_news_get_comment);
@@ -151,8 +175,8 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 			@Override
 			public void onClick(android.content.DialogInterface dialog, int which) {
 				Intent intent = new Intent(NewsDetailActivity.this, LoginActivity.class);
+				intent.putExtra(LoginActivity.INTENT_EXTRA_GO_NEWS_LIST, false);
 				startActivity(intent);
-				finish();
 			}
 		}, android.R.string.cancel, null).show();
 	}
@@ -184,18 +208,24 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 				super.onSuccess(statusCode, headers, response);
                 Log.d(tag, "Received JSON response : " + response.toString());
                 Toast.makeText(NewsDetailActivity.this, R.string.add_comment_succ, Toast.LENGTH_SHORT).show();
+                mCommentTextView.setText("");
+                mCommentTextView.clearFocus();
                 loadComments(null);
 			}
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				super.onSuccess(statusCode, headers, response);
                 Log.d(tag, "Received JSON response : " + response.toString());
                 Toast.makeText(NewsDetailActivity.this, R.string.add_comment_succ, Toast.LENGTH_SHORT).show();
+                mCommentTextView.setText("");
+                mCommentTextView.clearFocus();
                 loadComments(null);
 			}
 			public void onSuccess(int statusCode, Header[] headers, String response) {
 				super.onSuccess(statusCode, headers, response);
                 Log.d(tag, "Received JSON response : " + response);
                 Toast.makeText(NewsDetailActivity.this, R.string.add_comment_succ, Toast.LENGTH_SHORT).show();
+                mCommentTextView.setText("");
+                mCommentTextView.clearFocus();
                 loadComments(null);
 			}
 			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
@@ -232,7 +262,7 @@ public class NewsDetailActivity extends Activity implements IWeiboHandler.Respon
 		playButton.setVisibility( ( mNews.isHasVideo() && mNews.getThumbnailUrls().size()>0 ) ?  View.VISIBLE : View.GONE);
 
 		mMoreImgPanel = (LinearLayout)findViewById(R.id.id_news_more_img_panel);
-		if(mNews.getPhotoUrls().size() > 1){
+		if(mNews.getPhotoUrls().size() > 1 && !mNews.isHasVideo()){
 			mMoreImgPanel.setVisibility(View.VISIBLE);
 			for(int i=1; i < mNews.getPhotoUrls().size(); i++){
 				String url = mNews.getPhotoUrls().get(i);

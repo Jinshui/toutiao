@@ -28,6 +28,7 @@ public class Constants {//159357
 	public static final String USER_PHOTO_BASE64 = "user.photo.base64";
 	public static final String USER_NAME = "user.name";
 	public static final String USER_PROVIDER = "user.provider";
+	public static final String PUSH_STATUS = "push.status";
 	
 	//Pagination
 	public static final int PAGE_SIZE = 20;

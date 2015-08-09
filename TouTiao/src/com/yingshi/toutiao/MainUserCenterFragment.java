@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.Base64;
 import com.yingshi.toutiao.actions.ParallelTask;
+import com.yingshi.toutiao.util.PreferenceUtil;
 import com.yingshi.toutiao.util.Utils;
 import com.yingshi.toutiao.view.CustomizeImageView;
 
@@ -34,6 +36,7 @@ public class MainUserCenterFragment extends Fragment
 	private View mBtnDownloads;
 	private View mBtnPush;
 	private View mBtnClearCache;
+	private ImageView mPushImageView;
 	
 	class PhotoUpdateBroadcastReceiver extends BroadcastReceiver{
 		public void onReceive(Context context, Intent intent) {
@@ -81,8 +84,10 @@ public class MainUserCenterFragment extends Fragment
 		mBtnDownloads = mView.findViewById(R.id.id_downloads);
 		mBtnPush = mView.findViewById(R.id.id_push);
 		mBtnClearCache = mView.findViewById(R.id.id_clear_cache);
+		mPushImageView = (ImageView)mView.findViewById(R.id.id_push_img);
 		addListener();
 		loadUserInfo();
+		updatePushButton();
 		return mView;
 	}
 	
@@ -95,6 +100,21 @@ public class MainUserCenterFragment extends Fragment
 				mUserPhoto.loadImage(mApp.getUserInfo().getPhotoUrl());
 			}
 		}
+	}
+	
+	private void updatePushButton(){
+		new ParallelTask<Boolean>() {
+			protected Boolean doInBackground(Void... params) {
+				return PreferenceUtil.getInt(getActivity(), Constants.PUSH_STATUS, 1) == 1;
+			}
+			protected void onPostExecute(Boolean enabled){
+				if(enabled){
+					mPushImageView.setBackgroundResource(R.drawable.gerenzhongxin_tuisong);
+				}else{
+					mPushImageView.setBackgroundResource(R.drawable.push_off);
+				}
+			}
+		}.execute();
 	}
 	
 	private void addListener(){
@@ -126,6 +146,29 @@ public class MainUserCenterFragment extends Fragment
 					}
 					protected void onPostExecute(Void result){
 						Toast.makeText(mApp, R.string.clear_cache_complete, Toast.LENGTH_SHORT).show();
+					}
+				}.execute();
+			}});
+		mBtnPush.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				new ParallelTask<Boolean>() {
+					protected Boolean doInBackground(Void... params) {
+						if(PreferenceUtil.getInt(getActivity(), Constants.PUSH_STATUS, 1) == 0){
+							PreferenceUtil.saveInt(getActivity(), Constants.PUSH_STATUS, 1);
+							return true;
+						}else{
+							PreferenceUtil.saveInt(getActivity(), Constants.PUSH_STATUS, 0);
+							return false;
+						}
+					}
+					protected void onPostExecute(Boolean result){
+						if(result){
+							mPushImageView.setBackgroundResource(R.drawable.gerenzhongxin_tuisong);
+							Toast.makeText(getActivity(), R.string.push_on, Toast.LENGTH_SHORT).show();
+						}else{
+							mPushImageView.setBackgroundResource(R.drawable.push_off);
+							Toast.makeText(getActivity(), R.string.push_off, Toast.LENGTH_SHORT).show();
+						}
 					}
 				}.execute();
 			}});

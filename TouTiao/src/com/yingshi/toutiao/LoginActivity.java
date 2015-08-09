@@ -27,6 +27,7 @@ import com.yingshi.toutiao.util.PreferenceUtil;
 @SuppressLint("ShowToast")
 public class LoginActivity extends Activity implements SocialResponseListener{
 	private static final String tag = "TT-LoginActivity";
+	public static final String INTENT_EXTRA_GO_NEWS_LIST = "LOGIN-FROM-ACTIVITY";
 	private ISocialProvider mAuthProvider;
 	private TouTiaoApp mApp;
 	
@@ -101,10 +102,12 @@ public class LoginActivity extends Activity implements SocialResponseListener{
 	}
 	
 	private void showHomeActivity(){
-		Intent intent = new Intent();
-		intent.setClass(this, MainActivity.class);
-		intent.putExtra(MainActivity.INTENT_EXTRA_SHOW_USER_CENTER, true);
-		startActivity(intent);
+		if(getIntent().getBooleanExtra(INTENT_EXTRA_GO_NEWS_LIST, true)){
+			Intent intent = new Intent();
+			intent.setClass(this, MainActivity.class);
+			intent.putExtra(MainActivity.INTENT_EXTRA_SHOW_USER_CENTER, true);
+			startActivity(intent);
+		}
 		finish();
 	}
 }

@@ -19,6 +19,11 @@
     <dimen name="list_item_padding_2">12dp</dimen>
     <dimen name="list_item_divider_height">0.3dip</dimen>
     
+    
+    <dimen name="comment_list_item_padding">5dp</dimen>
+    <dimen name="comment_list_item_icon_width">60dp</dimen>
+    <dimen name="comment_list_item_icon_height">60dp</dimen>
+    
     <!-- User center -->
     <dimen name="user_center_list_item_width">200dp</dimen>
     <dimen name="user_center_list_item_height">60dp</dimen>
@@ -47,5 +52,6 @@
     <dimen name="special_header_img_height">80dp</dimen>
     <dimen name="special_summary_title_size">18sp</dimen>
     <dimen name="special_summary_text_size">16sp</dimen>
+    <dimen name="special_summary_padding">8dp</dimen>
     
 </resources>

@@ -20,6 +20,8 @@
     <string name="download_started">已经开始下载, 请耐心等候!</string>
     <string name="downloading">正在下载, 请耐心等候!</string>
     <string name="clear_cache_complete">缓存已被清空!</string>
+    <string name="push_off">推送服务已经关闭</string>
+    <string name="push_on">推送服务已经打开</string>
     
     <!-- 列表 -->
     <string name="list_item_sample_text">测试标题</string>

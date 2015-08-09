@@ -14,14 +14,16 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1" >
 
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:scrollbars="none"
-            >
+            android:scrollbars="none" >
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -36,11 +38,13 @@
                     android:textSize="@dimen/news_detail_title_size"
                     android:textStyle="bold" />
 
-                <!-- View
+                <!--
+                     View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/gray" /-->
+                    android:background="@color/gray" /
+                -->
 
                 <TextView
                     android:id="@+id/id_news_detail_time"
@@ -73,12 +77,12 @@
                         android:contentDescription="@string/img_content_description"
                         android:onClick="playVideo" />
                 </FrameLayout>
-                
-	            <LinearLayout
+
+                <LinearLayout
                     android:id="@+id/id_news_more_img_panel"
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical" >
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
                 </LinearLayout>
 
                 <TextView
@@ -87,8 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/deep_gray_1"
-                    android:textSize="@dimen/news_detail_text_size"
-                    />
+                    android:textSize="@dimen/news_detail_text_size" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -99,6 +102,7 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginTop="5dp" >
 
                     <ImageButton
@@ -110,11 +114,12 @@
                         android:contentDescription="@string/img_content_description"
                         android:onClick="loadComments" />
                 </RelativeLayout>
-	            <LinearLayout
-	                android:id="@+id/id_news_detail_comments"
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical" />
+
+                <LinearLayout
+                    android:id="@+id/id_news_detail_comments"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
         </ScrollView>
 
@@ -167,9 +172,12 @@
             android:layout_margin="5dp"
             android:layout_toLeftOf="@+id/id_news_detail_favorite"
             android:background="@drawable/text_view_border"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/edit_icon"
             android:gravity="center_vertical"
             android:hint="@string/write_comments"
-            android:paddingLeft="2dp"
+            android:padding="3dp"
+            android:textColorHint="@color/gray_white"
             android:textSize="@dimen/news_detail_comment_size" />
     </RelativeLayout>
 

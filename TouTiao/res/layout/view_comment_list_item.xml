@@ -2,19 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/list_item_height"
-    android:paddingLeft="@dimen/list_item_padding_1"
-    android:paddingRight="@dimen/list_item_padding_1"
-    android:paddingTop="@dimen/list_item_padding_2" >
+    android:paddingLeft="@dimen/comment_list_item_padding"
+    android:paddingRight="@dimen/comment_list_item_padding"
+    android:paddingTop="@dimen/comment_list_item_padding" >
 
     <com.yingshi.toutiao.view.CustomizeImageView
         android:id="@+id/id_comment_author_thumbnail"
-        android:layout_width="@dimen/list_item_icon_width"
-        android:layout_height="@dimen/list_item_icon_height"
+        android:layout_width="@dimen/comment_list_item_icon_width"
+        android:layout_height="@dimen/comment_list_item_icon_height"
         android:layout_above="@+id/id_item_divider"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/list_item_thumbnail"
         android:contentDescription="@string/img_content_description" />
 
     <TextView
